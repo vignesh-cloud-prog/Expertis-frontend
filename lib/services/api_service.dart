@@ -6,13 +6,13 @@ import '../models/register_request_model.dart';
 import '../models/register_response_model.dart';
 import 'package:http/http.dart' as http;
 
-import '../assets/config.dart' as Constants;
+import '../assets/config.dart' as constants;
 import './user_storage.dart';
 
 class APIService {
   static var client = http.Client();
 
-  static Future<bool> login(
+  static Future login(
     LoginRequestModel model,
   ) async {
     Map<String, String> requestHeaders = {
@@ -20,8 +20,8 @@ class APIService {
     };
 
     var url = Uri.http(
-      Constants.apiURL,
-      Constants.loginAPI,
+      constants.apiURL,
+      constants.loginAPI,
     );
 
     var response = await client.post(
@@ -30,6 +30,9 @@ class APIService {
       body: jsonEncode(model.toJson()),
     );
 
+    var data = jsonDecode(response.body);
+    print("printing ${data['message']}");
+
     if (response.statusCode == 200) {
       await UserStorage.setUserToken(
         loginResponseJson(
@@ -37,9 +40,9 @@ class APIService {
         ),
       );
 
-      return true;
+      return data;
     } else {
-      return false;
+      return data;
     }
   }
 
@@ -51,8 +54,8 @@ class APIService {
     };
 
     var url = Uri.http(
-      Constants.apiURL,
-      Constants.registerAPI,
+      constants.apiURL,
+      constants.registerAPI,
     );
 
     var response = await client.post(
@@ -74,7 +77,7 @@ class APIService {
       'Authorization': 'Basic ${loginDetails!.data.token}'
     };
 
-    var url = Uri.http(Constants.apiURL, Constants.userProfileAPI);
+    var url = Uri.http(constants.apiURL, constants.userProfileAPI);
 
     var response = await client.get(
       url,

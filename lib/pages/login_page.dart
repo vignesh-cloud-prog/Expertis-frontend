@@ -217,7 +217,8 @@ class _LoginPageState extends State<LoginPage> {
                         isApiCallProcess = false;
                       });
 
-                      if (response) {
+                      if (response['message'].toString().toLowerCase() ==
+                          "success") {
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           '/home',
@@ -227,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
                         FormHelper.showSimpleAlertDialog(
                           context,
                           Constants.appName,
-                          "Invalid Email/Password !!",
+                          response['message'],
                           "OK",
                           () {
                             Navigator.of(context).pop();

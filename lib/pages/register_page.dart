@@ -20,6 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String? userName;
   String? password;
   String? email;
+  String? phone;
 
   @override
   void initState() {
@@ -193,6 +194,31 @@ class _RegisterPageState extends State<RegisterPage> {
               borderRadius: 10,
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: FormHelper.inputFieldWidget(
+              context,
+              "Phone",
+              "Phone",
+              (onValidateVal) {
+                if (onValidateVal.isEmpty) {
+                  return 'Phone can\'t be empty.';
+                }
+
+                return null;
+              },
+              (onSavedVal) => {
+                phone = onSavedVal,
+              },
+              initialValue: "",
+              borderFocusColor: Colors.white,
+              prefixIconColor: Colors.white,
+              borderColor: Colors.white,
+              textColor: Colors.white,
+              hintColor: Colors.white.withOpacity(0.7),
+              borderRadius: 10,
+            ),
+          ),
           const SizedBox(
             height: 20,
           ),
@@ -206,9 +232,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   });
 
                   RegisterRequestModel model = RegisterRequestModel(
-                    username: userName,
+                    name: userName,
                     password: password,
                     email: email,
+                    phone: phone,
                   );
 
                   APIService.register(model).then(
@@ -221,7 +248,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         FormHelper.showSimpleAlertDialog(
                           context,
                           Constants.appName,
-                          "Registration Successful. Please login to the account",
+                          "Registration Successful. Please Check your email to verify and login to the account",
                           "OK",
                           () {
                             Navigator.pushNamedAndRemoveUntil(

@@ -5,15 +5,15 @@ import 'pages/register_page.dart';
 import 'services/user_storage.dart';
 import 'assets/config.dart' as Constants;
 
-Widget _defaultHome = const HomePage(); 
+Widget _defaultHome = const LoginPage();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Get result of the login function.
   var user = await UserStorage.getUserToken();
-  if (user == null) {
-    _defaultHome = const LoginPage();
+  if (user != null) {
+    _defaultHome = const HomePage();
   }
 
   runApp(const MyApp());
