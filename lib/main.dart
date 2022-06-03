@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'pages/home_page.dart';
 import 'pages/login_page.dart';
 import 'pages/register_page.dart';
+import 'pages/forgot_pass.dart';
 import 'services/user_storage.dart';
 import 'assets/config.dart' as Constants;
 
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
+        '/forget-password': (context) => const ForgotPasswordScreen(),
       },
     );
   }

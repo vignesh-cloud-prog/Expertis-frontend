@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import 'package:snippet_coder_utils/hex_color.dart';
+import 'package:get/get.dart';
 
 import '../services/api_service.dart';
 import '../models/login_request_model.dart';
 import '../assets/config.dart' as Constants;
+import '../pages/forgot_pass.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -187,7 +189,13 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.white,
                         decoration: TextDecoration.underline,
                       ),
-                      recognizer: TapGestureRecognizer()..onTap = () {},
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.pushNamed(
+                            context,
+                            '/forget-password',
+                          );
+                        },
                     ),
                   ],
                 ),

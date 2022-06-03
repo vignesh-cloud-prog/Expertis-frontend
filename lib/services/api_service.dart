@@ -16,6 +16,12 @@ class APIService {
     LoginRequestModel model,
   ) async {
     Map<String, String> requestHeaders = {
+      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "Access-Control-Allow-Credentials":
+          "true", // Required for cookies, authorization headers with HTTPS
+      "Access-Control-Allow-Headers":
+          "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
       'Content-Type': 'application/json',
     };
 
@@ -24,7 +30,7 @@ class APIService {
       constants.loginAPI,
     );
 
-    var response = await client.post(
+    final response = await client.post(
       url,
       headers: requestHeaders,
       body: jsonEncode(model.toJson()),
@@ -50,6 +56,7 @@ class APIService {
     RegisterRequestModel model,
   ) async {
     Map<String, String> requestHeaders = {
+      "Access-Control-Allow-Origin": "*",
       'Content-Type': 'application/json',
     };
 
