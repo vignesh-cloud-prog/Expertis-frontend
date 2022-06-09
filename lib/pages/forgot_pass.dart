@@ -1,15 +1,23 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:line_icons/line_icons.dart';
-//
-import './resetpass.dart';
-import '../assets/constants.dart';
-import '../widgets/rep_textfiled.dart';
 
-class ForgotPasswordScreen extends StatelessWidget {
+import '../assets/constants.dart';
+
+import '../services/api_service.dart';
+import 'otp_verify_page.dart';
+
+class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+}
+
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  bool enableBtn = false;
+  bool isAPIcallProcess = false;
+  final emailTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -34,30 +42,77 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: Container(
-          margin: EdgeInsets.only(
-            right: 15,
-            left: 15,
-            bottom: 15,
-          ),
-          width: gWidth,
-          height: gHeight,
-          child: Column(
-            children: [
-              TopImage(),
-              SizedBox(
-                height: 5,
-              ),
-              ForgotText(),
-              SizedBox(
-                height: 20,
-              ),
-              MiddleText(),
-              SizedBox(height: 30),
-              EmailTextFiled(),
-              SizedBox(height: 50),
-              SubmitButton(),
-            ],
+        body: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.only(
+              right: 12,
+              left: 15,
+              bottom: 15,
+            ),
+            width: gWidth,
+            height: gHeight,
+            child: Column(
+              children: [
+                TopImage(),
+                SizedBox(
+                  height: 5,
+                ),
+                ForgotText(),
+                SizedBox(
+                  height: 20,
+                ),
+                MiddleText(),
+                SizedBox(height: 30),
+                FadeInDown(
+                    delay: Duration(milliseconds: 600),
+                    child: TextFormField(
+                      controller: emailTextEditingController,
+                    )),
+                SizedBox(height: 50),
+                FadeInDown(
+                  delay: Duration(microseconds: 200),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    width: gWidth,
+                    height: gHeight / 15,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        print("presse");
+                        print("email ${emailTextEditingController.text}");
+                        APIService.otpLogin(emailTextEditingController.text)
+                            .then((response) async {
+                          setState(() {
+                            this.isAPIcallProcess = false;
+                          });
+
+                          if (response.data != null) {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => OTPVerifyPage(
+                                  otpHash: response.data,
+                                  email: emailTextEditingController.text,
+                                ),
+                              ),
+                              (route) => false,
+                            );
+                          }
+                        });
+                      },
+                      child: Text("Submit"),
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        backgroundColor: MaterialStateProperty.all(buttonColor),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -66,60 +121,92 @@ class ForgotPasswordScreen extends StatelessWidget {
 }
 
 // Submit Button Components
-class SubmitButton extends StatelessWidget {
-  const SubmitButton({
-    Key? key,
-  }) : super(key: key);
+// class SubmitButton extends StatelessWidget {
+//   const SubmitButton({
+//     Key? key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return FadeInDown(
-      delay: Duration(microseconds: 200),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        width: gWidth,
-        height: gHeight / 15,
-        child: ElevatedButton(
-          onPressed: () {
-            print("presse");
-            Get.to(
-              () => ResetPasswordScreen(),
-              transition: Transition.leftToRight,
-            );
-          },
-          child: Text("Submit"),
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-            backgroundColor: MaterialStateProperty.all(buttonColor),
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return FadeInDown(
+//       delay: Duration(microseconds: 200),
+//       child: Container(
+//         margin: EdgeInsets.symmetric(horizontal: 5),
+//         width: gWidth,
+//         height: gHeight / 15,
+//         child: ElevatedButton(
+//           onPressed: () {
+//             print("presse");
+//             APIService.otpLogin(this.email).then((response) async {
+//                     setState(() {
+//                       this.isAPIcallProcess = false;
+//                     });
+
+//                     if (response.data != null) {
+//                       Navigator.pushAndRemoveUntil(
+//                         context,
+//                         MaterialPageRoute(
+//                           builder: (context) => OTPVerifyPage(
+//                             otpHash: response.data,
+//                             mobileNo: mobileNumber,
+//                           ),
+//                         ),
+//                         (route) => false,
+//                       );
+//                     }
+//                   });
+//           },
+//           child: Text("Submit"),
+//           style: ButtonStyle(
+//             shape: MaterialStateProperty.all(
+//               RoundedRectangleBorder(
+//                 borderRadius: BorderRadius.circular(15),
+//               ),
+//             ),
+//             backgroundColor: MaterialStateProperty.all(buttonColor),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// String validateEmail(String value) {
+//     Pattern pattern =
+//         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+//         r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+//         r"{0,253}[a-zA-Z0-9])?)*$";
+//     RegExp regex = new RegExp(pattern);
+//     if (!regex.hasMatch(value) || value == null)
+//       return 'Enter a valid email address';
+//     else
+//       return null;
+//   }
 
 // Email TextFiled Components
-class EmailTextFiled extends StatelessWidget {
-  const EmailTextFiled({
-    Key? key,
-  }) : super(key: key);
+// class EmailTextFiled extends StatefulWidget {
+//   final dynamic email;
+//   const EmailTextFiled({
+//     Key? key,
+//     this.email
+//   }) : super({key: key});
 
-  @override
-  Widget build(BuildContext context) {
-    return FadeInDown(
-      delay: Duration(milliseconds: 600),
-      child: RepTextFiled(
-        icon: LineIcons.at,
-        text: "Email ID / Mobile number",
-        sufIcon: null,
-      ),
-    );
-  }
-}
+//   @override
+//   State<EmailTextFiled> createState() => _EmailTextFiledState();
+// }
+
+// class _EmailTextFiledState extends State<ForgotPasswordScreen> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return FadeInDown(
+//       delay: Duration(milliseconds: 600),
+//       child: TextFormField(
+//         onSaved: (newValue) => widget.email = newValue,
+
+// );
+//     );
+//   }
+// }
 
 // Middle Text Components
 class MiddleText extends StatelessWidget {

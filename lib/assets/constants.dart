@@ -7,9 +7,9 @@ final gWidth = Get.width;
 final gHeight = Get.height;
 
 //
-final Color buttonColor = Color(0xff0065FF);
-final Color iconColor = Color(0xff7E899D);
-final Color text1Color = Color.fromARGB(255, 90, 90, 90);
+const Color buttonColor = Color(0xff0065FF);
+const Color iconColor = Color(0xff7E899D);
+const Color text1Color = Color.fromARGB(255, 90, 90, 90);
 
 const kPurple = Color(0xFF6F51FF);
 const kYellow = Color(0xFFFFAD03);

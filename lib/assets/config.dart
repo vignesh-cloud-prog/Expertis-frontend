@@ -5,3 +5,5 @@ const String apiURL = "expertis-api.herokuapp.com"; //PROD_URL
 const String loginAPI = "/users/login";
 const String registerAPI = "/users/register";
 const String userProfileAPI = "/users/user-Profile";
+const String sendOTPAPI = "/users/send_otp";
+const String verifyOTPAPI = "/users/verify_otp";

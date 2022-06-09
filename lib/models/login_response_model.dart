@@ -26,23 +26,24 @@ class LoginResponseModel {
 
 class Data {
   Data({
-    
     required this.email,
     required this.date,
     required this.id,
     required this.token,
   });
-  
+
   late final String email;
   late final String date;
   late final String id;
   late final String token;
+  late final String hash;
 
   Data.fromJson(Map<String, dynamic> json) {
     email = json['email'];
     date = json['date'];
     id = json['id'];
     token = json['token'];
+    hash = json['hash'];
   }
 
   Map<String, dynamic> toJson() {
@@ -52,6 +53,7 @@ class Data {
     _data['date'] = date;
     _data['id'] = id;
     _data['token'] = token;
+    _data['hash'] = hash;
     return _data;
   }
 }

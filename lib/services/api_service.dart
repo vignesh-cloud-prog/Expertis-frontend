@@ -4,6 +4,7 @@ import '../models/login_request_model.dart';
 import '../models/login_response_model.dart';
 import '../models/register_request_model.dart';
 import '../models/register_response_model.dart';
+import '../models/send_otp_response_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../assets/config.dart' as constants;
@@ -96,5 +97,44 @@ class APIService {
     } else {
       return "";
     }
+  }
+
+  static Future<SendOTPResponseModel> otpLogin(String email) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.http(constants.apiURL, constants.sendOTPAPI);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"email": email}),
+    );
+
+    print("send otp ${response.body}");
+
+    return sendOTPResponseJson(response.body);
+  }
+
+  static Future<LoginResponseModel> verifyOtp(
+    String email,
+    String otpHash,
+    String otpCode,
+  ) async {
+    print(" data ${email}, ${otpHash}, ${otpCode}");
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.http(constants.apiURL, constants.verifyOTPAPI);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"email": email, "otp": otpCode, "hash": otpHash}),
+    );
+    print("verify otp ${response.body}");
+    return loginResponseJson(response.body);
   }
 }

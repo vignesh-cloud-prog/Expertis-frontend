@@ -45,6 +45,7 @@ dependencies:
   line_icons: ^2.0.1
   animate_do: ^2.1.0
   get: ^4.6.5
+  sms_autofill: ^2.2.0
   
 
 dev_dependencies:
