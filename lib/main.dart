@@ -1,44 +1,60 @@
+//region imports
+import 'package:expertis/screens/BMSplashScreen.dart';
+import 'package:expertis/store/AppStore.dart';
+import 'package:expertis/utils/AppTheme.dart';
+import 'package:expertis/utils/BMConstants.dart';
+import 'package:expertis/utils/BMDataGenerator.dart';
 import 'package:flutter/material.dart';
-import 'pages/home_page.dart';
-import 'pages/login_page.dart';
-import 'pages/register_page.dart';
-import 'pages/forgot_pass.dart';
-import 'services/user_storage.dart';
-import 'assets/config.dart' as constants;
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:expertis/routes.dart';
+import 'package:expertis/view_model/auth_view_model.dart';
+import 'package:expertis/view_model/user_view_model.dart';
+import 'package:provider/provider.dart';
 
-Widget _defaultHome = const LoginPage();
+AppStore appStore = AppStore();
+
+int currentIndex = 0;
 
 void main() async {
+  //region Entry Point
   WidgetsFlutterBinding.ensureInitialized();
+  await initialize(aLocaleLanguageList: languageList());
 
-  // Get result of the login function.
-  var user = await UserStorage.getUserToken();
-  if (user != null) {
-    _defaultHome = const HomePage();
-  }
+  appStore.toggleDarkMode(value: getBoolAsync(isDarkModeOnPref));
 
-  runApp(const MyApp());
+  defaultRadius = 10;
+  defaultToastGravityGlobal = ToastGravity.BOTTOM;
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => AuthViewModel()),
+      ChangeNotifierProvider(create: (_) => UserViewModel())
+    ],
+    child: const MyApp(),
+  ));
+  //endregion
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: constants.appName,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return Observer(
+      builder: (_) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: '$appName${!isMobile ? ' ${platformName()}' : ''}',
+        home: const BMSplashScreen(),
+        theme: !appStore.isDarkModeOn
+            ? AppThemeData.lightTheme
+            : AppThemeData.darkTheme,
+        navigatorKey: navigatorKey,
+        scrollBehavior: SBehavior(),
+        supportedLocales: LanguageDataModel.languageLocales(),
+        onGenerateRoute: (settings) => generateRoute(settings),
+        localeResolutionCallback: (locale, supportedLocales) => locale,
       ),
-      //home: const LoginPage(),
-      routes: {
-        '/': (context) => _defaultHome,
-        '/home': (context) => const HomePage(),
-        '/login': (context) => const LoginPage(),
-        '/register': (context) => const RegisterPage(),
-        '/forget-password': (context) => const ForgotPasswordScreen(),
-      },
     );
   }
 }
