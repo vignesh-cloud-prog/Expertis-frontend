@@ -9,7 +9,7 @@ class AppUrl {
   static var forgetPasswordEndPint = '${baseUrl}users/forget-password';
   static var changePasswordEndPint = '${baseUrl}users/change-password';
 
-  static var registerApiEndPoint = '$baseUrl/users/register';
+  static var registerApiEndPoint = '${baseUrl}users/register';
 
   static var moviesListEndPoint = '${moviesBaseUrl}movies_list';
 }

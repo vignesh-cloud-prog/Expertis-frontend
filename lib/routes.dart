@@ -11,9 +11,11 @@
 // import 'package:amazon_clone_tutorial/models/product.dart';
 import 'package:expertis/screens/BMChangePasswordScreen.dart';
 import 'package:expertis/screens/BMForgetPasswordScreen.dart';
+import 'package:expertis/screens/BMLoginNowScreen.dart';
 import 'package:expertis/screens/BMLoginScreen.dart';
 import 'package:expertis/screens/BMRegisterScreen.dart';
 import 'package:expertis/screens/BMWalkThroughScreen.dart';
+import 'package:expertis/screens/BMVerifyOTPScreen.dart';
 import 'package:expertis/utils/apiClasses/changePassword.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,26 +23,25 @@ import 'package:flutter/material.dart';
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   final args = routeSettings.arguments;
   switch (routeSettings.name) {
-    case BMLoginScreen.routeName:
+    case BMWalkThroughScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const BMLoginScreen(),
+        builder: (_) => const BMWalkThroughScreen(),
       );
-
     case BMRegisterScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const BMRegisterScreen(),
       );
+    case BMLoginScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const BMLoginScreen(),
+      );
     case BMForgetPasswordScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const BMForgetPasswordScreen(),
-      );
-    case BMWalkThroughScreen.routeName:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const BMWalkThroughScreen(),
       );
     case BMChangePasswordScreen.routeName:
       final ChangePasswordArguments argument = args as ChangePasswordArguments;
@@ -49,6 +50,19 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => BMChangePasswordScreen(
           email: argument.email,
           hash: argument.hash,
+        ),
+      );
+    case BMLoginNowScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const BMLoginNowScreen(),
+      );
+    case BMVerifyOTPScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => BMVerifyOTPScreen(
+          email: "vigneshun80@gmail.com",
+          hash: "dfhdfkskijhdjhdjfhd",
         ),
       );
 

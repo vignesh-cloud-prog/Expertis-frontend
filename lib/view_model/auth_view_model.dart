@@ -83,7 +83,7 @@ class AuthViewModel with ChangeNotifier {
       }
       Utils.toastMessage("Password changed successfully");
       Utils.flushBarErrorMessage('Password Reset Successfully', context);
-      Navigator.pushReplacementNamed(context, RoutesName.login);
+      Navigator.pushReplacementNamed(context, RoutesName.loginNow);
     }).onError((error, stackTrace) {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);
@@ -93,11 +93,13 @@ class AuthViewModel with ChangeNotifier {
     });
   }
 
-  Future<void> signUpApi(dynamic data, BuildContext context) async {
+  Future<void> signUp(dynamic data, BuildContext context) async {
     setSignUpLoading(true);
 
     _myRepo.signUpApi(data).then((value) {
       setSignUpLoading(false);
+      print("hash: ${value['data']['hash']}");
+      print("id: ${value['data']['id']}");
       Utils.flushBarErrorMessage('SignUp Successfully', context);
       Navigator.pushNamed(context, RoutesName.home);
       if (kDebugMode) {

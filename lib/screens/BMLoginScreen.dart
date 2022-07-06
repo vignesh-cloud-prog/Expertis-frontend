@@ -190,15 +190,7 @@ class _BMLoginScreenState extends State<BMLoginScreen> {
                           disabledColor: bmPrimaryColor,
                           shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32)),
-                          child: Center(
-                            child: authViewMode.loading
-                                ? const CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )
-                                : Text("Login",
-                                    style: boldTextStyle(color: Colors.white)),
-                          ),
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           color: bmPrimaryColor,
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
@@ -215,6 +207,12 @@ class _BMLoginScreenState extends State<BMLoginScreen> {
                             // Navigator.pushNamed(context, BMLoginScreen.routeName);
                             // BMDashboardScreen(flag: false).launch(context);
                           },
+                          child: authViewMode.loading
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
+                              : Text("Login",
+                                  style: boldTextStyle(color: Colors.white)),
                         ).expand(),
 
                         // 16.width,
