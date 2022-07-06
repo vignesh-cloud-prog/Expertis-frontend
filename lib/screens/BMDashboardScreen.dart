@@ -13,6 +13,7 @@ import '../utils/BMDataGenerator.dart';
 
 class BMDashboardScreen extends StatefulWidget {
   final bool flag;
+  static const routeName = '/';
 
   BMDashboardScreen({required this.flag});
 

@@ -1,3 +1,4 @@
+import 'package:expertis/view_model/services/splash_services.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -7,12 +8,14 @@ import 'BMWalkThroughScreen.dart';
 
 class BMSplashScreen extends StatefulWidget {
   const BMSplashScreen({Key? key}) : super(key: key);
+  static const String routeName = '/splash-view';
 
   @override
   BMSplashScreenState createState() => BMSplashScreenState();
 }
 
 class BMSplashScreenState extends State<BMSplashScreen> {
+  SplashServices splashServices = SplashServices();
   @override
   void initState() {
     super.initState();
@@ -23,8 +26,7 @@ class BMSplashScreenState extends State<BMSplashScreen> {
     setStatusBarColor(appStore.isDarkModeOn
         ? appStore.scaffoldBackground!
         : bmLightScaffoldBackgroundColor);
-    await 3.seconds.delay;
-    Navigator.pushReplacementNamed(context, BMWalkThroughScreen.routeName);
+    splashServices.checkAuthentication(context);
   }
 
   @override

@@ -10,10 +10,12 @@
 // import 'package:amazon_clone_tutorial/models/order.dart';
 // import 'package:amazon_clone_tutorial/models/product.dart';
 import 'package:expertis/screens/BMChangePasswordScreen.dart';
+import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/screens/BMForgetPasswordScreen.dart';
 import 'package:expertis/screens/BMLoginNowScreen.dart';
 import 'package:expertis/screens/BMLoginScreen.dart';
 import 'package:expertis/screens/BMRegisterScreen.dart';
+import 'package:expertis/screens/BMSplashScreen.dart';
 import 'package:expertis/screens/BMWalkThroughScreen.dart';
 import 'package:expertis/screens/BMVerifyOTPScreen.dart';
 import 'package:flutter/foundation.dart';
@@ -22,6 +24,11 @@ import 'package:flutter/material.dart';
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   final args = routeSettings.arguments;
   switch (routeSettings.name) {
+    case BMSplashScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const BMSplashScreen(),
+      );
     case BMWalkThroughScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
@@ -56,6 +63,13 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => BMVerifyOTPScreen(),
+      );
+    case BMDashboardScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => BMDashboardScreen(
+          flag: false,
+        ),
       );
 
     // case CategoryDealsScreen.routeName:

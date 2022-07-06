@@ -80,7 +80,8 @@ class AuthViewModel with ChangeNotifier {
       } else {
         final userPreference =
             Provider.of<UserViewModel>(context, listen: false);
-        userPreference.saveUser(UserModel(token: value['token'].toString()));
+        userPreference
+            .saveUser(UserModel(token: value['data']['token'].toString()));
 
         Utils.flushBarErrorMessage('Login Successfully', context);
         Navigator.pushNamed(context, RoutesName.home);
@@ -120,8 +121,7 @@ class AuthViewModel with ChangeNotifier {
 
     _myRepo.changePasswordApi(data).then((value) {
       setLoading(false);
-      final userPreference = Provider.of<UserViewModel>(context, listen: false);
-      userPreference.saveUser(UserModel(token: value['token'].toString()));
+
       if (kDebugMode) {
         print(value.toString());
       }

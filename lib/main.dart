@@ -4,6 +4,7 @@ import 'package:expertis/store/AppStore.dart';
 import 'package:expertis/utils/AppTheme.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/utils/BMDataGenerator.dart';
+import 'package:expertis/utils/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
       builder: (_) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: '$appName${!isMobile ? ' ${platformName()}' : ''}',
-        home: const BMSplashScreen(),
+        initialRoute: RoutesName.splash,
         theme: !appStore.isDarkModeOn
             ? AppThemeData.lightTheme
             : AppThemeData.darkTheme,
