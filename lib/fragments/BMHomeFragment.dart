@@ -34,98 +34,123 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appStore.isDarkModeOn ? appStore.scaffoldBackground! : bmLightScaffoldBackgroundColor,
+      backgroundColor: appStore.isDarkModeOn
+          ? appStore.scaffoldBackground!
+          : bmLightScaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
             HomeFragmentHeadComponent(),
-            lowerContainer(
-              screenContext: context,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  20.height,
-                  titleText(title: 'My Master').paddingSymmetric(horizontal: 16),
-                  20.height,
-                  BMMyMasterComponent(),
-                  20.height,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      titleText(title: 'Top Services'),
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              BMTopOffersScreen().launch(context);
-                            },
-                            child: Text('See All', style: boldTextStyle(color: appStore.isDarkModeOn ? bmPrimaryColor : bmTextColorDarkMode)),
-                          ),
-                          Icon(Icons.arrow_forward_ios, color: appStore.isDarkModeOn ? bmPrimaryColor : bmTextColorDarkMode, size: 16),
-                        ],
-                      )
-                    ],
-                  ).paddingSymmetric(horizontal: 16),
-                  20.height,
-                  BMTopServiceHomeComponent(),
-                  20.height,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      titleText(title: 'Special Offers'),
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              BMTopOffersScreen().launch(context);
-                            },
-                            child: Text('See All', style: boldTextStyle(color: appStore.isDarkModeOn ? bmPrimaryColor : bmTextColorDarkMode)),
-                          ),
-                          Icon(Icons.arrow_forward_ios, color: appStore.isDarkModeOn ? bmPrimaryColor : bmTextColorDarkMode, size: 16),
-                        ],
-                      )
-                    ],
-                  ).paddingSymmetric(horizontal: 16),
-                  20.height,
-                  HorizontalList(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    spacing: 16,
-                    itemCount: specialOffersList.length,
-                    itemBuilder: (context, index) {
-                      return BMCommonCardComponent(element: specialOffersList[index], fullScreenComponent: false, isFavList: false);
-                    },
-                  ),
-                  20.height,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      titleText(title: 'Recommended for You').expand(),
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              BMRecommendedScreen().launch(context);
-                            },
-                            child: Text('See All', style: boldTextStyle(color: appStore.isDarkModeOn ? bmPrimaryColor : bmTextColorDarkMode)),
-                          ),
-                          Icon(Icons.arrow_forward_ios, color: appStore.isDarkModeOn ? bmPrimaryColor : bmTextColorDarkMode, size: 16),
-                        ],
-                      )
-                    ],
-                  ).paddingSymmetric(horizontal: 16),
-                  20.height,
-                  HorizontalList(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    spacing: 16,
-                    itemCount: recommendedList.length,
-                    itemBuilder: (context, index) {
-                      return BMCommonCardComponent(element: recommendedList[index], fullScreenComponent: false, isFavList: false);
-                    },
-                  ),
-                  40.height,
-                ],
-              ).cornerRadiusWithClipRRectOnly(topRight: 40),
-            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                20.height,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    titleText(title: 'Top Services'),
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            BMTopOffersScreen().launch(context);
+                          },
+                          child: Text('See All',
+                              style: boldTextStyle(
+                                  color: appStore.isDarkModeOn
+                                      ? bmPrimaryColor
+                                      : bmTextColorDarkMode)),
+                        ),
+                        Icon(Icons.arrow_forward_ios,
+                            color: appStore.isDarkModeOn
+                                ? bmPrimaryColor
+                                : bmTextColorDarkMode,
+                            size: 16),
+                      ],
+                    )
+                  ],
+                ).paddingSymmetric(horizontal: 16),
+                20.height,
+                BMTopServiceHomeComponent(),
+                20.height,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    titleText(title: 'Special Offers'),
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            BMTopOffersScreen().launch(context);
+                          },
+                          child: Text('See All',
+                              style: boldTextStyle(
+                                  color: appStore.isDarkModeOn
+                                      ? bmPrimaryColor
+                                      : bmTextColorDarkMode)),
+                        ),
+                        Icon(Icons.arrow_forward_ios,
+                            color: appStore.isDarkModeOn
+                                ? bmPrimaryColor
+                                : bmTextColorDarkMode,
+                            size: 16),
+                      ],
+                    )
+                  ],
+                ).paddingSymmetric(horizontal: 16),
+                20.height,
+                HorizontalList(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  spacing: 16,
+                  itemCount: specialOffersList.length,
+                  itemBuilder: (context, index) {
+                    return BMCommonCardComponent(
+                        element: specialOffersList[index],
+                        fullScreenComponent: false,
+                        isFavList: false);
+                  },
+                ),
+                20.height,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    titleText(title: 'Recommended for You').expand(),
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            BMRecommendedScreen().launch(context);
+                          },
+                          child: Text('See All',
+                              style: boldTextStyle(
+                                  color: appStore.isDarkModeOn
+                                      ? bmPrimaryColor
+                                      : bmTextColorDarkMode)),
+                        ),
+                        Icon(Icons.arrow_forward_ios,
+                            color: appStore.isDarkModeOn
+                                ? bmPrimaryColor
+                                : bmTextColorDarkMode,
+                            size: 16),
+                      ],
+                    )
+                  ],
+                ).paddingSymmetric(horizontal: 16),
+                20.height,
+                HorizontalList(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  spacing: 16,
+                  itemCount: recommendedList.length,
+                  itemBuilder: (context, index) {
+                    return BMCommonCardComponent(
+                        element: recommendedList[index],
+                        fullScreenComponent: false,
+                        isFavList: false);
+                  },
+                ),
+                40.height,
+              ],
+            ).cornerRadiusWithClipRRectOnly(topRight: 40),
           ],
         ),
       ),
