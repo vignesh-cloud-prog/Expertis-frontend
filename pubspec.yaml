@@ -62,6 +62,7 @@ dependencies:
   flutter_mobx: ^2.0.6+1
   url_launcher: ^6.0.20
   flutter_progress_hud: ^2.0.2
+  pin_code_fields: ^7.4.0
   
 
 dev_dependencies:

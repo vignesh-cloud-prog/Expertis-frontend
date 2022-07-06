@@ -12,7 +12,7 @@ class NetworkApiService extends BaseApiServices {
     dynamic responseJson;
     try {
       final response =
-          await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
+          await http.get(Uri.parse(url)).timeout(const Duration(seconds: 60));
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');
@@ -30,7 +30,7 @@ class NetworkApiService extends BaseApiServices {
     try {
       Response response = await http
           .post(Uri.parse(url), headers: header, body: data)
-          .timeout(Duration(seconds: 10));
+          .timeout(Duration(seconds: 30));
 
       if (kDebugMode) {
         print("response ${response.body}");

@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -11,10 +11,7 @@ import '../utils/BMWidgets.dart';
 import 'package:provider/provider.dart';
 
 class BMVerifyOTPScreen extends StatefulWidget {
-  final String? email;
-  final String? hash;
-
-  BMVerifyOTPScreen({Key? key, this.email, this.hash}) : super(key: key);
+  BMVerifyOTPScreen({Key? key}) : super(key: key);
   static const String routeName = '/verify-otp';
 
   @override
@@ -22,7 +19,7 @@ class BMVerifyOTPScreen extends StatefulWidget {
 }
 
 class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
-  String? otp = '';
+  final TextEditingController _otpController = TextEditingController();
   @override
   void initState() {
     setStatusBarColor(bmSpecialColor);
@@ -47,30 +44,7 @@ class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
       body: Column(
         children: [
           upperContainer(
-            screenContext: context,
-            child: Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: appStore.isDarkModeOn
-                            ? bmTextColorDarkMode.withOpacity(0.5)
-                            : bmPrimaryColor.withAlpha(70),
-                        borderRadius: radius(100)),
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back,
-                          color: appStore.isDarkModeOn
-                              ? Colors.white
-                              : bmPrimaryColor),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ).withHeight(40),
-                  headerText(title: 'Verify Email')
-                ]),
-          ),
+              screenContext: context, child: headerText(title: 'Verify Email')),
           lowerContainer(
               screenContext: context,
               child: SingleChildScrollView(
@@ -78,26 +52,71 @@ class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     16.height,
-                    Text(
-                        'Please enter your email below to receive your password reset instructions.',
+                    Text('OTP is sent to your email ${authViewModel.email}',
                         style: primaryTextStyle(
                             color: appStore.isDarkModeOn
                                 ? Colors.white
                                 : bmSpecialColorDark,
                             size: 14)),
-                    20.height,
+                    30.height,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _textFieldOTP(first: true, last: false),
-                        _textFieldOTP(first: false, last: false),
-                        _textFieldOTP(first: false, last: false),
-                        _textFieldOTP(first: false, last: false),
-                        _textFieldOTP(first: false, last: false),
-                        _textFieldOTP(first: false, last: true),
+                        Text('Enter your OTP',
+                            style: primaryTextStyle(
+                                color: appStore.isDarkModeOn
+                                    ? bmTextColorDarkMode
+                                    : bmSpecialColor,
+                                size: 14)),
+                        TextButton(
+                          onPressed: () {
+                            // BMForgetPasswordScreen().launch(context);
+                          },
+                          child: Text('Resend OTP',
+                              style: boldTextStyle(
+                                  color: appStore.isDarkModeOn
+                                      ? bmPrimaryColor
+                                      : bmGreyColor,
+                                  size: 14)),
+                        )
                       ],
                     ),
-                    30.height,
+                    10.height,
+                    PinCodeTextField(
+                      appContext: context,
+                      length: 6,
+                      obscureText: false,
+                      animationType: AnimationType.fade,
+                      pinTheme: PinTheme(
+                          shape: PinCodeFieldShape.box,
+                          borderRadius: BorderRadius.circular(5),
+                          fieldHeight: 50,
+                          fieldWidth: 40,
+                          activeFillColor: bmPrimaryColor,
+                          selectedFillColor: Colors.yellow[100],
+                          inactiveColor: bmGreyColor,
+                          selectedColor: Colors.amber,
+                          activeColor: bmSpecialColor,
+                          inactiveFillColor: Colors.white),
+                      animationDuration: Duration(milliseconds: 300),
+                      autoFocus: true,
+                      // backgroundColor: Colors.blue.shade50,
+                      enableActiveFill: true,
+                      // errorAnimationController: errorController,
+                      controller: _otpController,
+
+                      onCompleted: (v) {},
+                      onChanged: (value) {
+                        // print(value);
+                      },
+                      beforeTextPaste: (text) {
+                        // print("Allowing to paste $text");
+                        //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                        //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                        return true;
+                      },
+                    ),
+                    60.height,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -117,60 +136,46 @@ class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
                             },
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: bmPrimaryColor, borderRadius: radius(100)),
-                          child: Container(
-                            child: authViewModel.loading
-                                ? const CircularProgressIndicator()
-                                : IconButton(
-                                    icon: const Icon(Icons.arrow_forward,
-                                        color: Colors.white),
-                                    onPressed: () {},
-                                  ),
-                          ),
-                        ),
+                        AppButton(
+                          // enabled:(_otpController.text.length == 6) ? true : false,
+                          disabledColor: bmPrimaryColor,
+                          shapeBorder: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32)),
+                          padding: const EdgeInsets.all(16),
+                          color: bmPrimaryColor,
+                          onTap: () {
+                            print("otp: ${_otpController.text}");
+                            print("length: ${_otpController.text.length}");
+                            if (!_otpController.text.isEmptyOrNull &&
+                                _otpController.text.length == 6) {
+                              // If the form is valid, display a snackbar. In the real world,
+                              // you'd often call a server or save the information in a database.
+
+                              Map data = {
+                                'id': authViewModel.id,
+                                'otp': _otpController.text.toString(),
+                                'hash': authViewModel.hash,
+                              };
+                              authViewModel.verifyOTP(
+                                  json.encode(data), context);
+                            }
+
+                            // Navigator.pushNamed(context, BMLoginScreen.routeName);
+                            // BMDashboardScreen(flag: false).launch(context);
+                          },
+                          child: authViewModel.loading
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
+                              : Text("Verify",
+                                  style: boldTextStyle(color: Colors.white)),
+                        )
                       ],
                     )
                   ],
                 ).paddingSymmetric(horizontal: 16),
               )).expand()
         ],
-      ),
-    );
-  }
-
-  Widget _textFieldOTP({bool first = true, last}) {
-    return Container(
-      height: 85,
-      child: AspectRatio(
-        aspectRatio: 1.0,
-        child: TextFormField(
-          autofocus: true,
-          onChanged: (value) {
-            if (value.length == 1 && last == false) {
-              FocusScope.of(context).nextFocus();
-            }
-            if (value.length == 0 && first == false) {
-              FocusScope.of(context).previousFocus();
-            }
-          },
-          showCursor: false,
-          readOnly: false,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          keyboardType: TextInputType.number,
-          maxLength: 1,
-          decoration: InputDecoration(
-            counter: Offstage(),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: Colors.black12),
-                borderRadius: BorderRadius.circular(12)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: Colors.purple),
-                borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
       ),
     );
   }

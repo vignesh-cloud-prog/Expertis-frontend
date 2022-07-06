@@ -66,4 +66,14 @@ class AuthRepository {
       rethrow;
     }
   }
+
+  Future<dynamic> verifyOTP(dynamic data) async {
+    try {
+      dynamic response = await _apiServices.getPostApiResponse(
+          AppUrl.verifyOTPEndPint, requestHeaders, data);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

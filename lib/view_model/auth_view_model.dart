@@ -1,3 +1,4 @@
+import 'package:expertis/utils/apiClasses/verifyOTP.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:expertis/models/user_model.dart';
@@ -14,6 +15,15 @@ class AuthViewModel with ChangeNotifier {
   bool _loading = false;
   bool get loading => _loading;
 
+  String? hash;
+  String? get getHash => hash;
+
+  String? id;
+  String? get getId => id;
+
+  String? email;
+  String? get getEmail => email;
+
   bool _signUpLoading = false;
   bool get signUpLoading => _signUpLoading;
 
@@ -25,6 +35,32 @@ class AuthViewModel with ChangeNotifier {
   setSignUpLoading(bool value) {
     _signUpLoading = value;
     notifyListeners();
+  }
+
+  Future<void> signUp(dynamic data, BuildContext context) async {
+    setSignUpLoading(true);
+
+    _myRepo.signUpApi(data).then((value) {
+      setSignUpLoading(false);
+      print("hash: ${value['data']['hash']}");
+      print("id: ${value['data']['id']}");
+      email = value['data']['email'];
+      hash = value['data']['hash'];
+      id = value['data']['id'];
+      Utils.flushBarErrorMessage('SignUp Successfully', context);
+      Navigator.pushNamed(context, RoutesName.verifyOTP,
+          arguments:
+              VerifyOTPArguments(value['data']['hash'], value['data']['id']));
+      if (kDebugMode) {
+        print(value.toString());
+      }
+    }).onError((error, stackTrace) {
+      setSignUpLoading(false);
+      Utils.flushBarErrorMessage(error.toString(), context);
+      if (kDebugMode) {
+        print(error.toString());
+      }
+    });
   }
 
   Future<void> loginApi(dynamic data, BuildContext context) async {
@@ -58,6 +94,8 @@ class AuthViewModel with ChangeNotifier {
       Utils.toastMessage("OTP sent");
       print("hash: ${value['data']['hash']}");
       print("email: ${value['data']['email']}");
+      email = value['data']['email'];
+      hash = value['data']['hash'];
       Navigator.pushNamed(context, RoutesName.changePassword,
           arguments: ChangePasswordArguments(
               value!['data']!['hash'], value!['data']!['email']));
@@ -93,22 +131,23 @@ class AuthViewModel with ChangeNotifier {
     });
   }
 
-  Future<void> signUp(dynamic data, BuildContext context) async {
-    setSignUpLoading(true);
+  Future<void> verifyOTP(dynamic data, BuildContext context) async {
+    setLoading(true);
 
-    _myRepo.signUpApi(data).then((value) {
-      setSignUpLoading(false);
-      print("hash: ${value['data']['hash']}");
-      print("id: ${value['data']['id']}");
-      Utils.flushBarErrorMessage('SignUp Successfully', context);
+    _myRepo.verifyOTP(data).then((value) {
+      setLoading(false);
+      // final userPreference = Provider.of<UserViewModel>(context, listen: false);
+      // userPreference.saveUser(UserModel(token: value['token'].toString()));
+
+      Utils.flushBarErrorMessage('Verified successfully', context);
       Navigator.pushNamed(context, RoutesName.home);
       if (kDebugMode) {
         print(value.toString());
       }
     }).onError((error, stackTrace) {
-      setSignUpLoading(false);
+      setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);
-      if (kDebugMode) {
+      if (!kDebugMode) {
         print(error.toString());
       }
     });

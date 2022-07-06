@@ -164,46 +164,7 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
                         ),
                       ),
                       20.height,
-                      Text('Create password',
-                          style: primaryTextStyle(
-                              color: appStore.isDarkModeOn
-                                  ? bmTextColorDarkMode
-                                  : bmSpecialColor,
-                              size: 14)),
-                      AppTextField(
-                        focus: password,
-                        textFieldType: TextFieldType.PASSWORD,
-                        autoFocus: true,
-                        nextFocus: phone,
-                        controller: _passwordController,
-                        errorThisFieldRequired: 'Password is required',
-                        errorMinimumPasswordLength:
-                            'Password must be at least 6 characters',
-                        cursorColor: bmPrimaryColor,
-                        textStyle: boldTextStyle(
-                            color: appStore.isDarkModeOn
-                                ? bmTextColorDarkMode
-                                : bmPrimaryColor),
-                        suffixIconColor: bmPrimaryColor,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                        ),
-                      ),
-                      20.height,
+
                       Text('Phone number',
                           style: primaryTextStyle(
                               color: appStore.isDarkModeOn
@@ -253,6 +214,47 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
                                       : bmPrimaryColor)),
                         ),
                       ),
+                      20.height,
+                      Text('Create password',
+                          style: primaryTextStyle(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmSpecialColor,
+                              size: 14)),
+                      AppTextField(
+                        focus: password,
+                        textFieldType: TextFieldType.PASSWORD,
+                        autoFocus: true,
+                        nextFocus: phone,
+                        controller: _passwordController,
+                        errorThisFieldRequired: 'Password is required',
+                        errorMinimumPasswordLength:
+                            'Password must be at least 6 characters',
+                        cursorColor: bmPrimaryColor,
+                        textStyle: boldTextStyle(
+                            color: appStore.isDarkModeOn
+                                ? bmTextColorDarkMode
+                                : bmPrimaryColor),
+                        suffixIconColor: bmPrimaryColor,
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: appStore.isDarkModeOn
+                                      ? bmTextColorDarkMode
+                                      : bmPrimaryColor)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: appStore.isDarkModeOn
+                                      ? bmTextColorDarkMode
+                                      : bmPrimaryColor)),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: appStore.isDarkModeOn
+                                      ? bmTextColorDarkMode
+                                      : bmPrimaryColor)),
+                        ),
+                      ),
+
                       30.height,
                       AppButton(
                         width: context.width() - 32,

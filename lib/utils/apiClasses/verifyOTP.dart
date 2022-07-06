@@ -1,7 +1,7 @@
-class ChangePasswordArguments {
+class VerifyOTPArguments {
   final String hash;
   final String id;
   String? otp;
 
-  ChangePasswordArguments(this.hash, this.id);
+  VerifyOTPArguments(this.hash, this.id);
 }

@@ -17,6 +17,7 @@ import 'package:expertis/screens/BMRegisterScreen.dart';
 import 'package:expertis/screens/BMWalkThroughScreen.dart';
 import 'package:expertis/screens/BMVerifyOTPScreen.dart';
 import 'package:expertis/utils/apiClasses/changePassword.dart';
+import 'package:expertis/utils/apiClasses/verifyOTP.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -60,10 +61,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case BMVerifyOTPScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => BMVerifyOTPScreen(
-          email: "vigneshun80@gmail.com",
-          hash: "dfhdfkskijhdjhdjfhd",
-        ),
+        builder: (_) => BMVerifyOTPScreen(),
       );
 
     // case CategoryDealsScreen.routeName:
