@@ -72,12 +72,37 @@ class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
                           onPressed: () {
                             // BMForgetPasswordScreen().launch(context);
                           },
-                          child: Text('Resend OTP',
-                              style: boldTextStyle(
-                                  color: appStore.isDarkModeOn
-                                      ? bmPrimaryColor
-                                      : bmGreyColor,
-                                  size: 14)),
+                          child: authViewModel.forgetPasswordLoading
+                              ? Row(
+                                  children: [
+                                    Text('Sending OTP',
+                                        style: primaryTextStyle(
+                                            color: appStore.isDarkModeOn
+                                                ? bmTextColorDarkMode
+                                                : bmSpecialColor,
+                                            size: 14)),
+                                    SizedBox(width: 8),
+                                    CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          appStore.isDarkModeOn
+                                              ? bmTextColorDarkMode
+                                              : bmSpecialColor),
+                                    ),
+                                  ],
+                                )
+                              : InkWell(
+                                  onTap: () {
+                                    Map data = {'email': authViewModel.email};
+                                    authViewModel.forgotPasswordApi(
+                                        jsonEncode(data), context);
+                                  },
+                                  child: Text('Resend OTP',
+                                      style: boldTextStyle(
+                                          color: appStore.isDarkModeOn
+                                              ? bmPrimaryColor
+                                              : bmGreyColor,
+                                          size: 14)),
+                                ),
                         )
                       ],
                     ),

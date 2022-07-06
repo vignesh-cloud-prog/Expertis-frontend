@@ -16,8 +16,6 @@ import 'package:expertis/screens/BMLoginScreen.dart';
 import 'package:expertis/screens/BMRegisterScreen.dart';
 import 'package:expertis/screens/BMWalkThroughScreen.dart';
 import 'package:expertis/screens/BMVerifyOTPScreen.dart';
-import 'package:expertis/utils/apiClasses/changePassword.dart';
-import 'package:expertis/utils/apiClasses/verifyOTP.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -45,13 +43,9 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => const BMForgetPasswordScreen(),
       );
     case BMChangePasswordScreen.routeName:
-      final ChangePasswordArguments argument = args as ChangePasswordArguments;
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => BMChangePasswordScreen(
-          email: argument.email,
-          hash: argument.hash,
-        ),
+        builder: (_) => BMChangePasswordScreen(),
       );
     case BMLoginNowScreen.routeName:
       return MaterialPageRoute(

@@ -130,7 +130,7 @@ class _BMForgetPasswordScreenState extends State<BMForgetPasswordScreen> {
                                 color: bmPrimaryColor,
                                 borderRadius: radius(100)),
                             child: Container(
-                              child: authViewModel.loading
+                              child: authViewModel.forgetPasswordLoading
                                   ? const CircularProgressIndicator()
                                   : IconButton(
                                       icon: const Icon(Icons.arrow_forward,

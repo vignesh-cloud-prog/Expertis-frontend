@@ -1,4 +1,3 @@
-import 'package:expertis/utils/apiClasses/verifyOTP.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:expertis/models/user_model.dart';
@@ -7,13 +6,9 @@ import 'package:expertis/utils/routes_name.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:expertis/utils/apiClasses/changePassword.dart';
 
 class AuthViewModel with ChangeNotifier {
   final _myRepo = AuthRepository();
-
-  bool _loading = false;
-  bool get loading => _loading;
 
   String? hash;
   String? get getHash => hash;
@@ -24,16 +19,24 @@ class AuthViewModel with ChangeNotifier {
   String? email;
   String? get getEmail => email;
 
-  bool _signUpLoading = false;
-  bool get signUpLoading => _signUpLoading;
-
+  bool _loading = false;
+  bool get loading => _loading;
   setLoading(bool value) {
     _loading = value;
     notifyListeners();
   }
 
+  bool _signUpLoading = false;
+  bool get signUpLoading => _signUpLoading;
   setSignUpLoading(bool value) {
     _signUpLoading = value;
+    notifyListeners();
+  }
+
+  bool _forgetPasswordLoading = false;
+  bool get forgetPasswordLoading => _forgetPasswordLoading;
+  setForgetPasswordLoading(bool value) {
+    _forgetPasswordLoading = value;
     notifyListeners();
   }
 
@@ -42,15 +45,12 @@ class AuthViewModel with ChangeNotifier {
 
     _myRepo.signUpApi(data).then((value) {
       setSignUpLoading(false);
-      print("hash: ${value['data']['hash']}");
-      print("id: ${value['data']['id']}");
+
       email = value['data']['email'];
       hash = value['data']['hash'];
       id = value['data']['id'];
       Utils.flushBarErrorMessage('SignUp Successfully', context);
-      Navigator.pushNamed(context, RoutesName.verifyOTP,
-          arguments:
-              VerifyOTPArguments(value['data']['hash'], value['data']['id']));
+      Navigator.pushNamed(context, RoutesName.verifyOTP);
       if (kDebugMode) {
         print(value.toString());
       }
@@ -68,13 +68,22 @@ class AuthViewModel with ChangeNotifier {
 
     _myRepo.loginApi(data).then((value) {
       setLoading(false);
-      final userPreference = Provider.of<UserViewModel>(context, listen: false);
-      userPreference.saveUser(UserModel(token: value['token'].toString()));
-
-      Utils.flushBarErrorMessage('Login Successfully', context);
-      Navigator.pushNamed(context, RoutesName.home);
       if (kDebugMode) {
         print(value.toString());
+      }
+      if (value['statusCode'] == 300) {
+        email = value['data']['email'];
+        hash = value['data']['hash'];
+        id = value['data']['id'];
+        Utils.flushBarErrorMessage('Email validation required', context);
+        Navigator.pushNamed(context, RoutesName.verifyOTP);
+      } else {
+        final userPreference =
+            Provider.of<UserViewModel>(context, listen: false);
+        userPreference.saveUser(UserModel(token: value['token'].toString()));
+
+        Utils.flushBarErrorMessage('Login Successfully', context);
+        Navigator.pushNamed(context, RoutesName.home);
       }
     }).onError((error, stackTrace) {
       setLoading(false);
@@ -86,21 +95,18 @@ class AuthViewModel with ChangeNotifier {
   }
 
   Future<void> forgotPasswordApi(dynamic data, BuildContext context) async {
-    setLoading(true);
+    setForgetPasswordLoading(true);
 
     _myRepo.forgetPasswordApi(data).then((value) {
-      setLoading(false);
+      setForgetPasswordLoading(false);
       print(value.toString());
       Utils.toastMessage("OTP sent");
-      print("hash: ${value['data']['hash']}");
-      print("email: ${value['data']['email']}");
+
       email = value['data']['email'];
       hash = value['data']['hash'];
-      Navigator.pushNamed(context, RoutesName.changePassword,
-          arguments: ChangePasswordArguments(
-              value!['data']!['hash'], value!['data']!['email']));
+      Navigator.pushNamed(context, RoutesName.changePassword);
     }).onError((error, stackTrace) {
-      setLoading(false);
+      setForgetPasswordLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);
       if (kDebugMode) {
         print(error.toString());
@@ -114,8 +120,8 @@ class AuthViewModel with ChangeNotifier {
 
     _myRepo.changePasswordApi(data).then((value) {
       setLoading(false);
-      // final userPreference = Provider.of<UserViewModel>(context, listen: false);
-      // userPreference.saveUser(UserModel(token: value['token'].toString()));
+      final userPreference = Provider.of<UserViewModel>(context, listen: false);
+      userPreference.saveUser(UserModel(token: value['token'].toString()));
       if (kDebugMode) {
         print(value.toString());
       }

@@ -10,14 +10,9 @@ import 'package:provider/provider.dart';
 import '../main.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
-import 'BMLoginNowScreen.dart';
 
 class BMChangePasswordScreen extends StatefulWidget {
-  final String? email;
-  final String? hash;
-  const BMChangePasswordScreen(
-      {Key? key, required this.email, required this.hash})
-      : super(key: key);
+  const BMChangePasswordScreen({Key? key}) : super(key: key);
   static const String routeName = '/change-password';
   @override
   State<BMChangePasswordScreen> createState() => _BMChangePasswordScreenState();
@@ -34,7 +29,7 @@ class _BMChangePasswordScreenState extends State<BMChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authViewMode = Provider.of<AuthViewModel>(context);
+    final authViewModel = Provider.of<AuthViewModel>(context);
 
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
@@ -56,7 +51,7 @@ class _BMChangePasswordScreenState extends State<BMChangePasswordScreen> {
                     children: [
                       16.height,
                       Text(
-                          'Reset code was sent to your email. Please enter the code and create a new password.',
+                          'Reset code was sent to your email ${authViewModel.email}. Please enter the code and create a new password.',
                           style: primaryTextStyle(
                               color: appStore.isDarkModeOn
                                   ? Colors.white
@@ -191,21 +186,21 @@ class _BMChangePasswordScreenState extends State<BMChangePasswordScreen> {
                                 color: Colors.teal, borderRadius: radius(100)),
                             child: IconButton(
                               icon: Container(
-                                  child: authViewMode.loading
+                                  child: authViewModel.loading
                                       ? CircularProgressIndicator()
                                       : const Icon(Icons.check,
                                           color: Colors.white)),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   Map data = {
-                                    'email': widget.email,
+                                    'email': authViewModel.email,
                                     'password':
                                         _passwordController.text.toString(),
-                                    'hash': widget.hash,
+                                    'hash': authViewModel.hash,
                                     'otp': _otpController.text.toString()
                                   };
 
-                                  authViewMode.changePassword(
+                                  authViewModel.changePassword(
                                       jsonEncode(data), context);
                                 }
                               },
