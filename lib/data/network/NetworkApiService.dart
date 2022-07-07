@@ -18,6 +18,9 @@ class NetworkApiService extends BaseApiServices {
       final response = await http
           .get(Uri.parse(url), headers: header)
           .timeout(const Duration(seconds: 60));
+      if (kDebugMode) {
+        print("response ${response.body}");
+      }
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');
@@ -55,7 +58,11 @@ class NetworkApiService extends BaseApiServices {
     switch (response.statusCode) {
       case 200:
         return responseJson;
-
+      case 300:
+        return responseJson;
+      case 401:
+      case 403:
+        throw UnauthorisedException(responseJson["message"]);
       case 400:
         throw BadRequestException(responseJson['message']);
       case 500:

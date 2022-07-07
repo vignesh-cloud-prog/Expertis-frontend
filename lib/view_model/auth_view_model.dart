@@ -42,8 +42,13 @@ class AuthViewModel with ChangeNotifier {
 
   bool _validToken = true;
   bool get validToken => _validToken;
-  setValidToken(bool value) {
-    _validToken = value;
+  setValidTokenFalse() {
+    _validToken = false;
+    notifyListeners();
+  }
+
+  setValidTokenTrue() {
+    _validToken = true;
     notifyListeners();
   }
 
@@ -87,9 +92,16 @@ class AuthViewModel with ChangeNotifier {
       } else {
         final userPreference =
             Provider.of<UserViewModel>(context, listen: false);
-        userPreference
-            .saveUser(UserModel(token: value['data']['token'].toString()));
-
+        userPreference.saveUser(UserModel(
+            token: value['data']['token'].toString(),
+            email: value['data']['email'].toString(),
+            id: value['data']['id'].toString(),
+            name: value['data']['name'].toString(),
+            phone: value['data']['phone'].toString(),
+            date: value['data']['date'].toString(),
+            createdAt: value['data']['createdAt'].toString(),
+            updatedAt: value['data']['updatedAt'].toString()));
+        setValidTokenTrue();
         Utils.flushBarErrorMessage('Login Successfully', context);
         Navigator.pushReplacementNamed(context, RoutesName.home);
       }
@@ -102,32 +114,42 @@ class AuthViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> verifyToken(dynamic header, BuildContext context) async {
-    setLoading(true);
+  Future<void> verifyToken(BuildContext context) async {
+    String? token = await UserViewModel.getUserToken();
+    if (kDebugMode) {
+      print("token: $token");
+    }
+    Map<String, String> header = {
+      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "Access-Control-Allow-Credentials":
+          "true", // Required for cookies, authorization headers with HTTPS
+      "Access-Control-Allow-Headers":
+          "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      'Content-Type': 'application/json',
+      'Authorization': "$token",
+    };
+
     if (kDebugMode) {
       print("header: ${header.toString()}");
     }
-    try {
-      dynamic value = await _myRepo.verifyTokenApi(header);
 
+    _myRepo.verifyTokenApi(header).then((value) {
+      // setLoading(false);
       if (kDebugMode) {
         print(value.toString());
       }
-      if (value['statusCode'] == 200) {
-        String message = value['data']['message'];
-        Utils.toastMessage(message);
-        return true;
-      } else if (value['statusCode'] == 401 || value['statusCode'] == 403) {
-        String message = value['data']['message'];
+      Utils.toastMessage("Token verified successfully");
+    }).onError((error, stackTrace) {
+      setValidTokenFalse();
 
-        Utils.toastMessage(message);
-        return false;
-      } else {
-        return false;
+      // setForgetPasswordLoading(false);
+      Utils.toastMessage(error.toString());
+      if (kDebugMode) {
+        print(error.toString());
+        print(stackTrace.toString());
       }
-    } catch (e) {
-      rethrow;
-    }
+    });
   }
 
   Future<void> forgotPasswordApi(dynamic data, BuildContext context) async {

@@ -1,6 +1,8 @@
+import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/services/splash_services.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../utils/BMColors.dart';
@@ -36,6 +38,8 @@ class BMSplashScreenState extends State<BMSplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+    authViewModel.verifyToken(context);
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!

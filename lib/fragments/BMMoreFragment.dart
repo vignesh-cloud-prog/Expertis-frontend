@@ -1,3 +1,4 @@
+import 'package:expertis/models/user_model.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/utils/routes_name.dart';
 import 'package:expertis/view_model/user_view_model.dart';
@@ -21,6 +22,7 @@ class BMMoreFragment extends StatefulWidget {
 }
 
 class _BMMoreFragmentState extends State<BMMoreFragment> {
+  // Future<UserModel> getUserDate() => UserViewModel().getUser();
   @override
   void initState() {
     setStatusBarColor(bmSpecialColor);
@@ -47,7 +49,7 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                         height: 100, width: 100, fit: BoxFit.cover)
                     .cornerRadiusWithClipRRect(100),
                 8.height,
-                Text('jsj', style: boldTextStyle(color: white))
+                Text("", style: boldTextStyle(color: white))
               ],
             ),
           ),
@@ -147,12 +149,11 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                       size: 20,
                       color:
                           appStore.isDarkModeOn ? white : bmSpecialColorDark),
-                  onTap: () async {
-                    bool success = await userViewModel.logout();
-                    if (success) {
-                      Navigator.pushReplacementNamed(
-                          context, RoutesName.onboarding);
-                    }
+                  onTap: () {
+                    userViewModel.logout().then((value) => {
+                          Navigator.pushReplacementNamed(
+                              context, RoutesName.onboarding)
+                        });
                   },
                 )
               ],

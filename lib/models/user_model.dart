@@ -13,20 +13,20 @@ class UserModel {
   String? token;
   String? message;
 
-  UserModel(
-      {this.email,
-      this.name,
-      this.phone,
-      this.role,
-      this.date,
-      this.verified,
-      this.shop,
-      this.appointments,
-      this.createdAt,
-      this.updatedAt,
-      this.id,
-      this.token,
-      this.message});
+  UserModel({
+    this.email,
+    this.name,
+    this.phone,
+    this.role,
+    this.date,
+    this.verified,
+    this.shop,
+    this.appointments,
+    this.createdAt,
+    this.updatedAt,
+    this.id,
+    this.token,
+  });
 
   UserModel.fromJson(Map<String, dynamic> json) {
     email = json['email'];

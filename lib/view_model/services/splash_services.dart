@@ -13,10 +13,12 @@ class SplashServices {
 
       if (value.token.toString() == 'null' || value.token.toString() == '') {
         await Future.delayed(Duration(seconds: 3));
-        Navigator.pushNamed(context, RoutesName.onboarding);
+        Navigator.pushNamedAndRemoveUntil(
+            context, RoutesName.onboarding, (route) => false);
       } else {
         await Future.delayed(Duration(seconds: 3));
-        Navigator.pushNamed(context, RoutesName.home);
+        Navigator.pushNamedAndRemoveUntil(
+            context, RoutesName.home, ((route) => false));
       }
     }).onError((error, stackTrace) {
       if (kDebugMode) {

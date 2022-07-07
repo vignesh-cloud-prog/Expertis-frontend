@@ -28,6 +28,7 @@ class BMDashboardScreen extends StatefulWidget {
 }
 
 class _BMDashboardScreenState extends State<BMDashboardScreen> {
+  String? token;
   List<BMDashboardModel> list = getDashboardList();
   bool tokenValid = true;
   // authViewModel.verifyToken(header, context);
@@ -49,23 +50,15 @@ class _BMDashboardScreenState extends State<BMDashboardScreen> {
   }
 
   _asyncValidateToken() async {
-    final AuthRepository authRepository = AuthRepository();
-    String token = await UserViewModel.getUserToken();
-    Map<String, String> header = {
-      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-      "Access-Control-Allow-Credentials":
-          "true", // Required for cookies, authorization headers with HTTPS
-      "Access-Control-Allow-Headers":
-          "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      'Content-Type': 'application/json',
-      'Authorization': token,
-    };
-    bool isValidToken = await authRepository.verifyTokenApi(header);
+    // final AuthRepository authRepository = AuthRepository();
+    // token = await UserViewModel.getUserToken();
 
-    setState(() {
-      tokenValid = isValidToken;
-    });
+    // bool isValidToken = await authRepository.verifyTokenApi(header);
+
+    // setState(() {
+    //   // tokenValid = isValidToken;
+    //   token = token;
+    // });
   }
 
   @override
@@ -74,7 +67,7 @@ class _BMDashboardScreenState extends State<BMDashboardScreen> {
         ? appStore.scaffoldBackground!
         : bmLightScaffoldBackgroundColor);
     super.initState();
-    _asyncValidateToken();
+    // _asyncValidateToken();
   }
 
   @override
@@ -108,7 +101,9 @@ class _BMDashboardScreenState extends State<BMDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return !tokenValid
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
+    return !authViewModel.validToken
         ? const BMTokenExpiredScreen()
         : Scaffold(
             backgroundColor: getDashboardColor(),

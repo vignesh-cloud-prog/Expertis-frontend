@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:expertis/data/app_excaptions.dart';
 import 'package:http/http.dart';
 import 'package:expertis/data/network/BaseApiServices.dart';
 import 'package:expertis/data/network/NetworkApiService.dart';
@@ -31,15 +32,14 @@ class AuthRepository {
     }
   }
 
-  Future<bool> verifyTokenApi(dynamic header) async {
+  Future<dynamic> verifyTokenApi(dynamic header) async {
     try {
       dynamic response = await _apiServices.getGetApiResponse(
           AppUrl.verifyTokenEndPint, header);
       if (kDebugMode) {
         print("response ${response.toString()}");
       }
-      print('object: response ${response.toString()}');
-      return response['statusCode'] == 200;
+      return response;
     } catch (e) {
       rethrow;
     }
