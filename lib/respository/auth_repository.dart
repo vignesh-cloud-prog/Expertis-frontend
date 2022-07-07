@@ -31,6 +31,20 @@ class AuthRepository {
     }
   }
 
+  Future<bool> verifyTokenApi(dynamic header) async {
+    try {
+      dynamic response = await _apiServices.getGetApiResponse(
+          AppUrl.verifyTokenEndPint, header);
+      if (kDebugMode) {
+        print("response ${response.toString()}");
+      }
+      print('object: response ${response.toString()}');
+      return response['statusCode'] == 200;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<dynamic> forgetPasswordApi(dynamic data) async {
     try {
       dynamic response = await _apiServices.getPostApiResponse(

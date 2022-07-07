@@ -13,7 +13,7 @@ class SplashServices {
 
       if (value.token.toString() == 'null' || value.token.toString() == '') {
         await Future.delayed(Duration(seconds: 3));
-        Navigator.pushNamed(context, RoutesName.login);
+        Navigator.pushNamed(context, RoutesName.onboarding);
       } else {
         await Future.delayed(Duration(seconds: 3));
         Navigator.pushNamed(context, RoutesName.home);

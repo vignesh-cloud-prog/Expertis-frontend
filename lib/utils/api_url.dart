@@ -9,6 +9,7 @@ class AppUrl {
   static var forgetPasswordEndPint = '${baseUrl}users/forget-password';
   static var changePasswordEndPint = '${baseUrl}users/change-password';
   static var verifyOTPEndPint = '${baseUrl}users/verify-otp';
+  static var verifyTokenEndPint = '${baseUrl}users/verify-token';
 
   static var registerApiEndPoint = '${baseUrl}users/register';
 

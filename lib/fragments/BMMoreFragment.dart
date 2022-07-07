@@ -1,6 +1,9 @@
 import 'package:expertis/utils/BMConstants.dart';
+import 'package:expertis/utils/routes_name.dart';
+import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../screens/BMFavouritesScreen.dart';
@@ -26,6 +29,8 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
 
   @override
   Widget build(BuildContext context) {
+    final userViewModel = Provider.of<UserViewModel>(context);
+
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!
@@ -42,7 +47,7 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                         height: 100, width: 100, fit: BoxFit.cover)
                     .cornerRadiusWithClipRRect(100),
                 8.height,
-                Text('anita@gmail.com', style: boldTextStyle(color: white))
+                Text('jsj', style: boldTextStyle(color: white))
               ],
             ),
           ),
@@ -112,9 +117,9 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                   },
                 ),
                 SettingItemWidget(
-                  title: 'Orders',
-                  leading: Icon(Icons.shopping_basket_rounded,
-                      color: bmPrimaryColor, size: 30),
+                  title: 'Dashboard',
+                  leading:
+                      Icon(Icons.dashboard, color: bmPrimaryColor, size: 30),
                   titleTextStyle: boldTextStyle(
                       size: 20,
                       color:
@@ -132,6 +137,22 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                           appStore.isDarkModeOn ? white : bmSpecialColorDark),
                   onTap: () {
                     showSelectStaffBottomSheet(context);
+                  },
+                ),
+                SettingItemWidget(
+                  title: 'Logout',
+                  leading: const Icon(Icons.logout_sharp,
+                      color: bmPrimaryColor, size: 30),
+                  titleTextStyle: boldTextStyle(
+                      size: 20,
+                      color:
+                          appStore.isDarkModeOn ? white : bmSpecialColorDark),
+                  onTap: () async {
+                    bool success = await userViewModel.logout();
+                    if (success) {
+                      Navigator.pushReplacementNamed(
+                          context, RoutesName.onboarding);
+                    }
                   },
                 )
               ],

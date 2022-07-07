@@ -1,5 +1,6 @@
 class RoutesName {
   static const String splash = '/splash-view';
+  static const String onboarding = '/onboarding';
 
   //accounts routes name
   static const String signUp = '/register';

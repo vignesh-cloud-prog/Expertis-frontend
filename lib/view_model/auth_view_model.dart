@@ -40,6 +40,13 @@ class AuthViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _validToken = true;
+  bool get validToken => _validToken;
+  setValidToken(bool value) {
+    _validToken = value;
+    notifyListeners();
+  }
+
   Future<void> signUp(dynamic data, BuildContext context) async {
     setSignUpLoading(true);
 
@@ -84,7 +91,7 @@ class AuthViewModel with ChangeNotifier {
             .saveUser(UserModel(token: value['data']['token'].toString()));
 
         Utils.flushBarErrorMessage('Login Successfully', context);
-        Navigator.pushNamed(context, RoutesName.home);
+        Navigator.pushReplacementNamed(context, RoutesName.home);
       }
     }).onError((error, stackTrace) {
       setLoading(false);
@@ -93,6 +100,34 @@ class AuthViewModel with ChangeNotifier {
         print(error.toString());
       }
     });
+  }
+
+  Future<bool> verifyToken(dynamic header, BuildContext context) async {
+    setLoading(true);
+    if (kDebugMode) {
+      print("header: ${header.toString()}");
+    }
+    try {
+      dynamic value = await _myRepo.verifyTokenApi(header);
+
+      if (kDebugMode) {
+        print(value.toString());
+      }
+      if (value['statusCode'] == 200) {
+        String message = value['data']['message'];
+        Utils.toastMessage(message);
+        return true;
+      } else if (value['statusCode'] == 401 || value['statusCode'] == 403) {
+        String message = value['data']['message'];
+
+        Utils.toastMessage(message);
+        return false;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<void> forgotPasswordApi(dynamic data, BuildContext context) async {
