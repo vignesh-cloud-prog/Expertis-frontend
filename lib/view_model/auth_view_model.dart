@@ -98,7 +98,7 @@ class AuthViewModel with ChangeNotifier {
             id: value['data']['id'].toString(),
             name: value['data']['name'].toString(),
             phone: value['data']['phone'].toString(),
-            date: value['data']['date'].toString(),
+            userPic: value['data']['userPic'].toString(),
             createdAt: value['data']['createdAt'].toString(),
             updatedAt: value['data']['updatedAt'].toString()));
         setValidTokenTrue();

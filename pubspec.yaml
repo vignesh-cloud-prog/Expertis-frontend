@@ -62,6 +62,10 @@ dependencies:
   url_launcher: ^6.0.20
   flutter_progress_hud: ^2.0.2
   pin_code_fields: ^7.4.0
+  gender_picker: ^1.1.0
+  image_picker: ^0.8.5+3
+  path_provider: ^2.0.11
+  path: ^1.8.2
 
 dev_dependencies:
   build_runner: ^2.1.11

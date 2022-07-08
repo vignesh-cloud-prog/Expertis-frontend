@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SplashServices {
-  Future<UserModel> getUserDate() => UserViewModel().getUser();
+  Future<UserModel> getUserDate() => UserViewModel.getUser();
 
   void checkAuthentication(BuildContext context) async {
     getUserDate().then((value) async {

@@ -9,6 +9,7 @@ class RoutesName {
   static const String changePassword = '/change-password';
   static const String forgotPassword = '/forgot-password';
   static const String loginNow = '/login-now';
+  static const String editProfile = '/edit-profile';
 
   //home screen routes name
   static const String home = '/';

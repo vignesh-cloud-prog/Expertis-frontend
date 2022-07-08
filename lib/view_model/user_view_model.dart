@@ -4,18 +4,27 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserViewModel with ChangeNotifier {
-  String? email;
-  String? name;
+  String email = "vignesh@xmail.com";
+  String name = "Vignesh";
   String? phone;
-  List<String>? role;
-  String? date;
+  String? role;
   bool? verified;
   List<String>? shop;
   List<String>? appointments;
   String? createdAt;
   String? updatedAt;
+  String userPic =
+      'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2015%2F10%2F05%2F22%2F37%2Fblank-profile-picture-973460_1280.png&imgrefurl=https%3A%2F%2Fpixabay.com%2Fvectors%2Fblank-profile-picture-mystery-man-973460%2F&tbnid=H6pHpB03ZEAgeM&vet=12ahUKEwigm-bJnun4AhWm_zgGHfolDUAQMygBegUIARDZAQ..i&docid=wg0CyFWNfK7o5M&w=1280&h=1280&q=profile%20picture&ved=2ahUKEwigm-bJnun4AhWm_zgGHfolDUAQMygBegUIARDZAQ';
   String? id;
   String? token;
+  String? message;
+
+  bool _loading = false;
+  bool get loading => _loading;
+  setLoading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
 
   Future setUserViewModel() async {
     UserModel user = await getUser();
@@ -23,8 +32,8 @@ class UserViewModel with ChangeNotifier {
     name = user.name;
     phone = user.phone;
     role = user.role;
-    date = user.date;
-    verified = user.verified;
+    userPic = user.userPic;
+    verified = user.verified ?? false;
     shop = user.shop;
     appointments = user.appointments;
     createdAt = user.createdAt;
@@ -40,32 +49,32 @@ class UserViewModel with ChangeNotifier {
     sp.setString('name', user.name.toString());
     sp.setString('email', user.email.toString());
     sp.setString('phone', user.phone.toString());
-    sp.setString('date', user.date.toString());
+    sp.setString('userPic', user.userPic.toString());
     sp.setBool('verified', user.verified ?? false);
     sp.setStringList('shop', user.shop ?? []);
     sp.setStringList('appointments', user.appointments ?? []);
     sp.setString('createdAt', user.createdAt.toString());
     sp.setString('updatedAt', user.updatedAt.toString());
-    sp.setStringList('role', user.role ?? []);
+    sp.setString('role', user.role.toString());
 
     notifyListeners();
     return true;
   }
 
-  Future<UserModel> getUser() async {
+  static Future<UserModel> getUser() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('token');
     final String? id = sp.getString('id');
-    final String? name = sp.getString('name');
-    final String? email = sp.getString('email');
+    final String name = sp.getString('name') ?? 'John Doe';
+    final String email = sp.getString('email') ?? 'example@email.com';
     final String? phone = sp.getString('phone');
-    final String? date = sp.getString('date');
-    final bool? verified = sp.getBool('verified');
+    final bool verified = sp.getBool('verified') ?? false;
     final List<String>? shop = sp.getStringList('shop');
     final List<String>? appointments = sp.getStringList('appointments');
     final String? createdAt = sp.getString('createdAt');
     final String? updatedAt = sp.getString('updatedAt');
-    final List<String>? role = sp.getStringList('role');
+    final String? role = sp.getString('role');
+    final String userPic = sp.getString('userPic') ?? 'images/face_two.jpg';
 
     return UserModel(
       token: token,
@@ -73,13 +82,13 @@ class UserViewModel with ChangeNotifier {
       name: name,
       email: email,
       phone: phone,
-      date: date,
       verified: verified,
       shop: shop,
       appointments: appointments,
       createdAt: createdAt,
       updatedAt: updatedAt,
       role: role,
+      userPic: userPic,
     );
   }
 

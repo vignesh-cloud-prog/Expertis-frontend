@@ -1,5 +1,5 @@
 class AppUrl {
-  static var baseUrl = 'https://expertis-node-api.herokuapp.com/';
+  static var baseUrl = 'https://expertis-api.azurewebsites.net/';
 
   static var moviesBaseUrl =
       'https://dea91516-1da3-444b-ad94-c6d0c4dfab81.mock.pstmn.io/';

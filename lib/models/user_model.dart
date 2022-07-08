@@ -1,44 +1,54 @@
 class UserModel {
-  String? email;
-  String? name;
+  late String email;
+  late String name;
   String? phone;
-  List<String>? role;
-  String? date;
+  String? role;
   bool? verified;
   List<String>? shop;
   List<String>? appointments;
   String? createdAt;
   String? updatedAt;
+  late String userPic;
   String? id;
   String? token;
   String? message;
 
-  UserModel({
-    this.email,
-    this.name,
-    this.phone,
-    this.role,
-    this.date,
-    this.verified,
-    this.shop,
-    this.appointments,
-    this.createdAt,
-    this.updatedAt,
-    this.id,
-    this.token,
-  });
+  UserModel(
+      {this.email = "example.com",
+      this.name = "Vignesh",
+      this.phone,
+      this.role,
+      this.verified,
+      this.shop,
+      this.appointments,
+      this.createdAt,
+      this.updatedAt,
+      this.userPic = 'images/face_two.jpg',
+      this.id,
+      this.token,
+      this.message});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     email = json['email'];
     name = json['name'];
     phone = json['phone'];
-    role = json['role'].cast<String>();
-    date = json['date'];
+    role = json['role'];
     verified = json['verified'];
-    shop = json['shop'].cast<String>();
-    appointments = json['appointments'].cast<String>();
+    if (json['shop'] != null) {
+      shop = <String>[];
+      json['shop'].forEach((v) {
+        shop!.add(v.toString());
+      });
+    }
+    if (json['appointments'] != null) {
+      appointments = <String>[];
+      json['appointments'].forEach((v) {
+        appointments!.add(v.toString());
+      });
+    }
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    userPic = json['userPic'];
     id = json['id'];
     token = json['token'];
     message = json['message'];
@@ -50,12 +60,17 @@ class UserModel {
     data['name'] = this.name;
     data['phone'] = this.phone;
     data['role'] = this.role;
-    data['date'] = this.date;
     data['verified'] = this.verified;
-    data['shop'] = this.shop;
-    data['appointments'] = this.appointments;
+    if (this.shop != null) {
+      data['shop'] = this.shop!.map((v) => v.toString()).toList();
+    }
+    if (this.appointments != null) {
+      data['appointments'] =
+          this.appointments!.map((v) => v.toString()).toList();
+    }
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    data['userPic'] = this.userPic;
     data['id'] = this.id;
     data['token'] = this.token;
     data['message'] = this.message;

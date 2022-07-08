@@ -64,7 +64,7 @@ class _CalendarTileState extends State<CalendarTile> {
                 ? BoxDecoration(
                     shape: BoxShape.circle,
                     color: widget.selectedColor != null
-                        ? Utils.isSameDay(this.widget.date!, DateTime.now())
+                        ? DateUtils.isSameDay(this.widget.date!, DateTime.now())
                             ? Colors.green
                             : widget.selectedColor
                         : Theme.of(context).primaryColor,
@@ -81,7 +81,8 @@ class _CalendarTileState extends State<CalendarTile> {
                       fontWeight: FontWeight.w400,
                       color: widget.isSelected
                           ? Colors.white
-                          : Utils.isSameDay(this.widget.date!, DateTime.now())
+                          : DateUtils.isSameDay(
+                                  this.widget.date!, DateTime.now())
                               ? widget.todayColor
                               : widget.inMonth
                                   ? appStore.isDarkModeOn
