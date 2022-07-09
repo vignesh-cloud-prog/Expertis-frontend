@@ -24,8 +24,11 @@ import 'package:gender_picker/source/gender_picker.dart';
 import 'BMLoginScreen.dart';
 
 class BMUserProfileEditScreen extends StatefulWidget {
-  String title = "Edit Profile";
-  BMUserProfileEditScreen({Key? key, this.title = "Edit Profile"})
+  String title = "Update Profile";
+  String buttonName = "Update";
+
+  BMUserProfileEditScreen(
+      {Key? key, this.title = "Update Profile", this.buttonName = "Update"})
       : super(key: key);
   static const String routeName = '/edit-profile';
 
@@ -42,17 +45,15 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
   FocusNode pinCode = FocusNode();
   FocusNode dob = FocusNode();
   List<String> roles = ['CUSTOMER', 'OWNER', 'MEMBER'];
+  UserModel? user;
   String selectedRole = 'CUSTOMER';
-  late UserModel? user;
   String userPic = "";
   File? image;
   String? selectedGender;
+  bool isFileSelected = false;
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _pinCodeController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
+
   final TextEditingController _dobController = TextEditingController();
 
   Future pickImage(ImageSource source) async {
@@ -68,6 +69,7 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
       setState(() => user!.userPic = newImage.path);
 
       setState(() {
+        isFileSelected = true;
         this.image = imageFile;
       });
     } on PlatformException catch (e) {
@@ -87,6 +89,8 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
     if (kDebugMode) print("user: ${user.toString()}");
     setState(() {
       user = user;
+      _dobController.text = user!.dob.toString().splitBefore('T');
+      selectedRole = user!.role ?? 'CUSTOMER';
     });
   }
 
@@ -137,8 +141,11 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                       AppTextField(
                         keyboardType: TextInputType.text,
                         nextFocus: role,
+                        initialValue: user!.name.toString(),
+                        onChanged: (value) {
+                          user!.name = value;
+                        },
                         textFieldType: TextFieldType.NAME,
-                        controller: _nameController,
                         errorThisFieldRequired: 'Name is required',
                         autoFocus: true,
                         cursorColor: bmPrimaryColor,
@@ -190,6 +197,7 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                           setState(() {
                             selectedRole = value.toString();
                           });
+                          user!.role = value.toString();
                         },
                         onSaved: ((newValue) {
                           Utils.focusChange(context, role, phone);
@@ -204,9 +212,11 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                               size: 14)),
                       AppTextField(
                         focus: phone,
+                        initialValue: user!.phone.toString(),
                         textFieldType: TextFieldType.PHONE,
+                        onChanged: (p0) => user!.phone = p0,
                         nextFocus: address,
-                        controller: _phoneController,
+                        // controller: _phoneController,
                         validator: (value) {
                           Pattern pattern =
                               r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$';
@@ -254,9 +264,13 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                       AppTextField(
                         keyboardType: TextInputType.text,
                         focus: address,
+                        initialValue: user!.address,
                         nextFocus: pinCode,
                         textFieldType: TextFieldType.NAME,
-                        controller: _addressController,
+                        onChanged: (value) {
+                          user!.address = value;
+                        },
+                        // controller: _addressController,
                         errorThisFieldRequired: 'Address is required',
                         cursorColor: bmPrimaryColor,
                         textStyle: boldTextStyle(
@@ -293,7 +307,9 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                         textFieldType: TextFieldType.PHONE,
                         autoFocus: true,
                         nextFocus: dob,
-                        controller: _pinCodeController,
+                        initialValue: user!.pinCode.toString(),
+                        onChanged: (p0) => user!.pinCode = p0,
+                        // controller: _pinCodeController,
                         validator: (value) {
                           if (value!.length != 6) {
                             return 'Pin code must be 6 digits';
@@ -335,6 +351,7 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                               size: 14)),
                       AppTextField(
                         focus: dob,
+                        readOnly: true,
                         textFieldType: TextFieldType.OTHER,
                         suffix: InkWell(
                           onTap: () async {
@@ -346,8 +363,10 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                             );
                             if (pickedDate != null) {
                               setState(() {
-                                _dobController.text =
+                                var date =
                                     DateFormat('yyyy-MM-dd').format(pickedDate);
+                                _dobController.text = date;
+                                user!.dob = date;
                               });
                             }
                           },
@@ -395,15 +414,22 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                         showOtherGender: true,
                         verticalAlignedText: false,
 
-                        selectedGender: Gender.Male,
+                        selectedGender: user!.gender!.toLowerCase() == "male"
+                            ? Gender.Male
+                            : user!.gender!.toLowerCase() == "female"
+                                ? Gender.Female
+                                : Gender.Others,
                         selectedGenderTextStyle: TextStyle(
-                            color: Color(0xFF8b32a8),
+                            color: appStore.isDarkModeOn
+                                ? bmTextColorDarkMode
+                                : bmPrimaryColor,
                             fontWeight: FontWeight.bold),
                         unSelectedGenderTextStyle: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.normal),
                         onChanged: (Gender? gender) {
                           selectedGender =
                               gender.toString().splitAfter(".").toUpperCase();
+                          user!.gender = selectedGender;
                           if (kDebugMode) {
                             print("selectedGender $selectedGender");
                           }
@@ -417,7 +443,9 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                         size: 50, //default : 40
                       ),
                       Divider(
-                        color: bmPrimaryColor,
+                        color: appStore.isDarkModeOn
+                            ? bmTextColorDarkMode
+                            : bmPrimaryColor,
                         thickness: 1,
                       ),
                       30.height,
@@ -429,18 +457,17 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                         color: bmPrimaryColor,
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            // If the form is valid, display a snackbar. In the real world,
-                            // you'd often call a server or save the information in a database.
-
-                            // Map data = {
-                            //   'email': _emailController.text.toString(),
-                            //   'password': _passwordController.text.toString(),
-                            //   'name': _nameController.text.toString(),
-                            //   'phone': _phoneController.text.toString(),
-                            // };
-                            // authViewModel.signUp(jsonEncode(data), context);
+                            Map<String, String> data = user!
+                                .toJson()
+                                .map((k, v) => MapEntry(k, v.toString()));
+                            Map<String, String> files = {
+                              'userPic': user!.userPic.toString(),
+                            };
+                            data.remove('userPic');
+                            userViewModel.updateUser(
+                                true, data, isFileSelected, files, context);
+                            // BMEnableLocationScreen().launch(context);
                           }
-                          // BMEnableLocationScreen().launch(context);
                         },
                         child: userViewModel.loading
                             ? const CircularProgressIndicator(

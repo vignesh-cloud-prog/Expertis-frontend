@@ -23,7 +23,7 @@ class BMMoreFragment extends StatefulWidget {
 }
 
 class _BMMoreFragmentState extends State<BMMoreFragment> {
-  late UserModel? user;
+  UserModel? user;
   @override
   void initState() {
     _getUserData();
@@ -56,7 +56,7 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
               child: Column(
                 children: [
                   16.height,
-                  user == null
+                  user!.userPic == "" || user!.userPic == "null"
                       ? Image.asset('images/face_two.jpg',
                               height: 100, width: 100, fit: BoxFit.cover)
                           .cornerRadiusWithClipRRect(100)

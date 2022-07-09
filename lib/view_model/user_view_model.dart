@@ -1,9 +1,17 @@
+import 'dart:convert';
+
+import 'package:expertis/respository/user_repository.dart';
+import 'package:expertis/utils/routes_name.dart';
+import 'package:expertis/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:expertis/models/user_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserViewModel with ChangeNotifier {
+  final _myRepo = UserRepository();
+
   String email = "vignesh@xmail.com";
   String name = "Vignesh";
   String? phone;
@@ -26,70 +34,27 @@ class UserViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future setUserViewModel() async {
-    UserModel user = await getUser();
-    email = user.email;
-    name = user.name;
-    phone = user.phone;
-    role = user.role;
-    userPic = user.userPic;
-    verified = user.verified ?? false;
-    shop = user.shop;
-    appointments = user.appointments;
-    createdAt = user.createdAt;
-    updatedAt = user.updatedAt;
-    id = user.id;
-    token = user.token;
+  Future<bool> saveToken(String token) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    return sp.setString('token', token);
   }
 
   Future<bool> saveUser(UserModel user) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.setString('token', user.token.toString());
-    sp.setString('id', user.id.toString());
-    sp.setString('name', user.name.toString());
-    sp.setString('email', user.email.toString());
-    sp.setString('phone', user.phone.toString());
-    sp.setString('userPic', user.userPic.toString());
-    sp.setBool('verified', user.verified ?? false);
-    sp.setStringList('shop', user.shop ?? []);
-    sp.setStringList('appointments', user.appointments ?? []);
-    sp.setString('createdAt', user.createdAt.toString());
-    sp.setString('updatedAt', user.updatedAt.toString());
-    sp.setString('role', user.role.toString());
-
+    sp.setString('user', json.encode(user.toJson()));
+    final String? userJson = sp.getString('user');
+    print("userJson: $userJson");
     notifyListeners();
     return true;
   }
 
   static Future<UserModel> getUser() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('token');
-    final String? id = sp.getString('id');
-    final String name = sp.getString('name') ?? 'John Doe';
-    final String email = sp.getString('email') ?? 'example@email.com';
-    final String? phone = sp.getString('phone');
-    final bool verified = sp.getBool('verified') ?? false;
-    final List<String>? shop = sp.getStringList('shop');
-    final List<String>? appointments = sp.getStringList('appointments');
-    final String? createdAt = sp.getString('createdAt');
-    final String? updatedAt = sp.getString('updatedAt');
-    final String? role = sp.getString('role');
-    final String userPic = sp.getString('userPic') ?? 'images/face_two.jpg';
+    final String? userJson = sp.getString('user');
+    print("userJson: $userJson");
 
-    return UserModel(
-      token: token,
-      id: id,
-      name: name,
-      email: email,
-      phone: phone,
-      verified: verified,
-      shop: shop,
-      appointments: appointments,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
-      role: role,
-      userPic: userPic,
-    );
+    UserModel user = UserModel.fromJson(json.decode(userJson ?? '{}'));
+    return user;
   }
 
   static Future<String> getUserToken() async {
@@ -109,18 +74,39 @@ class UserViewModel with ChangeNotifier {
   Future<bool> logout() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     await sp.remove('token');
-    await sp.remove('id');
-    await sp.remove('name');
-    await sp.remove('email');
-    await sp.remove('phone');
-    await sp.remove('date');
-    await sp.remove('verified');
-    await sp.remove('shop');
-    await sp.remove('appointments');
-    await sp.remove('createdAt');
-    await sp.remove('updatedAt');
-    await sp.remove('role');
+    await sp.remove('user');
     notifyListeners();
     return true;
+  }
+
+  Future<void> updateUser(
+      bool isEditMode,
+      Map<String, String> data,
+      bool isFileSelected,
+      Map<String, String> files,
+      BuildContext context) async {
+    setLoading(true);
+    if (kDebugMode) {
+      print('data: $data');
+      print('files: $files');
+    }
+    _myRepo
+        .updateProfileApi(isEditMode, data, isFileSelected, files)
+        .then((value) {
+      if (kDebugMode) {
+        print(value.toString());
+      }
+      final userViewModel = Provider.of<UserViewModel>(context, listen: false);
+      userViewModel.saveUser(UserModel.fromJson(value['data']));
+      setLoading(false);
+      Utils.flushBarErrorMessage('Profile updated successfully', context);
+      Navigator.pushReplacementNamed(context, RoutesName.home);
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      Utils.flushBarErrorMessage(error.toString(), context);
+      if (kDebugMode) {
+        print(error.toString());
+      }
+    });
   }
 }

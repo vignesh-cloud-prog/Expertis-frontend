@@ -1,4 +1,4 @@
-class AppUrl {
+class ApiUrl {
   static var baseUrl = 'https://expertis-api.azurewebsites.net/';
 
   static var moviesBaseUrl =
@@ -12,6 +12,7 @@ class AppUrl {
   static var verifyTokenEndPint = '${baseUrl}users/verify-token';
 
   static var registerApiEndPoint = '${baseUrl}users/register';
+  static var updateProfileApiEndPoint = '${baseUrl}users/update';
 
   static var moviesListEndPoint = '${moviesBaseUrl}movies_list';
 }

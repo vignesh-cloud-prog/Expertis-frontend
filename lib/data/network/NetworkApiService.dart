@@ -32,6 +32,7 @@ class NetworkApiService extends BaseApiServices {
   @override
   Future getPostApiResponse(String url, dynamic header, dynamic data) async {
     dynamic responseJson;
+
     if (kDebugMode) {
       print("data ${data.toString()}");
     }
@@ -52,13 +53,48 @@ class NetworkApiService extends BaseApiServices {
     return responseJson;
   }
 
+  @override
+  Future getMultipartApiResponse(
+      bool isEditMode,
+      String url,
+      Map<String, String> header,
+      Map<String, String> data,
+      bool isFileSelected,
+      Map<String, String> files) async {
+    dynamic responseJson;
+    print("isFileSelected $isFileSelected");
+    try {
+      var requestMethod = isEditMode ? "PATCH" : "POST";
+
+      var request = http.MultipartRequest(requestMethod, Uri.parse(url));
+      request.fields.addAll(data);
+      request.headers.addAll(header);
+
+      if (isFileSelected) {
+        files.forEach((key, value) async {
+          request.files.add(await http.MultipartFile.fromPath(key, value));
+        });
+      }
+
+      var response = await request.send();
+      print(response.statusCode);
+
+      var responded = await http.Response.fromStream(response);
+      print(responded.body);
+      return responseJson = returnResponse(responded);
+    } on SocketException {
+      throw FetchDataException('No Internet Connection');
+    }
+    return responseJson;
+  }
+
   dynamic returnResponse(http.Response response) {
     dynamic responseJson = jsonDecode(response.body);
-    responseJson["statusCode"] = response.statusCode;
     switch (response.statusCode) {
       case 200:
         return responseJson;
       case 300:
+        responseJson["statusCode"] = response.statusCode;
         return responseJson;
       case 401:
       case 403:

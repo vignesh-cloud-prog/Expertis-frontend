@@ -10,7 +10,7 @@ import '../utils/BMColors.dart';
 
 class BMTokenExpiredScreen extends StatefulWidget {
   const BMTokenExpiredScreen({Key? key}) : super(key: key);
-  static const routeName = '/login-now';
+  static const routeName = '/token-expired';
   @override
   State<BMTokenExpiredScreen> createState() => _BMTokenExpiredScreenState();
 }

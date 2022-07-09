@@ -81,7 +81,7 @@ class AuthViewModel with ChangeNotifier {
     _myRepo.loginApi(data).then((value) {
       setLoading(false);
       if (kDebugMode) {
-        print(value.toString());
+        // print(value.toString());
       }
       if (value['statusCode'] == 300) {
         email = value['data']['email'];
@@ -90,19 +90,17 @@ class AuthViewModel with ChangeNotifier {
         Utils.flushBarErrorMessage('Email validation required', context);
         Navigator.pushNamed(context, RoutesName.verifyOTP);
       } else {
-        final userPreference =
+        final userViewModel =
             Provider.of<UserViewModel>(context, listen: false);
-        userPreference.saveUser(UserModel(
-            token: value['data']['token'].toString(),
-            email: value['data']['email'].toString(),
-            id: value['data']['id'].toString(),
-            name: value['data']['name'].toString(),
-            phone: value['data']['phone'].toString(),
-            userPic: value['data']['userPic'].toString(),
-            createdAt: value['data']['createdAt'].toString(),
-            updatedAt: value['data']['updatedAt'].toString()));
-        setValidTokenTrue();
+        userViewModel.saveUser(UserModel.fromJson(value['data']));
+        userViewModel.saveToken(value['data']['token']);
         Utils.flushBarErrorMessage('Login Successfully', context);
+        if (kDebugMode) {
+          UserViewModel.getUser();
+        }
+
+        setValidTokenTrue();
+
         Navigator.pushReplacementNamed(context, RoutesName.home);
       }
     }).onError((error, stackTrace) {
@@ -139,10 +137,12 @@ class AuthViewModel with ChangeNotifier {
       if (kDebugMode) {
         print(value.toString());
       }
+      Navigator.pushNamedAndRemoveUntil(
+          context, RoutesName.home, (route) => false);
       Utils.toastMessage("Token verified successfully");
     }).onError((error, stackTrace) {
       setValidTokenFalse();
-
+      Navigator.pushReplacementNamed(context, RoutesName.tokenExpired);
       // setForgetPasswordLoading(false);
       Utils.toastMessage(error.toString());
       if (kDebugMode) {
@@ -198,12 +198,15 @@ class AuthViewModel with ChangeNotifier {
     setLoading(true);
 
     _myRepo.verifyOTP(data).then((value) {
+      print('value: $value');
       setLoading(false);
-      // final userPreference = Provider.of<UserViewModel>(context, listen: false);
-      // userPreference.saveUser(UserModel(token: value['token'].toString()));
+      final userViewModel = Provider.of<UserViewModel>(context, listen: false);
+      userViewModel.saveUser(UserModel.fromJson(value['data']));
+      userViewModel.saveToken(value['data']['token']);
 
       Utils.flushBarErrorMessage('Verified successfully', context);
-      Navigator.pushNamed(context, RoutesName.home);
+
+      Navigator.pushReplacementNamed(context, RoutesName.createProfile);
       if (kDebugMode) {
         print(value.toString());
       }

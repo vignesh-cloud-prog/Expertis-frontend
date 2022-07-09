@@ -16,9 +16,11 @@ import 'package:expertis/screens/BMLoginNowScreen.dart';
 import 'package:expertis/screens/BMLoginScreen.dart';
 import 'package:expertis/screens/BMRegisterScreen.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';
+import 'package:expertis/screens/BMTokenExpiredScreen.dart';
 import 'package:expertis/screens/BMUserProfileEdit.dart';
 import 'package:expertis/screens/BMWalkThroughScreen.dart';
 import 'package:expertis/screens/BMVerifyOTPScreen.dart';
+import 'package:expertis/utils/routes_name.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -72,7 +74,20 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           flag: false,
         ),
       );
-    case BMUserProfileEditScreen.routeName:
+    case BMTokenExpiredScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => BMTokenExpiredScreen(),
+      );
+    case RoutesName.createProfile:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => BMUserProfileEditScreen(
+          title: "Create Profile",
+          buttonName: "Create",
+        ),
+      );
+    case RoutesName.editProfile:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => BMUserProfileEditScreen(),

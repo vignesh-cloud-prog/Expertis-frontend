@@ -22,10 +22,8 @@ class AuthRepository {
   Future<dynamic> loginApi(dynamic data) async {
     try {
       dynamic response = await _apiServices.getPostApiResponse(
-          AppUrl.loginEndPint, requestHeaders, data);
-      if (kDebugMode) {
-        print("response ${response.toString()}");
-      }
+          ApiUrl.loginEndPint, requestHeaders, data);
+
       return response;
     } catch (e) {
       rethrow;
@@ -35,7 +33,7 @@ class AuthRepository {
   Future<dynamic> verifyTokenApi(dynamic header) async {
     try {
       dynamic response = await _apiServices.getGetApiResponse(
-          AppUrl.verifyTokenEndPint, header);
+          ApiUrl.verifyTokenEndPint, header);
       if (kDebugMode) {
         print("response ${response.toString()}");
       }
@@ -48,7 +46,7 @@ class AuthRepository {
   Future<dynamic> forgetPasswordApi(dynamic data) async {
     try {
       dynamic response = await _apiServices.getPostApiResponse(
-          AppUrl.forgetPasswordEndPint, requestHeaders, data);
+          ApiUrl.forgetPasswordEndPint, requestHeaders, data);
       if (kDebugMode) {
         print("response ${response.toString()}");
       }
@@ -61,7 +59,7 @@ class AuthRepository {
   Future<dynamic> changePasswordApi(dynamic data) async {
     try {
       dynamic response = await _apiServices.getPostApiResponse(
-          AppUrl.changePasswordEndPint, requestHeaders, data);
+          ApiUrl.changePasswordEndPint, requestHeaders, data);
       if (kDebugMode) {
         print("response ${response.toString()}");
       }
@@ -74,7 +72,7 @@ class AuthRepository {
   Future<dynamic> signUpApi(dynamic data) async {
     try {
       dynamic response = await _apiServices.getPostApiResponse(
-          AppUrl.registerApiEndPoint, requestHeaders, data);
+          ApiUrl.registerApiEndPoint, requestHeaders, data);
       return response;
     } catch (e) {
       rethrow;
@@ -84,7 +82,7 @@ class AuthRepository {
   Future<dynamic> verifyOTP(dynamic data) async {
     try {
       dynamic response = await _apiServices.getPostApiResponse(
-          AppUrl.verifyOTPEndPint, requestHeaders, data);
+          ApiUrl.verifyOTPEndPint, requestHeaders, data);
       return response;
     } catch (e) {
       rethrow;
