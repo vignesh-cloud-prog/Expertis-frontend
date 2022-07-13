@@ -1,4 +1,4 @@
 # expertis
 
-A new Flutter project.
+A college project.
 
