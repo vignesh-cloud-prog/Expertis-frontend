@@ -3,12 +3,12 @@ import 'package:expertis/respository/home_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
-class HomeViewViewModel with ChangeNotifier {
+class HomeViewModel with ChangeNotifier {
   final _myRepo = HomeRepository();
 
   ApiResponse<dynamic> homeData = ApiResponse.loading();
 
-  setMoviesList(ApiResponse<dynamic> response) {
+  setHomeData(ApiResponse<dynamic> response) {
     homeData = response;
     if (kDebugMode) {
       print("response ${homeData.toString()}");
@@ -16,13 +16,13 @@ class HomeViewViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchMoviesListApi() async {
-    setMoviesList(ApiResponse.loading());
+  Future<void> fetchHomeDataApi() async {
+    setHomeData(ApiResponse.loading());
 
-    _myRepo.fetchMoviesList().then((value) {
-      setMoviesList(ApiResponse.completed(value));
+    _myRepo.fetchHomeData().then((value) {
+      setHomeData(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
-      setMoviesList(ApiResponse.error(error.toString()));
+      setHomeData(ApiResponse.error(error.toString()));
     });
   }
 }

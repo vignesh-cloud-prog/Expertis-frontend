@@ -1,3 +1,31 @@
+import 'package:flutter/foundation.dart';
+
+class CategoryListModel {
+  List<CategoryModel>? categories;
+
+  CategoryListModel({this.categories});
+
+  CategoryListModel.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      categories = <CategoryModel>[];
+      json['data'].forEach((v) {
+        categories!.add(new CategoryModel.fromJson(v));
+      });
+      if (kDebugMode) {
+        print('categories.toString() ${categories![0]?.toString()}');
+      }
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.categories != null) {
+      data['categories'] = this.categories!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
 class CategoryModel {
   String? tagName;
   String? tagPic;

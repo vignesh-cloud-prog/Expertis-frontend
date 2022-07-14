@@ -1,10 +1,10 @@
 import 'package:expertis/data/network/BaseApiServices.dart';
 import 'package:expertis/data/network/NetworkApiService.dart';
+import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/utils/api_url.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 
-class HomeRepository {
-  BaseApiServices _apiServices = NetworkApiService();
+class CategoryRepository {
   Map<String, String> requestHeaders = {
     "Access-Control-Allow-Origin": "*", // Required for CORS support to work
     "Access-Control-Allow-Credentials":
@@ -15,15 +15,20 @@ class HomeRepository {
     'Content-Type': 'application/json',
   };
 
-  Future<dynamic> fetchHomeData() async {
+  BaseApiServices _apiServices = NetworkApiService();
+
+  Future<CategoryListModel> fetchCategoryList() async {
     requestHeaders["Authorization"] = await UserViewModel.getUserToken();
+
     try {
       dynamic response = await _apiServices.getGetApiResponse(
-          ApiUrl.fetchHomeDataEndPoint, requestHeaders);
-      print(response);
+          ApiUrl.fetchCategoryEndPoint, requestHeaders);
+      print("response ${response.toString()}");
+      response = CategoryListModel.fromJson(response);
+      print("response ${response.data.toString()}");
       return response;
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

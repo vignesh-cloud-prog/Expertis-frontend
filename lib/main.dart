@@ -1,10 +1,12 @@
 //region imports
+import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';
 import 'package:expertis/store/AppStore.dart';
 import 'package:expertis/utils/AppTheme.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/utils/BMDataGenerator.dart';
 import 'package:expertis/utils/routes_name.dart';
+import 'package:expertis/view_model/categories_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -30,7 +32,8 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => AuthViewModel()),
-      ChangeNotifierProvider(create: (_) => UserViewModel())
+      ChangeNotifierProvider(create: (_) => UserViewModel()),
+      ChangeNotifierProvider(create: (_) => CategoryViewModel()),
     ],
     child: const MyApp(),
   ));

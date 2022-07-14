@@ -60,7 +60,7 @@ class UserViewModel with ChangeNotifier {
   static Future<String> getUserToken() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String token = sp.getString('token') ?? 'dummy';
-
+    print("token: $token");
     return token.toString();
   }
 

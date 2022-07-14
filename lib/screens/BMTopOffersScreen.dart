@@ -9,7 +9,6 @@ import '../utils/BMWidgets.dart';
 
 class BMTopOffersScreen extends StatefulWidget {
   const BMTopOffersScreen({Key? key}) : super(key: key);
-
   @override
   State<BMTopOffersScreen> createState() => _BMTopOffersScreenState();
 }

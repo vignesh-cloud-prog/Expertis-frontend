@@ -49,25 +49,12 @@ class _BMDashboardScreenState extends State<BMDashboardScreen> {
     }
   }
 
-  _asyncValidateToken() async {
-    // final AuthRepository authRepository = AuthRepository();
-    // token = await UserViewModel.getUserToken();
-
-    // bool isValidToken = await authRepository.verifyTokenApi(header);
-
-    // setState(() {
-    //   // tokenValid = isValidToken;
-    //   token = token;
-    // });
-  }
-
   @override
   void initState() {
     setStatusBarColor(appStore.isDarkModeOn
         ? appStore.scaffoldBackground!
         : bmLightScaffoldBackgroundColor);
     super.initState();
-    // _asyncValidateToken();
   }
 
   @override

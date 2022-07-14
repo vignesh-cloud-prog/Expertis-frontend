@@ -19,7 +19,7 @@ class NetworkApiService extends BaseApiServices {
           .get(Uri.parse(url), headers: header)
           .timeout(const Duration(seconds: 60));
       if (kDebugMode) {
-        print("response ${response.body}");
+        // print("response ${response.body}");
       }
       responseJson = returnResponse(response);
     } on SocketException {
@@ -85,7 +85,6 @@ class NetworkApiService extends BaseApiServices {
     } on SocketException {
       throw FetchDataException('No Internet Connection');
     }
-    return responseJson;
   }
 
   dynamic returnResponse(http.Response response) {

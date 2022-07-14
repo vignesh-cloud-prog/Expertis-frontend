@@ -101,7 +101,8 @@ class AuthViewModel with ChangeNotifier {
 
         setValidTokenTrue();
 
-        Navigator.pushReplacementNamed(context, RoutesName.home);
+        Navigator.pushNamedAndRemoveUntil(
+            context, RoutesName.home, (route) => false);
       }
     }).onError((error, stackTrace) {
       setLoading(false);
@@ -112,7 +113,7 @@ class AuthViewModel with ChangeNotifier {
     });
   }
 
-  Future<void> verifyToken(BuildContext context) async {
+  Future<void> verifyToken() async {
     String? token = await UserViewModel.getUserToken();
     if (kDebugMode) {
       print("token: $token");
@@ -133,17 +134,12 @@ class AuthViewModel with ChangeNotifier {
     }
 
     _myRepo.verifyTokenApi(header).then((value) {
-      // setLoading(false);
       if (kDebugMode) {
         print(value.toString());
       }
-      Navigator.pushNamedAndRemoveUntil(
-          context, RoutesName.home, (route) => false);
-      Utils.toastMessage("Token verified successfully");
     }).onError((error, stackTrace) {
       setValidTokenFalse();
-      Navigator.pushReplacementNamed(context, RoutesName.tokenExpired);
-      // setForgetPasswordLoading(false);
+      // Navigator.pushReplacementNamed(context, RoutesName.tokenExpired);
       Utils.toastMessage(error.toString());
       if (kDebugMode) {
         print(error.toString());

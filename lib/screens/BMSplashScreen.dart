@@ -29,6 +29,8 @@ class BMSplashScreenState extends State<BMSplashScreen> {
         ? appStore.scaffoldBackground!
         : bmLightScaffoldBackgroundColor);
     splashServices.checkAuthentication(context);
+    final authViewModel = AuthViewModel();
+    authViewModel.verifyToken();
   }
 
   @override
@@ -38,8 +40,6 @@ class BMSplashScreenState extends State<BMSplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authViewModel = Provider.of<AuthViewModel>(context);
-    authViewModel.verifyToken(context);
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!
