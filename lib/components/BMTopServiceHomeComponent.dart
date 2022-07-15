@@ -31,7 +31,7 @@ class _BMTopServiceHomeComponentState extends State<BMTopServiceHomeComponent> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<CategoryViewModel>(
-      create: (BuildContext context) => CategoryViewModel(),
+      create: (BuildContext context) => categoryViewModel,
       child: Consumer<CategoryViewModel>(builder: (context, value, _) {
         switch (value.categoryList.status) {
           case Status.LOADING:

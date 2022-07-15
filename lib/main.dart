@@ -33,7 +33,6 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (_) => AuthViewModel()),
       ChangeNotifierProvider(create: (_) => UserViewModel()),
-      ChangeNotifierProvider(create: (_) => CategoryViewModel()),
     ],
     child: const MyApp(),
   ));

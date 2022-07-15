@@ -1,5 +1,7 @@
 import 'package:expertis/data/network/BaseApiServices.dart';
 import 'package:expertis/data/network/NetworkApiService.dart';
+import 'package:expertis/models/shop_list_model.dart';
+import 'package:expertis/models/user_model.dart';
 import 'package:expertis/utils/api_url.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 
@@ -15,15 +17,34 @@ class HomeRepository {
     'Content-Type': 'application/json',
   };
 
-  Future<dynamic> fetchHomeData() async {
+  Future<ShopListModel> fetchHomeData() async {
     requestHeaders["Authorization"] = await UserViewModel.getUserToken();
     try {
       dynamic response = await _apiServices.getGetApiResponse(
           ApiUrl.fetchHomeDataEndPoint, requestHeaders);
       print(response);
+      response = ShopListModel.fromJson(response);
+      print("response after from json ${response.toString()}");
       return response;
     } catch (e) {
-      throw e;
+      rethrow;
+    }
+  }
+
+  Future<ShopListModel> fetchNearbyShopsData() async {
+    requestHeaders["Authorization"] = await UserViewModel.getUserToken();
+    UserModel user = await UserViewModel.getUser();
+    String url = ApiUrl.fetchNearbyShopsEndPoint(user.pinCode, user.address);
+    print("url is $url");
+    try {
+      dynamic response =
+          await _apiServices.getGetApiResponse(url, requestHeaders);
+      print(response);
+      response = ShopListModel.fromJson(response);
+      print("response after from json ${response.toString()}");
+      return response;
+    } catch (e) {
+      rethrow;
     }
   }
 }

@@ -23,9 +23,9 @@ class CategoryRepository {
     try {
       dynamic response = await _apiServices.getGetApiResponse(
           ApiUrl.fetchCategoryEndPoint, requestHeaders);
-      print("response ${response.toString()}");
+      // print("response before from json ${response.toString()}");
       response = CategoryListModel.fromJson(response);
-      print("response ${response.data.toString()}");
+      // print("response after from json ${response.toString()}");
       return response;
     } catch (e) {
       rethrow;

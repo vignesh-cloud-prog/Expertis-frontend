@@ -10,5 +10,7 @@ class ApiUrl {
   static var updateProfileApiEndPoint = '${baseUrl}users/update';
 
   static var fetchCategoryEndPoint = '${baseUrl}tags';
-  static var fetchHomeDataEndPoint = '${baseUrl}shops/?city=nittur';
+  static var fetchHomeDataEndPoint = '${baseUrl}shops';
+  static String fetchNearbyShopsEndPoint(pin, city) =>
+      '${baseUrl}shops?pinCode=$pin&city=$city';
 }

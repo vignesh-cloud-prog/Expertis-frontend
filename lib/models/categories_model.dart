@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class CategoryListModel {
   List<CategoryModel>? categories;
 
@@ -9,11 +7,10 @@ class CategoryListModel {
     if (json['data'] != null) {
       categories = <CategoryModel>[];
       json['data'].forEach((v) {
+        print("v is ${v.toString()}");
         categories!.add(new CategoryModel.fromJson(v));
       });
-      if (kDebugMode) {
-        print('categories.toString() ${categories![0]?.toString()}');
-      }
+      print("category list is ${categories.toString()}");
     }
   }
 

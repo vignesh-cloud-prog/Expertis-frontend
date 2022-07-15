@@ -1,34 +1,37 @@
 class ShopListModel {
-  List<Shop>? shop;
+  List<ShopModel>? shops;
 
-  ShopListModel({this.shop});
+  ShopListModel({this.shops});
 
   ShopListModel.fromJson(Map<String, dynamic> json) {
-    if (json['shop'] != null) {
-      shop = <Shop>[];
-      json['shop'].forEach((v) {
-        shop!.add(new Shop.fromJson(v));
+    if (json['data'] != null) {
+      shops = <ShopModel>[];
+      json['data'].forEach((v) {
+        shops!.add(new ShopModel.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.shop != null) {
-      data['shop'] = this.shop!.map((v) => v.toJson()).toList();
+    if (this.shops != null) {
+      data['shops'] = this.shops!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Shop {
+class ShopModel {
   String? owner;
+  String? shopId;
   String? shopName;
   String? shopLogo;
   Contact? contact;
+  WorkingHours? workingHours;
   List<String>? tags;
+  List<Members>? members;
   bool? isVerifiedByAdmin;
-  List<Services>? services;
+  List<String>? services;
   List<String>? appointments;
   List<String>? slotsBooked;
   Rating? rating;
@@ -36,17 +39,19 @@ class Shop {
   bool? isDeleted;
   bool? isActive;
   bool? isOpen;
-  List<String>? members;
   String? createdAt;
   String? updatedAt;
   String? id;
 
-  Shop(
+  ShopModel(
       {this.owner,
+      this.shopId,
       this.shopName,
       this.shopLogo,
       this.contact,
+      this.workingHours,
       this.tags,
+      this.members,
       this.isVerifiedByAdmin,
       this.services,
       this.appointments,
@@ -56,25 +61,29 @@ class Shop {
       this.isDeleted,
       this.isActive,
       this.isOpen,
-      this.members,
       this.createdAt,
       this.updatedAt,
       this.id});
 
-  Shop.fromJson(Map<String, dynamic> json) {
+  ShopModel.fromJson(Map<String, dynamic> json) {
     owner = json['owner'];
+    shopId = json['shopId'];
     shopName = json['shopName'];
     shopLogo = json['shopLogo'];
     contact =
         json['contact'] != null ? new Contact.fromJson(json['contact']) : null;
+    workingHours = json['workingHours'] != null
+        ? new WorkingHours.fromJson(json['workingHours'])
+        : null;
     tags = json['tags'].cast<String>();
-    isVerifiedByAdmin = json['isVerifiedByAdmin'];
-    if (json['services'] != null) {
-      services = <Services>[];
-      json['services'].forEach((v) {
-        services!.add(new Services.fromJson(v));
+    if (json['members'] != null) {
+      members = <Members>[];
+      json['members'].forEach((v) {
+        members!.add(new Members.fromJson(v));
       });
     }
+    isVerifiedByAdmin = json['isVerifiedByAdmin'];
+    services = json['services'].cast<String>();
     appointments = json['appointments'].cast<String>();
     slotsBooked = json['slotsBooked'].cast<String>();
     rating =
@@ -83,7 +92,6 @@ class Shop {
     isDeleted = json['isDeleted'];
     isActive = json['isActive'];
     isOpen = json['isOpen'];
-    members = json['members'].cast<String>();
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     id = json['id'];
@@ -92,16 +100,21 @@ class Shop {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['owner'] = this.owner;
+    data['shopId'] = this.shopId;
     data['shopName'] = this.shopName;
     data['shopLogo'] = this.shopLogo;
     if (this.contact != null) {
       data['contact'] = this.contact!.toJson();
     }
-    data['tags'] = this.tags;
-    data['isVerifiedByAdmin'] = this.isVerifiedByAdmin;
-    if (this.services != null) {
-      data['services'] = this.services!.map((v) => v.toJson()).toList();
+    if (this.workingHours != null) {
+      data['workingHours'] = this.workingHours!.toJson();
     }
+    data['tags'] = this.tags;
+    if (this.members != null) {
+      data['members'] = this.members!.map((v) => v.toJson()).toList();
+    }
+    data['isVerifiedByAdmin'] = this.isVerifiedByAdmin;
+    data['services'] = this.services;
     data['appointments'] = this.appointments;
     data['slotsBooked'] = this.slotsBooked;
     if (this.rating != null) {
@@ -111,7 +124,6 @@ class Shop {
     data['isDeleted'] = this.isDeleted;
     data['isActive'] = this.isActive;
     data['isOpen'] = this.isOpen;
-    data['members'] = this.members;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['id'] = this.id;
@@ -147,42 +159,157 @@ class Contact {
   }
 }
 
-class Services {
-  String? serviceName;
-  int? price;
-  String? time;
-  String? isVerifiedByAdmin;
-  String? shop;
-  List<String>? tags;
+class WorkingHours {
+  Sunday? sunday;
+  Sunday? monday;
+  Sunday? tuesday;
+  Sunday? wednesday;
+  Sunday? thursday;
+  Sunday? friday;
+  Sunday? saturday;
   String? id;
 
-  Services(
-      {this.serviceName,
-      this.price,
-      this.time,
-      this.isVerifiedByAdmin,
-      this.shop,
-      this.tags,
+  WorkingHours(
+      {this.sunday,
+      this.monday,
+      this.tuesday,
+      this.wednesday,
+      this.thursday,
+      this.friday,
+      this.saturday,
       this.id});
 
-  Services.fromJson(Map<String, dynamic> json) {
-    serviceName = json['serviceName'];
-    price = json['price'];
-    time = json['time'];
-    isVerifiedByAdmin = json['isVerifiedByAdmin'];
-    shop = json['shop'];
-    tags = json['tags'].cast<String>();
+  WorkingHours.fromJson(Map<String, dynamic> json) {
+    sunday =
+        json['sunday'] != null ? new Sunday.fromJson(json['sunday']) : null;
+    monday =
+        json['monday'] != null ? new Sunday.fromJson(json['monday']) : null;
+    tuesday =
+        json['tuesday'] != null ? new Sunday.fromJson(json['tuesday']) : null;
+    wednesday = json['wednesday'] != null
+        ? new Sunday.fromJson(json['wednesday'])
+        : null;
+    thursday =
+        json['thursday'] != null ? new Sunday.fromJson(json['thursday']) : null;
+    friday =
+        json['friday'] != null ? new Sunday.fromJson(json['friday']) : null;
+    saturday =
+        json['saturday'] != null ? new Sunday.fromJson(json['saturday']) : null;
     id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['serviceName'] = this.serviceName;
-    data['price'] = this.price;
-    data['time'] = this.time;
-    data['isVerifiedByAdmin'] = this.isVerifiedByAdmin;
-    data['shop'] = this.shop;
-    data['tags'] = this.tags;
+    if (this.sunday != null) {
+      data['sunday'] = this.sunday!.toJson();
+    }
+    if (this.monday != null) {
+      data['monday'] = this.monday!.toJson();
+    }
+    if (this.tuesday != null) {
+      data['tuesday'] = this.tuesday!.toJson();
+    }
+    if (this.wednesday != null) {
+      data['wednesday'] = this.wednesday!.toJson();
+    }
+    if (this.thursday != null) {
+      data['thursday'] = this.thursday!.toJson();
+    }
+    if (this.friday != null) {
+      data['friday'] = this.friday!.toJson();
+    }
+    if (this.saturday != null) {
+      data['saturday'] = this.saturday!.toJson();
+    }
+    data['id'] = this.id;
+    return data;
+  }
+}
+
+class Sunday {
+  bool? isOpen;
+  String? openingTime;
+  String? closingTime;
+  List<Breaks>? breaks;
+  String? id;
+
+  Sunday(
+      {this.isOpen, this.openingTime, this.closingTime, this.breaks, this.id});
+
+  Sunday.fromJson(Map<String, dynamic> json) {
+    isOpen = json['isOpen'];
+    openingTime = json['openingTime'];
+    closingTime = json['closingTime'];
+    if (json['breaks'] != null) {
+      breaks = <Breaks>[];
+      json['breaks'].forEach((v) {
+        breaks!.add(new Breaks.fromJson(v));
+      });
+    }
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['isOpen'] = this.isOpen;
+    data['openingTime'] = this.openingTime;
+    data['closingTime'] = this.closingTime;
+    if (this.breaks != null) {
+      data['breaks'] = this.breaks!.map((v) => v.toJson()).toList();
+    }
+    data['id'] = this.id;
+    return data;
+  }
+}
+
+class Breaks {
+  String? from;
+  String? to;
+  String? reason;
+  String? sId;
+
+  Breaks({this.from, this.to, this.reason, this.sId});
+
+  Breaks.fromJson(Map<String, dynamic> json) {
+    from = json['from'];
+    to = json['to'];
+    reason = json['reason'];
+    sId = json['_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['from'] = this.from;
+    data['to'] = this.to;
+    data['reason'] = this.reason;
+    data['_id'] = this.sId;
+    return data;
+  }
+}
+
+class Members {
+  String? member;
+  String? name;
+  String? pic;
+  String? role;
+  String? id;
+
+  Members({this.member, this.name, this.pic, this.role, this.id});
+
+  Members.fromJson(Map<String, dynamic> json) {
+    member = json['member'];
+    name = json['name'];
+    pic = json['pic'];
+    role = json['role'];
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['member'] = this.member;
+    data['name'] = this.name;
+    data['pic'] = this.pic;
+    data['role'] = this.role;
     data['id'] = this.id;
     return data;
   }

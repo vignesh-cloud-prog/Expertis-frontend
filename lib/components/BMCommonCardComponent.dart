@@ -1,3 +1,4 @@
+import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -8,7 +9,7 @@ import '../screens/BMSingleComponentScreen.dart';
 import '../utils/BMColors.dart';
 
 class BMCommonCardComponent extends StatefulWidget {
-  BMCommonCardModel element;
+  ShopModel element;
   bool fullScreenComponent;
   bool isFavList;
 
@@ -22,6 +23,8 @@ class BMCommonCardComponent extends StatefulWidget {
 }
 
 class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
+  bool isLiked = false;
+  bool saveTag = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,13 +36,13 @@ class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                widget.element.image,
+              Image.network(
+                widget.element.shopLogo ?? '',
                 width: widget.fullScreenComponent ? context.width() - 32 : 250,
                 height: 150,
                 fit: BoxFit.cover,
               ).cornerRadiusWithClipRRectOnly(topLeft: 32, topRight: 32),
-              widget.element.saveTag
+              saveTag
                   ? Container(
                       color: bmTextColorDarkMode.shade400,
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -57,7 +60,7 @@ class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
                     )
                   : Offstage(),
               8.height,
-              Text(widget.element.title,
+              Text(widget.element.shopName ?? '',
                       style: boldTextStyle(
                           size: 18,
                           color: appStore.isDarkModeOn
@@ -65,7 +68,7 @@ class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
                               : bmSpecialColorDark))
                   .paddingSymmetric(horizontal: 8),
               4.height,
-              Text(widget.element.subtitle!,
+              Text(widget.element.contact!.address ?? '',
                       style: secondaryTextStyle(
                           color: appStore.isDarkModeOn
                               ? bmTextColorDarkMode
@@ -83,16 +86,18 @@ class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
                         color: Colors.amber,
                       ),
                       4.width,
-                      Text(widget.element.rating!, style: boldTextStyle()),
+                      Text(widget.element.rating!.avg.toString(),
+                          style: boldTextStyle()),
                       2.width,
-                      Text('(${widget.element.comments!})',
+                      Text(
+                          '(${widget.element.rating!.totalMembers.toString()})',
                           style: secondaryTextStyle(
                               color: appStore.isDarkModeOn
                                   ? bmTextColorDarkMode
                                   : bmPrimaryColor)),
                     ],
                   ),
-                  Text(widget.element.distance!,
+                  Text(widget.element.rating!.avg.toString(),
                       style: secondaryTextStyle(
                           color: appStore.isDarkModeOn
                               ? bmTextColorDarkMode
@@ -107,10 +112,10 @@ class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
             right: 15,
             child: Icon(
               Icons.favorite,
-              color: widget.element.liked! ? Colors.amber : bmTextColorDarkMode,
+              color: isLiked ? Colors.amber : bmTextColorDarkMode,
               size: 24,
             ).onTap(() {
-              widget.element.liked = !widget.element.liked.validate();
+              isLiked = !isLiked.validate();
               if (widget.isFavList) {
                 favList.remove(widget.element);
               }
@@ -120,7 +125,7 @@ class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
         ],
       ),
     ).onTap(() {
-      BMSingleComponentScreen(element: widget.element).launch(context);
+      // BMSingleComponentScreen(element: widget.element).launch(context);
     });
   }
 }
