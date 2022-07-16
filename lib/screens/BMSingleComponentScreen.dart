@@ -8,15 +8,15 @@ import '../components/BMPortfolioComponent.dart';
 import '../main.dart';
 import '../models/BMCommonCardModel.dart';
 import '../models/BMMessageModel.dart';
+import '../models/shop_list_model.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 import '../utils/flutter_rating_bar.dart';
 import 'BMSingleImageScreen.dart';
 
 class BMSingleComponentScreen extends StatefulWidget {
-  BMCommonCardModel element;
-
-  BMSingleComponentScreen({required this.element});
+  ShopModel element;
+  BMSingleComponentScreen({Key? key, required this.element}) : super(key: key);
 
   @override
   _BMSingleComponentScreenState createState() =>
@@ -50,6 +50,7 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLiked = false;
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!
@@ -69,23 +70,23 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                   finish(context);
                 },
               ).visible(innerBoxIsScrolled),
-              title: titleText(title: widget.element.title)
+              title: titleText(title: widget.element.shopName ?? '')
                   .visible(innerBoxIsScrolled),
               actions: [
                 IconButton(
                   icon: Icon(Icons.subdirectory_arrow_right,
                       color: bmPrimaryColor),
                   onPressed: () {
-                    BMSingleImageScreen(element: widget.element)
-                        .launch(context);
+                    // BMSingleImageScreen(element: widget.element)
+                    //     .launch(context);
                   },
                 ).visible(innerBoxIsScrolled),
                 IconButton(
-                  icon: widget.element.liked!
+                  icon: isLiked
                       ? Icon(Icons.favorite, color: bmPrimaryColor)
                       : Icon(Icons.favorite_outline, color: bmPrimaryColor),
                   onPressed: () {
-                    widget.element.liked = !widget.element.liked!;
+                    isLiked = !isLiked;
                     setState(() {});
                   },
                 ).visible(innerBoxIsScrolled),
@@ -101,8 +102,8 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                   children: [
                     Stack(
                       children: [
-                        Image.asset(
-                          widget.element.image,
+                        Image.network(
+                          widget.element.shopLogo ?? '',
                           height: 300,
                           width: context.width(),
                           fit: BoxFit.cover,
@@ -134,11 +135,11 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                                   padding: EdgeInsets.all(8),
                                   margin: EdgeInsets.only(right: 16, top: 30),
                                 ).onTap(() {
-                                  BMSingleImageScreen(element: widget.element)
-                                      .launch(context);
+                                  // BMSingleImageScreen(element: widget.element)
+                                  //     .launch(context);
                                 }, borderRadius: radius(100)),
                                 Container(
-                                  child: widget.element.liked!
+                                  child: isLiked
                                       ? Icon(Icons.favorite,
                                           color: bmPrimaryColor)
                                       : Icon(Icons.favorite_outline,
@@ -150,7 +151,7 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                                   padding: EdgeInsets.all(8),
                                   margin: EdgeInsets.only(right: 16, top: 30),
                                 ).onTap(() {
-                                  widget.element.liked = !widget.element.liked!;
+                                  isLiked = !isLiked;
                                   setState(() {});
                                 }, borderRadius: radius(100)),
                               ],
@@ -167,10 +168,10 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          titleText(title: widget.element.title),
+                          titleText(title: widget.element.shopName ?? ''),
                           8.height,
                           Text(
-                            widget.element.subtitle!,
+                            widget.element.contact!.address!,
                             style: secondaryTextStyle(
                                 color: appStore.isDarkModeOn
                                     ? Colors.white
@@ -180,11 +181,12 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                           8.height,
                           Row(
                             children: [
-                              Text(widget.element.rating!,
+                              Text(widget.element.rating!.avg.toString(),
                                   style: boldTextStyle()),
                               2.width,
                               RatingBar(
-                                initialRating: widget.element.rating.toDouble(),
+                                initialRating:
+                                    widget.element.rating!.avg!.toDouble(),
                                 minRating: 5,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
@@ -201,7 +203,9 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                                 },
                               ),
                               6.width,
-                              Text(widget.element.comments!,
+                              Text(
+                                  widget.element.rating!.totalMembers
+                                      .toString(),
                                   style: secondaryTextStyle(
                                       color: bmTextColorDarkMode)),
                             ],
@@ -254,15 +258,15 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                                   ],
                                 ),
                               ).onTap(() {
-                                BMChatScreen(
-                                    element: BMMessageModel(
-                                  image: widget.element.image,
-                                  name: widget.element.title,
-                                  message:
-                                      'Do you want to confirm yor appointment?',
-                                  isActive: false,
-                                  lastSeen: 'today , at 11:30 am',
-                                )).launch(context);
+                                // BMChatScreen(
+                                //     element: BMMessageModel(
+                                //   image: widget.element.image,
+                                //   name: widget.element.title,
+                                //   message:
+                                //       'Do you want to confirm yor appointment?',
+                                //   isActive: false,
+                                //   lastSeen: 'today , at 11:30 am',
+                                // )).launch(context);
                               }),
                             ],
                           )

@@ -1,3 +1,4 @@
+import 'package:expertis/data/response/api_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:expertis/models/user_model.dart';
@@ -113,38 +114,55 @@ class AuthViewModel with ChangeNotifier {
     });
   }
 
+  // Future<void> verifyToken() async {
+  //   String? token = await UserViewModel.getUserToken();
+  //   if (kDebugMode) {
+  //     print("token: $token");
+  //   }
+  //   Map<String, String> header = {
+  //     "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+  //     "Access-Control-Allow-Credentials":
+  //         "true", // Required for cookies, authorization headers with HTTPS
+  //     "Access-Control-Allow-Headers":
+  //         "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+  //     "Access-Control-Allow-Methods": "POST, OPTIONS",
+  //     'Content-Type': 'application/json',
+  //     'Authorization': "$token",
+  //   };
+
+  //   if (kDebugMode) {
+  //     print("header: ${header.toString()}");
+  //   }
+
+  //   _myRepo.verifyTokenApi(header).then((value) {
+  //     if (kDebugMode) {
+  //       print(value.toString());
+  //     }
+  //   }).onError((error, stackTrace) {
+  //     setValidTokenFalse();
+  //     // Navigator.pushReplacementNamed(context, RoutesName.tokenExpired);
+  //     Utils.toastMessage(error.toString());
+  //     if (kDebugMode) {
+  //       print(error.toString());
+  //       print(stackTrace.toString());
+  //     }
+  //   });
+  // }
+  ApiResponse<dynamic> verifyTokenResponse = ApiResponse.loading();
+
+  setVerifyTokenResponse(ApiResponse<dynamic> response) {
+    verifyTokenResponse = response;
+    notifyListeners();
+  }
+
   Future<void> verifyToken() async {
-    String? token = await UserViewModel.getUserToken();
-    if (kDebugMode) {
-      print("token: $token");
-    }
-    Map<String, String> header = {
-      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-      "Access-Control-Allow-Credentials":
-          "true", // Required for cookies, authorization headers with HTTPS
-      "Access-Control-Allow-Headers":
-          "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      'Content-Type': 'application/json',
-      'Authorization': "$token",
-    };
+    setVerifyTokenResponse(ApiResponse.loading());
 
-    if (kDebugMode) {
-      print("header: ${header.toString()}");
-    }
-
-    _myRepo.verifyTokenApi(header).then((value) {
-      if (kDebugMode) {
-        print(value.toString());
-      }
+    _myRepo.verifyTokenApi().then((value) {
+      setVerifyTokenResponse(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
-      setValidTokenFalse();
-      // Navigator.pushReplacementNamed(context, RoutesName.tokenExpired);
-      Utils.toastMessage(error.toString());
-      if (kDebugMode) {
-        print(error.toString());
-        print(stackTrace.toString());
-      }
+      print("error ${error}");
+      setVerifyTokenResponse(ApiResponse.error(error.toString()));
     });
   }
 

@@ -1,3 +1,6 @@
+import 'package:expertis/data/response/status.dart';
+import 'package:expertis/utils/routes_name.dart';
+import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/services/splash_services.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +21,7 @@ class BMSplashScreen extends StatefulWidget {
 
 class BMSplashScreenState extends State<BMSplashScreen> {
   SplashServices splashServices = SplashServices();
+  AuthViewModel authViewModel = AuthViewModel();
   @override
   void initState() {
     super.initState();
@@ -29,7 +33,6 @@ class BMSplashScreenState extends State<BMSplashScreen> {
         ? appStore.scaffoldBackground!
         : bmLightScaffoldBackgroundColor);
     splashServices.checkAuthentication(context);
-    final authViewModel = AuthViewModel();
     authViewModel.verifyToken();
   }
 
@@ -44,19 +47,35 @@ class BMSplashScreenState extends State<BMSplashScreen> {
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!
           : bmLightScaffoldBackgroundColor,
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("images/beautymaster_logo.png", height: 200),
-          Text('Beauty Master',
-              style: boldTextStyle(
-                  size: 20,
-                  color: appStore.isDarkModeOn
-                      ? Colors.white
-                      : bmSpecialColorDark)),
-        ],
-      ).center(),
+      body: ChangeNotifierProvider<AuthViewModel>(
+        create: (BuildContext context) => authViewModel,
+        child: Consumer<AuthViewModel>(builder: (context, value, _) {
+          switch (value.verifyTokenResponse.status) {
+            case Status.LOADING:
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset("images/beautymaster_logo.png", height: 200),
+                  Text('Beauty Master',
+                      style: boldTextStyle(
+                          size: 20,
+                          color: appStore.isDarkModeOn
+                              ? Colors.white
+                              : bmSpecialColorDark)),
+                ],
+              ).center();
+            case Status.ERROR:
+              String error = value.verifyTokenResponse.message.toString();
+              Utils.findErrorPage(context, error);
+              return Container();
+            case Status.COMPLETED:
+              Navigator.of(context).pushReplacementNamed(RoutesName.home);
+              return Container();
+          }
+          return Container();
+        }),
+      ),
     );
   }
 }

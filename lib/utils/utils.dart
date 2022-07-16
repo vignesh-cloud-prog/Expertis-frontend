@@ -1,5 +1,6 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
+import 'package:expertis/utils/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -52,5 +53,16 @@ class Utils {
   static snackBar(String message, BuildContext context) {
     return ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(backgroundColor: Colors.red, content: Text(message)));
+  }
+
+  static void findErrorPage(BuildContext context, String error) {
+    print("error $error");
+    if (error.contains("XMLHttpRequest")) {
+      Navigator.pushNamed(context, RoutesName.noConnection);
+    } else if (error.contains("Authentication Failed")) {
+      Navigator.pushNamed(context, RoutesName.tokenExpired);
+    } else {
+      Navigator.pushNamed(context, RoutesName.somethingWentWrong);
+    }
   }
 }

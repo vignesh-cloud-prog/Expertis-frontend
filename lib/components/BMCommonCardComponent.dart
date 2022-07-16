@@ -125,6 +125,7 @@ class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
         ],
       ),
     ).onTap(() {
+      Navigator.pushNamed(context, "/shop/details", arguments: widget.element);
       // BMSingleComponentScreen(element: widget.element).launch(context);
     });
   }

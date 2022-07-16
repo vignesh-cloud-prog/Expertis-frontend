@@ -96,16 +96,17 @@ class NetworkApiService extends BaseApiServices {
         responseJson["statusCode"] = response.statusCode;
         return responseJson;
       case 401:
+        throw TokenExpiredException(responseJson["message"]);
       case 403:
-        throw UnauthorisedException(responseJson["message"]);
+        throw UnauthorizedException(responseJson["message"]);
       case 400:
         throw BadRequestException(responseJson['message']);
       case 500:
       case 404:
-        throw UnauthorisedException(responseJson['message']);
+        throw UnauthorizedException(responseJson['message']);
       default:
         throw FetchDataException(
-            'Error accured while communicating with server' +
+            'Error occulted while communicating with server' +
                 'with status code' +
                 response.statusCode.toString());
     }

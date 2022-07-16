@@ -15,11 +15,12 @@ class SplashServices {
         await Future.delayed(Duration(seconds: 3));
         Navigator.pushNamedAndRemoveUntil(
             context, RoutesName.onboarding, (route) => false);
-      } else {
-        await Future.delayed(Duration(seconds: 3));
-        Navigator.pushNamedAndRemoveUntil(
-            context, RoutesName.home, ((route) => false));
       }
+      // else {
+      //   await Future.delayed(Duration(seconds: 3));
+      //   Navigator.pushNamedAndRemoveUntil(
+      //       context, RoutesName.home, ((route) => false));
+      // }
     }).onError((error, stackTrace) {
       if (kDebugMode) {
         print(error.toString());

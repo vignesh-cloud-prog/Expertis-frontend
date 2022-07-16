@@ -1,20 +1,13 @@
-// import 'package:amazon_clone_tutorial/common/widgets/bottom_bar.dart';
-// import 'package:amazon_clone_tutorial/features/address/screens/address_screen.dart';
-// import 'package:amazon_clone_tutorial/features/admin/screens/add_product_screen.dart';
-// import 'package:amazon_clone_tutorial/features/auth/screens/auth_screen.dart';
-// import 'package:amazon_clone_tutorial/features/home/screens/category_deals_screen.dart';
-// import 'package:amazon_clone_tutorial/features/home/screens/home_screen.dart';
-// import 'package:amazon_clone_tutorial/features/order_details/screens/order_details.dart';
-// import 'package:amazon_clone_tutorial/features/product_details/screens/product_details_screen.dart';
-// import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
-// import 'package:amazon_clone_tutorial/models/order.dart';
-// import 'package:amazon_clone_tutorial/models/product.dart';
+import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/screens/BMChangePasswordScreen.dart';
 import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/screens/BMForgetPasswordScreen.dart';
 import 'package:expertis/screens/BMLoginNowScreen.dart';
 import 'package:expertis/screens/BMLoginScreen.dart';
+import 'package:expertis/screens/BMNoInternetScreen.dart';
 import 'package:expertis/screens/BMRegisterScreen.dart';
+import 'package:expertis/screens/BMSingleComponentScreen.dart';
+import 'package:expertis/screens/BMSomethingWentWrongScreen.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';
 import 'package:expertis/screens/BMTokenExpiredScreen.dart';
 import 'package:expertis/screens/BMUserProfileEdit.dart';
@@ -91,6 +84,24 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => BMUserProfileEditScreen(),
+      );
+    case RoutesName.noConnection:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => BMNoInternetScreen(),
+      );
+    case RoutesName.somethingWentWrong:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => BMSomethingWentWrongScreen(),
+      );
+    case "shop/details":
+      ShopModel shop = args as ShopModel;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => BMSingleComponentScreen(
+          element: shop,
+        ),
       );
 
     // case CategoryDealsScreen.routeName:
