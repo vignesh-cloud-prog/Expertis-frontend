@@ -25,10 +25,10 @@ class UserRepository {
       bool isFileSelected, Map<String, String> files) async {
     requestHeaders["Authorization"] = await UserViewModel.getUserToken();
     if (kDebugMode) {
-      print("inside api caller\n");
-      print("data ${data.toString()}");
-      print("files ${files.toString()}");
-      print("requestHeaders: ${requestHeaders.toString()}");
+      // print("inside api caller\n");
+      // print("data ${data.toString()}");
+      // print("files ${files.toString()}");
+      // print("requestHeaders: ${requestHeaders.toString()}");
     }
     try {
       dynamic response = await _apiServices.getMultipartApiResponse(
@@ -39,7 +39,7 @@ class UserRepository {
           isFileSelected,
           files);
       if (kDebugMode) {
-        print("response ${response.toString()}");
+        // print("response ${response.toString()}");
       }
       if (response != null) {
         return response;

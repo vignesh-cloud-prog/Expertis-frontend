@@ -34,10 +34,10 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
 
   _getUserData() async {
     user = await UserViewModel.getUser();
-    if (kDebugMode) print("user: ${user.toString()}");
-    setState(() {
-      user = user;
-    });
+    if (kDebugMode) // print("user: ${user.toString()}");
+      setState(() {
+        user = user;
+      });
   }
 
   @override

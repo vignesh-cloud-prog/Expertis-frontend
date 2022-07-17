@@ -61,7 +61,7 @@ class Utils {
   }
 
   static Widget findErrorPage(BuildContext context, String error) {
-    print("error $error");
+    // print("error $error");
     if (error.contains("XMLHttpRequest")) {
       context.beamToReplacementNamed(RoutesName.noConnection);
       return const BMNoInternetScreen();

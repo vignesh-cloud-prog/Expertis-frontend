@@ -95,7 +95,7 @@ class _CalendarTileState extends State<CalendarTile> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: widget.events!.map((event) {
                           eventCount++;
-                          print(event);
+                          // print(event);
                           if (eventCount > 3) return Container();
                           return Container(
                             margin: EdgeInsets.only(

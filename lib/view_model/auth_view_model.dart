@@ -66,13 +66,13 @@ class AuthViewModel with ChangeNotifier {
       Utils.flushBarErrorMessage('SignUp Successfully', context);
       Beamer.of(context).beamToNamed(RoutesName.verifyOTP);
       if (kDebugMode) {
-        print(value.toString());
+        // print(value.toString());
       }
     }).onError((error, stackTrace) {
       setSignUpLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);
       if (kDebugMode) {
-        print(error.toString());
+        // print(error.toString());
       }
     });
   }
@@ -108,7 +108,7 @@ class AuthViewModel with ChangeNotifier {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);
       if (!kDebugMode) {
-        print(error.toString());
+        // print(error.toString());
       }
     });
   }
@@ -126,7 +126,7 @@ class AuthViewModel with ChangeNotifier {
     _myRepo.verifyTokenApi().then((value) {
       setVerifyTokenResponse(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
-      print("error ${error}");
+      // print("error ${error}");
       setVerifyTokenResponse(ApiResponse.error(error.toString()));
     });
   }
@@ -136,7 +136,7 @@ class AuthViewModel with ChangeNotifier {
 
     _myRepo.forgetPasswordApi(data).then((value) {
       setForgetPasswordLoading(false);
-      print(value.toString());
+      // print(value.toString());
       Utils.toastMessage("OTP sent");
 
       email = value['data']['email'];
@@ -146,8 +146,8 @@ class AuthViewModel with ChangeNotifier {
       setForgetPasswordLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);
       if (kDebugMode) {
-        print(error.toString());
-        print(stackTrace.toString());
+        // print(error.toString());
+        // print(stackTrace.toString());
       }
     });
   }
@@ -159,7 +159,7 @@ class AuthViewModel with ChangeNotifier {
       setLoading(false);
 
       if (kDebugMode) {
-        print(value.toString());
+        // print(value.toString());
       }
       Utils.toastMessage("Password changed successfully");
       Utils.flushBarErrorMessage('Password Reset Successfully', context);
@@ -168,7 +168,7 @@ class AuthViewModel with ChangeNotifier {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);
       if (!kDebugMode) {
-        print(error.toString());
+        // print(error.toString());
       }
     });
   }
@@ -177,7 +177,7 @@ class AuthViewModel with ChangeNotifier {
     setLoading(true);
 
     _myRepo.verifyOTP(data).then((value) {
-      print('value: $value');
+      // print('value: $value');
       setLoading(false);
       final userViewModel = Provider.of<UserViewModel>(context, listen: false);
       userViewModel.saveUser(UserModel.fromJson(value['data']));
@@ -185,13 +185,13 @@ class AuthViewModel with ChangeNotifier {
       Beamer.of(context).beamToNamed(RoutesName.createProfile);
       Utils.toastMessage("OTP verified successfully");
       if (kDebugMode) {
-        print(value.toString());
+        // print(value.toString());
       }
     }).onError((error, stackTrace) {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);
       if (!kDebugMode) {
-        print(error.toString());
+        // print(error.toString());
       }
     });
   }

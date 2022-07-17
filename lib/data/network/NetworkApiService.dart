@@ -12,8 +12,8 @@ class NetworkApiService extends BaseApiServices {
     dynamic responseJson;
     try {
       if (kDebugMode) {
-        print("url $url");
-        print("header $header");
+        // print("url $url");
+        // print("header $header");
       }
       final response = await http
           .get(Uri.parse(url), headers: header)
@@ -34,7 +34,7 @@ class NetworkApiService extends BaseApiServices {
     dynamic responseJson;
 
     if (kDebugMode) {
-      print("data ${data.toString()}");
+      // print("data ${data.toString()}");
     }
     try {
       Response response = await http
@@ -42,7 +42,7 @@ class NetworkApiService extends BaseApiServices {
           .timeout(Duration(seconds: 30));
 
       if (kDebugMode) {
-        print("response ${response.body}");
+        // print("response ${response.body}");
       }
 
       responseJson = returnResponse(response);
@@ -62,7 +62,7 @@ class NetworkApiService extends BaseApiServices {
       bool isFileSelected,
       Map<String, String> files) async {
     dynamic responseJson;
-    print("isFileSelected $isFileSelected");
+    // print("isFileSelected $isFileSelected");
     try {
       var requestMethod = isEditMode ? "PATCH" : "POST";
 
@@ -77,10 +77,10 @@ class NetworkApiService extends BaseApiServices {
       }
 
       var response = await request.send();
-      print(response.statusCode);
+      // print(response.statusCode);
 
       var responded = await http.Response.fromStream(response);
-      print(responded.body);
+      // print(responded.body);
       return responseJson = returnResponse(responded);
     } on SocketException {
       throw FetchDataException('No Internet Connection');

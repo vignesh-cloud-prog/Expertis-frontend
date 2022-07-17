@@ -10,7 +10,7 @@ class SplashServices {
 
   void checkAuthentication(BuildContext context) async {
     getUserDate().then((value) async {
-      print(value.token.toString());
+      // print(value.token.toString());
 
       await Future.delayed(Duration(seconds: 3));
       if (value.token.toString() == 'null' || value.token.toString() == '') {
@@ -18,7 +18,7 @@ class SplashServices {
       }
     }).onError((error, stackTrace) {
       if (kDebugMode) {
-        print(error.toString());
+        // print(error.toString());
       }
     });
   }

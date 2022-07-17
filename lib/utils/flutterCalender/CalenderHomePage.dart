@@ -63,7 +63,7 @@ class _CalenderHomePageState extends State<CalenderHomePage> {
     setState(() {
       _selectedDay = date;
       _selectedEvents = _events[_selectedDay] ?? [];
-      print(_selectedDay);
+      // print(_selectedDay);
     });
   }
 

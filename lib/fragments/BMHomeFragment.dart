@@ -1,4 +1,5 @@
 import 'package:expertis/data/response/status.dart';
+import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -120,8 +121,9 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                         case Status.LOADING:
                           return Center(child: CircularProgressIndicator());
                         case Status.ERROR:
-                          return Center(
-                              child: Text(value.shopList.message.toString()));
+                          String error = value.shopList.message.toString();
+                          return Utils.findErrorPage(context, error);
+
                         case Status.COMPLETED:
                           return HorizontalList(
                             padding: EdgeInsets.symmetric(horizontal: 16),
@@ -174,9 +176,8 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                         case Status.LOADING:
                           return Center(child: CircularProgressIndicator());
                         case Status.ERROR:
-                          return Center(
-                              child: Text(
-                                  value.nearbyShopList.message.toString()));
+                          String error = value.shopList.message.toString();
+                          return Utils.findErrorPage(context, error);
                         case Status.COMPLETED:
                           return HorizontalList(
                             padding: EdgeInsets.symmetric(horizontal: 16),

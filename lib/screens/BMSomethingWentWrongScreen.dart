@@ -35,9 +35,6 @@ class _BMErrorScreenState extends State<BMErrorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userViewModel = Provider.of<UserViewModel>(context);
-    userViewModel.logout();
-
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!

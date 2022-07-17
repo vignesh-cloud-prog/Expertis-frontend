@@ -1,3 +1,4 @@
+import 'package:expertis/data/app_excaptions.dart';
 import 'package:expertis/data/network/BaseApiServices.dart';
 import 'package:expertis/data/network/NetworkApiService.dart';
 import 'package:expertis/models/shop_list_model.dart';
@@ -22,9 +23,9 @@ class HomeRepository {
     try {
       dynamic response = await _apiServices.getGetApiResponse(
           ApiUrl.fetchHomeDataEndPoint, requestHeaders);
-      print(response);
+      // print(response);
       response = ShopListModel.fromJson(response);
-      print("response after from json ${response.toString()}");
+      // print("response after from json ${response.toString()}");
       return response;
     } catch (e) {
       rethrow;
@@ -35,13 +36,34 @@ class HomeRepository {
     requestHeaders["Authorization"] = await UserViewModel.getUserToken();
     UserModel user = await UserViewModel.getUser();
     String url = ApiUrl.fetchNearbyShopsEndPoint(user.pinCode, user.address);
+    // print("url is $url");
+    try {
+      dynamic response =
+          await _apiServices.getGetApiResponse(url, requestHeaders);
+      // print(response);
+      response = ShopListModel.fromJson(response);
+      // print("response after from json ${response.toString()}");
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ShopModel> fetchSelectedShopData(String shopId) async {
+    String token = await UserViewModel.getUserToken();
+    if (token == 'dummy' || token.isEmpty) {
+      throw TokenNotFoundException();
+    }
+    requestHeaders["Authorization"] = token;
+
+    String url = ApiUrl.fetchSelectedShopEndPoint(shopId);
     print("url is $url");
     try {
       dynamic response =
           await _apiServices.getGetApiResponse(url, requestHeaders);
       print(response);
-      response = ShopListModel.fromJson(response);
-      print("response after from json ${response.toString()}");
+      response = ShopModel.fromJson(response["data"]);
+      // print("response after from json ${response.toString()}");
       return response;
     } catch (e) {
       rethrow;

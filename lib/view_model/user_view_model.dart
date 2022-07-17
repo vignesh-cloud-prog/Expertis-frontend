@@ -44,7 +44,7 @@ class UserViewModel with ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setString('user', json.encode(user.toJson()));
     final String? userJson = sp.getString('user');
-    print("userJson: $userJson");
+    // print("userJson: $userJson");
     notifyListeners();
     return true;
   }
@@ -52,7 +52,7 @@ class UserViewModel with ChangeNotifier {
   static Future<UserModel> getUser() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? userJson = sp.getString('user');
-    print("userJson: $userJson");
+    // print("userJson: $userJson");
 
     UserModel user = UserModel.fromJson(json.decode(userJson ?? '{}'));
     return user;
@@ -61,7 +61,7 @@ class UserViewModel with ChangeNotifier {
   static Future<String> getUserToken() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String token = sp.getString('token') ?? 'dummy';
-    print("token: $token");
+    // print("token: $token");
     return token.toString();
   }
 
@@ -88,14 +88,14 @@ class UserViewModel with ChangeNotifier {
       BuildContext context) async {
     setLoading(true);
     if (kDebugMode) {
-      print('data: $data');
-      print('files: $files');
+      // print('data: $data');
+      // print('files: $files');
     }
     _myRepo
         .updateProfileApi(isEditMode, data, isFileSelected, files)
         .then((value) {
       if (kDebugMode) {
-        print(value.toString());
+        // print(value.toString());
       }
       final userViewModel = Provider.of<UserViewModel>(context, listen: false);
       userViewModel.saveUser(UserModel.fromJson(value['data']));
@@ -106,7 +106,7 @@ class UserViewModel with ChangeNotifier {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);
       if (kDebugMode) {
-        print(error.toString());
+        // print(error.toString());
       }
     });
   }

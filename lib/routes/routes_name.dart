@@ -1,7 +1,7 @@
 class RoutesName {
   //home screen routes name
-  static const String home = '/';
-  static const String splash = '/splash-view';
+  static const String splash = '/';
+  static const String home = '/home';
   static const String onboarding = '/onboarding';
 
   //accounts routes name

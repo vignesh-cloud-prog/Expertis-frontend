@@ -73,7 +73,7 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
         this.image = imageFile;
       });
     } on PlatformException catch (e) {
-      print("falied to pick image ${e.toString()}");
+      // print("falied to pick image ${e.toString()}");
     }
   }
 
@@ -86,12 +86,12 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
 
   _getUserData() async {
     user = await UserViewModel.getUser();
-    if (kDebugMode) print("user: ${user.toString()}");
-    setState(() {
-      user = user;
-      _dobController.text = user!.dob.toString().splitBefore('T');
-      selectedRole = user!.role ?? 'CUSTOMER';
-    });
+    if (kDebugMode) // print("user: ${user.toString()}");
+      setState(() {
+        user = user;
+        _dobController.text = user!.dob.toString().splitBefore('T');
+        selectedRole = user!.role ?? 'CUSTOMER';
+      });
   }
 
   @override
@@ -431,7 +431,7 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                               gender.toString().splitAfter(".").toUpperCase();
                           user!.gender = selectedGender;
                           if (kDebugMode) {
-                            print("selectedGender $selectedGender");
+                            // print("selectedGender $selectedGender");
                           }
                         },
                         equallyAligned: true,

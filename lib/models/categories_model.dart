@@ -7,10 +7,10 @@ class CategoryListModel {
     if (json['data'] != null) {
       categories = <CategoryModel>[];
       json['data'].forEach((v) {
-        print("v is ${v.toString()}");
+        // print("v is ${v.toString()}");
         categories!.add(new CategoryModel.fromJson(v));
       });
-      print("category list is ${categories.toString()}");
+      // print("category list is ${categories.toString()}");
     }
   }
 

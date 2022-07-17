@@ -171,8 +171,8 @@ class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
                           padding: const EdgeInsets.all(16),
                           color: bmPrimaryColor,
                           onTap: () {
-                            print("otp: ${_otpController.text}");
-                            print("length: ${_otpController.text.length}");
+                            // print("otp: ${_otpController.text}");
+                            // print("length: ${_otpController.text.length}");
                             if (!_otpController.text.isEmptyOrNull &&
                                 _otpController.text.length == 6) {
                               // If the form is valid, display a snackbar. In the real world,

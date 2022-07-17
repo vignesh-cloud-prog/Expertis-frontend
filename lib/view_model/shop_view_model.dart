@@ -9,19 +9,28 @@ class ShopViewModel with ChangeNotifier {
 
   ApiResponse<ShopListModel> shopList = ApiResponse.loading();
   ApiResponse<ShopListModel> nearbyShopList = ApiResponse.loading();
+  ApiResponse<ShopModel> selectedShop = ApiResponse.loading();
 
   setShopList(ApiResponse<ShopListModel> response) {
     shopList = response;
-    if (kDebugMode) {
-      print("response ${shopList.toString()}");
-    }
+    // if (kDebugMode) {
+    //   // print("response ${shopList.toString()}");
+    // }
     notifyListeners();
   }
 
   setNearbyShopList(ApiResponse<ShopListModel> response) {
     nearbyShopList = response;
+    // if (kDebugMode) {
+    //   // print("response ${nearbyShopList.toString()}");
+    // }
+    notifyListeners();
+  }
+
+  setSelectedShop(ApiResponse<ShopModel> response) {
+    selectedShop = response;
     if (kDebugMode) {
-      print("response ${nearbyShopList.toString()}");
+      // print("response ${nearbyShopList.toString()}");
     }
     notifyListeners();
   }
@@ -43,6 +52,17 @@ class ShopViewModel with ChangeNotifier {
       setNearbyShopList(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
       setNearbyShopList(ApiResponse.error(error.toString()));
+    });
+  }
+
+  Future<void> fetchSelectedShopDataApi(String shopId) async {
+    setSelectedShop(ApiResponse.loading());
+    print("shop id is $shopId");
+    _myRepo.fetchSelectedShopData(shopId).then((value) {
+      // print("Selected shop data is \n ${value.toString()}");
+      setSelectedShop(ApiResponse.completed(value));
+    }).onError((error, stackTrace) {
+      setSelectedShop(ApiResponse.error(error.toString()));
     });
   }
 }

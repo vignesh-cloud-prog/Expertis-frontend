@@ -33,7 +33,7 @@ class AuthRepository {
 
   Future<dynamic> verifyTokenApi() async {
     String token = await UserViewModel.getUserToken();
-    print("Verify toke n: $token");
+    // print("Verify toke n: $token");
     if (token == 'dummy' || token.isEmpty) {
       throw TokenNotFoundException();
     }
@@ -43,7 +43,7 @@ class AuthRepository {
       dynamic response = await _apiServices.getGetApiResponse(
           ApiUrl.verifyTokenEndPint, requestHeaders);
       if (kDebugMode) {
-        print("response ${response.toString()}");
+        // print("response ${response.toString()}");
       }
       return response;
     } catch (e) {
@@ -56,7 +56,7 @@ class AuthRepository {
       dynamic response = await _apiServices.getPostApiResponse(
           ApiUrl.forgetPasswordEndPint, requestHeaders, data);
       if (kDebugMode) {
-        print("response ${response.toString()}");
+        // print("response ${response.toString()}");
       }
       return response;
     } catch (e) {
@@ -69,7 +69,7 @@ class AuthRepository {
       dynamic response = await _apiServices.getPostApiResponse(
           ApiUrl.changePasswordEndPint, requestHeaders, data);
       if (kDebugMode) {
-        print("response ${response.toString()}");
+        // print("response ${response.toString()}");
       }
       return response;
     } catch (e) {
