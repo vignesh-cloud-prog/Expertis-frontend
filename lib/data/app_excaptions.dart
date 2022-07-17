@@ -30,3 +30,7 @@ class TokenExpiredException extends AppException {
   TokenExpiredException([String? message])
       : super(message, 'Authentication Failed');
 }
+
+class TokenNotFoundException extends AppException {
+  TokenNotFoundException([String? message]) : super(message, 'Token Not Found');
+}

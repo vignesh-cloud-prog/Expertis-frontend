@@ -34,14 +34,13 @@ class BMSplashScreenState extends State<BMSplashScreen> {
     setStatusBarColor(appStore.isDarkModeOn
         ? appStore.scaffoldBackground!
         : bmLightScaffoldBackgroundColor);
-    splashServices.checkAuthentication(context);
+    // splashServices.checkAuthentication(context);
     authViewModel.verifyToken();
   }
 
   @override
   void dispose() {
     super.dispose();
-    authViewModel.dispose();
   }
 
   @override

@@ -32,7 +32,12 @@ class AuthRepository {
   }
 
   Future<dynamic> verifyTokenApi() async {
-    requestHeaders["Authorization"] = await UserViewModel.getUserToken();
+    String token = await UserViewModel.getUserToken();
+    print("Verify toke n: $token");
+    if (token == 'dummy' || token.isEmpty) {
+      throw TokenNotFoundException();
+    }
+    requestHeaders["Authorization"] = token;
 
     try {
       dynamic response = await _apiServices.getGetApiResponse(

@@ -4,6 +4,7 @@ import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/BMNoInternetScreen.dart';
 import 'package:expertis/screens/BMSomethingWentWrongScreen.dart';
 import 'package:expertis/screens/BMTokenExpiredScreen.dart';
+import 'package:expertis/screens/BMWalkThroughScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:beamer/beamer.dart';
@@ -67,6 +68,9 @@ class Utils {
     } else if (error.contains("Authentication Failed")) {
       context.beamToReplacementNamed(RoutesName.tokenExpired);
       return const BMTokenExpiredScreen();
+    } else if (error.contains("Token Not Found")) {
+      context.beamToReplacementNamed(RoutesName.onboarding);
+      return const BMWalkThroughScreen();
     } else {
       context.beamToNamed(RoutesName.unKnownError);
       return const BMErrorScreen();
