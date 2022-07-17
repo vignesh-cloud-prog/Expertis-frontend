@@ -12,9 +12,21 @@ import '../models/BMShoppingModel.dart';
 List<WalkThroughModelClass> getWalkThroughList() {
   List<WalkThroughModelClass> list = [];
 
-  list.add(WalkThroughModelClass(image: 'images/model_one.jpg', title: 'Book a visit easy & fast', subTitle: 'Find the best beauty salon in your local and book a dream visit.'));
-  list.add(WalkThroughModelClass(image: 'images/model_two.jpg', title: 'Online Services Booking', subTitle: 'For when visiting the shop or salon is not an option, experience beauty in new way.'));
-  list.add(WalkThroughModelClass(image: 'images/model_three.jpg', title: 'Book anytime, anywhere', subTitle: 'Access calenders, services, and reviews wuth the freedom to book as you please.'));
+  list.add(WalkThroughModelClass(
+      image: 'images/model_one.jpg',
+      title: 'Book a visit easy & fast',
+      subTitle:
+          'Find the best beauty salon in your local and book a dream visit.'));
+  list.add(WalkThroughModelClass(
+      image: 'images/model_two.jpg',
+      title: 'Online Services Booking',
+      subTitle:
+          'For when visiting the shop or salon is not an option, experience beauty in new way.'));
+  list.add(WalkThroughModelClass(
+      image: 'images/model_three.jpg',
+      title: 'Book anytime, anywhere',
+      subTitle:
+          'Access calenders, services, and reviews wuth the freedom to book as you please.'));
 
   return list;
 }
@@ -22,11 +34,20 @@ List<WalkThroughModelClass> getWalkThroughList() {
 List<BMDashboardModel> getDashboardList() {
   List<BMDashboardModel> list = [];
 
-  list.add(BMDashboardModel(selectedIcon: 'images/home.png', unSelectedIcon: 'images/house.png'));
-  list.add(BMDashboardModel(selectedIcon: 'images/magnifier.png', unSelectedIcon: 'images/search.png'));
-  list.add(BMDashboardModel(selectedIcon: 'images/calendar_selected.png', unSelectedIcon: 'images/calendar.png'));
-  list.add(BMDashboardModel(selectedIcon: 'images/chat_selected.png', unSelectedIcon: 'images/chat.png'));
-  list.add(BMDashboardModel(selectedIcon: 'images/more_selected.png', unSelectedIcon: 'images/more.png'));
+  list.add(BMDashboardModel(
+      selectedIcon: 'images/home.png', unSelectedIcon: 'images/house.png'));
+  list.add(BMDashboardModel(
+      selectedIcon: 'images/magnifier.png',
+      unSelectedIcon: 'images/search.png'));
+  list.add(BMDashboardModel(
+      selectedIcon: 'images/calendar_selected.png',
+      unSelectedIcon: 'images/calendar.png'));
+  list.add(BMDashboardModel(
+      selectedIcon: 'images/chat_selected.png',
+      unSelectedIcon: 'images/chat.png'));
+  list.add(BMDashboardModel(
+      selectedIcon: 'images/more_selected.png',
+      unSelectedIcon: 'images/more.png'));
 
   return list;
 }
@@ -35,8 +56,10 @@ List<BMMasterModel> getMyMastersList() {
   List<BMMasterModel> list = [];
 
   list.add(BMMasterModel(image: 'images/face_two.jpg', name: 'Hannah Benson'));
-  list.add(BMMasterModel(image: 'images/face_one.png', name: 'Maurice Reynolds'));
-  list.add(BMMasterModel(image: 'images/model_three.jpg', name: 'Hannah Benson'));
+  list.add(
+      BMMasterModel(image: 'images/face_one.png', name: 'Maurice Reynolds'));
+  list.add(
+      BMMasterModel(image: 'images/model_three.jpg', name: 'Hannah Benson'));
 
   return list;
 }
@@ -205,9 +228,30 @@ List<BMCommonCardModel> getRecommendedList() {
 List<BMServiceListModel> getPopularServiceList() {
   List<BMServiceListModel> list = [];
 
-  list.add(BMServiceListModel(name: 'Men\'s Hair cut', cost: '\$50.00', time: '1h'));
-  list.add(BMServiceListModel(name: 'Men\'s Hair cut with beard', cost: '\$45.00', time: '30min'));
-  list.add(BMServiceListModel(name: 'Glow Me Color', cost: '\$30.00', time: '1h'));
+  list.add(
+      BMServiceListModel(name: 'Men\'s Hair cut', cost: '\$50.00', time: '1h'));
+  list.add(BMServiceListModel(
+      name: 'Men\'s Hair cut with beard', cost: '\$45.00', time: '30min'));
+  list.add(
+      BMServiceListModel(name: 'Glow Me Color', cost: '\$30.00', time: '1h'));
+  list.add(
+      BMServiceListModel(name: 'Men\'s Hair cut', cost: '\$50.00', time: '1h'));
+  list.add(BMServiceListModel(
+      name: 'Men\'s Hair cut with beard', cost: '\$45.00', time: '30min'));
+  list.add(
+      BMServiceListModel(name: 'Glow Me Color', cost: '\$30.00', time: '1h'));
+  list.add(
+      BMServiceListModel(name: 'Men\'s Hair cut', cost: '\$50.00', time: '1h'));
+  list.add(BMServiceListModel(
+      name: 'Men\'s Hair cut with beard', cost: '\$45.00', time: '30min'));
+  list.add(
+      BMServiceListModel(name: 'Glow Me Color', cost: '\$30.00', time: '1h'));
+  list.add(
+      BMServiceListModel(name: 'Men\'s Hair cut', cost: '\$50.00', time: '1h'));
+  list.add(BMServiceListModel(
+      name: 'Men\'s Hair cut with beard', cost: '\$45.00', time: '30min'));
+  list.add(
+      BMServiceListModel(name: 'Glow Me Color', cost: '\$30.00', time: '1h'));
 
   return list;
 }
@@ -215,12 +259,20 @@ List<BMServiceListModel> getPopularServiceList() {
 List<BMServiceListModel> getOtherServiceList() {
   List<BMServiceListModel> list = [];
 
-  list.add(BMServiceListModel(name: 'Early Bird Special(text to schedule)', cost: '\$25.00', time: '35min'));
-  list.add(BMServiceListModel(name: 'Men\'s Hair cut with beard', cost: '\$18.00', time: '30min'));
-  list.add(BMServiceListModel(name: 'Kid\'s Haircut(12 & under)', cost: '\$12.00', time: '45min'));
-  list.add(BMServiceListModel(name: 'Full VIP Service', cost: '\$20.00', time: '30min'));
-  list.add(BMServiceListModel(name: 'Men\'s Hair cut', cost: '\$50.00', time: '15min'));
-  list.add(BMServiceListModel(name: 'Edge w/Beard trim beard', cost: '\$5.00', time: '30min'));
+  list.add(BMServiceListModel(
+      name: 'Early Bird Special(text to schedule)',
+      cost: '\$25.00',
+      time: '35min'));
+  list.add(BMServiceListModel(
+      name: 'Men\'s Hair cut with beard', cost: '\$18.00', time: '30min'));
+  list.add(BMServiceListModel(
+      name: 'Kid\'s Haircut(12 & under)', cost: '\$12.00', time: '45min'));
+  list.add(BMServiceListModel(
+      name: 'Full VIP Service', cost: '\$20.00', time: '30min'));
+  list.add(BMServiceListModel(
+      name: 'Men\'s Hair cut', cost: '\$50.00', time: '15min'));
+  list.add(BMServiceListModel(
+      name: 'Edge w/Beard trim beard', cost: '\$5.00', time: '30min'));
 
   return list;
 }
@@ -228,11 +280,46 @@ List<BMServiceListModel> getOtherServiceList() {
 List<BMCommentModel> getCommentsList() {
   List<BMCommentModel> list = [];
 
-  list.add(BMCommentModel(image: 'images/face_one.png', likes: '4', time: '3m', name: 'Donald Walters', message: 'Nice work, bro!', isSubComment: false, isLiked: false));
-  list.add(BMCommentModel(image: 'images/face_two.jpg', likes: '2', time: '3m', name: 'Roxie Love', message: 'How many time for this style?', isSubComment: false, isLiked: true));
-  list.add(BMCommentModel(image: 'images/face_one.png', likes: '2', time: '3m', name: 'Cotherine Guzman', message: '45 minutes. maybe.', isSubComment: true, isLiked: false));
-  list.add(BMCommentModel(image: 'images/face_two.jpg', likes: '4', time: '20m', name: 'Nwaye Akachi', message: 'Good work!', isSubComment: false, isLiked: false));
-  list.add(BMCommentModel(image: 'images/face_one.png', likes: '4', time: '2d', name: 'Cvita Dolwschall', message: 'Suite with me, let\'s go!', isSubComment: false, isLiked: false));
+  list.add(BMCommentModel(
+      image: 'images/face_one.png',
+      likes: '4',
+      time: '3m',
+      name: 'Donald Walters',
+      message: 'Nice work, bro!',
+      isSubComment: false,
+      isLiked: false));
+  list.add(BMCommentModel(
+      image: 'images/face_two.jpg',
+      likes: '2',
+      time: '3m',
+      name: 'Roxie Love',
+      message: 'How many time for this style?',
+      isSubComment: false,
+      isLiked: true));
+  list.add(BMCommentModel(
+      image: 'images/face_one.png',
+      likes: '2',
+      time: '3m',
+      name: 'Cotherine Guzman',
+      message: '45 minutes. maybe.',
+      isSubComment: true,
+      isLiked: false));
+  list.add(BMCommentModel(
+      image: 'images/face_two.jpg',
+      likes: '4',
+      time: '20m',
+      name: 'Nwaye Akachi',
+      message: 'Good work!',
+      isSubComment: false,
+      isLiked: false));
+  list.add(BMCommentModel(
+      image: 'images/face_one.png',
+      likes: '4',
+      time: '2d',
+      name: 'Cvita Dolwschall',
+      message: 'Suite with me, let\'s go!',
+      isSubComment: false,
+      isLiked: false));
 
   return list;
 }
@@ -278,8 +365,18 @@ List<BMAppointmentModel> getMoreAppointmentsList() {
 List<BMMessageModel> getActiveList() {
   List<BMMessageModel> list = [];
 
-  list.add(BMMessageModel(image: 'images/face_two.jpg', name: 'Hannah Benson', message: 'Hello!', isActive: true, lastSeen: ''));
-  list.add(BMMessageModel(image: 'images/face_two.jpg', name: 'Harry Gardner', message: 'How can I help you?', isActive: true, lastSeen: ''));
+  list.add(BMMessageModel(
+      image: 'images/face_two.jpg',
+      name: 'Hannah Benson',
+      message: 'Hello!',
+      isActive: true,
+      lastSeen: ''));
+  list.add(BMMessageModel(
+      image: 'images/face_two.jpg',
+      name: 'Harry Gardner',
+      message: 'How can I help you?',
+      isActive: true,
+      lastSeen: ''));
 
   return list;
 }
@@ -287,9 +384,24 @@ List<BMMessageModel> getActiveList() {
 List<BMMessageModel> getMessageList() {
   List<BMMessageModel> list = [];
 
-  list.add(BMMessageModel(image: 'images/face_two.jpg', name: 'Hannah Benson', message: 'Hello!', isActive: true, lastSeen: ''));
-  list.add(BMMessageModel(image: 'images/face_one.png', name: 'Victor Pocheco', message: 'Do you want to confirm yor appointment?', isActive: false, lastSeen: 'today , at 11:30 am'));
-  list.add(BMMessageModel(image: 'images/model_three.jpg', name: 'Harry Gardner', message: 'How can I help you?', isActive: true, lastSeen: ''));
+  list.add(BMMessageModel(
+      image: 'images/face_two.jpg',
+      name: 'Hannah Benson',
+      message: 'Hello!',
+      isActive: true,
+      lastSeen: ''));
+  list.add(BMMessageModel(
+      image: 'images/face_one.png',
+      name: 'Victor Pocheco',
+      message: 'Do you want to confirm yor appointment?',
+      isActive: false,
+      lastSeen: 'today , at 11:30 am'));
+  list.add(BMMessageModel(
+      image: 'images/model_three.jpg',
+      name: 'Harry Gardner',
+      message: 'How can I help you?',
+      isActive: true,
+      lastSeen: ''));
 
   return list;
 }
@@ -333,9 +445,29 @@ List<BMShoppingModel> getProductList() {
 
 List<LanguageDataModel> languageList() {
   return [
-    LanguageDataModel(id: 1, name: 'English', languageCode: 'en', fullLanguageCode: 'en-US', flag: 'images/flag/ic_us.png'),
-    LanguageDataModel(id: 2, name: 'Hindi', languageCode: 'hi', fullLanguageCode: 'hi-IN', flag: 'images/flag/ic_hi.png'),
-    LanguageDataModel(id: 3, name: 'Arabic', languageCode: 'ar', fullLanguageCode: 'ar-AR', flag: 'images/flag/ic_ar.png'),
-    LanguageDataModel(id: 4, name: 'French', languageCode: 'fr', fullLanguageCode: 'fr-FR', flag: 'images/flag/ic_fr.png'),
+    LanguageDataModel(
+        id: 1,
+        name: 'English',
+        languageCode: 'en',
+        fullLanguageCode: 'en-US',
+        flag: 'images/flag/ic_us.png'),
+    LanguageDataModel(
+        id: 2,
+        name: 'Hindi',
+        languageCode: 'hi',
+        fullLanguageCode: 'hi-IN',
+        flag: 'images/flag/ic_hi.png'),
+    LanguageDataModel(
+        id: 3,
+        name: 'Arabic',
+        languageCode: 'ar',
+        fullLanguageCode: 'ar-AR',
+        flag: 'images/flag/ic_ar.png'),
+    LanguageDataModel(
+        id: 4,
+        name: 'French',
+        languageCode: 'fr',
+        fullLanguageCode: 'fr-FR',
+        flag: 'images/flag/ic_fr.png'),
   ];
 }

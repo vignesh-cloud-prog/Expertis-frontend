@@ -9,6 +9,12 @@ import 'package:provider/provider.dart';
 
 class ShopsLocation extends BeamLocation<BeamState> {
   @override
+  Widget builder(BuildContext context, Widget navigator) =>
+      ChangeNotifierProvider(
+        create: (context) => ShopViewModel(),
+        child: navigator,
+      );
+  @override
   List<String> get pathPatterns => ['/shops/:shopId'];
 
   @override

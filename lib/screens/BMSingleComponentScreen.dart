@@ -137,7 +137,7 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                               children: [
                                 Image.network(
                                   shop.shopLogo ?? defaultImg,
-                                  height: 300,
+                                  height: 280,
                                   width: context.width(),
                                   fit: BoxFit.cover,
                                 ),
