@@ -1,4 +1,5 @@
-import 'package:expertis/utils/routes_name.dart';
+import 'package:beamer/beamer.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -63,7 +64,7 @@ class _BMLoginNowScreenState extends State<BMLoginNowScreen> {
               width: 150,
               color: bmPrimaryColor,
               onTap: () {
-                Navigator.pushReplacementNamed(context, RoutesName.login);
+                Beamer.of(context).beamToReplacementNamed(RoutesName.login);
               },
             ),
           ],

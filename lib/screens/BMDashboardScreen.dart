@@ -6,7 +6,6 @@ import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:provider/provider.dart';
 
 import '../fragments/BMAppointmentFragment.dart';
 import '../fragments/BMChatFragment.dart';
@@ -21,17 +20,14 @@ class BMDashboardScreen extends StatefulWidget {
   final bool flag;
   static const routeName = '/';
 
-  BMDashboardScreen({required this.flag});
+  const BMDashboardScreen({super.key, required this.flag});
 
   @override
-  _BMDashboardScreenState createState() => _BMDashboardScreenState();
+  BMDashboardScreenState createState() => BMDashboardScreenState();
 }
 
-class _BMDashboardScreenState extends State<BMDashboardScreen> {
-  String? token;
+class BMDashboardScreenState extends State<BMDashboardScreen> {
   List<BMDashboardModel> list = getDashboardList();
-  bool tokenValid = true;
-  // authViewModel.verifyToken(header, context);
 
   int selectedTab = 0;
 
@@ -88,35 +84,31 @@ class _BMDashboardScreenState extends State<BMDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authViewModel = Provider.of<AuthViewModel>(context);
-
-    return !authViewModel.validToken
-        ? const BMTokenExpiredScreen()
-        : Scaffold(
-            backgroundColor: getDashboardColor(),
-            body: getFragment(),
-            bottomNavigationBar: BottomNavigationBar(
-              onTap: (int index) {
-                setState(() {
-                  selectedTab = index;
-                });
-              },
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: context.cardColor,
-              unselectedItemColor: bmPrimaryColor,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              currentIndex: selectedTab,
-              items: list.map((e) {
-                return BottomNavigationBarItem(
-                  icon: Image.asset(e.unSelectedIcon,
-                      height: 24, color: bmPrimaryColor),
-                  activeIcon: Image.asset(e.selectedIcon,
-                      height: 24, color: bmPrimaryColor),
-                  label: '',
-                );
-              }).toList(),
-            ).cornerRadiusWithClipRRectOnly(topLeft: 32, topRight: 32),
+    return Scaffold(
+      backgroundColor: getDashboardColor(),
+      body: getFragment(),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (int index) {
+          setState(() {
+            selectedTab = index;
+          });
+        },
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: context.cardColor,
+        unselectedItemColor: bmPrimaryColor,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        currentIndex: selectedTab,
+        items: list.map((e) {
+          return BottomNavigationBarItem(
+            icon: Image.asset(e.unSelectedIcon,
+                height: 24, color: bmPrimaryColor),
+            activeIcon:
+                Image.asset(e.selectedIcon, height: 24, color: bmPrimaryColor),
+            label: '',
           );
+        }).toList(),
+      ).cornerRadiusWithClipRRectOnly(topLeft: 32, topRight: 32),
+    );
   }
 }

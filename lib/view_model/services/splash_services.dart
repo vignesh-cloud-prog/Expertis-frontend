@@ -1,8 +1,9 @@
 import 'package:expertis/models/user_model.dart';
-import 'package:expertis/utils/routes_name.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:beamer/beamer.dart';
 
 class SplashServices {
   Future<UserModel> getUserDate() => UserViewModel.getUser();
@@ -11,16 +12,10 @@ class SplashServices {
     getUserDate().then((value) async {
       print(value.token.toString());
 
+      await Future.delayed(Duration(seconds: 3));
       if (value.token.toString() == 'null' || value.token.toString() == '') {
-        await Future.delayed(Duration(seconds: 3));
-        Navigator.pushNamedAndRemoveUntil(
-            context, RoutesName.onboarding, (route) => false);
+        context.beamToNamed(RoutesName.onboarding);
       }
-      // else {
-      //   await Future.delayed(Duration(seconds: 3));
-      //   Navigator.pushNamedAndRemoveUntil(
-      //       context, RoutesName.home, ((route) => false));
-      // }
     }).onError((error, stackTrace) {
       if (kDebugMode) {
         print(error.toString());

@@ -38,6 +38,13 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    shopViewModel.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: appStore.isDarkModeOn

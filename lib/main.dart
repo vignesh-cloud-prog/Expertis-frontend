@@ -1,19 +1,23 @@
 //region imports
 import 'package:expertis/models/categories_model.dart';
+import 'package:expertis/routes/errors.routes.dart';
+import 'package:expertis/routes/home_routes.dart';
+import 'package:expertis/routes/shop_routes.dart';
+import 'package:expertis/routes/user_routes.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';
 import 'package:expertis/store/AppStore.dart';
 import 'package:expertis/utils/AppTheme.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/utils/BMDataGenerator.dart';
-import 'package:expertis/utils/routes_name.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:expertis/routes.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:beamer/beamer.dart';
 
 AppStore appStore = AppStore();
 
@@ -44,18 +48,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final routerDelegate = BeamerDelegate(
+      initialPath: RoutesName.splash,
+      locationBuilder: BeamerLocationBuilder(
+        beamLocations: [
+          HomeLocation(),
+          ShopsLocation(),
+          ErrorsLocation(),
+          UserLocation(),
+        ],
+      ),
+    );
     return Observer(
-      builder: (_) => MaterialApp(
+      builder: (_) => MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: '$appName${!isMobile ? ' ${platformName()}' : ''}',
-        initialRoute: RoutesName.splash,
+        routerDelegate: routerDelegate,
+        routeInformationParser: BeamerParser(),
+        // initialRoute: RoutesName.splash,
         theme: !appStore.isDarkModeOn
             ? AppThemeData.lightTheme
             : AppThemeData.darkTheme,
-        navigatorKey: navigatorKey,
+        // navigatorKey: navigatorKey,
         scrollBehavior: SBehavior(),
         supportedLocales: LanguageDataModel.languageLocales(),
-        onGenerateRoute: (settings) => generateRoute(settings),
+        // onGenerateRoute: (settings) => generateRoute(settings),
         localeResolutionCallback: (locale, supportedLocales) => locale,
       ),
     );

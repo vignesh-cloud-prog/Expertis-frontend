@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +126,8 @@ class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
         ],
       ),
     ).onTap(() {
-      Navigator.pushNamed(context, "/shop/details", arguments: widget.element);
+      Beamer.of(context).beamToNamed('/shops/${widget.element.shopId}');
+      //Navigator.pushNamed(context, "/shop/details", arguments: widget.element);
       // BMSingleComponentScreen(element: widget.element).launch(context);
     });
   }

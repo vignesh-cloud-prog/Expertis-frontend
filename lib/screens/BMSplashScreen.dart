@@ -1,5 +1,6 @@
 import 'package:expertis/data/response/status.dart';
-import 'package:expertis/utils/routes_name.dart';
+import 'package:expertis/routes/routes_name.dart';
+import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/services/splash_services.dart';
@@ -10,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../main.dart';
 import '../utils/BMColors.dart';
 import 'BMWalkThroughScreen.dart';
+import 'package:beamer/beamer.dart';
 
 class BMSplashScreen extends StatefulWidget {
   const BMSplashScreen({Key? key}) : super(key: key);
@@ -39,6 +41,7 @@ class BMSplashScreenState extends State<BMSplashScreen> {
   @override
   void dispose() {
     super.dispose();
+    authViewModel.dispose();
   }
 
   @override
@@ -67,11 +70,11 @@ class BMSplashScreenState extends State<BMSplashScreen> {
               ).center();
             case Status.ERROR:
               String error = value.verifyTokenResponse.message.toString();
-              Utils.findErrorPage(context, error);
-              return Container();
+              return Utils.findErrorPage(context, error);
+
             case Status.COMPLETED:
-              Navigator.of(context).pushReplacementNamed(RoutesName.home);
-              return Container();
+              context.beamToReplacementNamed(RoutesName.home);
+              return const BMDashboardScreen(flag: false);
           }
           return Container();
         }),

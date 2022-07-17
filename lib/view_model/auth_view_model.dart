@@ -1,9 +1,10 @@
+import 'package:beamer/beamer.dart';
 import 'package:expertis/data/response/api_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/respository/auth_repository.dart';
-import 'package:expertis/utils/routes_name.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
@@ -63,7 +64,7 @@ class AuthViewModel with ChangeNotifier {
       hash = value['data']['hash'];
       id = value['data']['id'];
       Utils.flushBarErrorMessage('SignUp Successfully', context);
-      Navigator.pushNamed(context, RoutesName.verifyOTP);
+      Beamer.of(context).beamToNamed(RoutesName.verifyOTP);
       if (kDebugMode) {
         print(value.toString());
       }
@@ -88,22 +89,20 @@ class AuthViewModel with ChangeNotifier {
         email = value['data']['email'];
         hash = value['data']['hash'];
         id = value['data']['id'];
-        Utils.flushBarErrorMessage('Email validation required', context);
-        Navigator.pushNamed(context, RoutesName.verifyOTP);
+        Beamer.of(context).beamToNamed(RoutesName.verifyOTP);
+        Utils.flushBarErrorMessage('Email verification required', context);
       } else {
         final userViewModel =
             Provider.of<UserViewModel>(context, listen: false);
         userViewModel.saveUser(UserModel.fromJson(value['data']));
         userViewModel.saveToken(value['data']['token']);
-        Utils.flushBarErrorMessage('Login Successfully', context);
+        // Utils.flushBarErrorMessage('Login Successfully', context);
         if (kDebugMode) {
           UserViewModel.getUser();
         }
 
-        setValidTokenTrue();
-
-        Navigator.pushNamedAndRemoveUntil(
-            context, RoutesName.home, (route) => false);
+        Beamer.of(context).beamToNamed(RoutesName.home);
+        Utils.toastMessage("Login Successfully");
       }
     }).onError((error, stackTrace) {
       setLoading(false);
@@ -114,40 +113,6 @@ class AuthViewModel with ChangeNotifier {
     });
   }
 
-  // Future<void> verifyToken() async {
-  //   String? token = await UserViewModel.getUserToken();
-  //   if (kDebugMode) {
-  //     print("token: $token");
-  //   }
-  //   Map<String, String> header = {
-  //     "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-  //     "Access-Control-Allow-Credentials":
-  //         "true", // Required for cookies, authorization headers with HTTPS
-  //     "Access-Control-Allow-Headers":
-  //         "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-  //     "Access-Control-Allow-Methods": "POST, OPTIONS",
-  //     'Content-Type': 'application/json',
-  //     'Authorization': "$token",
-  //   };
-
-  //   if (kDebugMode) {
-  //     print("header: ${header.toString()}");
-  //   }
-
-  //   _myRepo.verifyTokenApi(header).then((value) {
-  //     if (kDebugMode) {
-  //       print(value.toString());
-  //     }
-  //   }).onError((error, stackTrace) {
-  //     setValidTokenFalse();
-  //     // Navigator.pushReplacementNamed(context, RoutesName.tokenExpired);
-  //     Utils.toastMessage(error.toString());
-  //     if (kDebugMode) {
-  //       print(error.toString());
-  //       print(stackTrace.toString());
-  //     }
-  //   });
-  // }
   ApiResponse<dynamic> verifyTokenResponse = ApiResponse.loading();
 
   setVerifyTokenResponse(ApiResponse<dynamic> response) {
@@ -176,7 +141,7 @@ class AuthViewModel with ChangeNotifier {
 
       email = value['data']['email'];
       hash = value['data']['hash'];
-      Navigator.pushNamed(context, RoutesName.changePassword);
+      Beamer.of(context).beamToNamed(RoutesName.changePassword);
     }).onError((error, stackTrace) {
       setForgetPasswordLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);
@@ -198,7 +163,7 @@ class AuthViewModel with ChangeNotifier {
       }
       Utils.toastMessage("Password changed successfully");
       Utils.flushBarErrorMessage('Password Reset Successfully', context);
-      Navigator.pushReplacementNamed(context, RoutesName.loginNow);
+      Beamer.of(context).beamToReplacementNamed(RoutesName.loginNow);
     }).onError((error, stackTrace) {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);
@@ -217,10 +182,8 @@ class AuthViewModel with ChangeNotifier {
       final userViewModel = Provider.of<UserViewModel>(context, listen: false);
       userViewModel.saveUser(UserModel.fromJson(value['data']));
       userViewModel.saveToken(value['data']['token']);
-
-      Utils.flushBarErrorMessage('Verified successfully', context);
-
-      Navigator.pushReplacementNamed(context, RoutesName.createProfile);
+      Beamer.of(context).beamToNamed(RoutesName.createProfile);
+      Utils.toastMessage("OTP verified successfully");
       if (kDebugMode) {
         print(value.toString());
       }

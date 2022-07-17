@@ -24,10 +24,10 @@ import 'package:gender_picker/source/gender_picker.dart';
 import 'BMLoginScreen.dart';
 
 class BMUserProfileEditScreen extends StatefulWidget {
-  String title = "Update Profile";
-  String buttonName = "Update";
+  final String title;
+  final String buttonName;
 
-  BMUserProfileEditScreen(
+  const BMUserProfileEditScreen(
       {Key? key, this.title = "Update Profile", this.buttonName = "Update"})
       : super(key: key);
   static const String routeName = '/edit-profile';

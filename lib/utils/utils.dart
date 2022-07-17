@@ -1,8 +1,12 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
-import 'package:expertis/utils/routes_name.dart';
+import 'package:expertis/routes/routes_name.dart';
+import 'package:expertis/screens/BMNoInternetScreen.dart';
+import 'package:expertis/screens/BMSomethingWentWrongScreen.dart';
+import 'package:expertis/screens/BMTokenExpiredScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:beamer/beamer.dart';
 
 class Utils {
   static double averageRating(List<int> rating) {
@@ -32,16 +36,16 @@ class Utils {
       context: context,
       flushbar: Flushbar(
         forwardAnimationCurve: Curves.decelerate,
-        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        padding: EdgeInsets.all(15),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.all(15),
         message: message,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
         borderRadius: BorderRadius.circular(8),
         flushbarPosition: FlushbarPosition.TOP,
         backgroundColor: Colors.red,
         reverseAnimationCurve: Curves.easeInOut,
         positionOffset: 20,
-        icon: Icon(
+        icon: const Icon(
           Icons.error,
           size: 28,
           color: Colors.white,
@@ -55,14 +59,17 @@ class Utils {
         SnackBar(backgroundColor: Colors.red, content: Text(message)));
   }
 
-  static void findErrorPage(BuildContext context, String error) {
+  static Widget findErrorPage(BuildContext context, String error) {
     print("error $error");
     if (error.contains("XMLHttpRequest")) {
-      Navigator.pushNamed(context, RoutesName.noConnection);
+      context.beamToReplacementNamed(RoutesName.noConnection);
+      return const BMNoInternetScreen();
     } else if (error.contains("Authentication Failed")) {
-      Navigator.pushNamed(context, RoutesName.tokenExpired);
+      context.beamToReplacementNamed(RoutesName.tokenExpired);
+      return const BMTokenExpiredScreen();
     } else {
-      Navigator.pushNamed(context, RoutesName.somethingWentWrong);
+      context.beamToNamed(RoutesName.unKnownError);
+      return const BMErrorScreen();
     }
   }
 }

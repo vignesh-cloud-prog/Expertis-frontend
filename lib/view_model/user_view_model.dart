@@ -1,7 +1,8 @@
 import 'dart:convert';
 
+import 'package:beamer/beamer.dart';
 import 'package:expertis/respository/user_repository.dart';
-import 'package:expertis/utils/routes_name.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:expertis/models/user_model.dart';
@@ -100,7 +101,7 @@ class UserViewModel with ChangeNotifier {
       userViewModel.saveUser(UserModel.fromJson(value['data']));
       setLoading(false);
       Utils.flushBarErrorMessage('Profile updated successfully', context);
-      Navigator.pushReplacementNamed(context, RoutesName.home);
+      Beamer.of(context).beamToReplacementNamed(RoutesName.home);
     }).onError((error, stackTrace) {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);

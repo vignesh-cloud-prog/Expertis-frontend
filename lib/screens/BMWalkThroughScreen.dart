@@ -1,3 +1,5 @@
+import 'package:beamer/beamer.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -108,8 +110,8 @@ class _BMWalkThroughScreenState extends State<BMWalkThroughScreen> {
                           width: 150,
                           color: bmPrimaryColor,
                           onTap: () {
-                            Navigator.pushNamed(
-                                context, BMLoginScreen.routeName);
+                            Beamer.of(context).beamToNamed(RoutesName.login);
+
                             // BMLoginScreen().launch(context, isNewTask: true);
                           },
                         ),
@@ -123,9 +125,9 @@ class _BMWalkThroughScreenState extends State<BMWalkThroughScreen> {
                           padding: EdgeInsets.all(16),
                           color: Colors.grey,
                           onTap: () {
-                            Navigator.pushNamed(
-                                context, BMRegisterScreen.routeName);
-                            BMRegisterScreen().launch(context, isNewTask: true);
+                            Beamer.of(context).beamToNamed(RoutesName.signUp);
+
+                            // BMRegisterScreen().launch(context, isNewTask: true);
                           },
                         ),
                       ],

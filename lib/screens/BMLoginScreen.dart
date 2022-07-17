@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:beamer/beamer.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -74,9 +76,7 @@ class _BMLoginScreenState extends State<BMLoginScreen> {
                                     : bmSpecialColorDark)),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                                context, BMRegisterScreen.routeName);
-                            // BMRegisterScreen().launch(context);
+                            Beamer.of(context).beamToNamed(RoutesName.signUp);
                           },
                           child: Text(
                             'Register Now',
@@ -139,9 +139,8 @@ class _BMLoginScreenState extends State<BMLoginScreen> {
                                 size: 14)),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                                context, BMForgetPasswordScreen.routeName);
-                            // BMForgetPasswordScreen().launch(context);
+                            Beamer.of(context)
+                                .beamToNamed(RoutesName.forgotPassword);
                           },
                           child: Text('Forgot Password',
                               style: boldTextStyle(
@@ -203,9 +202,6 @@ class _BMLoginScreenState extends State<BMLoginScreen> {
                               };
                               authViewMode.loginApi(json.encode(data), context);
                             }
-
-                            // Navigator.pushNamed(context, BMLoginScreen.routeName);
-                            // BMDashboardScreen(flag: false).launch(context);
                           },
                           child: authViewMode.loading
                               ? const CircularProgressIndicator(

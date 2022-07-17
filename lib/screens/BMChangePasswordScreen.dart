@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:beamer/beamer.dart';
 import 'package:expertis/screens/BMLoginScreen.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
@@ -177,7 +178,7 @@ class _BMChangePasswordScreenState extends State<BMChangePasswordScreen> {
                                       ? Colors.white
                                       : bmPrimaryColor),
                               onPressed: () {
-                                Navigator.pop(context);
+                                Beamer.of(context).beamBack();
                               },
                             ),
                           ),

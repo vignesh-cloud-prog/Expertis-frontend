@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:beamer/beamer.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,7 @@ import '../utils/BMWidgets.dart';
 import 'package:provider/provider.dart';
 
 class BMVerifyOTPScreen extends StatefulWidget {
-  BMVerifyOTPScreen({Key? key}) : super(key: key);
+  const BMVerifyOTPScreen({Key? key}) : super(key: key);
   static const String routeName = '/verify-otp';
 
   @override
@@ -157,7 +159,7 @@ class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
                                     ? Colors.white
                                     : bmPrimaryColor),
                             onPressed: () {
-                              Navigator.pop(context);
+                              Beamer.of(context).beamBack();
                             },
                           ),
                         ),
@@ -184,9 +186,6 @@ class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
                               authViewModel.verifyOTP(
                                   json.encode(data), context);
                             }
-
-                            // Navigator.pushNamed(context, BMLoginScreen.routeName);
-                            // BMDashboardScreen(flag: false).launch(context);
                           },
                           child: authViewModel.loading
                               ? const CircularProgressIndicator(

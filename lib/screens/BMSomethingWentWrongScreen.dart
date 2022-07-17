@@ -1,4 +1,5 @@
-import 'package:expertis/utils/routes_name.dart';
+import 'package:beamer/beamer.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
@@ -8,19 +9,16 @@ import 'package:provider/provider.dart';
 import '../main.dart';
 import '../utils/BMColors.dart';
 
-class BMSomethingWentWrongScreen extends StatefulWidget {
-  String message;
-  BMSomethingWentWrongScreen(
-      {Key? key, this.message = "Internal Error occured"})
+class BMErrorScreen extends StatefulWidget {
+  final String message;
+  const BMErrorScreen({Key? key, this.message = "Internal Error ocurred"})
       : super(key: key);
   static const routeName = '/something-went-wrong';
   @override
-  State<BMSomethingWentWrongScreen> createState() =>
-      _BMSomethingWentWrongScreenState();
+  State<BMErrorScreen> createState() => _BMErrorScreenState();
 }
 
-class _BMSomethingWentWrongScreenState
-    extends State<BMSomethingWentWrongScreen> {
+class _BMErrorScreenState extends State<BMErrorScreen> {
   @override
   void initState() {
     setStatusBarColor(appStore.isDarkModeOn
@@ -73,7 +71,7 @@ class _BMSomethingWentWrongScreenState
               width: 150,
               color: bmPrimaryColor,
               onTap: () {
-                Navigator.pop(context);
+                Beamer.of(context).beamBack();
               },
             ),
             10.height,
@@ -85,7 +83,7 @@ class _BMSomethingWentWrongScreenState
               width: 150,
               color: bmPrimaryColor,
               onTap: () {
-                Navigator.pushNamed(context, RoutesName.splash);
+                Beamer.of(context).beamToNamed(RoutesName.splash);
               },
             ),
           ],

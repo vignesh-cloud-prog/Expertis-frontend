@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:beamer/beamer.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -76,9 +78,7 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
                                       : bmSpecialColorDark)),
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(
-                                  context, BMLoginScreen.routeName);
-                              // BMLoginScreen().launch(context);
+                              Beamer.of(context).beamToNamed(RoutesName.login);
                             },
                             child: Text('Login Now',
                                 style: boldTextStyle(
