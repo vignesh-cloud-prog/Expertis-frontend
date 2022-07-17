@@ -121,9 +121,9 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                         case Status.LOADING:
                           return Center(child: CircularProgressIndicator());
                         case Status.ERROR:
-                          String error = value.shopList.message.toString();
-                          return Utils.findErrorPage(context, error);
-
+                          return Center(
+                            child: Text(value.shopList.message.toString()),
+                          );
                         case Status.COMPLETED:
                           return HorizontalList(
                             padding: EdgeInsets.symmetric(horizontal: 16),
@@ -176,8 +176,8 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                         case Status.LOADING:
                           return Center(child: CircularProgressIndicator());
                         case Status.ERROR:
-                          String error = value.shopList.message.toString();
-                          return Utils.findErrorPage(context, error);
+                          return Center(
+                              child: Text(value.shopList.message.toString()));
                         case Status.COMPLETED:
                           return HorizontalList(
                             padding: EdgeInsets.symmetric(horizontal: 16),

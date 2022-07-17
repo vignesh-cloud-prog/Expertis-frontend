@@ -63,16 +63,19 @@ class Utils {
   static Widget findErrorPage(BuildContext context, String error) {
     // print("error $error");
     if (error.contains("XMLHttpRequest")) {
-      context.beamToReplacementNamed(RoutesName.noConnection);
+      // Beamer.of(context).beamToNamed(RoutesName.noConnection);
       return const BMNoInternetScreen();
     } else if (error.contains("Authentication Failed")) {
-      context.beamToReplacementNamed(RoutesName.tokenExpired);
+      // Beamer.of(context).beamToNamed(RoutesName.tokenExpired);
+
       return const BMTokenExpiredScreen();
     } else if (error.contains("Token Not Found")) {
-      context.beamToReplacementNamed(RoutesName.onboarding);
+      // Beamer.of(context).beamToNamed(RoutesName.onboarding);
+
       return const BMWalkThroughScreen();
     } else {
-      context.beamToNamed(RoutesName.unKnownError);
+      // Beamer.of(context).beamToNamed(RoutesName.unKnownError);
+
       return const BMErrorScreen();
     }
   }

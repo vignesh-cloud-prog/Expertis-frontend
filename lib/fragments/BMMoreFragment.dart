@@ -152,19 +152,37 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                         BMFavouritesScreen().launch(context);
                       },
                     ),
-                    SettingItemWidget(
-                      title: 'Dashboard',
-                      leading: Icon(Icons.dashboard,
-                          color: bmPrimaryColor, size: 30),
-                      titleTextStyle: boldTextStyle(
-                          size: 20,
-                          color: appStore.isDarkModeOn
-                              ? white
-                              : bmSpecialColorDark),
-                      onTap: () {
-                        BMShoppingScreen(isOrders: true).launch(context);
-                      },
-                    ),
+                    user!.role!.toLowerCase() == "owner"
+                        ? user!.shop!.length > 0
+                            ? SettingItemWidget(
+                                title: 'Dashboard',
+                                leading: Icon(Icons.dashboard,
+                                    color: bmPrimaryColor, size: 30),
+                                titleTextStyle: boldTextStyle(
+                                    size: 20,
+                                    color: appStore.isDarkModeOn
+                                        ? white
+                                        : bmSpecialColorDark),
+                                onTap: () {
+                                  BMShoppingScreen(isOrders: true)
+                                      .launch(context);
+                                },
+                              )
+                            : SettingItemWidget(
+                                title: 'Create Shop',
+                                leading: Icon(Icons.add_business,
+                                    color: bmPrimaryColor, size: 30),
+                                titleTextStyle: boldTextStyle(
+                                    size: 20,
+                                    color: appStore.isDarkModeOn
+                                        ? white
+                                        : bmSpecialColorDark),
+                                onTap: () {
+                                  BMShoppingScreen(isOrders: true)
+                                      .launch(context);
+                                },
+                              )
+                        : Container(),
                     SettingItemWidget(
                       title: 'Contact Us',
                       leading:

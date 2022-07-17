@@ -15,6 +15,12 @@ import 'package:provider/provider.dart';
 
 class HomeLocation extends BeamLocation<BeamState> {
   @override
+  Widget builder(BuildContext context, Widget navigator) =>
+      ChangeNotifierProvider(
+        create: (context) => AuthViewModel(),
+        child: navigator,
+      );
+  @override
   List<String> get pathPatterns => [
         RoutesName.splash,
         RoutesName.home,

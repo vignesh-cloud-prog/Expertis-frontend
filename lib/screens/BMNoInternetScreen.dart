@@ -65,7 +65,7 @@ class _BMNoInternetScreenState extends State<BMNoInternetScreen> {
               width: 150,
               color: bmPrimaryColor,
               onTap: () {
-                Beamer.of(context).beamBack();
+                setState(() {});
               },
             ),
           ],

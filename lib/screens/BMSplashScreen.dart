@@ -15,14 +15,13 @@ import 'package:beamer/beamer.dart';
 
 class BMSplashScreen extends StatefulWidget {
   const BMSplashScreen({Key? key}) : super(key: key);
-  static const String routeName = '/splash-view';
 
   @override
   BMSplashScreenState createState() => BMSplashScreenState();
 }
 
 class BMSplashScreenState extends State<BMSplashScreen> {
-  SplashServices splashServices = SplashServices();
+  // SplashServices splashServices = SplashServices();
   AuthViewModel authViewModel = AuthViewModel();
   @override
   void initState() {

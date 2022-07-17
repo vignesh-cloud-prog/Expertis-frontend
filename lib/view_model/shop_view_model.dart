@@ -36,8 +36,6 @@ class ShopViewModel with ChangeNotifier {
   }
 
   Future<void> fetchShopsDataApi() async {
-    setShopList(ApiResponse.loading());
-
     _myRepo.fetchHomeData().then((value) {
       setShopList(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
@@ -46,8 +44,6 @@ class ShopViewModel with ChangeNotifier {
   }
 
   Future<void> fetchNearbyShopsDataApi() async {
-    setNearbyShopList(ApiResponse.loading());
-
     _myRepo.fetchNearbyShopsData().then((value) {
       setNearbyShopList(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
@@ -56,7 +52,6 @@ class ShopViewModel with ChangeNotifier {
   }
 
   Future<void> fetchSelectedShopDataApi(String shopId) async {
-    setSelectedShop(ApiResponse.loading());
     print("shop id is $shopId");
     _myRepo.fetchSelectedShopData(shopId).then((value) {
       // print("Selected shop data is \n ${value.toString()}");
