@@ -17,7 +17,6 @@ import 'package:provider/provider.dart';
 
 class BMLoginScreen extends StatefulWidget {
   const BMLoginScreen({Key? key}) : super(key: key);
-  static const String routeName = '/login';
 
   @override
   State<BMLoginScreen> createState() => _BMLoginScreenState();

@@ -1,5 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/routes/home_routes.dart';
+import 'package:expertis/routes/routes_name.dart';
+import 'package:expertis/screens/BMCreateShopScreen.dart';
 import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/screens/BMSingleComponentScreen.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';
@@ -15,24 +17,31 @@ class ShopsLocation extends BeamLocation<BeamState> {
         child: navigator,
       );
   @override
-  List<String> get pathPatterns => ['/shops/:shopId'];
+  List<String> get pathPatterns =>
+      [RoutesName.allShops, RoutesName.viewShop, RoutesName.createShop];
 
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
       ...HomeLocation().buildPages(context, state),
       if (state.uri.pathSegments.contains('shops'))
-        BeamPage(
+        const BeamPage(
           key: ValueKey('shops'),
           title: 'Shops',
           child: BMDashboardScreen(
             flag: false,
           ),
         ),
+      if (state.uri.pathSegments.contains('create'))
+        const BeamPage(
+          key: ValueKey('create_shop'),
+          title: 'Create Shop',
+          child: BMCreateShopScreen(),
+        ),
       if (state.pathParameters.containsKey('shopId'))
         BeamPage(
           key: ValueKey('shop-${state.pathParameters['shopId']}'),
-          title: 'Shop ${state.pathParameters['shopId']}',
+          title: '${state.pathParameters['shopId']}',
           child: BMSingleComponentScreen(
             shopId: state.pathParameters['shopId'] ?? 'null',
           ),

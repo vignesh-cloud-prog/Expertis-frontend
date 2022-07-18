@@ -15,6 +15,10 @@ class RoutesName {
   static const String createProfile = '/user/create-profile';
   static const String editProfile = '/user/edit-profile';
   static const String changePassword = '/user/change-password';
+  // Shop Routes
+  static const String allShops = '/shops';
+  static const String viewShop = '/shops/:shopId';
+  static const String createShop = '/shop/create';
 
   // Error pages
   static const String tokenExpired = '/error/token-expired';

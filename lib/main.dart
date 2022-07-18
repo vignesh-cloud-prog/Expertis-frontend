@@ -19,6 +19,7 @@ import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:beamer/beamer.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 AppStore appStore = AppStore();
 
@@ -26,6 +27,7 @@ int currentIndex = 0;
 
 void main() async {
   //region Entry Point
+  setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   await initialize(aLocaleLanguageList: languageList());
 
