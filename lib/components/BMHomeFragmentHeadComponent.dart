@@ -54,7 +54,7 @@ class HomeFragmentHeadComponent extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 18.0),
               child: Text(
-                "Find and book best sertices",
+                "Find and book best services",
                 style: kTitleStyle.copyWith(color: Colors.white),
               ),
             ),

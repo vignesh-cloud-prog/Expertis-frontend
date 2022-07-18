@@ -1,3 +1,5 @@
+import 'package:beamer/beamer.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/BMColors.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -32,20 +34,19 @@ class PurchaseMoreScreen extends StatelessWidget {
                   ),
                   22.height,
                   Text(
-                    'This is the lite version of the OraPay App',
+                    'This is the lite version of the  App',
                     style: boldTextStyle(size: 22),
                     textAlign: TextAlign.center,
                   ),
                   16.height,
                   AppButton(
-                    text: 'Purchase for more screen',
+                    text: 'Explore Later',
                     color: context.primaryColor,
                     textStyle: boldTextStyle(color: Colors.white),
                     shapeBorder:
                         RoundedRectangleBorder(borderRadius: radius(10)),
                     onTap: () {
-                      launch(
-                          "https://codecanyon.net/item/prokit-flutter-app-ui-design-templete-kit/25787190?s_rank=19");
+                      Beamer.of(context).beamToNamed(RoutesName.home);
                     },
                   )
                 ],

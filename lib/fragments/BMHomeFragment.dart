@@ -52,7 +52,7 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              HomeFragmentHeadComponent(),
+              const HomeFragmentHeadComponent(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -60,26 +60,7 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      titleText(title: 'Top Services'),
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              BMTopOffersScreen().launch(context);
-                            },
-                            child: Text('See All',
-                                style: boldTextStyle(
-                                    color: appStore.isDarkModeOn
-                                        ? bmPrimaryColor
-                                        : bmTextColorDarkMode)),
-                          ),
-                          Icon(Icons.arrow_forward_ios,
-                              color: appStore.isDarkModeOn
-                                  ? bmPrimaryColor
-                                  : bmTextColorDarkMode,
-                              size: 16),
-                        ],
-                      )
+                      titleText(title: 'Categories'),
                     ],
                   ).paddingSymmetric(horizontal: 16),
                   20.height,
@@ -88,7 +69,7 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      titleText(title: 'Special Offers'),
+                      titleText(title: 'Top Services'),
                       Row(
                         children: [
                           TextButton(

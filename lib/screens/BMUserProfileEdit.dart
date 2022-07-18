@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:expertis/utils/utils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:expertis/components/BMProfilePicComponent.dart';
 import 'package:expertis/models/user_model.dart';
-import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +12,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-
 import '../main.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 import 'package:gender_picker/source/enums.dart';
 import 'package:gender_picker/source/gender_picker.dart';
-
-import 'BMLoginScreen.dart';
 
 class BMUserProfileEditScreen extends StatefulWidget {
   final String title;
@@ -30,14 +25,12 @@ class BMUserProfileEditScreen extends StatefulWidget {
   const BMUserProfileEditScreen(
       {Key? key, this.title = "Update Profile", this.buttonName = "Update"})
       : super(key: key);
-  static const String routeName = '/edit-profile';
 
   @override
-  _BMUserProfileEditScreenState createState() =>
-      _BMUserProfileEditScreenState();
+  BMUserProfileEditScreenState createState() => BMUserProfileEditScreenState();
 }
 
-class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
+class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
   FocusNode name = FocusNode();
   FocusNode role = FocusNode();
   FocusNode phone = FocusNode();
@@ -73,25 +66,16 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
         this.image = imageFile;
       });
     } on PlatformException catch (e) {
-      // print("falied to pick image ${e.toString()}");
+      if (kDebugMode) {
+        print("failed to pick image ${e.toString()}");
+      }
     }
   }
 
   @override
   void initState() {
-    _getUserData();
     setStatusBarColor(bmSpecialColor);
     super.initState();
-  }
-
-  _getUserData() async {
-    user = await UserViewModel.getUser();
-    if (kDebugMode) // print("user: ${user.toString()}");
-      setState(() {
-        user = user;
-        _dobController.text = user!.dob.toString().splitBefore('T');
-        selectedRole = user!.role ?? 'CUSTOMER';
-      });
   }
 
   @override
@@ -103,6 +87,13 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
   @override
   Widget build(BuildContext context) {
     final userViewModel = Provider.of<UserViewModel>(context);
+    UserViewModel.getUser().then((value) {
+      setState(() {
+        user = value;
+        _dobController.text = user!.dob.toString().splitBefore('T');
+        selectedRole = user!.role ?? 'CUSTOMER';
+      });
+    });
 
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
@@ -255,7 +246,7 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                         ),
                       ),
                       20.height,
-                      Text('Address',
+                      Text('City',
                           style: primaryTextStyle(
                               color: appStore.isDarkModeOn
                                   ? bmTextColorDarkMode
@@ -264,14 +255,15 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                       AppTextField(
                         keyboardType: TextInputType.text,
                         focus: address,
-                        initialValue: user!.address,
+                        initialValue:
+                            user!.address == "null" ? "" : user!.address,
                         nextFocus: pinCode,
                         textFieldType: TextFieldType.NAME,
                         onChanged: (value) {
                           user!.address = value;
                         },
                         // controller: _addressController,
-                        errorThisFieldRequired: 'Address is required',
+                        errorThisFieldRequired: 'City name is required',
                         cursorColor: bmPrimaryColor,
                         textStyle: boldTextStyle(
                             color: appStore.isDarkModeOn
@@ -307,7 +299,9 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                         textFieldType: TextFieldType.PHONE,
                         autoFocus: true,
                         nextFocus: dob,
-                        initialValue: user!.pinCode.toString(),
+                        initialValue: user!.pinCode.toString() == "null"
+                            ? ""
+                            : user!.pinCode.toString(),
                         onChanged: (p0) => user!.pinCode = p0,
                         // controller: _pinCodeController,
                         validator: (value) {
@@ -370,7 +364,7 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                               });
                             }
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.calendar_today,
                             color: bmPrimaryColor,
                           ),
@@ -424,7 +418,7 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                                 ? bmTextColorDarkMode
                                 : bmPrimaryColor,
                             fontWeight: FontWeight.bold),
-                        unSelectedGenderTextStyle: TextStyle(
+                        unSelectedGenderTextStyle: const TextStyle(
                             color: Colors.white, fontWeight: FontWeight.normal),
                         onChanged: (Gender? gender) {
                           selectedGender =
@@ -435,7 +429,7 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                           }
                         },
                         equallyAligned: true,
-                        animationDuration: Duration(milliseconds: 300),
+                        animationDuration: const Duration(milliseconds: 300),
                         isCircular: true,
                         // default : true,
                         opacityOfGradient: 0.4,
@@ -466,7 +460,6 @@ class _BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                             data.remove('userPic');
                             userViewModel.updateUser(
                                 true, data, isFileSelected, files, context);
-                            // BMEnableLocationScreen().launch(context);
                           }
                         },
                         child: userViewModel.loading
