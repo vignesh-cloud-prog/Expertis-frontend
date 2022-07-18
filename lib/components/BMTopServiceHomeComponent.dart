@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../models/BMMasterModel.dart';
 import '../screens/BMTopOffersScreen.dart';
-import '../utils/BMDataGenerator.dart';
 
 class BMTopServiceHomeComponent extends StatefulWidget {
   const BMTopServiceHomeComponent({super.key});
@@ -35,19 +33,19 @@ class _BMTopServiceHomeComponentState extends State<BMTopServiceHomeComponent> {
       child: Consumer<CategoryViewModel>(builder: (context, value, _) {
         switch (value.categoryList.status) {
           case Status.LOADING:
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           case Status.ERROR:
             return Center(child: Text(value.categoryList.message.toString()));
           case Status.COMPLETED:
             return HorizontalList(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 spacing: 16,
                 itemCount: value.categoryList.data!.categories!.length,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
                             color: context.cardColor, borderRadius: radius(32)),
                         child: Image.network(
@@ -56,7 +54,7 @@ class _BMTopServiceHomeComponentState extends State<BMTopServiceHomeComponent> {
                                 defaultImage,
                             height: 36),
                       ).onTap(() {
-                        BMTopOffersScreen().launch(context);
+                        const BMTopOffersScreen().launch(context);
                       }),
                       8.height,
                       Text(

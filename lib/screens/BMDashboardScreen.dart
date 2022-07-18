@@ -38,8 +38,6 @@ class BMDashboardScreenState extends State<BMDashboardScreen> {
       return PurchaseMoreScreen();
     } else if (selectedTab == 2) {
       return BMAppointmentFragment();
-    } else if (selectedTab == 3) {
-      return BMChatFragment();
     } else {
       return BMMoreFragment();
     }

@@ -42,9 +42,9 @@ List<BMDashboardModel> getDashboardList() {
   list.add(BMDashboardModel(
       selectedIcon: 'images/calendar_selected.png',
       unSelectedIcon: 'images/calendar.png'));
-  list.add(BMDashboardModel(
-      selectedIcon: 'images/chat_selected.png',
-      unSelectedIcon: 'images/chat.png'));
+  // list.add(BMDashboardModel(
+  //     selectedIcon: 'images/chat_selected.png',
+  //     unSelectedIcon: 'images/chat.png'));
   list.add(BMDashboardModel(
       selectedIcon: 'images/more_selected.png',
       unSelectedIcon: 'images/more.png'));

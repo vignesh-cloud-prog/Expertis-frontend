@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:expertis/utils/utils.dart';
+import 'package:expertis/widgets/text_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:expertis/components/BMProfilePicComponent.dart';
@@ -18,10 +20,7 @@ import 'package:provider/provider.dart';
 import '../main.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
-import 'package:gender_picker/source/enums.dart';
-import 'package:gender_picker/source/gender_picker.dart';
-
-import 'BMLoginScreen.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 class BMCreateShopScreen extends StatefulWidget {
   final String title;
@@ -49,6 +48,8 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
   File? image;
   String? selectedGender;
   bool isFileSelected = false;
+  File? _pickedImage;
+  Uint8List webImage = Uint8List(8);
 
   final _formKey = GlobalKey<FormState>();
 
@@ -158,6 +159,58 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                         ),
                       ),
                       20.height,
+                      // Image to be picked code is here
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                              height: 200,
+                              decoration: BoxDecoration(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: _pickedImage == null
+                                  ? dottedBorder(color: Colors.grey)
+                                  : ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: kIsWeb
+                                          ? Image.memory(webImage,
+                                              fit: BoxFit.fill)
+                                          : Image.file(_pickedImage!,
+                                              fit: BoxFit.fill),
+                                    )),
+                        ),
+                      ),
+                      Expanded(
+                        child: FittedBox(
+                          child: Column(
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _pickedImage = null;
+                                    webImage = Uint8List(8);
+                                  });
+                                },
+                                child: TextWidget(
+                                  text: 'Clear',
+                                  color: Colors.red,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {},
+                                child: TextWidget(
+                                  text: 'Update image',
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      20.height,
+
                       Text('Shop Id',
                           style: primaryTextStyle(
                               color: appStore.isDarkModeOn
@@ -429,6 +482,72 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _pickImage() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _pickedImage = selected;
+        });
+      } else {
+        print('No image has been picked');
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+        setState(() {
+          webImage = f;
+          _pickedImage = File('a');
+        });
+      } else {
+        print('No image has been picked');
+      }
+    } else {
+      print('Something went wrong');
+    }
+  }
+
+  Widget dottedBorder({
+    required Color color,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: DottedBorder(
+          dashPattern: const [6.7],
+          borderType: BorderType.RRect,
+          color: color,
+          radius: const Radius.circular(12),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.image_outlined,
+                  color: color,
+                  size: 50,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextButton(
+                    onPressed: (() {
+                      _pickImage();
+                    }),
+                    child: TextWidget(
+                      text: 'Choose an image',
+                      color: Colors.blue,
+                    ))
+              ],
+            ),
+          )),
     );
   }
 }

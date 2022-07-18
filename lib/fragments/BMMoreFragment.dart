@@ -27,22 +27,18 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
   UserModel? user;
   @override
   void initState() {
-    _getUserData();
     setStatusBarColor(bmSpecialColor);
     super.initState();
-  }
-
-  _getUserData() async {
-    user = await UserViewModel.getUser();
-    if (kDebugMode) // print("user: ${user.toString()}");
-      setState(() {
-        user = user;
-      });
   }
 
   @override
   Widget build(BuildContext context) {
     final userViewModel = Provider.of<UserViewModel>(context);
+    UserViewModel.getUser().then((value) {
+      setState(() {
+        user = value;
+      });
+    });
 
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
