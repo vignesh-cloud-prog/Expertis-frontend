@@ -18,7 +18,14 @@ class RoutesName {
   // Shop Routes
   static const String allShops = '/shops';
   static const String viewShop = '/shops/:shopId';
+  // Owner Dashboard Routes
+  static const String ownerDashboard = '/owner-dashboard';
   static const String createShop = '/shop/create';
+  static const String updateShop = '/shop/update/:shopId';
+  static const String createService = '/shop/service/add';
+  static const String updateService = '/shop/service/update/:serviceId';
+  static const String createTag = '/shop/tag/create';
+  static const String updateTag = '/shop/tag/update/:tagId';
 
   // Error pages
   static const String tokenExpired = '/error/token-expired';

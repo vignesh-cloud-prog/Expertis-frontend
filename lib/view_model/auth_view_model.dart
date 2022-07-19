@@ -121,7 +121,7 @@ class AuthViewModel with ChangeNotifier {
   }
 
   Future<void> verifyToken() async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     _myRepo.verifyTokenApi().then((value) {
       setVerifyTokenResponse(ApiResponse.completed(value));
     }).onError((error, stackTrace) {

@@ -7,7 +7,7 @@ import '../main.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMDataGenerator.dart';
 import 'BMDashboardScreen.dart';
-import 'BMLoginScreen.dart';
+import 'login_screen.dart';
 import 'BMRegisterScreen.dart';
 
 class BMWalkThroughScreen extends StatefulWidget {

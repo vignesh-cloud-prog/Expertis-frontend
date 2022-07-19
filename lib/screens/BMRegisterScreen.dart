@@ -12,7 +12,7 @@ import '../main.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 import 'BMEnableLocationScreen.dart';
-import 'BMLoginScreen.dart';
+import 'login_screen.dart';
 
 class BMRegisterScreen extends StatefulWidget {
   const BMRegisterScreen({Key? key}) : super(key: key);

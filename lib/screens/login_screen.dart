@@ -1,17 +1,11 @@
 import 'dart:convert';
-
 import 'package:beamer/beamer.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-
-import '../components/BMSocialIconsLoginComponents.dart';
 import '../main.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
-import 'BMDashboardScreen.dart';
-import 'BMForgetPasswordScreen.dart';
-import 'BMRegisterScreen.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 

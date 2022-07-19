@@ -75,6 +75,13 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
   @override
   void initState() {
     setStatusBarColor(bmSpecialColor);
+    UserViewModel.getUser().then((value) {
+      setState(() {
+        user = value;
+        _dobController.text = user!.dob.toString().splitBefore('T');
+        selectedRole = user!.role ?? 'CUSTOMER';
+      });
+    });
     super.initState();
   }
 
@@ -87,13 +94,6 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
   @override
   Widget build(BuildContext context) {
     final userViewModel = Provider.of<UserViewModel>(context);
-    UserViewModel.getUser().then((value) {
-      setState(() {
-        user = value;
-        _dobController.text = user!.dob.toString().splitBefore('T');
-        selectedRole = user!.role ?? 'CUSTOMER';
-      });
-    });
 
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
@@ -359,8 +359,8 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                               setState(() {
                                 var date =
                                     DateFormat('yyyy-MM-dd').format(pickedDate);
-                                _dobController.text = date;
                                 user!.dob = date;
+                                _dobController.text = date;
                               });
                             }
                           },

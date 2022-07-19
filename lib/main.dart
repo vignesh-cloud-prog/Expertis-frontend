@@ -63,22 +63,20 @@ class MyApp extends StatelessWidget {
         ],
       ),
     );
-    return Observer(
-      builder: (_) => MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: '$appName${!isMobile ? ' ${platformName()}' : ''}',
-        routerDelegate: routerDelegate,
-        routeInformationParser: BeamerParser(),
-        // initialRoute: RoutesName.splash,
-        theme: !appStore.isDarkModeOn
-            ? AppThemeData.lightTheme
-            : AppThemeData.darkTheme,
-        // navigatorKey: navigatorKey,
-        scrollBehavior: SBehavior(),
-        supportedLocales: LanguageDataModel.languageLocales(),
-        // onGenerateRoute: (settings) => generateRoute(settings),
-        localeResolutionCallback: (locale, supportedLocales) => locale,
-      ),
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      title: '$appName${!isMobile ? ' ${platformName()}' : ''}',
+      routerDelegate: routerDelegate,
+      routeInformationParser: BeamerParser(),
+      // initialRoute: RoutesName.splash,
+      theme: !appStore.isDarkModeOn
+          ? AppThemeData.lightTheme
+          : AppThemeData.darkTheme,
+      // navigatorKey: navigatorKey,
+      scrollBehavior: SBehavior(),
+      supportedLocales: LanguageDataModel.languageLocales(),
+      // onGenerateRoute: (settings) => generateRoute(settings),
+      localeResolutionCallback: (locale, supportedLocales) => locale,
     );
   }
 }

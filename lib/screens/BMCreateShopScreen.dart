@@ -161,25 +161,33 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                       20.height,
                       // Image to be picked code is here
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                              height: 200,
-                              decoration: BoxDecoration(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: _pickedImage == null
-                                  ? dottedBorder(color: Colors.grey)
-                                  : ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: kIsWeb
-                                          ? Image.memory(webImage,
-                                              fit: BoxFit.fill)
-                                          : Image.file(_pickedImage!,
-                                              fit: BoxFit.fill),
-                                    )),
+                        child: SizedBox(
+                          height: 200,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                height: 200,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                child: _pickedImage == null
+                                    ? dottedBorder(color: Colors.grey)
+                                    : ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: kIsWeb
+                                            ? Image.memory(webImage,
+                                                fit: BoxFit.fill,
+                                                width: 200,
+                                                height: 200)
+                                            : Image.file(_pickedImage!,
+                                                fit: BoxFit.fill,
+                                                width: 200,
+                                                height: 200),
+                                      )),
+                          ),
                         ),
                       ),
                       Expanded(

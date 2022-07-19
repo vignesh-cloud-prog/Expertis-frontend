@@ -3,7 +3,7 @@ import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/screens/BMForgetPasswordScreen.dart';
 import 'package:expertis/screens/BMLoginNowScreen.dart';
-import 'package:expertis/screens/BMLoginScreen.dart';
+import 'package:expertis/screens/login_screen.dart';
 import 'package:expertis/screens/BMRegisterScreen.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';
 import 'package:expertis/screens/BMVerifyOTPScreen.dart';
@@ -14,19 +14,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 class HomeLocation extends BeamLocation<BeamState> {
-  @override
-  Widget builder(BuildContext context, Widget navigator) =>
-      ChangeNotifierProvider(
-        create: (context) => AuthViewModel(),
-        child: navigator,
-      );
+  // @override
+  // Widget builder(BuildContext context, Widget navigator) =>
+  //     ChangeNotifierProvider(
+  //       create: (context) => AuthViewModel(),
+  //       child: navigator,
+  //     );
   @override
   List<String> get pathPatterns => [
         RoutesName.splash,
         RoutesName.home,
+        RoutesName.onboarding,
         RoutesName.login,
         RoutesName.signUp,
-        RoutesName.onboarding,
         RoutesName.verifyOTP,
         RoutesName.forgotPassword,
         RoutesName.loginNow,
