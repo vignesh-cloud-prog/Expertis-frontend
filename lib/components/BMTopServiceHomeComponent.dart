@@ -64,8 +64,9 @@ class _BMTopServiceHomeComponentState extends State<BMTopServiceHomeComponent> {
                     ],
                   );
                 });
+          default:
+            return Container();
         }
-        return Container();
       }),
     );
   }

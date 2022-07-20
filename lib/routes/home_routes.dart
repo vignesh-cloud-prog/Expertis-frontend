@@ -41,12 +41,10 @@ class HomeLocation extends BeamLocation<BeamState> {
         child: BMSplashScreen(),
       ),
       if (state.pathPatternSegments.contains("home"))
-        const BeamPage(
+        BeamPage(
           key: ValueKey(RoutesName.home),
           title: appName,
-          child: BMDashboardScreen(
-            flag: false,
-          ),
+          child: BMDashboardScreen(),
         ),
       if (state.pathPatternSegments.contains("onboarding"))
         const BeamPage(

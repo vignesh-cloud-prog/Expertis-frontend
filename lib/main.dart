@@ -1,7 +1,10 @@
 //region imports
 import 'package:expertis/models/categories_model.dart';
+import 'package:expertis/routes/appointment_routes.dart';
 import 'package:expertis/routes/errors.routes.dart';
 import 'package:expertis/routes/home_routes.dart';
+import 'package:expertis/routes/more_routes.dart';
+import 'package:expertis/routes/search_routes.dart';
 import 'package:expertis/routes/shop_routes.dart';
 import 'package:expertis/routes/user_routes.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';
@@ -60,6 +63,9 @@ class MyApp extends StatelessWidget {
           ShopsLocation(),
           ErrorsLocation(),
           UserLocation(),
+          AppointmentLocation(),
+          MoreLocation(),
+          SearchLocation(),
         ],
       ),
     );

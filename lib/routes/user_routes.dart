@@ -24,12 +24,10 @@ class UserLocation extends BeamLocation<BeamState> {
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
-      const BeamPage(
+      BeamPage(
         key: ValueKey(RoutesName.viewProfile),
         title: 'Welcome to $appName',
-        child: BMDashboardScreen(
-          flag: false,
-        ),
+        child: BMDashboardScreen(),
       ),
       if (state.pathPatternSegments.contains("create-profile"))
         const BeamPage(

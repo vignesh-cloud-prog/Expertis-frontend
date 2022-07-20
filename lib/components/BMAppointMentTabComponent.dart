@@ -9,18 +9,20 @@ import 'BMAppointmentComponent.dart';
 class BMAppointMentTabComponent extends StatelessWidget {
   bool tabOne;
 
-  BMAppointMentTabComponent({required this.tabOne});
+  BMAppointMentTabComponent({Key? key, required this.tabOne}) : super(key: key);
 
   getCurrentDate() {
     return DateFormat.yMMMMd('en_US').format(DateTime.now());
   }
 
   getTomorrowDate() {
-    return DateFormat.yMMMMd('en_US').format(DateTime.now().add(const Duration(days: 1)));
+    return DateFormat.yMMMMd('en_US')
+        .format(DateTime.now().add(const Duration(days: 1)));
   }
 
   getYesterdayDate() {
-    return DateFormat.yMMMMd('en_US').format(DateTime.now().subtract(const Duration(days: 1)));
+    return DateFormat.yMMMMd('en_US')
+        .format(DateTime.now().subtract(const Duration(days: 1)));
   }
 
   @override
@@ -38,7 +40,10 @@ class BMAppointMentTabComponent extends StatelessWidget {
           }).toList(),
         ),
         20.height,
-        titleText(title: tabOne ? getTomorrowDate() : 'Yesterday, ${getYesterdayDate()}'),
+        titleText(
+            title: tabOne
+                ? getTomorrowDate()
+                : 'Yesterday, ${getYesterdayDate()}'),
         20.height,
         Column(
           mainAxisSize: MainAxisSize.min,

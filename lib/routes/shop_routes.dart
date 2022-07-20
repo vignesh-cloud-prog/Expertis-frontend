@@ -34,12 +34,10 @@ class ShopsLocation extends BeamLocation<BeamState> {
     return [
       // ...HomeLocation().buildPages(context, state),
       if (state.uri.pathSegments.contains('shops'))
-        const BeamPage(
+        BeamPage(
           key: ValueKey('shops'),
           title: 'Shops',
-          child: BMDashboardScreen(
-            flag: false,
-          ),
+          child: BMDashboardScreen(),
         ),
       if (state.uri.pathSegments.contains('create'))
         const BeamPage(

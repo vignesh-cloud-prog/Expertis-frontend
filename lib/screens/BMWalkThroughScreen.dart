@@ -66,8 +66,7 @@ class _BMWalkThroughScreenState extends State<BMWalkThroughScreen> {
                   child:
                       Text('SKIP', style: boldTextStyle(color: white, size: 14))
                           .onTap(() {
-                    BMDashboardScreen(flag: false)
-                        .launch(context, isNewTask: true);
+                    BMDashboardScreen().launch(context, isNewTask: true);
                   }),
                 ),
                 Column(

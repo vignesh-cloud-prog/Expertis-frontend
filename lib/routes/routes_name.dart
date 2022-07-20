@@ -15,6 +15,12 @@ class RoutesName {
   static const String createProfile = '/user/create-profile';
   static const String editProfile = '/user/edit-profile';
   static const String changePassword = '/user/change-password';
+  // Appointment routes name
+  static const String appointment = '/appointment';
+  // Search routes name
+  static const String search = '/search';
+  // More routes name
+  static const String more = '/more';
   // Shop Routes
   static const String allShops = '/shops';
   static const String viewShop = '/shops/:shopId';

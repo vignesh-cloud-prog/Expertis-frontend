@@ -1,5 +1,4 @@
 import 'package:expertis/data/response/status.dart';
-import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -7,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import '../components/BMCommonCardComponent.dart';
 import '../components/BMHomeFragmentHeadComponent.dart';
-import '../components/BMMyMasterComponent.dart';
 import '../components/BMTopServiceHomeComponent.dart';
 import '../main.dart';
 import '../models/BMCommonCardModel.dart';
@@ -33,8 +31,7 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
   @override
   void initState() {
     setStatusBarColor(bmSpecialColor);
-    shopViewModel.fetchShopsDataApi();
-    shopViewModel.fetchNearbyShopsDataApi();
+
     super.initState();
   }
 
@@ -45,6 +42,12 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
 
   @override
   Widget build(BuildContext context) {
+    if (shopViewModel.shopList.status == Status.LOADING) {
+      shopViewModel.fetchShopsDataApi();
+    }
+    if (shopViewModel.nearbyShopList.status == Status.LOADING) {
+      shopViewModel.fetchNearbyShopsDataApi();
+    }
     return Scaffold(
         backgroundColor: appStore.isDarkModeOn
             ? appStore.scaffoldBackground!
@@ -64,7 +67,7 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                     ],
                   ).paddingSymmetric(horizontal: 16),
                   20.height,
-                  BMTopServiceHomeComponent(),
+                  const BMTopServiceHomeComponent(),
                   20.height,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,7 +77,7 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                         children: [
                           TextButton(
                             onPressed: () {
-                              BMTopOffersScreen().launch(context);
+                              const BMTopOffersScreen().launch(context);
                             },
                             child: Text('See All',
                                 style: boldTextStyle(
@@ -98,14 +101,15 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                         Consumer<ShopViewModel>(builder: (context, value, _) {
                       switch (value.shopList.status) {
                         case Status.LOADING:
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         case Status.ERROR:
                           return Center(
                             child: Text(value.shopList.message.toString()),
                           );
                         case Status.COMPLETED:
                           return HorizontalList(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             spacing: 16,
                             itemCount: value.shopList.data!.shops!.length,
                             itemBuilder: (context, index) {
@@ -115,8 +119,9 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                                   isFavList: false);
                             },
                           );
+                        default:
+                          return Container();
                       }
-                      return Container();
                     }),
                   ),
 
@@ -129,7 +134,7 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                         children: [
                           TextButton(
                             onPressed: () {
-                              BMRecommendedScreen().launch(context);
+                              const BMRecommendedScreen().launch(context);
                             },
                             child: Text('See All',
                                 style: boldTextStyle(
@@ -153,13 +158,14 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                         Consumer<ShopViewModel>(builder: (context, value, _) {
                       switch (value.nearbyShopList.status) {
                         case Status.LOADING:
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         case Status.ERROR:
                           return Center(
                               child: Text(value.shopList.message.toString()));
                         case Status.COMPLETED:
                           return HorizontalList(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             spacing: 16,
                             itemCount: value.nearbyShopList.data!.shops!.length,
                             itemBuilder: (context, index) {
@@ -170,8 +176,9 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                                   isFavList: false);
                             },
                           );
+                        default:
+                          return Container();
                       }
-                      return Container();
                     }),
                   ),
                   // HorizontalList(

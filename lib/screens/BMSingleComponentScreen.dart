@@ -3,6 +3,7 @@ import 'package:expertis/screens/BMCallScreen.dart';
 import 'package:expertis/screens/BMChatScreen.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
@@ -10,25 +11,22 @@ import 'package:provider/provider.dart';
 import '../components/BMOurServiveComponent.dart';
 import '../components/BMPortfolioComponent.dart';
 import '../main.dart';
-import '../models/BMCommonCardModel.dart';
 import '../models/BMMessageModel.dart';
 import '../models/shop_list_model.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 import '../utils/flutter_rating_bar.dart';
-import 'BMSingleImageScreen.dart';
 
 class BMSingleComponentScreen extends StatefulWidget {
-  ShopModel element = ShopModel();
-  String shopId;
-  BMSingleComponentScreen({Key? key, required this.shopId}) : super(key: key);
+  final String shopId;
+  const BMSingleComponentScreen({Key? key, required this.shopId})
+      : super(key: key);
 
   @override
-  _BMSingleComponentScreenState createState() =>
-      _BMSingleComponentScreenState();
+  BMSingleComponentScreenState createState() => BMSingleComponentScreenState();
 }
 
-class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
+class BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
   ShopViewModel shopViewModel = ShopViewModel();
   bool isLiked = false;
   String defaultImg = "https://www.totallyrepair.in/images/wow-5.jpg";
@@ -85,9 +83,12 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
 
             case Status.COMPLETED:
               ShopModel? shop = value.selectedShop.data;
+              if (kDebugMode) {
+                print(shop!.toJson());
+              }
               return NestedScrollView(
                 floatHeaderSlivers: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return [
@@ -96,7 +97,8 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                           ? appStore.scaffoldBackground!
                           : bmLightScaffoldBackgroundColor,
                       leading: IconButton(
-                        icon: Icon(Icons.arrow_back, color: bmPrimaryColor),
+                        icon:
+                            const Icon(Icons.arrow_back, color: bmPrimaryColor),
                         onPressed: () {
                           finish(context);
                         },
@@ -105,7 +107,7 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                           .visible(innerBoxIsScrolled),
                       actions: [
                         IconButton(
-                          icon: Icon(Icons.subdirectory_arrow_right,
+                          icon: const Icon(Icons.subdirectory_arrow_right,
                               color: bmPrimaryColor),
                           onPressed: () {
                             // BMSingleImageScreen(element: widget.element)
@@ -114,8 +116,9 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                         ).visible(innerBoxIsScrolled),
                         IconButton(
                           icon: isLiked
-                              ? Icon(Icons.favorite, color: bmPrimaryColor)
-                              : Icon(Icons.favorite_outline,
+                              ? const Icon(Icons.favorite,
+                                  color: bmPrimaryColor)
+                              : const Icon(Icons.favorite_outline,
                                   color: bmPrimaryColor),
                           onPressed: () {
                             isLiked = !isLiked;
@@ -128,8 +131,8 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                       elevation: 0.5,
                       expandedHeight: 450,
                       flexibleSpace: FlexibleSpaceBar(
-                        titlePadding:
-                            EdgeInsets.only(bottom: 66, left: 30, right: 50),
+                        titlePadding: const EdgeInsets.only(
+                            bottom: 66, left: 30, right: 50),
                         collapseMode: CollapseMode.parallax,
                         background: Column(
                           children: [
@@ -146,49 +149,50 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      child: Icon(Icons.arrow_back,
-                                          color: bmPrimaryColor),
                                       decoration: BoxDecoration(
                                         borderRadius: radius(100),
                                         color: context.cardColor,
                                       ),
-                                      padding: EdgeInsets.all(8),
-                                      margin:
-                                          EdgeInsets.only(left: 16, top: 30),
+                                      padding: const EdgeInsets.all(8),
+                                      margin: const EdgeInsets.only(
+                                          left: 16, top: 30),
+                                      child: const Icon(Icons.arrow_back,
+                                          color: bmPrimaryColor),
                                     ).onTap(() {
                                       finish(context);
                                     }, borderRadius: radius(100)),
                                     Row(
                                       children: [
                                         Container(
-                                          child: Icon(
-                                              Icons.subdirectory_arrow_right,
-                                              color: bmPrimaryColor),
                                           decoration: BoxDecoration(
                                             borderRadius: radius(100),
                                             color: context.cardColor,
                                           ),
-                                          padding: EdgeInsets.all(8),
-                                          margin: EdgeInsets.only(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(
                                               right: 16, top: 30),
+                                          child: const Icon(
+                                              Icons.subdirectory_arrow_right,
+                                              color: bmPrimaryColor),
                                         ).onTap(() {
                                           // BMSingleImageScreen(
                                           //         element: widget.element)
                                           //     .launch(context);
                                         }, borderRadius: radius(100)),
                                         Container(
-                                          child: isLiked
-                                              ? Icon(Icons.favorite,
-                                                  color: bmPrimaryColor)
-                                              : Icon(Icons.favorite_outline,
-                                                  color: bmPrimaryColor),
                                           decoration: BoxDecoration(
                                             borderRadius: radius(100),
                                             color: context.cardColor,
                                           ),
-                                          padding: EdgeInsets.all(8),
-                                          margin: EdgeInsets.only(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(
                                               right: 16, top: 30),
+                                          child: isLiked
+                                              ? const Icon(Icons.favorite,
+                                                  color: bmPrimaryColor)
+                                              : const Icon(
+                                                  Icons.favorite_outline,
+                                                  color: bmPrimaryColor),
                                         ).onTap(() {
                                           isLiked = !isLiked;
                                           setState(() {});
@@ -200,7 +204,7 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                               ],
                             ),
                             Container(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               color: appStore.isDarkModeOn
                                   ? appStore.scaffoldBackground!
                                   : bmLightScaffoldBackgroundColor,
@@ -231,9 +235,9 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                                         allowHalfRating: true,
                                         itemCount: 5,
                                         itemSize: 18,
-                                        itemPadding:
-                                            EdgeInsets.symmetric(horizontal: 0),
-                                        itemBuilder: (context, _) => Icon(
+                                        itemPadding: const EdgeInsets.symmetric(
+                                            horizontal: 0),
+                                        itemBuilder: (context, _) => const Icon(
                                           Icons.star,
                                           color: Colors.amber,
                                         ),
@@ -261,11 +265,11 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                                               : bmLightScaffoldBackgroundColor,
                                           borderRadius: radius(32),
                                         ),
-                                        padding: EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(8),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Icon(Icons.call_outlined,
+                                            const Icon(Icons.call_outlined,
                                                 color: bmPrimaryColor),
                                             4.width,
                                             Text('Call us',
@@ -285,7 +289,7 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                                               : bmLightScaffoldBackgroundColor,
                                           borderRadius: radius(32),
                                         ),
-                                        padding: EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(8),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
@@ -341,7 +345,7 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                                     ? bmPrimaryColor
                                     : Colors.transparent,
                               ),
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               child: Text(
                                 tabList[index],
                                 style: boldTextStyle(
@@ -365,8 +369,9 @@ class _BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                   ),
                 ),
               );
+            default:
+              return Container();
           }
-          return Container();
         }),
       ),
     );

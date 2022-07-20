@@ -35,17 +35,22 @@ List<BMDashboardModel> getDashboardList() {
   List<BMDashboardModel> list = [];
 
   list.add(BMDashboardModel(
-      selectedIcon: 'images/home.png', unSelectedIcon: 'images/house.png'));
+      label: "Home",
+      selectedIcon: 'images/home.png',
+      unSelectedIcon: 'images/house.png'));
   list.add(BMDashboardModel(
+      label: "Search",
       selectedIcon: 'images/magnifier.png',
       unSelectedIcon: 'images/search.png'));
   list.add(BMDashboardModel(
+      label: "Appointment",
       selectedIcon: 'images/calendar_selected.png',
       unSelectedIcon: 'images/calendar.png'));
   // list.add(BMDashboardModel(
   //     selectedIcon: 'images/chat_selected.png',
   //     unSelectedIcon: 'images/chat.png'));
   list.add(BMDashboardModel(
+      label: "More",
       selectedIcon: 'images/more_selected.png',
       unSelectedIcon: 'images/more.png'));
 

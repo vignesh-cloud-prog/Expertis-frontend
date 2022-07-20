@@ -1,4 +1,9 @@
+import 'package:beamer/beamer.dart';
 import 'package:expertis/respository/auth_repository.dart';
+import 'package:expertis/routes/appointment_routes.dart';
+import 'package:expertis/routes/home_routes.dart';
+import 'package:expertis/routes/more_routes.dart';
+import 'package:expertis/routes/search_routes.dart';
 import 'package:expertis/screens/BMTokenExpiredScreen.dart';
 
 import 'package:expertis/screens/BMPurchaseMoreScreen.dart';
@@ -17,10 +22,10 @@ import '../utils/BMColors.dart';
 import '../utils/BMDataGenerator.dart';
 
 class BMDashboardScreen extends StatefulWidget {
-  final bool flag;
+  bool flag = false;
   static const routeName = '/';
 
-  const BMDashboardScreen({super.key, required this.flag});
+  BMDashboardScreen({super.key});
 
   @override
   BMDashboardScreenState createState() => BMDashboardScreenState();
@@ -28,20 +33,50 @@ class BMDashboardScreen extends StatefulWidget {
 
 class BMDashboardScreenState extends State<BMDashboardScreen> {
   List<BMDashboardModel> list = getDashboardList();
+  late BeamerDelegate _beamerDelegate;
+  int _currentIndex = 0;
 
   int selectedTab = 0;
 
   Widget getFragment() {
     if (selectedTab == 0) {
-      return BMHomeFragment();
+      return const BMHomeFragment();
     } else if (selectedTab == 1) {
       return PurchaseMoreScreen();
     } else if (selectedTab == 2) {
-      return BMAppointmentFragment();
+      return const BMAppointmentFragment();
     } else {
-      return BMMoreFragment();
+      return const BMMoreFragment();
     }
   }
+
+  void getFragmentNo(selectedTab) {
+    if (selectedTab == 0) {
+      return Beamer.of(context).beamToNamed("/home");
+    } else if (selectedTab == 1) {
+      return Beamer.of(context).beamToNamed("/search");
+    } else if (selectedTab == 2) {
+      return Beamer.of(context).beamToNamed("/appointment");
+    } else {
+      return Beamer.of(context).beamToNamed("/more");
+    }
+  }
+
+  int getBeamLocation() {
+    if (Beamer.of(context).currentBeamLocation is HomeLocation) {
+      return 0;
+    } else if (Beamer.of(context).currentBeamLocation is SearchLocation) {
+      return 1;
+    } else if (Beamer.of(context).currentBeamLocation is AppointmentLocation) {
+      return 2;
+    } else if (Beamer.of(context).currentBeamLocation is MoreLocation) {
+      return 3;
+    } else {
+      return 0;
+    }
+  }
+
+  void _setStateListener() => setState(() {});
 
   @override
   void initState() {
@@ -82,6 +117,7 @@ class BMDashboardScreenState extends State<BMDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    selectedTab = getBeamLocation();
     return Scaffold(
       backgroundColor: getDashboardColor(),
       body: getFragment(),
@@ -90,20 +126,21 @@ class BMDashboardScreenState extends State<BMDashboardScreen> {
           setState(() {
             selectedTab = index;
           });
+          getFragmentNo(index);
         },
         type: BottomNavigationBarType.fixed,
         backgroundColor: context.cardColor,
         unselectedItemColor: bmPrimaryColor,
-        showSelectedLabels: false,
+        showSelectedLabels: true,
         showUnselectedLabels: false,
         currentIndex: selectedTab,
         items: list.map((e) {
           return BottomNavigationBarItem(
+            label: e.label,
             icon: Image.asset(e.unSelectedIcon,
                 height: 24, color: bmPrimaryColor),
             activeIcon:
                 Image.asset(e.selectedIcon, height: 24, color: bmPrimaryColor),
-            label: '',
           );
         }).toList(),
       ).cornerRadiusWithClipRRectOnly(topLeft: 32, topRight: 32),

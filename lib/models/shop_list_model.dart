@@ -22,6 +22,7 @@ class ShopListModel {
 }
 
 class ShopModel {
+  List<String>? likes;
   String? owner;
   String? shopId;
   String? shopName;
@@ -31,7 +32,7 @@ class ShopModel {
   List<String>? tags;
   List<Members>? members;
   bool? isVerifiedByAdmin;
-  List<String>? services;
+  List<Services>? services;
   List<String>? appointments;
   List<String>? slotsBooked;
   Rating? rating;
@@ -44,7 +45,8 @@ class ShopModel {
   String? id;
 
   ShopModel(
-      {this.owner,
+      {this.likes,
+      this.owner,
       this.shopId,
       this.shopName,
       this.shopLogo,
@@ -66,6 +68,7 @@ class ShopModel {
       this.id});
 
   ShopModel.fromJson(Map<String, dynamic> json) {
+    likes = json['likes'].cast<String>();
     owner = json['owner'];
     shopId = json['shopId'];
     shopName = json['shopName'];
@@ -83,7 +86,12 @@ class ShopModel {
       });
     }
     isVerifiedByAdmin = json['isVerifiedByAdmin'];
-    services = json['services'].cast<String>();
+    if (json['services'] != null) {
+      services = <Services>[];
+      json['services'].forEach((v) {
+        services!.add(new Services.fromJson(v));
+      });
+    }
     appointments = json['appointments'].cast<String>();
     slotsBooked = json['slotsBooked'].cast<String>();
     rating =
@@ -99,6 +107,7 @@ class ShopModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['likes'] = this.likes;
     data['owner'] = this.owner;
     data['shopId'] = this.shopId;
     data['shopName'] = this.shopName;
@@ -114,7 +123,9 @@ class ShopModel {
       data['members'] = this.members!.map((v) => v.toJson()).toList();
     }
     data['isVerifiedByAdmin'] = this.isVerifiedByAdmin;
-    data['services'] = this.services;
+    if (this.services != null) {
+      data['services'] = this.services!.map((v) => v.toJson()).toList();
+    }
     data['appointments'] = this.appointments;
     data['slotsBooked'] = this.slotsBooked;
     if (this.rating != null) {
@@ -310,6 +321,47 @@ class Members {
     data['name'] = this.name;
     data['pic'] = this.pic;
     data['role'] = this.role;
+    data['id'] = this.id;
+    return data;
+  }
+}
+
+class Services {
+  String? serviceName;
+  int? price;
+  String? time;
+  String? isVerifiedByAdmin;
+  String? shop;
+  List<String>? tags;
+  String? id;
+
+  Services(
+      {this.serviceName,
+      this.price,
+      this.time,
+      this.isVerifiedByAdmin,
+      this.shop,
+      this.tags,
+      this.id});
+
+  Services.fromJson(Map<String, dynamic> json) {
+    serviceName = json['serviceName'];
+    price = json['price'];
+    time = json['time'];
+    isVerifiedByAdmin = json['isVerifiedByAdmin'];
+    shop = json['shop'];
+    tags = json['tags'].cast<String>();
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['serviceName'] = this.serviceName;
+    data['price'] = this.price;
+    data['time'] = this.time;
+    data['isVerifiedByAdmin'] = this.isVerifiedByAdmin;
+    data['shop'] = this.shop;
+    data['tags'] = this.tags;
     data['id'] = this.id;
     return data;
   }

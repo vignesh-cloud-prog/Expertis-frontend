@@ -3,14 +3,12 @@ import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
-import 'package:expertis/view_model/services/splash_services.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../utils/BMColors.dart';
-import 'BMWalkThroughScreen.dart';
 import 'package:beamer/beamer.dart';
 
 class BMSplashScreen extends StatefulWidget {
@@ -72,9 +70,10 @@ class BMSplashScreenState extends State<BMSplashScreen> {
 
             case Status.COMPLETED:
               context.beamToReplacementNamed(RoutesName.home);
-              return const BMDashboardScreen(flag: false);
+              return BMDashboardScreen();
+            default:
+              return Container();
           }
-          return Container();
         }),
       ),
     );

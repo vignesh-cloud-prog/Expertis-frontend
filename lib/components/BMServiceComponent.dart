@@ -1,3 +1,4 @@
+import 'package:expertis/models/shop_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -7,13 +8,31 @@ import '../utils/BMBottomSheet.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
-class BMServiceComponent extends StatelessWidget {
-  BMServiceListModel element;
+class BMServiceComponent extends StatefulWidget {
+  Services element;
+  // BMServiceListModel element;
 
   BMServiceComponent({required this.element});
 
   @override
+  State<BMServiceComponent> createState() => _BMServiceComponentState();
+}
+
+class _BMServiceComponentState extends State<BMServiceComponent> {
+  @override
   Widget build(BuildContext context) {
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return Colors.blue;
+      }
+      return bmPrimaryColor;
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -21,22 +40,27 @@ class BMServiceComponent extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            titleText(title: element.name, size: 14, maxLines: 2),
+            titleText(
+                title: widget.element.serviceName ?? '', size: 14, maxLines: 2),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '${element.cost}+',
+                  '${widget.element.price}+',
                   style: secondaryTextStyle(
-                    color: appStore.isDarkModeOn ? bmTextColorDarkMode : bmPrimaryColor,
+                    color: appStore.isDarkModeOn
+                        ? bmTextColorDarkMode
+                        : bmPrimaryColor,
                     size: 12,
                   ),
                 ),
                 16.width,
                 Text(
-                  element.time,
+                  widget.element.time ?? '',
                   style: secondaryTextStyle(
-                    color: appStore.isDarkModeOn ? bmTextColorDarkMode : bmPrimaryColor,
+                    color: appStore.isDarkModeOn
+                        ? bmTextColorDarkMode
+                        : bmPrimaryColor,
                     size: 12,
                   ),
                 ),
@@ -53,18 +77,18 @@ class BMServiceComponent extends StatelessWidget {
                 border: Border.all(color: bmPrimaryColor),
               ),
               padding: EdgeInsets.all(6),
-              child: Icon(Icons.info, color: bmPrimaryColor),
+              child: InkWell(
+                child: Icon(Icons.info, color: bmPrimaryColor),
+                onTap: () {
+                  // showBookBottomSheet(context, element);
+                },
+              ),
             ),
             8.width,
-            AppButton(
-              width: 60,
-              padding: EdgeInsets.all(0),
-              shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-              child: Text('Book', style: boldTextStyle(color: Colors.white, size: 12)),
-              color: bmPrimaryColor,
-              onTap: () {
-                showBookBottomSheet(context, element);
-              },
+            Checkbox(
+              value: true,
+              fillColor: MaterialStateProperty.resolveWith(getColor),
+              onChanged: (value) {},
             ),
           ],
         )
