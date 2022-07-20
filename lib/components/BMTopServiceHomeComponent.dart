@@ -22,7 +22,6 @@ class _BMTopServiceHomeComponentState extends State<BMTopServiceHomeComponent> {
   @override
   void initState() {
     categoryViewModel.fetchCategoryListApi();
-
     super.initState();
   }
 

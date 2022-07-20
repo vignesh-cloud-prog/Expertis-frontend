@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../models/BMAppointmentModel.dart';
@@ -53,6 +54,32 @@ List<BMDashboardModel> getDashboardList() {
       label: "More",
       selectedIcon: 'images/more_selected.png',
       unSelectedIcon: 'images/more.png'));
+
+  return list;
+}
+
+List<BMDashboardModel> getShopOwnerDashboardList() {
+  List<BMDashboardModel> list = [];
+
+  list.add(BMDashboardModel(
+      label: "Home",
+      selectedIcon: 'images/home.png',
+      unSelectedIcon: 'images/house.png'));
+  list.add(BMDashboardModel(
+      label: "Services",
+      selectedIcon: 'images/service_filled.png',
+      unSelectedIcon: 'images/services_outlined.png'));
+  list.add(BMDashboardModel(
+      label: "Appointment",
+      selectedIcon: 'images/calendar_selected.png',
+      unSelectedIcon: 'images/calendar.png'));
+  // list.add(BMDashboardModel(
+  //     selectedIcon: 'images/chat_selected.png',
+  //     unSelectedIcon: 'images/chat.png'));
+  list.add(BMDashboardModel(
+      label: "Shop",
+      selectedIcon: 'images/shop_filled.png',
+      unSelectedIcon: 'images/shop_outlined.png'));
 
   return list;
 }

@@ -1,4 +1,7 @@
+import 'package:expertis/components/top_shops.dart';
 import 'package:expertis/data/response/status.dart';
+import 'package:expertis/fragments/nearby_shops.dart';
+import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -23,11 +26,6 @@ class BMHomeFragment extends StatefulWidget {
 }
 
 class _BMHomeFragmentState extends State<BMHomeFragment> {
-  List<BMCommonCardModel> specialOffersList = getSpecialOffersList();
-
-  List<BMCommonCardModel> recommendedList = getRecommendedList();
-  ShopViewModel shopViewModel = ShopViewModel();
-
   @override
   void initState() {
     setStatusBarColor(bmSpecialColor);
@@ -42,12 +40,6 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
 
   @override
   Widget build(BuildContext context) {
-    if (shopViewModel.shopList.status == Status.LOADING) {
-      shopViewModel.fetchShopsDataApi();
-    }
-    if (shopViewModel.nearbyShopList.status == Status.LOADING) {
-      shopViewModel.fetchNearbyShopsDataApi();
-    }
     return Scaffold(
         backgroundColor: appStore.isDarkModeOn
             ? appStore.scaffoldBackground!
@@ -95,35 +87,7 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                     ],
                   ).paddingSymmetric(horizontal: 16),
                   20.height,
-                  ChangeNotifierProvider<ShopViewModel>(
-                    create: (BuildContext context) => shopViewModel,
-                    child:
-                        Consumer<ShopViewModel>(builder: (context, value, _) {
-                      switch (value.shopList.status) {
-                        case Status.LOADING:
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        case Status.ERROR:
-                          return Center(
-                            child: Text(value.shopList.message.toString()),
-                          );
-                        case Status.COMPLETED:
-                          return HorizontalList(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            spacing: 16,
-                            itemCount: value.shopList.data!.shops!.length,
-                            itemBuilder: (context, index) {
-                              return BMCommonCardComponent(
-                                  element: value.shopList.data!.shops![index],
-                                  fullScreenComponent: false,
-                                  isFavList: false);
-                            },
-                          );
-                        default:
-                          return Container();
-                      }
-                    }),
-                  ),
+                  BMTopShopsComponent(),
 
                   20.height,
                   Row(
@@ -152,35 +116,7 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                     ],
                   ).paddingSymmetric(horizontal: 16),
                   20.height,
-                  ChangeNotifierProvider<ShopViewModel>(
-                    create: (BuildContext context) => shopViewModel,
-                    child:
-                        Consumer<ShopViewModel>(builder: (context, value, _) {
-                      switch (value.nearbyShopList.status) {
-                        case Status.LOADING:
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        case Status.ERROR:
-                          return Center(
-                              child: Text(value.shopList.message.toString()));
-                        case Status.COMPLETED:
-                          return HorizontalList(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            spacing: 16,
-                            itemCount: value.nearbyShopList.data!.shops!.length,
-                            itemBuilder: (context, index) {
-                              return BMCommonCardComponent(
-                                  element:
-                                      value.nearbyShopList.data!.shops![index],
-                                  fullScreenComponent: false,
-                                  isFavList: false);
-                            },
-                          );
-                        default:
-                          return Container();
-                      }
-                    }),
-                  ),
+                  BMNearByShopsComponent(),
                   // HorizontalList(
                   //   padding: EdgeInsets.symmetric(horizontal: 16),
                   //   spacing: 16,

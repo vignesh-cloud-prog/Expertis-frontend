@@ -1,19 +1,14 @@
 import 'package:beamer/beamer.dart';
-import 'package:expertis/respository/auth_repository.dart';
 import 'package:expertis/routes/appointment_routes.dart';
 import 'package:expertis/routes/home_routes.dart';
 import 'package:expertis/routes/more_routes.dart';
 import 'package:expertis/routes/search_routes.dart';
-import 'package:expertis/screens/BMTokenExpiredScreen.dart';
 
 import 'package:expertis/screens/BMPurchaseMoreScreen.dart';
-import 'package:expertis/view_model/auth_view_model.dart';
-import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../fragments/BMAppointmentFragment.dart';
-import '../fragments/BMChatFragment.dart';
 import '../fragments/BMHomeFragment.dart';
 import '../fragments/BMMoreFragment.dart';
 import '../main.dart';
@@ -21,20 +16,18 @@ import '../models/BMDashboardModel.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMDataGenerator.dart';
 
-class BMDashboardScreen extends StatefulWidget {
+class ShopOwnerDashboardScreen extends StatefulWidget {
   bool flag = false;
-  static const routeName = '/';
 
-  BMDashboardScreen({super.key});
+  ShopOwnerDashboardScreen({super.key});
 
   @override
-  BMDashboardScreenState createState() => BMDashboardScreenState();
+  ShopOwnerDashboardScreenState createState() =>
+      ShopOwnerDashboardScreenState();
 }
 
-class BMDashboardScreenState extends State<BMDashboardScreen> {
-  List<BMDashboardModel> list = getDashboardList();
-  late BeamerDelegate _beamerDelegate;
-  int _currentIndex = 0;
+class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
+  List<BMDashboardModel> list = getShopOwnerDashboardList();
 
   int selectedTab = 0;
 
@@ -75,8 +68,6 @@ class BMDashboardScreenState extends State<BMDashboardScreen> {
       return 0;
     }
   }
-
-  void _setStateListener() => setState(() {});
 
   @override
   void initState() {

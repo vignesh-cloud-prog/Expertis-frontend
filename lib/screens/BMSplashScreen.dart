@@ -69,7 +69,7 @@ class BMSplashScreenState extends State<BMSplashScreen> {
               return Utils.findErrorPage(context, error);
 
             case Status.COMPLETED:
-              context.beamToReplacementNamed(RoutesName.home);
+              Beamer.of(context).beamToReplacementNamed(RoutesName.home);
               return BMDashboardScreen();
             default:
               return Container();

@@ -25,7 +25,7 @@ class RoutesName {
   static const String allShops = '/shops';
   static const String viewShop = '/shops/:shopId';
   // Owner Dashboard Routes
-  static const String ownerDashboard = '/owner-dashboard';
+  static const String ownerDashboard = '/shop/dashboard';
   static const String createShop = '/shop/create';
   static const String updateShop = '/shop/update/:shopId';
   static const String createService = '/shop/service/add';

@@ -1,0 +1,70 @@
+import 'package:expertis/utils/utils.dart';
+import 'package:flutter/material.dart';
+
+import '../utils/BMConstants.dart';
+import 'products_widget.dart';
+import 'text_widget.dart';
+
+class ProductGridWidget extends StatelessWidget {
+  const ProductGridWidget(
+      {Key? key,
+      this.crossAxisCount = 4,
+      this.childAspectRatio = 1,
+      this.isInMain = true})
+      : super(key: key);
+  final int crossAxisCount;
+  final double childAspectRatio;
+  final bool isInMain;
+  @override
+  Widget build(BuildContext context) {
+    final Color color = Utils.color();
+    return Center(
+      child: Text("grid view"),
+    );
+    // return StreamBuilder<QuerySnapshot>(
+    //   //there was a null error just add those lines
+    //   stream: FirebaseFirestore.instance.collection('products').snapshots(),
+
+    //   builder: (context, snapshot) {
+    //     if (snapshot.connectionState == ConnectionState.waiting) {
+    //       return const Center(
+    //         child: CircularProgressIndicator(),
+    //       );
+    //     } else if (snapshot.connectionState == ConnectionState.active) {
+    //       if (snapshot.data == null) {
+    //         return const Center(
+    //           child: Padding(
+    //             padding: EdgeInsets.all(18.0),
+    //             child: Text('Your store is empty'),
+    //           ),
+    //         );
+    //       } else if (snapshot.hasError) {
+    //         return const Center(
+    //           child: Text(
+    //             'Something went wrong',
+    //             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+    //           ),
+    //         );
+    //       }
+    //     }
+    //     return GridView.builder(
+    //         physics: const NeverScrollableScrollPhysics(),
+    //         shrinkWrap: true,
+    //         itemCount: isInMain && snapshot.data!.docs.length > 4
+    //             ? 4
+    //             : snapshot.data!.docs.length,
+    //         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    //           crossAxisCount: crossAxisCount,
+    //           childAspectRatio: childAspectRatio,
+    //           crossAxisSpacing: defaultPadding,
+    //           mainAxisSpacing: defaultPadding,
+    //         ),
+    //         itemBuilder: (context, index) {
+    //           return ProductWidget(
+    //             id: snapshot.data!.docs[index]['id'],
+    //           );
+    //         });
+    //   },
+    // );
+  }
+}

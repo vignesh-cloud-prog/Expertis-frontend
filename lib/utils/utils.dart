@@ -70,7 +70,7 @@ class Utils {
 
       return const BMTokenExpiredScreen();
     } else if (error.contains("Token Not Found")) {
-      // Beamer.of(context).beamToNamed(RoutesName.onboarding);
+      Beamer.of(context).beamToReplacementNamed(RoutesName.onboarding);
 
       return const BMWalkThroughScreen();
     } else {
@@ -79,4 +79,9 @@ class Utils {
       return const BMErrorScreen();
     }
   }
+
+  static bool getTheme() => true;
+  static Color color() => getTheme == true ? Colors.white : Colors.black;
+  static Size getScreenSize(BuildContext context) =>
+      MediaQuery.of(context).size;
 }
