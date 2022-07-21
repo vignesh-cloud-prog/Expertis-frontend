@@ -42,7 +42,7 @@ class BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
 
   Widget getSelectedTabComponent() {
     if (selectedTab == 0) {
-      return BMOurServiveComponent();
+      return BMOurServiceComponent();
     } else {
       return BMPortfolioComponent();
     }

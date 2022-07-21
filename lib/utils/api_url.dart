@@ -15,4 +15,8 @@ class ApiUrl {
       '${baseUrl}shops?pinCode=$pin&city=$city';
   static String fetchSelectedShopEndPoint(shopId) =>
       '${baseUrl}shops/shop/$shopId';
+  static String fetchSlotsEndPoint(shopId, memberId, date) =>
+      '${baseUrl}shops/shop/slot/$shopId/$memberId/$date';
+
+  static var bookAppointmentEndPoint = '${baseUrl}appointments/book';
 }

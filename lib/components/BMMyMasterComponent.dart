@@ -28,23 +28,31 @@ class BMMyMasterComponent extends StatelessWidget {
                       child: Container(
                         width: 200,
                         padding: EdgeInsets.only(top: 50, bottom: 30),
-                        decoration: BoxDecoration(borderRadius: radius(32), color: context.cardColor),
-                        child: Text(myMasterList[index].name, style: boldTextStyle(), textAlign: TextAlign.center),
+                        decoration: BoxDecoration(
+                            borderRadius: radius(32), color: context.cardColor),
+                        child: Text(myMasterList[index].name,
+                            style: boldTextStyle(),
+                            textAlign: TextAlign.center),
                       ),
                     ),
                     Positioned(
                       top: 0,
-                      child: Image.asset(myMasterList[index].image, height: 100, width: 100, fit: BoxFit.cover).cornerRadiusWithClipRRect(100),
+                      child: Image.asset(myMasterList[index].image,
+                              height: 100, width: 100, fit: BoxFit.cover)
+                          .cornerRadiusWithClipRRect(100),
                     ),
                     Positioned(
                       bottom: 0,
                       child: AppButton(
-                        shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-                        child: Text('Book Now', style: boldTextStyle(color: Colors.white)),
-                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                        shapeBorder: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(32)),
+                        child: Text('Book Now',
+                            style: boldTextStyle(color: Colors.white)),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                         color: bmPrimaryColor,
                         onTap: () {
-                          BMCalenderScreen(isStaffBooking: true).launch(context);
+                          // BMCalenderScreen(isStaffBooking: true).launch(context);
                         },
                       ),
                     ),

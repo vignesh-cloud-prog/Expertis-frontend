@@ -301,27 +301,27 @@ class Breaks {
 class Members {
   String? member;
   String? name;
-  String? pic;
   String? role;
   String? id;
+  String? pic;
 
-  Members({this.member, this.name, this.pic, this.role, this.id});
+  Members({this.member, this.name, this.role, this.id, this.pic});
 
   Members.fromJson(Map<String, dynamic> json) {
     member = json['member'];
     name = json['name'];
-    pic = json['pic'];
     role = json['role'];
     id = json['id'];
+    pic = json['pic'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['member'] = this.member;
     data['name'] = this.name;
-    data['pic'] = this.pic;
     data['role'] = this.role;
     data['id'] = this.id;
+    data['pic'] = this.pic;
     return data;
   }
 }

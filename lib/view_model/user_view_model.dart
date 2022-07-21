@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserViewModel with ChangeNotifier {
   final _myRepo = UserRepository();
+  UserModel user = UserModel();
 
   String email = "vignesh@xmail.com";
   String name = "Vignesh";

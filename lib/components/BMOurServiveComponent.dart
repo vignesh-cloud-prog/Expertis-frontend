@@ -1,6 +1,12 @@
+import 'package:beamer/beamer.dart';
+import 'package:expertis/main.dart';
 import 'package:expertis/models/shop_list_model.dart';
+import 'package:expertis/routes/routes_name.dart';
+import 'package:expertis/utils/BMBottomSheet.dart';
+import 'package:expertis/view_model/appointment_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -10,17 +16,21 @@ import '../utils/BMDataGenerator.dart';
 import '../utils/BMWidgets.dart';
 import 'BMServiceComponent.dart';
 
-class BMOurServiveComponent extends StatefulWidget {
+class BMOurServiceComponent extends StatefulWidget {
+  const BMOurServiceComponent({Key? key}) : super(key: key);
+
   @override
-  State<BMOurServiveComponent> createState() => _BMOurServiveComponentState();
+  State<BMOurServiceComponent> createState() => _BMOurServiceComponentState();
 }
 
-class _BMOurServiveComponentState extends State<BMOurServiveComponent> {
+class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
   @override
   Widget build(BuildContext context) {
+    AppointmentViewModel appointmentViewModel =
+        Provider.of<AppointmentViewModel>(context);
     ShopViewModel shopViewModel = Provider.of<ShopViewModel>(context);
-    print(
-        "shopViewModel.selectedShop.data!.services.length: ${shopViewModel.selectedShop.data?.services}");
+    // print(
+    //     "shopViewModel.selectedShop.data!.services.length: ${shopViewModel.selectedShop.data?.services}");
     List<Services>? popularServiceList =
         shopViewModel.selectedShop.data?.services?.toList();
 
@@ -74,16 +84,7 @@ class _BMOurServiveComponentState extends State<BMOurServiveComponent> {
                         ),
                       ),
                     ),
-              // SingleChildScrollView(
-              //   child: Column(
-              //     mainAxisSize: MainAxisSize.min,
-              //     children: popularServiceList.map((element) {
-              //             return BMServiceComponent(
-              //               element: element,
-              //             );
-              //           }).toList(),
-              //   ),
-              // ),
+
               16.height,
               Row(
                 children: [
@@ -94,8 +95,13 @@ class _BMOurServiveComponentState extends State<BMOurServiveComponent> {
                         borderRadius: BorderRadius.circular(32)),
                     padding: const EdgeInsets.all(16),
                     color: bmPrimaryColor,
-                    onTap: () {},
-                    child: Text("Book Appointment",
+                    onTap: () {
+                      List<Members>? members =
+                          shopViewModel.selectedShop.data?.members?.toList();
+                      String? shopId = shopViewModel.selectedShop.data?.id;
+                      showSelectStaffBottomSheet(context, members, shopId);
+                    },
+                    child: Text("Book Appointment Now",
                         style: boldTextStyle(color: Colors.white)),
                   ).expand(),
 
@@ -126,5 +132,124 @@ class _BMOurServiveComponentState extends State<BMOurServiveComponent> {
               // 30.height,
             ],
           ).paddingSymmetric(horizontal: 16);
+  }
+
+  void showSelectStaffBottomSheet(
+      BuildContext context, List<Members>? element, String? shopId) {
+    AppointmentViewModel appointmentViewModel =
+        Provider.of<AppointmentViewModel>(context, listen: false);
+    // List<BMMasterModel> myMasterList = getMyMastersList();
+
+    int selectedTab = 0;
+    appointmentViewModel.appointmentModel.memberId =
+        element?[selectedTab].member;
+
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        enableDrag: true,
+        isDismissible: true,
+        shape: RoundedRectangleBorder(
+            borderRadius: radiusOnly(topLeft: 30, topRight: 30)),
+        builder: (context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    onPressed: () {
+                      finish(context);
+                    },
+                    icon: const Icon(Icons.cancel_rounded,
+                        color: bmTextColorDarkMode),
+                  ),
+                ),
+                titleText(title: 'Select Staff', size: 24),
+                16.height,
+                Wrap(
+                  children: element!.map((e) {
+                    int index = element.indexOf(e);
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Image.network(e.pic ?? '',
+                                    height: 30, width: 30, fit: BoxFit.cover)
+                                .cornerRadiusWithClipRRect(100),
+                            8.width,
+                            Row(
+                              children: [
+                                Text(e.name ?? '',
+                                    style: primaryTextStyle(
+                                        color: appStore.isDarkModeOn
+                                            ? white
+                                            : bmSpecialColorDark)),
+                                Text(e.role ?? '',
+                                    style: primaryTextStyle(
+                                        color: appStore.isDarkModeOn
+                                            ? white
+                                            : bmSpecialColorDark)),
+                              ],
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                          icon: selectedTab == index
+                              ? const Icon(Icons.check_circle,
+                                  color: bmPrimaryColor)
+                              : const Icon(Icons.circle_outlined,
+                                  color: bmPrimaryColor),
+                          onPressed: () {
+                            selectedTab = index;
+                            appointmentViewModel.appointmentModel.memberId =
+                                element[index].member;
+                            ;
+                            setState(() {});
+                          },
+                        ),
+                      ],
+                    );
+                  }).toList(),
+                ),
+                50.height,
+                AppButton(
+                  shapeBorder: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32)),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  color: bmPrimaryColor,
+                  onTap: () {
+                    String date =
+                        DateFormat('dd-MMM-yyyy').format(DateTime.now());
+                    // print(date);
+                    Provider.of<AppointmentViewModel>(context, listen: false)
+                        .fetchSlotsApi(
+                      shopId,
+                      element[selectedTab].member,
+                      date,
+                    );
+                    Beamer.of(context)
+                        .beamToNamed(RoutesName.bookAppointmentWithId(shopId));
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.event_available, color: Colors.white),
+                      6.width,
+                      Text('Check Availability',
+                          style: boldTextStyle(color: Colors.white)),
+                    ],
+                  ),
+                ).center(),
+                30.height,
+              ],
+            ).paddingAll(16);
+          });
+        });
   }
 }

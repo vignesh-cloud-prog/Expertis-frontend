@@ -11,6 +11,7 @@ import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
 import '../fragments/BMAppointmentFragment.dart';
 import '../fragments/BMChatFragment.dart';
@@ -117,6 +118,12 @@ class BMDashboardScreenState extends State<BMDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserViewModel userViewModel = Provider.of<UserViewModel>(context);
+    UserViewModel.getUser().then((value) {
+      setState(() {
+        userViewModel.user = value;
+      });
+    });
     selectedTab = getBeamLocation();
     return Scaffold(
       backgroundColor: getDashboardColor(),

@@ -6,6 +6,7 @@ import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/screens/BMSingleComponentScreen.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';
 import 'package:expertis/screens/add_service_screen.dart';
+import 'package:expertis/screens/book_appointment_screen.dart';
 import 'package:expertis/screens/owner_dashboard_screen.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,6 +30,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
         RoutesName.createTag,
         RoutesName.updateTag,
         RoutesName.ownerDashboard,
+        RoutesName.bookAppointment,
       ];
 
   @override
@@ -47,10 +49,20 @@ class ShopsLocation extends BeamLocation<BeamState> {
           title: 'Create Shop',
           child: BMCreateShopScreen(),
         ),
-      if (state.pathParameters.containsKey('shopId'))
+      if (state.uri.pathSegments.contains('book') &&
+          state.pathParameters.containsKey('shopId'))
+        BeamPage(
+          key: ValueKey(RoutesName.bookAppointment),
+          title: 'book ${state.pathParameters['shopId']}',
+          child: BookAppointmentScreen(
+            shopId: state.pathParameters['shopId'] ?? 'null',
+          ),
+        ),
+      if (state.uri.pathSegments.contains('view') &&
+          state.pathParameters.containsKey('shopId'))
         BeamPage(
           key: ValueKey('shop-${state.pathParameters['shopId']}'),
-          title: '${state.pathParameters['shopId']}',
+          title: ' view ${state.pathParameters['shopId']}',
           child: BMSingleComponentScreen(
             shopId: state.pathParameters['shopId'] ?? 'null',
           ),

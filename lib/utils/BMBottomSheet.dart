@@ -1,4 +1,6 @@
 import 'package:expertis/components/BMCommentComponent.dart';
+import 'package:expertis/models/appointment_model.dart';
+import 'package:expertis/models/shop_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -41,7 +43,8 @@ void showFilterBottomSheet(BuildContext context) {
                   onPressed: () {
                     finish(context);
                   },
-                  icon: Icon(Icons.cancel_rounded, color: bmTextColorDarkMode),
+                  icon: const Icon(Icons.cancel_rounded,
+                      color: bmTextColorDarkMode),
                 ),
               ),
               titleText(title: 'Filters', size: 24),
@@ -61,8 +64,9 @@ void showFilterBottomSheet(BuildContext context) {
                               : bmSpecialColorDark)),
                   IconButton(
                     icon: distChecked
-                        ? Icon(Icons.check_circle, color: bmPrimaryColor)
-                        : Icon(Icons.circle_outlined, color: bmPrimaryColor),
+                        ? const Icon(Icons.check_circle, color: bmPrimaryColor)
+                        : const Icon(Icons.circle_outlined,
+                            color: bmPrimaryColor),
                     onPressed: () {
                       distChecked = !distChecked;
                       setState(() {});
@@ -80,8 +84,9 @@ void showFilterBottomSheet(BuildContext context) {
                               : bmSpecialColorDark)),
                   IconButton(
                     icon: topChecked
-                        ? Icon(Icons.check_circle, color: bmPrimaryColor)
-                        : Icon(Icons.circle_outlined, color: bmPrimaryColor),
+                        ? const Icon(Icons.check_circle, color: bmPrimaryColor)
+                        : const Icon(Icons.circle_outlined,
+                            color: bmPrimaryColor),
                     onPressed: () {
                       topChecked = !topChecked;
                       setState(() {});
@@ -108,14 +113,15 @@ void showFilterBottomSheet(BuildContext context) {
                 data: SliderTheme.of(context).copyWith(
                   activeTrackColor: bmPrimaryColor,
                   inactiveTrackColor: bmPrimaryColor.withAlpha(70),
-                  trackShape: RectangularSliderTrackShape(),
+                  trackShape: const RectangularSliderTrackShape(),
                   trackHeight: 4.0,
                   thumbColor: bmPrimaryColor,
-                  thumbShape: RoundSliderThumbShape(
+                  thumbShape: const RoundSliderThumbShape(
                     enabledThumbRadius: 12.0,
                   ),
                   overlayColor: bmPrimaryColor.withAlpha(32),
-                  overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
+                  overlayShape:
+                      const RoundSliderOverlayShape(overlayRadius: 28.0),
                 ),
                 child: Slider(
                   max: 20,
@@ -143,8 +149,9 @@ void showFilterBottomSheet(BuildContext context) {
                               : bmSpecialColorDark)),
                   IconButton(
                     icon: specialChecked
-                        ? Icon(Icons.check_circle, color: bmPrimaryColor)
-                        : Icon(Icons.circle_outlined, color: bmPrimaryColor),
+                        ? const Icon(Icons.check_circle, color: bmPrimaryColor)
+                        : const Icon(Icons.circle_outlined,
+                            color: bmPrimaryColor),
                     onPressed: () {
                       specialChecked = !specialChecked;
                       setState(() {});
@@ -162,8 +169,9 @@ void showFilterBottomSheet(BuildContext context) {
                               : bmSpecialColorDark)),
                   IconButton(
                     icon: mobileChecked
-                        ? Icon(Icons.check_circle, color: bmPrimaryColor)
-                        : Icon(Icons.circle_outlined, color: bmPrimaryColor),
+                        ? const Icon(Icons.check_circle, color: bmPrimaryColor)
+                        : const Icon(Icons.circle_outlined,
+                            color: bmPrimaryColor),
                     onPressed: () {
                       mobileChecked = !mobileChecked;
                       setState(() {});
@@ -181,8 +189,9 @@ void showFilterBottomSheet(BuildContext context) {
                               : bmSpecialColorDark)),
                   IconButton(
                     icon: onlineChecked
-                        ? Icon(Icons.check_circle, color: bmPrimaryColor)
-                        : Icon(Icons.circle_outlined, color: bmPrimaryColor),
+                        ? const Icon(Icons.check_circle, color: bmPrimaryColor)
+                        : const Icon(Icons.circle_outlined,
+                            color: bmPrimaryColor),
                     onPressed: () {
                       onlineChecked = !onlineChecked;
                       setState(() {});
@@ -196,9 +205,10 @@ void showFilterBottomSheet(BuildContext context) {
                   AppButton(
                     shapeBorder: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(32),
-                        side: BorderSide(color: bmPrimaryColor, width: 2)),
+                        side:
+                            const BorderSide(color: bmPrimaryColor, width: 2)),
                     child: Text('Clear', style: boldTextStyle()),
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     color: context.cardColor,
                     onTap: () {
                       //
@@ -210,7 +220,7 @@ void showFilterBottomSheet(BuildContext context) {
                         borderRadius: BorderRadius.circular(32)),
                     child: Text('Show 45+ places',
                         style: boldTextStyle(color: Colors.white)),
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     color: bmPrimaryColor,
                     onTap: () {
                       //
@@ -246,7 +256,8 @@ void showBookBottomSheet(BuildContext context, BMServiceListModel element) {
                   onPressed: () {
                     finish(context);
                   },
-                  icon: Icon(Icons.cancel_rounded, color: bmTextColorDarkMode),
+                  icon: const Icon(Icons.cancel_rounded,
+                      color: bmTextColorDarkMode),
                 ),
               ),
               titleText(title: element.name, size: 24),
@@ -284,8 +295,8 @@ void showBookBottomSheet(BuildContext context, BMServiceListModel element) {
                         style: boldTextStyle(color: Colors.white, size: 12)),
                     color: bmPrimaryColor,
                     onTap: () {
-                      BMCalenderScreen(element: element, isStaffBooking: false)
-                          .launch(context);
+                      // BMCalenderScreen(element: element, isStaffBooking: false)
+                      // .launch(context);
                     },
                   ),
                 ],
@@ -325,7 +336,8 @@ void showCommentBottomSheet(BuildContext context) {
                   onPressed: () {
                     finish(context);
                   },
-                  icon: Icon(Icons.cancel_rounded, color: bmTextColorDarkMode),
+                  icon: const Icon(Icons.cancel_rounded,
+                      color: bmTextColorDarkMode),
                 ),
               ).paddingOnly(right: 16, top: 16),
               titleText(title: 'Comments', size: 24)
@@ -344,17 +356,17 @@ void showCommentBottomSheet(BuildContext context) {
                   decoration: BoxDecoration(
                       color: context.cardColor,
                       borderRadius: radiusOnly(topLeft: 30, topRight: 30)),
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 16),
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
                         decoration: BoxDecoration(
                           color: bmPrimaryColor.withAlpha(50),
                           borderRadius: radius(32),
                           border: Border.all(color: bmPrimaryColor),
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: AppTextField(
                           controller: comment,
                           decoration: InputDecoration(
@@ -371,7 +383,8 @@ void showCommentBottomSheet(BuildContext context) {
                         decoration: boxDecorationDefault(
                             color: bmPrimaryColor, borderRadius: radius(100)),
                         child: IconButton(
-                          icon: Icon(Icons.arrow_upward, color: Colors.white),
+                          icon: const Icon(Icons.arrow_upward,
+                              color: Colors.white),
                           onPressed: () {
                             if (form_key.currentState!.validate() &&
                                 comment.text != '') {
@@ -394,96 +407,6 @@ void showCommentBottomSheet(BuildContext context) {
               ),
             ],
           );
-        });
-      });
-}
-
-void showSelectStaffBottomSheet(BuildContext context) {
-  List<BMMasterModel> myMasterList = getMyMastersList();
-
-  int selectedTab = 0;
-
-  showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      enableDrag: true,
-      isDismissible: true,
-      shape: RoundedRectangleBorder(
-          borderRadius: radiusOnly(topLeft: 30, topRight: 30)),
-      builder: (context) {
-        return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  onPressed: () {
-                    finish(context);
-                  },
-                  icon: Icon(Icons.cancel_rounded, color: bmTextColorDarkMode),
-                ),
-              ),
-              titleText(title: 'Select Staff', size: 24),
-              16.height,
-              Wrap(
-                children: myMasterList.map((e) {
-                  int index = myMasterList.indexOf(e);
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(e.image,
-                                  height: 30, width: 30, fit: BoxFit.cover)
-                              .cornerRadiusWithClipRRect(100),
-                          8.width,
-                          Text(e.name,
-                              style: primaryTextStyle(
-                                  color: appStore.isDarkModeOn
-                                      ? white
-                                      : bmSpecialColorDark)),
-                        ],
-                      ),
-                      IconButton(
-                        icon: selectedTab == index
-                            ? Icon(Icons.check_circle, color: bmPrimaryColor)
-                            : Icon(Icons.circle_outlined,
-                                color: bmPrimaryColor),
-                        onPressed: () {
-                          selectedTab = index;
-                          setState(() {});
-                        },
-                      ),
-                    ],
-                  );
-                }).toList(),
-              ),
-              50.height,
-              AppButton(
-                shapeBorder: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32)),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.call, color: Colors.white),
-                    6.width,
-                    Text('Call Now', style: boldTextStyle(color: Colors.white)),
-                  ],
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                color: bmPrimaryColor,
-                onTap: () {
-                  finish(context);
-                  BMCallScreen(image: myMasterList[selectedTab].image)
-                      .launch(context);
-                },
-              ).center(),
-              30.height,
-            ],
-          ).paddingAll(16);
         });
       });
 }

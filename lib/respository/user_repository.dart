@@ -23,7 +23,8 @@ class UserRepository {
 
   Future<dynamic> updateProfileApi(bool isEditMode, Map<String, String> data,
       bool isFileSelected, Map<String, String> files) async {
-    requestHeaders["Authorization"] = await UserViewModel.getUserToken();
+    final String token = await UserViewModel.getUserToken();
+    requestHeaders["Authorization"] = token;
     if (kDebugMode) {
       // print("inside api caller\n");
       // print("data ${data.toString()}");

@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/models/shop_list_model.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -126,7 +127,8 @@ class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
         ],
       ),
     ).onTap(() {
-      Beamer.of(context).beamToNamed('/shops/${widget.element.shopId}');
+      String routeName = RoutesName.viewShopWithId(widget.element.shopId);
+      Beamer.of(context).beamToNamed(routeName);
       //Navigator.pushNamed(context, "/shop/details", arguments: widget.element);
       // BMSingleComponentScreen(element: widget.element).launch(context);
     });

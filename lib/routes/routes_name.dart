@@ -23,7 +23,10 @@ class RoutesName {
   static const String more = '/more';
   // Shop Routes
   static const String allShops = '/shops';
-  static const String viewShop = '/shops/:shopId';
+  static const String viewShop = '/shops/view/:shopId';
+  static get viewShopWithId => (String shopId) => '/shops/view/$shopId';
+  static const String bookAppointment = '/shops/book/:shopId';
+  static get bookAppointmentWithId => (String shopId) => '/shops/book/$shopId';
   // Owner Dashboard Routes
   static const String ownerDashboard = '/shop/dashboard';
   static const String createShop = '/shop/create';

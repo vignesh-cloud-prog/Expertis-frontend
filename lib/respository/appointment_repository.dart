@@ -5,8 +5,9 @@ import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/utils/api_url.dart';
 import 'package:expertis/view_model/user_view_model.dart';
+import 'package:flutter/foundation.dart';
 
-class HomeRepository {
+class AppointmentRepository {
   BaseApiServices _apiServices = NetworkApiService();
   Map<String, String> requestHeaders = {
     "Access-Control-Allow-Origin": "*", // Required for CORS support to work
@@ -18,13 +19,14 @@ class HomeRepository {
     'Content-Type': 'application/json',
   };
 
-  Future<ShopListModel> fetchHomeData() async {
-    requestHeaders["Authorization"] = await UserViewModel.getUserToken();
+  Future<dynamic> fetchSlots(shopId, memberId, date) async {
+    final String token = await UserViewModel.getUserToken();
+    requestHeaders["Authorization"] = token;
     try {
       dynamic response = await _apiServices.getGetApiResponse(
-          ApiUrl.fetchHomeDataEndPoint, requestHeaders);
-      // print(response);
-      response = ShopListModel.fromJson(response);
+          ApiUrl.fetchSlotsEndPoint(shopId, memberId, date), requestHeaders);
+      print(response);
+      // response = ShopListModel.fromJson(response);
       // print("response after from json ${response.toString()}");
       return response;
     } catch (e) {
@@ -32,39 +34,20 @@ class HomeRepository {
     }
   }
 
-  Future<ShopListModel> fetchNearbyShopsData() async {
+  Future<dynamic> bookAppointment(dynamic data) async {
     String token = await UserViewModel.getUserToken();
-    requestHeaders["Authorization"] = token;
-    UserModel user = await UserViewModel.getUser();
-    String url = ApiUrl.fetchNearbyShopsEndPoint(user.pinCode, user.address);
-    // print("url is $url");
-    try {
-      dynamic response =
-          await _apiServices.getGetApiResponse(url, requestHeaders);
-      // print(response);
-      response = ShopListModel.fromJson(response);
-      // print("response after from json ${response.toString()}");
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<ShopModel> fetchSelectedShopData(String shopId) async {
-    String token = await UserViewModel.getUserToken();
+    // print("Verify toke n: $token");
     if (token == 'dummy' || token.isEmpty) {
       throw TokenNotFoundException();
     }
     requestHeaders["Authorization"] = token;
 
-    String url = ApiUrl.fetchSelectedShopEndPoint(shopId);
-    print("url is $url");
     try {
-      dynamic response =
-          await _apiServices.getGetApiResponse(url, requestHeaders);
-      print(response);
-      response = ShopModel.fromJson(response["data"]);
-      // print("response after from json ${response.toString()}");
+      dynamic response = await _apiServices.getPostApiResponse(
+          ApiUrl.bookAppointmentEndPoint, requestHeaders, data);
+      if (kDebugMode) {
+        // print("response ${response.toString()}");
+      }
       return response;
     } catch (e) {
       rethrow;

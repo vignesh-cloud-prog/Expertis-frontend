@@ -13,6 +13,7 @@ import 'package:expertis/utils/AppTheme.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/utils/BMDataGenerator.dart';
 import 'package:expertis/routes/routes_name.dart';
+import 'package:expertis/view_model/appointment_view_model.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
@@ -45,10 +46,10 @@ void main() async {
       ChangeNotifierProvider(create: (_) => UserViewModel()),
       ChangeNotifierProvider(create: (_) => ShopViewModel()),
       ChangeNotifierProvider(create: (_) => CategoryViewModel()),
+      ChangeNotifierProvider(create: (_) => AppointmentViewModel()),
     ],
     child: const MyApp(),
   ));
-  //endregion
 }
 
 class MyApp extends StatelessWidget {
@@ -81,9 +82,9 @@ class MyApp extends StatelessWidget {
           : AppThemeData.darkTheme,
       // navigatorKey: navigatorKey,
       scrollBehavior: SBehavior(),
-      supportedLocales: LanguageDataModel.languageLocales(),
+      // supportedLocales: LanguageDataModel.languageLocales(),
       // onGenerateRoute: (settings) => generateRoute(settings),
-      localeResolutionCallback: (locale, supportedLocales) => locale,
+      // localeResolutionCallback: (locale, supportedLocales) => locale,
     );
   }
 }

@@ -12,8 +12,8 @@ class NetworkApiService extends BaseApiServices {
     dynamic responseJson;
     try {
       if (kDebugMode) {
-        // print("url $url");
-        // print("header $header");
+        print("url $url");
+        print("header $header");
       }
       final response = await http
           .get(Uri.parse(url), headers: header)

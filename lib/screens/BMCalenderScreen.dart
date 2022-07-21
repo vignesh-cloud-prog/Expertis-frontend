@@ -1,5 +1,6 @@
 import 'package:expertis/components/BMAvailabilityComponent.dart';
 import 'package:expertis/screens/BMPurchaseMoreScreen.dart';
+import 'package:expertis/utils/BMBottomSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -11,10 +12,12 @@ import '../utils/BMWidgets.dart';
 import 'BMShoppingScreen.dart';
 
 class BMCalenderScreen extends StatefulWidget {
-  BMServiceListModel? element;
-  bool isStaffBooking;
+  BMServiceListModel? element =
+      BMServiceListModel(name: "haircut", cost: "100", time: "20");
+  bool isStaffBooking = false;
 
-  BMCalenderScreen({this.element, required this.isStaffBooking});
+  // BMCalenderScreen({this.element,  this.isStaffBooking=false});
+  BMCalenderScreen({Key? key}) : super(key: key);
 
   @override
   _BMCalenderScreenState createState() => _BMCalenderScreenState();
@@ -83,7 +86,7 @@ class _BMCalenderScreenState extends State<BMCalenderScreen> {
         16.height,
         Divider(),
         16.height,
-        BMAvailabilityComponent(element: widget.element!),
+        // BMAvailabilityComponent(element: widget.element!),
         16.height,
         Container(
           padding: EdgeInsets.all(8),
@@ -150,6 +153,8 @@ class _BMCalenderScreenState extends State<BMCalenderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    BMServiceListModel ele =
+        BMServiceListModel(name: "vignesh", cost: "100", time: "10");
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!
@@ -163,7 +168,12 @@ class _BMCalenderScreenState extends State<BMCalenderScreen> {
         leadingWidth: 30,
         iconTheme: IconThemeData(color: bmPrimaryColor),
       ),
-      body: PurchaseMoreScreen(),
+      body: Column(
+        children: [
+          bookAppointment(),
+          bookStaff(),
+        ],
+      ),
       floatingActionButton: !widget.isStaffBooking
           ? Container(
               padding: EdgeInsets.only(left: 8),

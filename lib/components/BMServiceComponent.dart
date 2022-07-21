@@ -1,6 +1,8 @@
 import 'package:expertis/models/shop_list_model.dart';
+import 'package:expertis/view_model/appointment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../models/BMServiceListModel.dart';
@@ -19,8 +21,23 @@ class BMServiceComponent extends StatefulWidget {
 }
 
 class _BMServiceComponentState extends State<BMServiceComponent> {
+  bool isInSelected(id, list) {
+    if (list == null) return false;
+    print(list);
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id == id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool? selected = false;
+
   @override
   Widget build(BuildContext context) {
+    AppointmentViewModel appointmentViewModel =
+        Provider.of<AppointmentViewModel>(context);
     Color getColor(Set<MaterialState> states) {
       const Set<MaterialState> interactiveStates = <MaterialState>{
         MaterialState.pressed,
@@ -86,9 +103,25 @@ class _BMServiceComponentState extends State<BMServiceComponent> {
             ),
             8.width,
             Checkbox(
-              value: true,
+              value: selected,
               fillColor: MaterialStateProperty.resolveWith(getColor),
-              onChanged: (value) {},
+              onChanged: (value) {
+                if (value == true) {
+                  appointmentViewModel.appointmentModel.selectedServices
+                      .add(widget.element.id.toString());
+                  appointmentViewModel.appointmentModel.services
+                      ?.add(widget.element);
+                } else {
+                  appointmentViewModel.appointmentModel.selectedServices
+                      .remove(widget.element.id.toString());
+                  appointmentViewModel.appointmentModel.services
+                      ?.remove(widget.element);
+                }
+
+                setState(() {
+                  selected = value;
+                });
+              },
             ),
           ],
         )
