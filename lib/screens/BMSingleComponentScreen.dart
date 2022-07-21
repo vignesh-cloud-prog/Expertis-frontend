@@ -70,8 +70,8 @@ class BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!
           : bmLightScaffoldBackgroundColor,
-      body: ChangeNotifierProvider<ShopViewModel>(
-        create: (BuildContext context) => shopViewModel,
+      body: ChangeNotifierProvider<ShopViewModel>.value(
+        value: shopViewModel,
         child: Consumer<ShopViewModel>(builder: (context, value, _) {
           switch (value.selectedShop.status) {
             case Status.LOADING:
