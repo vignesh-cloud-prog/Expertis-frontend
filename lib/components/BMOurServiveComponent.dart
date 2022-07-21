@@ -1,6 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/main.dart';
 import 'package:expertis/models/shop_list_model.dart';
+import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/BMBottomSheet.dart';
 import 'package:expertis/view_model/appointment_view_model.dart';

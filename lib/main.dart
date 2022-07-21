@@ -15,6 +15,7 @@ import 'package:expertis/utils/BMDataGenerator.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/view_model/appointment_view_model.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
+import 'package:expertis/view_model/shop_list_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -44,6 +45,7 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (_) => AuthViewModel()),
       ChangeNotifierProvider(create: (_) => UserViewModel()),
+      ChangeNotifierProvider(create: (_) => ShopListViewModel()),
       ChangeNotifierProvider(create: (_) => ShopViewModel()),
       ChangeNotifierProvider(create: (_) => CategoryViewModel()),
       ChangeNotifierProvider(create: (_) => AppointmentViewModel()),

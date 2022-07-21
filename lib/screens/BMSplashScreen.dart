@@ -20,10 +20,13 @@ class BMSplashScreen extends StatefulWidget {
 }
 
 class BMSplashScreenState extends State<BMSplashScreen> {
-  // SplashServices splashServices = SplashServices();
   AuthViewModel authViewModel = AuthViewModel();
+
+  // SplashServices splashServices = SplashServices();
   @override
   void initState() {
+    authViewModel.verifyToken();
+
     super.initState();
     init();
   }
@@ -33,7 +36,6 @@ class BMSplashScreenState extends State<BMSplashScreen> {
         ? appStore.scaffoldBackground!
         : bmLightScaffoldBackgroundColor);
     // splashServices.checkAuthentication(context);
-    authViewModel.verifyToken();
   }
 
   @override

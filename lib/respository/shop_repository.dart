@@ -2,6 +2,7 @@ import 'package:expertis/data/app_excaptions.dart';
 import 'package:expertis/data/network/BaseApiServices.dart';
 import 'package:expertis/data/network/NetworkApiService.dart';
 import 'package:expertis/models/shop_list_model.dart';
+import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/utils/api_url.dart';
 import 'package:expertis/view_model/user_view_model.dart';

@@ -1,5 +1,4 @@
 import 'package:beamer/beamer.dart';
-import 'package:expertis/components/BMCalenderComponent.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/screens/BMForgetPasswordScreen.dart';
@@ -10,9 +9,7 @@ import 'package:expertis/screens/BMSplashScreen.dart';
 import 'package:expertis/screens/BMVerifyOTPScreen.dart';
 import 'package:expertis/screens/BMWalkThroughScreen.dart';
 import 'package:expertis/utils/BMConstants.dart';
-import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 
 class HomeLocation extends BeamLocation<BeamState> {
   // @override
@@ -44,7 +41,7 @@ class HomeLocation extends BeamLocation<BeamState> {
       if (state.pathPatternSegments.contains("home"))
         BeamPage(
           key: ValueKey(RoutesName.home),
-          title: appName,
+          title: ' Welcome to $appName home',
           child: BMDashboardScreen(),
         ),
       if (state.pathPatternSegments.contains("onboarding"))

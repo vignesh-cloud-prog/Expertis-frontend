@@ -1,4 +1,5 @@
 import 'package:expertis/data/response/status.dart';
+import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/screens/BMCallScreen.dart';
 import 'package:expertis/screens/BMChatScreen.dart';
 import 'package:expertis/utils/utils.dart';

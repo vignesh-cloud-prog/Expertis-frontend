@@ -2,8 +2,8 @@ import 'package:beamer/beamer.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/routes/routes_name.dart';
+import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/user_view_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 import '../main.dart';
 import '../screens/BMFavouritesScreen.dart';
 import '../screens/BMShoppingScreen.dart';
-import '../utils/BMBottomSheet.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 import 'BMAppointmentFragment.dart';
@@ -207,9 +206,11 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                                     : bmSpecialColorDark),
                             onTap: () {
                               userViewModel.logout().then((value) => {
-                                    Beamer.of(context)
-                                        .beamToNamed(RoutesName.onboarding)
+                                    Utils.toastMessage("Logout Successfully"),
                                   });
+                              Beamer.of(context)
+                                  .beamToNamed(RoutesName.onboarding);
+                              ;
                             },
                           )
                         ],

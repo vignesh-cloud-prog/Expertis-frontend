@@ -67,10 +67,9 @@ class Utils {
       return const BMNoInternetScreen();
     } else if (error.contains("Authentication Failed")) {
       // Beamer.of(context).beamToNamed(RoutesName.tokenExpired);
-
       return const BMTokenExpiredScreen();
     } else if (error.contains("Token Not Found")) {
-      Beamer.of(context).beamToReplacementNamed(RoutesName.onboarding);
+      // Beamer.of(context).beamToReplacementNamed(RoutesName.onboarding);
 
       return const BMWalkThroughScreen();
     } else {
