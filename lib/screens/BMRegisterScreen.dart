@@ -7,12 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../components/BMSocialIconsLoginComponents.dart';
 import '../main.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
-import 'BMEnableLocationScreen.dart';
-import 'login_screen.dart';
 
 class BMRegisterScreen extends StatefulWidget {
   const BMRegisterScreen({Key? key}) : super(key: key);

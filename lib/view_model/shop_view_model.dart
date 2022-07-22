@@ -1,8 +1,6 @@
 import 'package:expertis/data/response/api_response.dart';
-import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/respository/shop_repository.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 class ShopViewModel with ChangeNotifier {

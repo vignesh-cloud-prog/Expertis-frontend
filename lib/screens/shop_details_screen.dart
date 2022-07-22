@@ -1,5 +1,9 @@
+import 'package:beamer/beamer.dart';
+import 'package:expertis/components/about_shop_component.dart';
+import 'package:expertis/components/shop_reviews_component.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/shop_model.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/BMCallScreen.dart';
 import 'package:expertis/screens/BMChatScreen.dart';
 import 'package:expertis/utils/utils.dart';
@@ -18,41 +22,59 @@ import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 import '../utils/flutter_rating_bar.dart';
 
-class BMSingleComponentScreen extends StatefulWidget {
+class ShopViewScreen extends StatefulWidget {
   final String shopId;
-  const BMSingleComponentScreen({Key? key, required this.shopId})
+  final int selectedTab;
+  const ShopViewScreen({Key? key, required this.shopId, this.selectedTab = 0})
       : super(key: key);
 
   @override
-  BMSingleComponentScreenState createState() => BMSingleComponentScreenState();
+  ShopViewScreenState createState() => ShopViewScreenState();
 }
 
-class BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
+class ShopViewScreenState extends State<ShopViewScreen> {
+  int selectedTab = 0;
   ShopViewModel shopViewModel = ShopViewModel();
   bool isLiked = false;
   String defaultImg = "https://www.totallyrepair.in/images/wow-5.jpg";
-  List<String> tabList = [
-    'OUR SERVICES',
-    'PORTFOLIO',
-    'STORE',
-    'ABOUT',
-    'REVIEW'
-  ];
-
-  int selectedTab = 0;
+  List<String> tabList = ['OUR SERVICES', 'PORTFOLIO', 'ABOUT', 'REVIEW'];
 
   Widget getSelectedTabComponent() {
-    if (selectedTab == 0) {
-      return BMOurServiceComponent();
-    } else {
-      return BMPortfolioComponent();
+    switch (selectedTab) {
+      case 0:
+        return const BMOurServiceComponent();
+      case 1:
+        return BMPortfolioComponent();
+      case 2:
+        return const AboutShopComponent();
+      case 3:
+        return const ShopReviewComponent();
+
+      default:
+        return const BMOurServiceComponent();
     }
+  }
+
+  String navigateToTab(int index) {
+    if (index == 0) {
+      return RoutesName.shopServicesWithId(widget.shopId);
+    } else if (index == 1) {
+      return RoutesName.shopPortfolioWithId(widget.shopId);
+    } else if (index == 2) {
+      return RoutesName.aboutShopWithId(widget.shopId);
+    } else if (index == 3) {
+      return RoutesName.shopReviewsWithId(widget.shopId);
+    }
+    return RoutesName.shopServicesWithId(widget.shopId);
   }
 
   @override
   void initState() {
     setStatusBarColor(Colors.transparent);
     shopViewModel.fetchSelectedShopDataApi(widget.shopId);
+    setState(() {
+      selectedTab = widget.selectedTab;
+    });
     super.initState();
   }
 
@@ -304,15 +326,15 @@ class BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                                           ],
                                         ),
                                       ).onTap(() {
-                                        BMChatScreen(
-                                            element: BMMessageModel(
-                                          image: shop.shopLogo ?? defaultImg,
-                                          name: shop.shopName ?? '',
-                                          message:
-                                              'Do you want to confirm yor appointment?',
-                                          isActive: false,
-                                          lastSeen: 'today , at 11:30 am',
-                                        )).launch(context);
+                                        // BMChatScreen(
+                                        //     element: BMMessageModel(
+                                        //   image: shop.shopLogo ?? defaultImg,
+                                        //   name: shop.shopName ?? '',
+                                        //   message:
+                                        //       'Do you want to confirm yor appointment?',
+                                        //   isActive: false,
+                                        //   lastSeen: 'today , at 11:30 am',
+                                        // )).launch(context);
                                       }),
                                     ],
                                   )
@@ -358,8 +380,9 @@ class BMSingleComponentScreenState extends State<BMSingleComponentScreen> {
                                           : bmSpecialColorDark,
                                 ),
                               ).onTap(() {
-                                selectedTab = index;
-                                setState(() {});
+                                setState(() {
+                                  selectedTab = index;
+                                });
                               }),
                             );
                           },

@@ -1,11 +1,13 @@
 class ShopModel {
-  List<String>? likes;
   String? owner;
   String? shopId;
-  String? shopName;
   String? shopLogo;
+  String? shopName;
+  String? about;
+  String? gender;
   Contact? contact;
   WorkingHours? workingHours;
+  List<String>? likes;
   List<String>? tags;
   List<Members>? members;
   bool? isVerifiedByAdmin;
@@ -22,13 +24,15 @@ class ShopModel {
   String? id;
 
   ShopModel(
-      {this.likes,
-      this.owner,
+      {this.owner,
       this.shopId,
-      this.shopName,
       this.shopLogo,
+      this.shopName,
+      this.about,
+      this.gender,
       this.contact,
       this.workingHours,
+      this.likes,
       this.tags,
       this.members,
       this.isVerifiedByAdmin,
@@ -45,17 +49,23 @@ class ShopModel {
       this.id});
 
   ShopModel.fromJson(Map<String, dynamic> json) {
-    likes = json['likes'].cast<String>();
     owner = json['owner'];
     shopId = json['shopId'];
     shopName = json['shopName'];
     shopLogo = json['shopLogo'];
+    if (json['about'] != null) {
+      about = json['about'];
+    } else {
+      about = null;
+    }
+    gender = json['gender'];
     contact =
         json['contact'] != null ? new Contact.fromJson(json['contact']) : null;
     workingHours = json['workingHours'] != null
         ? new WorkingHours.fromJson(json['workingHours'])
         : null;
-    tags = json['tags'].cast<String>();
+    likes = json['likes'] != null ? List<String>.from(json['likes']) : null;
+    tags = json['tags'] != null ? List<String>.from(json['tags']) : null;
     if (json['members'] != null) {
       members = <Members>[];
       json['members'].forEach((v) {
@@ -69,11 +79,16 @@ class ShopModel {
         services!.add(new Services.fromJson(v));
       });
     }
-    appointments = json['appointments'].cast<String>();
-    slotsBooked = json['slotsBooked'].cast<String>();
+    appointments = json['appointments'] != null
+        ? List<String>.from(json['appointments'])
+        : null;
+    slotsBooked = json['slotsBooked'] != null
+        ? List<String>.from(json['slotsBooked'])
+        : null;
     rating =
         json['rating'] != null ? new Rating.fromJson(json['rating']) : null;
-    reviews = json['reviews'].cast<String>();
+    reviews =
+        json['reviews'] != null ? List<String>.from(json['reviews']) : null;
     isDeleted = json['isDeleted'];
     isActive = json['isActive'];
     isOpen = json['isOpen'];
@@ -84,17 +99,19 @@ class ShopModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['likes'] = this.likes;
     data['owner'] = this.owner;
     data['shopId'] = this.shopId;
     data['shopName'] = this.shopName;
     data['shopLogo'] = this.shopLogo;
+    data['about'] = this.about;
+    data['gender'] = this.gender;
     if (this.contact != null) {
       data['contact'] = this.contact!.toJson();
     }
     if (this.workingHours != null) {
       data['workingHours'] = this.workingHours!.toJson();
     }
+    data['likes'] = this.likes;
     data['tags'] = this.tags;
     if (this.members != null) {
       data['members'] = this.members!.map((v) => v.toJson()).toList();
@@ -282,7 +299,7 @@ class Members {
   String? id;
   String? pic;
 
-  Members({this.member, this.name, this.role, this.id, this.pic});
+  Members({this.member, this.name, this.role, this.id});
 
   Members.fromJson(Map<String, dynamic> json) {
     member = json['member'];
@@ -327,7 +344,7 @@ class Services {
     time = json['time'];
     isVerifiedByAdmin = json['isVerifiedByAdmin'];
     shop = json['shop'];
-    tags = json['tags'].cast<String>();
+    tags = json['tags'] != null ? List<String>.from(json['tags']) : null;
     id = json['id'];
   }
 

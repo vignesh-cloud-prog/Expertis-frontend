@@ -13,7 +13,7 @@ import 'package:expertis/utils/AppTheme.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/utils/BMDataGenerator.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/view_model/appointment_view_model.dart';
+import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
 import 'package:expertis/view_model/shop_list_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
@@ -48,7 +48,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => ShopListViewModel()),
       ChangeNotifierProvider(create: (_) => ShopViewModel()),
       ChangeNotifierProvider(create: (_) => CategoryViewModel()),
-      ChangeNotifierProvider(create: (_) => AppointmentViewModel()),
+      ChangeNotifierProvider(create: (_) => AppointmentListViewModel()),
     ],
     child: const MyApp(),
   ));

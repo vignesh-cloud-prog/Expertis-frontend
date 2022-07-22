@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:beamer/beamer.dart';
 import 'package:expertis/components/BMAvailabilityComponent.dart';
-import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/BMServiceListModel.dart';
 import 'package:expertis/utils/utils.dart';
-import 'package:expertis/view_model/appointment_view_model.dart';
-import 'package:expertis/view_model/auth_view_model.dart';
+import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +28,7 @@ class BookAppointmentScreen extends StatefulWidget {
 }
 
 class BookAppointmentScreenState extends State<BookAppointmentScreen> {
-  AppointmentViewModel appointmentViewModel = AppointmentViewModel();
+  AppointmentListViewModel appointmentViewModel = AppointmentListViewModel();
   List<BMServiceListModel> availabilityList = [];
   String selectedSlot = "";
 
@@ -130,8 +128,8 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AppointmentViewModel appointmentViewModel =
-        Provider.of<AppointmentViewModel>(context);
+    AppointmentListViewModel appointmentViewModel =
+        Provider.of<AppointmentListViewModel>(context);
     UserViewModel userViewModel = Provider.of<UserViewModel>(context);
     // print(appointmentViewModel.slots);
     // print(appointmentViewModel.appointmentModel.memberId);

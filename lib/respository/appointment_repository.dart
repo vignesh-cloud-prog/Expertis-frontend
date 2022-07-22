@@ -1,6 +1,8 @@
 import 'package:expertis/data/app_excaptions.dart';
 import 'package:expertis/data/network/BaseApiServices.dart';
 import 'package:expertis/data/network/NetworkApiService.dart';
+import 'package:expertis/models/appointment_list_model.dart';
+import 'package:expertis/models/appointment_model.dart';
 import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/utils/api_url.dart';
@@ -25,9 +27,24 @@ class AppointmentRepository {
     try {
       dynamic response = await _apiServices.getGetApiResponse(
           ApiUrl.fetchSlotsEndPoint(shopId, memberId, date), requestHeaders);
-      print(response);
-      // response = ShopListModel.fromJson(response);
-      // print("response after from json ${response.toString()}");
+      // print(response);
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<AppointmentListModel> fetchUserAppointments(
+      String userId, bool past) async {
+    final String token = await UserViewModel.getUserToken();
+    requestHeaders["Authorization"] = token;
+    try {
+      dynamic response = await _apiServices.getGetApiResponse(
+          ApiUrl.fetchUserAppointmentsEndPoint(userId, past), requestHeaders);
+      print(response.runtimeType);
+      response = AppointmentListModel.fromJson(response);
+      // print("\n\nresponse after from json ${response.toString()}");
       return response;
     } catch (e) {
       rethrow;
@@ -48,6 +65,29 @@ class AppointmentRepository {
       if (kDebugMode) {
         // print("response ${response.toString()}");
       }
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<AppointmentModel> fetchSelectedAppointment(
+      String appointmentId) async {
+    String token = await UserViewModel.getUserToken();
+    if (token == 'dummy' || token.isEmpty) {
+      throw TokenNotFoundException();
+    }
+    requestHeaders["Authorization"] = token;
+
+    String url = ApiUrl.fetchSelectedAppointmentEndPoint(appointmentId);
+    print("url is $url");
+    try {
+      dynamic response =
+          await _apiServices.getGetApiResponse(url, requestHeaders);
+      print("Appointment response ");
+      print(response["data"]);
+      response = AppointmentModel.fromJson(response["data"]);
+      print("response after from json ${response.toString()}");
       return response;
     } catch (e) {
       rethrow;

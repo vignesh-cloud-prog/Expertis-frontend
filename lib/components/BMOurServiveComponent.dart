@@ -4,7 +4,7 @@ import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/BMBottomSheet.dart';
-import 'package:expertis/view_model/appointment_view_model.dart';
+import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +15,7 @@ import '../models/BMServiceListModel.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMDataGenerator.dart';
 import '../utils/BMWidgets.dart';
-import 'BMServiceComponent.dart';
+import 'BMServiceSelectComponent.dart';
 
 class BMOurServiceComponent extends StatefulWidget {
   const BMOurServiceComponent({Key? key}) : super(key: key);
@@ -27,8 +27,8 @@ class BMOurServiceComponent extends StatefulWidget {
 class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
   @override
   Widget build(BuildContext context) {
-    AppointmentViewModel appointmentViewModel =
-        Provider.of<AppointmentViewModel>(context);
+    AppointmentListViewModel appointmentViewModel =
+        Provider.of<AppointmentListViewModel>(context);
     ShopViewModel shopViewModel = Provider.of<ShopViewModel>(context);
     // print(
     //     "shopViewModel.selectedShop.data!.services.length: ${shopViewModel.selectedShop.data?.services}");
@@ -70,7 +70,7 @@ class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return BMServiceComponent(
+                        return BMSelectServiceComponent(
                           element: popularServiceList[index],
                         );
                       },
@@ -137,8 +137,8 @@ class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
 
   void showSelectStaffBottomSheet(
       BuildContext context, List<Members>? element, String? shopId) {
-    AppointmentViewModel appointmentViewModel =
-        Provider.of<AppointmentViewModel>(context, listen: false);
+    AppointmentListViewModel appointmentViewModel =
+        Provider.of<AppointmentListViewModel>(context, listen: false);
     // List<BMMasterModel> myMasterList = getMyMastersList();
 
     int selectedTab = 0;
@@ -228,7 +228,8 @@ class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
                     String date =
                         DateFormat('dd-MMM-yyyy').format(DateTime.now());
                     // print(date);
-                    Provider.of<AppointmentViewModel>(context, listen: false)
+                    Provider.of<AppointmentListViewModel>(context,
+                            listen: false)
                         .fetchSlotsApi(
                       shopId,
                       element[selectedTab].member,

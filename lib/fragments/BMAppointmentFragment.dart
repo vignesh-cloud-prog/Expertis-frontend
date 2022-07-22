@@ -19,7 +19,9 @@ class _BMAppointmentFragmentState extends State<BMAppointmentFragment> {
 
   @override
   void initState() {
-    setStatusBarColor(appStore.isDarkModeOn ? appStore.scaffoldBackground! : bmLightScaffoldBackgroundColor);
+    setStatusBarColor(appStore.isDarkModeOn
+        ? appStore.scaffoldBackground!
+        : bmLightScaffoldBackgroundColor);
     super.initState();
   }
 
@@ -32,9 +34,13 @@ class _BMAppointmentFragmentState extends State<BMAppointmentFragment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appStore.isDarkModeOn ? appStore.scaffoldBackground! : bmLightScaffoldBackgroundColor,
+      backgroundColor: appStore.isDarkModeOn
+          ? appStore.scaffoldBackground!
+          : bmLightScaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: appStore.isDarkModeOn ? appStore.scaffoldBackground! : bmLightScaffoldBackgroundColor,
+        backgroundColor: appStore.isDarkModeOn
+            ? appStore.scaffoldBackground!
+            : bmLightScaffoldBackgroundColor,
         elevation: 0,
         leading: SizedBox(),
         leadingWidth: 16,
@@ -42,7 +48,11 @@ class _BMAppointmentFragmentState extends State<BMAppointmentFragment> {
       ),
       body: Container(
         margin: EdgeInsets.only(top: 16),
-        decoration: BoxDecoration(color: appStore.isDarkModeOn ? bmSecondBackgroundColorDark : bmSecondBackgroundColorLight, borderRadius: radiusOnly(topLeft: 32, topRight: 32)),
+        decoration: BoxDecoration(
+            color: appStore.isDarkModeOn
+                ? bmSecondBackgroundColorDark
+                : bmSecondBackgroundColorLight,
+            borderRadius: radiusOnly(topLeft: 32, topRight: 32)),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +66,9 @@ class _BMAppointmentFragmentState extends State<BMAppointmentFragment> {
                     margin: EdgeInsets.symmetric(horizontal: 8),
                     decoration: BoxDecoration(
                       borderRadius: radius(32),
-                      color: selectedTab == index ? bmPrimaryColor : Colors.transparent,
+                      color: selectedTab == index
+                          ? bmPrimaryColor
+                          : Colors.transparent,
                     ),
                     padding: EdgeInsets.all(8),
                     child: Text(
@@ -70,14 +82,17 @@ class _BMAppointmentFragmentState extends State<BMAppointmentFragment> {
                                 : bmSpecialColorDark,
                       ),
                     ).onTap(() {
-                      selectedTab = index;
-                      setState(() {});
+                      setState(() {
+                        selectedTab = index;
+                      });
                     }),
                   );
                 }).toList(),
               ).center(),
               20.height,
-              BMAppointMentTabComponent(tabOne: selectedTab == 0 ? true : false),
+              selectedTab == 0
+                  ? BMAppointMentTabComponent(tabOne: true)
+                  : BMAppointMentTabComponent(tabOne: false),
               20.height,
             ],
           ).paddingAll(16),

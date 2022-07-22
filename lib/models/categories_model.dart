@@ -43,8 +43,9 @@ class CategoryModel {
     tagName = json['tagName'];
     tagPic = json['tagPic'];
     isVerifiedByAdmin = json['isVerifiedByAdmin'];
-    shops = json['shops'].cast<String>();
-    services = json['services'].cast<String>();
+    shops = json['shops'] != null ? List<String>.from(json['shops']) : null;
+    services =
+        json['services'] != null ? List<String>.from(json['services']) : null;
     id = json['id'];
   }
 

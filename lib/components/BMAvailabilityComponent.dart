@@ -1,19 +1,15 @@
-import 'dart:developer';
-
-import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../main.dart';
-import '../models/BMServiceListModel.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
 class BMAvailabilityComponent extends StatefulWidget {
   List<Services>? element;
 
-  BMAvailabilityComponent({required this.element});
+  BMAvailabilityComponent({Key? key, required this.element}) : super(key: key);
 
   @override
   _BMAvailabilityComponentState createState() =>

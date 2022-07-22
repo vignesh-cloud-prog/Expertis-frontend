@@ -8,7 +8,7 @@ import 'package:nb_utils/nb_utils.dart';
 
 import '../main.dart';
 import '../models/BMCommonCardModel.dart';
-import '../screens/BMSingleComponentScreen.dart';
+import '../screens/shop_details_screen.dart';
 import '../utils/BMColors.dart';
 
 class BMCommonCardComponent extends StatefulWidget {

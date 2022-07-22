@@ -75,7 +75,9 @@ class Utils {
     } else {
       // Beamer.of(context).beamToNamed(RoutesName.unKnownError);
 
-      return const BMErrorScreen();
+      return BMErrorScreen(
+        message: error.toString(),
+      );
     }
   }
 

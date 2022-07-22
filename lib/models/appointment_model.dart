@@ -37,11 +37,9 @@ class AppointmentModel {
       this.id});
 
   AppointmentModel.fromJson(Map<String, dynamic> json) {
-    shopId =
-        json['shopId'] != null ? new ShopModel.fromJson(json['shopId']) : null;
-    memberId = json['memberId'];
-    userId =
-        json['userId'] != null ? new UserModel.fromJson(json['userId']) : null;
+    shopId = json['shopId'] != null ? ShopModel.fromJson(json['shopId']) : null;
+    memberId = json['memberId'] != null ? json['memberId'] : null;
+    userId = json['userId'] != null ? UserModel.fromJson(json['userId']) : null;
     totalPrice = json['totalPrice'];
     totalTime = json['totalTime'];
     paymentStatus = json['paymentStatus'];
@@ -49,10 +47,10 @@ class AppointmentModel {
     if (json['services'] != null) {
       services = <Services>[];
       json['services'].forEach((v) {
-        services!.add(new Services.fromJson(v));
+        services!.add(Services.fromJson(v));
       });
     }
-    slots = json['slots'].cast<int>();
+    slots = json['slots'] != null ? List<int>.from(json['slots']) : null;
     startTime = json['startTime'];
     endTime = json['endTime'];
     createdAt = json['createdAt'];
@@ -61,27 +59,27 @@ class AppointmentModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.shopId != null) {
-      data['shopId'] = this.shopId!.toJson();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    if (shopId != null) {
+      data['shopId'] = shopId!.toJson();
     }
-    data['memberId'] = this.memberId;
-    if (this.userId != null) {
-      data['userId'] = this.userId!.toJson();
+    data['memberId'] = memberId;
+    if (userId != null) {
+      data['userId'] = userId!.toJson();
     }
-    data['totalPrice'] = this.totalPrice;
-    data['totalTime'] = this.totalTime;
-    data['paymentStatus'] = this.paymentStatus;
-    data['appointmentStatus'] = this.appointmentStatus;
-    if (this.services != null) {
-      data['services'] = this.services!.map((v) => v.toJson()).toList();
+    data['totalPrice'] = totalPrice;
+    data['totalTime'] = totalTime;
+    data['paymentStatus'] = paymentStatus;
+    data['appointmentStatus'] = appointmentStatus;
+    if (services != null) {
+      data['services'] = services!.map((v) => v.toJson()).toList();
     }
-    data['slots'] = this.slots;
-    data['startTime'] = this.startTime;
-    data['endTime'] = this.endTime;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['id'] = this.id;
+    data['slots'] = slots;
+    data['startTime'] = startTime;
+    data['endTime'] = endTime;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['id'] = id;
     return data;
   }
 }

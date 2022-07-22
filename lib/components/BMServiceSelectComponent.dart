@@ -1,6 +1,6 @@
 import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
-import 'package:expertis/view_model/appointment_view_model.dart';
+import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
@@ -11,17 +11,18 @@ import '../utils/BMBottomSheet.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
-class BMServiceComponent extends StatefulWidget {
+class BMSelectServiceComponent extends StatefulWidget {
   Services element;
   // BMServiceListModel element;
 
-  BMServiceComponent({required this.element});
+  BMSelectServiceComponent({required this.element});
 
   @override
-  State<BMServiceComponent> createState() => _BMServiceComponentState();
+  State<BMSelectServiceComponent> createState() =>
+      _BMSelectServiceComponentState();
 }
 
-class _BMServiceComponentState extends State<BMServiceComponent> {
+class _BMSelectServiceComponentState extends State<BMSelectServiceComponent> {
   bool isInSelected(id, list) {
     if (list == null) return false;
     print(list);
@@ -37,8 +38,8 @@ class _BMServiceComponentState extends State<BMServiceComponent> {
 
   @override
   Widget build(BuildContext context) {
-    AppointmentViewModel appointmentViewModel =
-        Provider.of<AppointmentViewModel>(context);
+    AppointmentListViewModel appointmentViewModel =
+        Provider.of<AppointmentListViewModel>(context);
     Color getColor(Set<MaterialState> states) {
       const Set<MaterialState> interactiveStates = <MaterialState>{
         MaterialState.pressed,

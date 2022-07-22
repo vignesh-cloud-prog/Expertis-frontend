@@ -9,7 +9,8 @@ AppBar appBar(BuildContext context, String title,
     bool showBack = true,
     Color? color,
     Color? iconColor,
-    Color? textColor}) {
+    Color? textColor,
+    String? subtitle}) {
   return AppBar(
     automaticallyImplyLeading: false,
     backgroundColor: color ?? appStore.appBarColor,
@@ -22,27 +23,46 @@ AppBar appBar(BuildContext context, String title,
                 color: appStore.isDarkModeOn ? white : black),
           )
         : null,
-    title:
-        appBarTitleWidget(context, title, textColor: textColor, color: color),
+    title: appBarTitleWidget(context, title,
+        textColor: textColor, color: color, subtitle: subtitle),
     actions: actions,
     elevation: 0.5,
   );
 }
 
 Widget appBarTitleWidget(context, String title,
-    {Color? color, Color? textColor}) {
+    {Color? color, Color? textColor, String? subtitle}) {
   return Container(
     width: MediaQuery.of(context).size.width,
     height: 60,
     color: color ?? appStore.appBarColor,
     child: Row(
       children: <Widget>[
-        Text(
-          title,
-          style: boldTextStyle(
-              color: color ?? appStore.textPrimaryColor, size: 20),
-          maxLines: 1,
-        ).expand(),
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Text(
+                  title,
+                  style: boldTextStyle(
+                      color: color ?? appStore.textPrimaryColor, size: 20),
+                  maxLines: 1,
+                ),
+              ),
+              subtitle != null
+                  ? Text(
+                      subtitle,
+                      style: secondaryTextStyle(
+                          color: color ?? appStore.textSecondaryColor,
+                          size: 14),
+                      maxLines: 1,
+                    )
+                  : Container(),
+            ],
+          ),
+        ),
       ],
     ),
   );

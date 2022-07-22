@@ -19,4 +19,8 @@ class ApiUrl {
       '${baseUrl}shops/shop/slot/$shopId/$memberId/$date';
 
   static var bookAppointmentEndPoint = '${baseUrl}appointments/book';
+  static String fetchUserAppointmentsEndPoint(String userId, bool past) =>
+      '${baseUrl}appointments/user/$userId?past=$past';
+  static String fetchSelectedAppointmentEndPoint(String appointmentId) =>
+      '${baseUrl}appointments/$appointmentId';
 }

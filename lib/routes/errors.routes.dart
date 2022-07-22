@@ -18,7 +18,7 @@ class ErrorsLocation extends BeamLocation<BeamState> {
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
-      const BeamPage(
+      BeamPage(
         key: ValueKey('error'),
         title: 'Error',
         child: BMErrorScreen(),

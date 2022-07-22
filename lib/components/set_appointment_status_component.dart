@@ -1,24 +1,23 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/view_model/auth_view_model.dart';
-import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../utils/BMColors.dart';
 
-class BMErrorScreen extends StatefulWidget {
-  String message;
-  BMErrorScreen({Key? key, this.message = "Internal Error ocurred"})
+class SetAppointmentStatus extends StatefulWidget {
+  final String appointmentId;
+  final String status;
+  const SetAppointmentStatus(
+      {Key? key, required this.appointmentId, required this.status})
       : super(key: key);
-  static const routeName = '/something-went-wrong';
+
   @override
-  State<BMErrorScreen> createState() => _BMErrorScreenState();
+  State<SetAppointmentStatus> createState() => _SetAppointmentStatusState();
 }
 
-class _BMErrorScreenState extends State<BMErrorScreen> {
+class _SetAppointmentStatusState extends State<SetAppointmentStatus> {
   @override
   void initState() {
     setStatusBarColor(appStore.isDarkModeOn
@@ -43,8 +42,8 @@ class _BMErrorScreenState extends State<BMErrorScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('images/something_went_wrong.webp', height: 200),
-            Text('Something Went Wrong!!',
+            Image.asset('images/check.png', height: 200),
+            Text('Congrats!',
                 style: boldTextStyle(
                     color: appStore.isDarkModeOn
                         ? Colors.white
@@ -52,7 +51,7 @@ class _BMErrorScreenState extends State<BMErrorScreen> {
                     size: 30)),
             16.height,
             Text(
-              widget.message,
+              'You have successfully change password. Please use new password when logging in.',
               style: secondaryTextStyle(
                   color: appStore.isDarkModeOn
                       ? Colors.white
@@ -63,24 +62,13 @@ class _BMErrorScreenState extends State<BMErrorScreen> {
             AppButton(
               shapeBorder: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32)),
-              child: Text('Retry', style: boldTextStyle(color: Colors.white)),
+              child:
+                  Text('Login Now', style: boldTextStyle(color: Colors.white)),
               padding: EdgeInsets.all(16),
               width: 150,
               color: bmPrimaryColor,
               onTap: () {
-                Beamer.of(context).beamBack();
-              },
-            ),
-            10.height,
-            AppButton(
-              shapeBorder: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32)),
-              child: Text('Home', style: boldTextStyle(color: Colors.white)),
-              padding: EdgeInsets.all(16),
-              width: 150,
-              color: bmPrimaryColor,
-              onTap: () {
-                Beamer.of(context).beamToNamed(RoutesName.splash);
+                Beamer.of(context).beamToReplacementNamed(RoutesName.login);
               },
             ),
           ],

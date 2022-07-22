@@ -24,7 +24,6 @@ import '../utils/BMDataGenerator.dart';
 
 class BMDashboardScreen extends StatefulWidget {
   bool flag = false;
-  static const routeName = '/';
 
   BMDashboardScreen({super.key});
 
@@ -34,8 +33,6 @@ class BMDashboardScreen extends StatefulWidget {
 
 class BMDashboardScreenState extends State<BMDashboardScreen> {
   List<BMDashboardModel> list = getDashboardList();
-  late BeamerDelegate _beamerDelegate;
-  int _currentIndex = 0;
 
   int selectedTab = 0;
 
