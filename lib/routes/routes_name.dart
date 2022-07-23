@@ -59,6 +59,9 @@ class RoutesName {
   static get shopServicesWithId => (String shopId) => '/shops/services/$shopId';
   static const String aboutShop = '/shops/about/:shopId';
   static get aboutShopWithId => (String shopId) => '/shops/about/$shopId';
+  static const String reviewShop = '/shop/write-review/:shopId';
+  static get reviewShopWithId =>
+      (String shopId) => '/shop/write-review/$shopId';
 
   // Owner Dashboard Routes
   static const String ownerDashboard = '/shop/dashboard';

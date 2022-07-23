@@ -137,7 +137,7 @@ Widget titleText({required String title, int? size, int? maxLines}) {
     title,
     style: boldTextStyle(
         size: size != null ? size : 20,
-        color: appStore.isDarkModeOn ? white : bmSpecialColorDark),
+        color: appStore.isDarkModeOn ? greenColor : bmSpecialColorDark),
     maxLines: maxLines != null ? maxLines : 1,
     overflow: TextOverflow.ellipsis,
   );

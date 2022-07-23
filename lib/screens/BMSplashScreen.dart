@@ -20,7 +20,7 @@ class BMSplashScreen extends StatefulWidget {
 }
 
 class BMSplashScreenState extends State<BMSplashScreen> {
-  AuthViewModel authViewModel = AuthViewModel();
+  final authViewModel = AuthViewModel();
   // SplashServices splashServices = SplashServices();
   @override
   void initState() {
@@ -71,7 +71,7 @@ class BMSplashScreenState extends State<BMSplashScreen> {
               return Utils.findErrorPage(context, error);
 
             case Status.COMPLETED:
-              Beamer.of(context).beamToReplacementNamed(RoutesName.home);
+              // Beamer.of(context).beamToReplacementNamed(RoutesName.home);
               return BMDashboardScreen();
             default:
               return Container();

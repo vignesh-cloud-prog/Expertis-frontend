@@ -3,6 +3,7 @@ import 'package:expertis/routes/home_routes.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/BMCreateShopScreen.dart';
 import 'package:expertis/screens/BMDashboardScreen.dart';
+import 'package:expertis/screens/review_shop_screen.dart';
 import 'package:expertis/screens/shop_details_screen.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';
 import 'package:expertis/screens/add_service_screen.dart';
@@ -27,6 +28,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
         RoutesName.shopServices,
         RoutesName.aboutShop,
         RoutesName.shopReviews,
+        RoutesName.reviewShop,
         RoutesName.createShop,
         RoutesName.updateShop,
         RoutesName.createService,
@@ -109,6 +111,15 @@ class ShopsLocation extends BeamLocation<BeamState> {
           child: ShopViewScreen(
             shopId: state.pathParameters['shopId'] ?? 'null',
             selectedTab: 3,
+          ),
+        ),
+      if (state.uri.pathSegments.contains('write-review') &&
+          state.pathParameters.containsKey('shopId'))
+        BeamPage(
+          key: const ValueKey(RoutesName.reviewShop),
+          title: ' Review ${state.pathParameters['shopId']}',
+          child: WriteReviewScreen(
+            shopId: state.pathParameters['shopId'] ?? 'null',
           ),
         ),
 
