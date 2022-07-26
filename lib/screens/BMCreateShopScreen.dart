@@ -620,7 +620,7 @@ class CreateShopScreenState extends State<CreateShopScreen> {
                             print('data: $data');
 
                             data['contact'] = jsonEncode(
-                                data['contact'] as Map<String, dynamic>);
+                                data['contact'] as Map<String, String>);
                             // print('files: $files');
                             shopViewModel.sendShopData(
                                 false, data, isFileSelected, files, context);

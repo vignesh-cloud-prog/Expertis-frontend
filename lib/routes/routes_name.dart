@@ -77,6 +77,11 @@ class RoutesName {
 
   // Admin Dashboard Routes
   static const String adminDashboard = '/admin/dashboard';
+  static const String adminUsers = '/admin/users';
+  static const String adminShops = '/admin/shops';
+  static const String adminTags = '/admin/tags';
+
+  
 
   // Error pages
   static const String tokenExpired = '/error/token-expired';

@@ -1,5 +1,6 @@
 //region imports
 import 'package:expertis/models/categories_model.dart';
+import 'package:expertis/routes/admin_routes.dart';
 import 'package:expertis/routes/appointment_routes.dart';
 import 'package:expertis/routes/errors.routes.dart';
 import 'package:expertis/routes/home_routes.dart';
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
           AppointmentLocation(),
           MoreLocation(),
           SearchLocation(),
+          AdminLocation(),
         ],
       ),
     );
