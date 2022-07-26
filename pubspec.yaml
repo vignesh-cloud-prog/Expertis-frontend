@@ -30,7 +30,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  snippet_coder_utils: ^1.0.12
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -63,13 +62,14 @@ dependencies:
   flutter_progress_hud: ^2.0.2
   pin_code_fields: ^7.4.0
   gender_picker: ^1.1.0
-  image_picker: ^0.8.5+3
   path_provider: ^2.0.11
   path: ^1.8.1
   beamer: ^1.5.0
   url_strategy: ^0.2.0
   dotted_border: ^2.0.0+2
   iconly: ^1.0.1
+  file_picker: ^3.0.4
+  image_picker: ^0.8.5+3
 
 dev_dependencies:
   build_runner: ^2.2.0

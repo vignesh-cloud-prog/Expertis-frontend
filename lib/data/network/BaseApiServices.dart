@@ -8,5 +8,5 @@ abstract class BaseApiServices {
       Map<String, String> header,
       Map<String, String> data,
       bool isFileSelected,
-      Map<String, String> files);
+      Map<String, dynamic> files);
 }

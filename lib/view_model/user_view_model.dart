@@ -81,34 +81,34 @@ class UserViewModel with ChangeNotifier {
     return true;
   }
 
-  Future<void> updateUser(
-      bool isEditMode,
-      Map<String, String> data,
-      bool isFileSelected,
-      Map<String, String> files,
-      BuildContext context) async {
-    setLoading(true);
-    if (kDebugMode) {
-      // print('data: $data');
-      // print('files: $files');
-    }
-    _myRepo
-        .updateProfileApi(isEditMode, data, isFileSelected, files)
-        .then((value) {
-      if (kDebugMode) {
-        // print(value.toString());
-      }
-      final userViewModel = Provider.of<UserViewModel>(context, listen: false);
-      userViewModel.saveUser(UserModel.fromJson(value['data']));
-      setLoading(false);
-      Utils.flushBarErrorMessage('Profile updated successfully', context);
-      Beamer.of(context).beamToReplacementNamed(RoutesName.home);
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      Utils.flushBarErrorMessage(error.toString(), context);
-      if (kDebugMode) {
-        // print(error.toString());
-      }
-    });
-  }
+//   Future<void> updateUser(
+//       bool isEditMode,
+//       Map<String, String> data,
+//       bool isFileSelected,
+//       Map<String, XFile?> files,
+//       BuildContext context) async {
+//     setLoading(true);
+//     if (kDebugMode) {
+//       // print('data: $data');
+//       // print('files: $files');
+//     }
+//     _myRepo
+//         .updateProfileApi(isEditMode, data, isFileSelected, files)
+//         .then((value) {
+//       if (kDebugMode) {
+//         // print(value.toString());
+//       }
+//       final userViewModel = Provider.of<UserViewModel>(context, listen: false);
+//       userViewModel.saveUser(UserModel.fromJson(value['data']));
+//       setLoading(false);
+//       Utils.flushBarErrorMessage('Profile updated successfully', context);
+//       Beamer.of(context).beamToReplacementNamed(RoutesName.home);
+//     }).onError((error, stackTrace) {
+//       setLoading(false);
+//       Utils.flushBarErrorMessage(error.toString(), context);
+//       if (kDebugMode) {
+//         // print(error.toString());
+//       }
+//     });
+//   }
 }

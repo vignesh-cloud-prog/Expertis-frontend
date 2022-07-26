@@ -60,7 +60,7 @@ class NetworkApiService extends BaseApiServices {
       Map<String, String> header,
       Map<String, String> data,
       bool isFileSelected,
-      Map<String, String> files) async {
+      Map<String, dynamic> files) async {
     dynamic responseJson;
     // print("isFileSelected $isFileSelected");
     try {
@@ -80,7 +80,7 @@ class NetworkApiService extends BaseApiServices {
       // print(response.statusCode);
 
       var responded = await http.Response.fromStream(response);
-      // print(responded.body);
+      print('responded.body ');
       return responseJson = returnResponse(responded);
     } on SocketException {
       throw FetchDataException('No Internet Connection');

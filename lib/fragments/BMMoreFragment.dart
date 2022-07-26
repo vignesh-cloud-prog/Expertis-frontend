@@ -163,8 +163,8 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                                               ? white
                                               : bmSpecialColorDark),
                                       onTap: () {
-                                        BMShoppingScreen(isOrders: true)
-                                            .launch(context);
+                                        Beamer.of(context).beamToNamed(
+                                            RoutesName.ownerDashboard);
                                       },
                                     )
                                   : SettingItemWidget(

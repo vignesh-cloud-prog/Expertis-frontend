@@ -1,4 +1,5 @@
 class ApiUrl {
+  // static var baseUrl = 'http://localhost:4000/';
   static var baseUrl = 'https://expertis-api.azurewebsites.net/';
 
   static var loginEndPint = '${baseUrl}users/login';
@@ -23,4 +24,7 @@ class ApiUrl {
       '${baseUrl}appointments/user/$userId?past=$past';
   static String fetchSelectedAppointmentEndPoint(String appointmentId) =>
       '${baseUrl}appointments/$appointmentId';
+
+  static String createShopEndPoint = '${baseUrl}shops/shop';
+  static String createTagEndPoint = '${baseUrl}tags';
 }

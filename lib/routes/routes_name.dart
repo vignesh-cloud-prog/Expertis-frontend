@@ -53,9 +53,9 @@ class RoutesName {
   static const String shopPortfolio = '/shops/portfolio/:shopId';
   static get shopPortfolioWithId =>
       (String shopId) => '/shops/portfolio/$shopId';
-  static const String shopReviews = '/shops/reviews/:shopId';
+  static const String shopReviewsById = '/shops/reviews/:shopId';
   static get shopReviewsWithId => (String shopId) => '/shops/reviews/$shopId';
-  static const String shopServices = '/shops/services/:shopId';
+  static const String shopServicesById = '/shops/services/:shopId';
   static get shopServicesWithId => (String shopId) => '/shops/services/$shopId';
   static const String aboutShop = '/shops/about/:shopId';
   static get aboutShopWithId => (String shopId) => '/shops/about/$shopId';
@@ -65,12 +65,18 @@ class RoutesName {
 
   // Owner Dashboard Routes
   static const String ownerDashboard = '/shop/dashboard';
+  static const String shopServices = '/shop/services';
+  static const String shopAppointments = '/shop/appointments';
+  static const String shopDetails = '/shop/info';
   static const String createShop = '/shop/create';
   static const String updateShop = '/shop/update/:shopId';
   static const String createService = '/shop/service/add';
   static const String updateService = '/shop/service/update/:serviceId';
   static const String createTag = '/shop/tag/create';
   static const String updateTag = '/shop/tag/update/:tagId';
+
+  // Admin Dashboard Routes
+  static const String adminDashboard = '/admin/dashboard';
 
   // Error pages
   static const String tokenExpired = '/error/token-expired';

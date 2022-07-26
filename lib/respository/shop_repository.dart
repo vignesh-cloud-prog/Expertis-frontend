@@ -6,6 +6,7 @@ import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/utils/api_url.dart';
 import 'package:expertis/view_model/user_view_model.dart';
+import 'package:flutter/foundation.dart';
 
 class HomeRepository {
   BaseApiServices _apiServices = NetworkApiService();
@@ -67,6 +68,37 @@ class HomeRepository {
       response = ShopModel.fromJson(response["data"]);
       // print("response after from json ${response.toString()}");
       return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> uploadShopDataApi(bool isEditMode, Map<String, String> data,
+      bool isFileSelected, Map<String, dynamic> files) async {
+    final String token = await UserViewModel.getUserToken();
+    requestHeaders["Authorization"] = token;
+    if (kDebugMode) {
+      print("inside api caller\n");
+      print("data ${data.toString()}");
+      print("files ${files.toString()}");
+      print("requestHeaders: ${requestHeaders.toString()}");
+    }
+    try {
+      dynamic response = await _apiServices.getMultipartApiResponse(
+          isEditMode,
+          ApiUrl.createShopEndPoint,
+          requestHeaders,
+          data,
+          isFileSelected,
+          files);
+      if (kDebugMode) {
+        print("response ${response.toString()}");
+      }
+      if (response != null) {
+        return response;
+      } else {
+        throw FetchDataException('No Internet Connection');
+      }
     } catch (e) {
       rethrow;
     }

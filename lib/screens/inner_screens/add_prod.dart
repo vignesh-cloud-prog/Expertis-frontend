@@ -17,7 +17,6 @@ import 'package:expertis/widgets/header.dart';
 import 'package:expertis/widgets/side_menu.dart';
 import 'package:expertis/widgets/text_widget.dart';
 import 'package:iconly/iconly.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class UploadProductForm extends StatefulWidget {
@@ -409,34 +408,34 @@ class _UploadProductFormState extends State<UploadProductForm> {
       );
     }
 
-    Future<void> _pickImage() async {
-      if (!kIsWeb) {
-        final ImagePicker _picker = ImagePicker();
-        XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-        if (image != null) {
-          var selected = File(image.path);
-          setState(() {
-            _pickedImage = selected;
-          });
-        } else {
-          print('No image has been picked');
-        }
-      } else if (kIsWeb) {
-        final ImagePicker _picker = ImagePicker();
-        XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-        if (image != null) {
-          var f = await image.readAsBytes();
-          setState(() {
-            webImage = f;
-            _pickedImage = File('a');
-          });
-        } else {
-          print('No image has been picked');
-        }
-      } else {
-        print('Something went wrong');
-      }
-    }
+    // Future<void> _pickImage() async {
+    //   if (!kIsWeb) {
+    //     final ImagePicker _picker = ImagePicker();
+    //     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    //     if (image != null) {
+    //       var selected = File(image.path);
+    //       setState(() {
+    //         _pickedImage = selected;
+    //       });
+    //     } else {
+    //       print('No image has been picked');
+    //     }
+    //   } else if (kIsWeb) {
+    //     final ImagePicker _picker = ImagePicker();
+    //     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    //     if (image != null) {
+    //       var f = await image.readAsBytes();
+    //       setState(() {
+    //         webImage = f;
+    //         _pickedImage = File('a');
+    //       });
+    //     } else {
+    //       print('No image has been picked');
+    //     }
+    //   } else {
+    //     print('Something went wrong');
+    //   }
+    // }
 
     Widget dottedBorder({
       required Color color,
@@ -463,7 +462,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                   ),
                   TextButton(
                       onPressed: (() {
-                        _pickImage();
+                        // _pickImage();
                       }),
                       child: TextWidget(
                         text: 'Choose an image',

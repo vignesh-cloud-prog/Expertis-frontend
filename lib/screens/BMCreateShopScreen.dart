@@ -1,85 +1,67 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/utils/utils.dart';
-import 'package:expertis/widgets/text_widget.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
-import 'package:expertis/components/BMProfilePicComponent.dart';
+import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:expertis/models/user_model.dart';
-import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-
 import '../main.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 
-class BMCreateShopScreen extends StatefulWidget {
+class CreateShopScreen extends StatefulWidget {
   final String title;
   final String buttonName;
 
-  const BMCreateShopScreen(
+  const CreateShopScreen(
       {Key? key, this.title = "Create Shop", this.buttonName = "Create"})
       : super(key: key);
 
   @override
-  _BMCreateShopScreenState createState() => _BMCreateShopScreenState();
+  CreateShopScreenState createState() => CreateShopScreenState();
 }
 
-class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
+class CreateShopScreenState extends State<CreateShopScreen> {
   FocusNode name = FocusNode();
-  FocusNode role = FocusNode();
+  FocusNode shopId = FocusNode();
+  FocusNode gender = FocusNode();
+  FocusNode email = FocusNode();
   FocusNode phone = FocusNode();
   FocusNode address = FocusNode();
+  FocusNode about = FocusNode();
   FocusNode pinCode = FocusNode();
   FocusNode dob = FocusNode();
   List<String> roles = ['MALE', 'FEMALE', 'UNISEX'];
   UserModel? user;
   String selectedRole = 'UNISEX';
   String userPic = "";
-  File? image;
   String? selectedGender;
   bool isFileSelected = false;
-  File? _pickedImage;
+  File? pickedImage;
   Uint8List webImage = Uint8List(8);
+  ShopModel shop = ShopModel();
 
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _dobController = TextEditingController();
 
-  Future pickImage(ImageSource source) async {
-    try {
-      var image = await ImagePicker().pickImage(source: source);
-      if (image == null) {
-        return;
-      }
-      final directory = await getApplicationDocumentsDirectory();
-      final name = basename(image.path);
-      final imageFile = File('${directory.path}/$name');
-      final newImage = await File(image.path).copy(imageFile.path);
-      setState(() => user!.userPic = newImage.path);
-
-      setState(() {
-        isFileSelected = true;
-        this.image = imageFile;
-      });
-    } on PlatformException catch (e) {
-      // print("falied to pick image ${e.toString()}");
-    }
-  }
-
   @override
   void initState() {
     setStatusBarColor(bmSpecialColor);
     super.initState();
+    UserViewModel.getUser().then((value) {
+      setState(() {
+        shop.owner = value.id;
+      });
+    });
+    shop.gender = "UNISEX";
   }
 
   @override
@@ -88,10 +70,41 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
     super.dispose();
   }
 
+  Future<void> pickImage({ImageSource source = ImageSource.gallery}) async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: source);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          pickedImage = selected;
+          isFileSelected = true;
+        });
+      } else {
+        print('No image has been picked');
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: source);
+      if (image != null) {
+        var f = await image.readAsBytes();
+        setState(() {
+          webImage = f;
+          pickedImage = File('a');
+          isFileSelected = true;
+        });
+      } else {
+        print('No image has been picked');
+      }
+    } else {
+      print('Something went wrong');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final userViewModel = Provider.of<UserViewModel>(context);
-
+    ShopViewModel shopViewModel = Provider.of<ShopViewModel>(context);
+    // print(shop.toJson());
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!
@@ -112,14 +125,7 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       16.height,
-                      ProfileWidget(
-                        imagePath: '',
-                        isEdit: true,
-                        onClicked: () async {
-                          await pickImage(ImageSource.gallery);
-                        },
-                      ),
-                      20.height,
+
                       Text('Shop Name',
                           style: primaryTextStyle(
                               color: appStore.isDarkModeOn
@@ -128,10 +134,11 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                               size: 14)),
                       AppTextField(
                         keyboardType: TextInputType.text,
-                        nextFocus: role,
-                        // onChanged: (value) {
-                        //   user!.name = value;
-                        // },
+                        nextFocus: shopId,
+                        // initialValue: shop.shopName ?? '',
+                        onChanged: (value) {
+                          shop.shopName = value;
+                        },
                         textFieldType: TextFieldType.NAME,
                         errorThisFieldRequired: 'Name is required',
                         autoFocus: true,
@@ -159,63 +166,108 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                         ),
                       ),
                       20.height,
+                      Text('Shop Logo',
+                          style: primaryTextStyle(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmSpecialColor,
+                              size: 14)),
                       // Image to be picked code is here
-                      Expanded(
-                        child: SizedBox(
-                          height: 200,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                height: 200,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                child: _pickedImage == null
-                                    ? dottedBorder(color: Colors.grey)
-                                    : ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: kIsWeb
-                                            ? Image.memory(webImage,
-                                                fit: BoxFit.fill,
-                                                width: 200,
-                                                height: 200)
-                                            : Image.file(_pickedImage!,
-                                                fit: BoxFit.fill,
-                                                width: 200,
-                                                height: 200),
-                                      )),
+                      Row(children: [
+                        Expanded(
+                          flex: 2,
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                  height: 200,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: pickedImage == null
+                                      ? dottedBorder(color: Colors.grey)
+                                      : ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: kIsWeb
+                                              ? Image.memory(webImage,
+                                                  fit: BoxFit.fill,
+                                                  width: 200,
+                                                  height: 200)
+                                              : Image.file(pickedImage!,
+                                                  fit: BoxFit.fill,
+                                                  width: 200,
+                                                  height: 200),
+                                        )),
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: FittedBox(
+                        Expanded(
+                          flex: 1,
                           child: Column(
                             children: [
-                              TextButton(
-                                onPressed: () {
+                              AppButton(
+                                child: Text('Clear',
+                                    style: boldTextStyle(color: Colors.red)),
+                                padding: EdgeInsets.all(16),
+                                width: 150,
+                                onTap: () {
                                   setState(() {
-                                    _pickedImage = null;
+                                    pickedImage = null;
+                                    isFileSelected = false;
                                     webImage = Uint8List(8);
                                   });
                                 },
-                                child: TextWidget(
-                                  text: 'Clear',
-                                  color: Colors.red,
-                                ),
                               ),
-                              TextButton(
-                                onPressed: () {},
-                                child: TextWidget(
-                                  text: 'Update image',
-                                  color: Colors.blue,
-                                ),
-                              ),
+                              SizedBox(height: 12),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      color: appStore.isDarkModeOn
+                                          ? bmTextColorDarkMode
+                                          : bmPrimaryColor,
+                                      icon: Icon(Icons.photo),
+                                      onPressed: () {
+                                        pickImage(source: ImageSource.gallery);
+                                      },
+                                    ),
+                                    IconButton(
+                                      color: appStore.isDarkModeOn
+                                          ? bmTextColorDarkMode
+                                          : bmPrimaryColor,
+                                      icon: Icon(Icons.camera_alt),
+                                      onPressed: () {
+                                        pickImage(source: ImageSource.camera);
+                                      },
+                                    ),
+                                  ]),
+                              // AppButton(
+                              //   shapeBorder: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(12)),
+                              //   child: Text('Change',
+                              //       style: boldTextStyle(color: Colors.white)),
+                              //   padding: EdgeInsets.all(16),
+                              //   width: 150,
+                              //   color: bmPrimaryColor,
+                              //   onTap: () {
+                              //     // pickImage();
+                              //   },
+                              // ),
                             ],
                           ),
                         ),
+                      ]),
+                      Divider(
+                        color: appStore.isDarkModeOn
+                            ? bmTextColorDarkMode
+                            : bmPrimaryColor,
+                        thickness: 1,
                       ),
                       20.height,
 
@@ -226,11 +278,13 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                                   : bmSpecialColor,
                               size: 14)),
                       AppTextField(
+                        // initialValue: shop.shopId ?? '',
                         keyboardType: TextInputType.text,
-                        nextFocus: role,
-                        // onChanged: (value) {
-                        //   user!.name = value;
-                        // },
+                        nextFocus: email,
+                        focus: shopId,
+                        onChanged: (value) {
+                          shop.shopId = value;
+                        },
                         textFieldType: TextFieldType.USERNAME,
                         errorThisFieldRequired: 'Name id required',
                         autoFocus: true,
@@ -267,7 +321,7 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                       20.height,
                       DropdownButtonFormField(
                         value: selectedRole,
-                        focusNode: role,
+                        focusNode: gender,
                         items: roles.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -283,10 +337,10 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                           setState(() {
                             selectedRole = value.toString();
                           });
-                          // user!.role = value.toString();
+                          shop.gender = value.toString();
                         },
                         onSaved: ((newValue) {
-                          Utils.focusChange(context, role, phone);
+                          Utils.focusChange(context, gender, phone);
                         }),
                       ),
                       20.height,
@@ -298,9 +352,15 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                               size: 14)),
                       AppTextField(
                         keyboardType: TextInputType.emailAddress,
-                        nextFocus: name,
+                        nextFocus: phone,
+                        focus: email,
                         textFieldType: TextFieldType.EMAIL,
-                        // controller: _emailController,
+                        // initialValue: shop.contact!.email ?? '',
+                        onChanged: (value) {
+                          shop.contact == null
+                              ? shop.contact = Contact(email: value)
+                              : shop.contact?.email = value;
+                        },
                         errorInvalidEmail: 'Invalid email',
                         errorThisFieldRequired: 'Email is required',
                         autoFocus: true,
@@ -336,10 +396,13 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                               size: 14)),
                       AppTextField(
                         focus: phone,
-                        // initialValue: user!.phone.toString(),
+                        // initialValue: shop.contact?.phone.toString() ?? '',
                         textFieldType: TextFieldType.PHONE,
-                        // onChanged: (p0) => user!.phone = p0,
                         nextFocus: address,
+                        maxLength: 10,
+                        onChanged: (p0) => shop.contact == null
+                            ? shop.contact = Contact(phone: p0.toInt())
+                            : shop.contact?.phone = p0.toInt(),
                         // controller: _phoneController,
                         validator: (value) {
                           Pattern pattern =
@@ -388,12 +451,15 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                       AppTextField(
                         keyboardType: TextInputType.text,
                         focus: address,
-                        // initialValue: user!.address,
+                        // initialValue: shop.contact?.address ?? '',
                         nextFocus: pinCode,
                         textFieldType: TextFieldType.NAME,
-                        // onChanged: (value) {
-                        // user!.address = value;
-                        // },
+                        onChanged: (p0) {
+                          shop.contact == null
+                              ? shop.contact = Contact(address: p0)
+                              : shop.contact?.address = p0;
+                        },
+
                         // controller: _addressController,
                         errorThisFieldRequired: 'Address is required',
                         cursorColor: bmPrimaryColor,
@@ -430,9 +496,11 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                         focus: pinCode,
                         textFieldType: TextFieldType.PHONE,
                         autoFocus: true,
-                        nextFocus: dob,
-                        // initialValue: user!.pinCode.toString(),
-                        // onChanged: (p0) => user!.pinCode = p0,
+                        nextFocus: about,
+                        // initialValue: shop.contact?.pinCode.toString() ?? '',
+                        onChanged: (p0) => shop.contact == null
+                            ? shop.contact = Contact(pinCode: p0.toInt())
+                            : shop.contact?.pinCode = p0.toInt(),
                         // controller: _pinCodeController,
                         validator: (value) {
                           if (value!.length != 6) {
@@ -466,6 +534,48 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                                       : bmPrimaryColor)),
                         ),
                       ),
+                      20.height,
+                      Text('About Shop',
+                          style: primaryTextStyle(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmSpecialColor,
+                              size: 14)),
+                      AppTextField(
+                        keyboardType: TextInputType.multiline,
+                        focus: about,
+                        // initialValue: shop.contact?.address ?? '',
+                        nextFocus: null,
+                        textFieldType: TextFieldType.MULTILINE,
+                        onChanged: (p0) {
+                          shop.about = p0;
+                        },
+
+                        // controller: _addressController,
+                        cursorColor: bmPrimaryColor,
+                        textStyle: boldTextStyle(
+                            color: appStore.isDarkModeOn
+                                ? bmTextColorDarkMode
+                                : bmPrimaryColor),
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: appStore.isDarkModeOn
+                                      ? bmTextColorDarkMode
+                                      : bmPrimaryColor)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: appStore.isDarkModeOn
+                                      ? bmTextColorDarkMode
+                                      : bmPrimaryColor)),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: appStore.isDarkModeOn
+                                      ? bmTextColorDarkMode
+                                      : bmPrimaryColor)),
+                        ),
+                      ),
+
                       30.height,
                       AppButton(
                         width: context.width() - 32,
@@ -474,9 +584,49 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
                         padding: const EdgeInsets.all(16),
                         color: bmPrimaryColor,
                         onTap: () {
-                          if (_formKey.currentState!.validate()) {}
+                          if (_formKey.currentState!.validate()) {
+                            if (!kIsWeb) {
+                              if (pickedImage == null) {
+                                Utils.flushBarErrorMessage(
+                                    "Please pic a shop logo", context);
+                                return;
+                              }
+                            }
+
+                            if (kDebugMode) {
+                              print("form is valid");
+                              print('shop name: ${shop.contact?.email}');
+                              print(shop);
+                              print(shop.toJson());
+                            }
+
+                            Map shopData = shop.toJson() as Map
+                              ..removeWhere((key, value) =>
+                                  key == null ||
+                                  key == 'id' ||
+                                  value == null ||
+                                  value == '' ||
+                                  value == 'null');
+                            print('map: $shopData');
+
+                            Map<String, String> data = shopData
+                                .map((k, v) => MapEntry(k, v.toString()));
+                            Map<String, dynamic?> files = {
+                              'shopLogo': pickedImage,
+                            };
+                            data.remove('shopLogo');
+                            data.removeWhere((key, value) => key == 'id');
+
+                            print('data: $data');
+
+                            data['contact'] = jsonEncode(
+                                data['contact'] as Map<String, dynamic>);
+                            // print('files: $files');
+                            shopViewModel.sendShopData(
+                                false, data, isFileSelected, files, context);
+                          }
                         },
-                        child: userViewModel.loading
+                        child: shopViewModel.loading
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )
@@ -491,35 +641,6 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> _pickImage() async {
-    if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var selected = File(image.path);
-        setState(() {
-          _pickedImage = selected;
-        });
-      } else {
-        print('No image has been picked');
-      }
-    } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
-        setState(() {
-          webImage = f;
-          _pickedImage = File('a');
-        });
-      } else {
-        print('No image has been picked');
-      }
-    } else {
-      print('Something went wrong');
-    }
   }
 
   Widget dottedBorder({
@@ -537,22 +658,13 @@ class _BMCreateShopScreenState extends State<BMCreateShopScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.image_outlined,
-                  color: color,
-                  size: 50,
+                Text(
+                  'Drag and drop image here',
+                  style: boldTextStyle(
+                    color: color,
+                    size: 14,
+                  ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextButton(
-                    onPressed: (() {
-                      _pickImage();
-                    }),
-                    child: TextWidget(
-                      text: 'Choose an image',
-                      color: Colors.blue,
-                    ))
               ],
             ),
           )),
