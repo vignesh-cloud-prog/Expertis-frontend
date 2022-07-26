@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/data/response/api_response.dart';
+import 'package:expertis/models/services_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/respository/shop_repository.dart';
 import 'package:expertis/routes/routes_name.dart';
@@ -11,6 +12,7 @@ class ShopViewModel with ChangeNotifier {
   final _myRepo = HomeRepository();
 
   ApiResponse<ShopModel> selectedShop = ApiResponse.loading();
+  ApiResponse<ServicesListModel> services = ApiResponse.completed(null);
 
   bool _loading = false;
   bool get loading => _loading;
@@ -27,7 +29,7 @@ class ShopViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchSelectedShopDataApi(String shopId) async {
+  Future<void> fetchServicesDataApi(String shopId) async {
     print("shop id is $shopId");
     _myRepo.fetchSelectedShopData(shopId).then((value) {
       // print("Selected shop data is \n ${value.toString()}");
@@ -65,6 +67,24 @@ class ShopViewModel with ChangeNotifier {
       if (kDebugMode) {
         // print(error.toString());
       }
+    });
+  }
+
+  setServices(ApiResponse<ServicesListModel> response) {
+    services = response;
+    if (kDebugMode) {
+      // print("response ${nearbyShopList.toString()}");
+    }
+    notifyListeners();
+  }
+
+  Future<void> fetchSelectedShopDataApi(String shopId) async {
+    print("shop id is $shopId");
+    _myRepo.fetchSelectedShopData(shopId).then((value) {
+      // print("Selected shop data is \n ${value.toString()}");
+      setSelectedShop(ApiResponse.completed(value));
+    }).onError((error, stackTrace) {
+      setSelectedShop(ApiResponse.error(error.toString()));
     });
   }
 }

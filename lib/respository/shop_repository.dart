@@ -103,4 +103,18 @@ class HomeRepository {
       rethrow;
     }
   }
+
+  Future<Services> fetchServicesData(String shopId) async {
+    requestHeaders["Authorization"] = await UserViewModel.getUserToken();
+    try {
+      dynamic response = await _apiServices.getGetApiResponse(
+          ApiUrl.fetchServicesData(shopId), requestHeaders);
+      // print(response);
+      response = Services.fromJson(response);
+      // print("response after from json ${response.toString()}");
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

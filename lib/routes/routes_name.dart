@@ -64,7 +64,7 @@ class RoutesName {
       (String shopId) => '/shop/write-review/$shopId';
 
   // Owner Dashboard Routes
-  static const String ownerDashboard = '/shop/dashboard';
+  static const String ownerDashboard = '/shop/dashboard/:shopId';
   static const String shopServices = '/shop/services';
   static const String shopAppointments = '/shop/appointments';
   static const String shopDetails = '/shop/info';
