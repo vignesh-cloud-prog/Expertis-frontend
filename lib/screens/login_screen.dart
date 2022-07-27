@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:beamer/beamer.dart';
 import 'package:expertis/routes/routes_name.dart';
+import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import '../main.dart';
@@ -25,6 +26,7 @@ class _BMLoginScreenState extends State<BMLoginScreen> {
   @override
   void initState() {
     setStatusBarColor(bmSpecialColor);
+    UserViewModel().logout();
     super.initState();
   }
 

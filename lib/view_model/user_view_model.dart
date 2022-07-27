@@ -77,6 +77,7 @@ class UserViewModel with ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     await sp.remove('token');
     await sp.remove('user');
+    print('user logged out');
     notifyListeners();
     return true;
   }

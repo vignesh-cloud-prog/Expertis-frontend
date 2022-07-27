@@ -4,6 +4,7 @@ import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,19 +48,23 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
     super.dispose();
   }
 
+  PlatformFile? objFile;
+
   Future<void> pickImage({ImageSource source = ImageSource.gallery}) async {
     if (!kIsWeb) {
       final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: source);
-      if (image != null) {
-        var selected = File(image.path);
-        setState(() {
-          pickedImage = selected;
-          isFileSelected = true;
-        });
-      } else {
-        print('No image has been picked');
+      XFile? image = await _picker.pickImage(
+          source: source, maxHeight: 200, maxWidth: 200);
+      if (image == null) {
+        return;
       }
+      // final newImage = await File(image.path).copy(imageFile.path);
+      setState(() => widget.category?.tagPic = image.path);
+
+      setState(() {
+        isFileSelected = true;
+        pickedImage = File(image.path);
+      });
     } else if (kIsWeb) {
       final ImagePicker _picker = ImagePicker();
       XFile? image = await _picker.pickImage(source: source);
@@ -173,9 +178,16 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                                         .scaffoldBackgroundColor,
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),
-                                  child: widget.category?.tagPic == null ||
-                                          widget.category?.tagPic == ""
-                                      ? pickedImage == null
+                                  child: isFileSelected == false &&
+                                          widget.category?.tagPic != null &&
+                                          widget.category?.tagPic != ""
+                                      ? Image.network(
+                                          widget.category?.tagPic ??
+                                              Assets.defaultCategoryImage,
+                                          fit: BoxFit.fill,
+                                          width: 200,
+                                          height: 200)
+                                      : pickedImage == null
                                           ? dottedBorder(color: Colors.grey)
                                           : ClipRRect(
                                               borderRadius:
@@ -189,13 +201,7 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                                                       fit: BoxFit.fill,
                                                       width: 200,
                                                       height: 200),
-                                            )
-                                      : Image.network(
-                                          widget.category?.tagPic ??
-                                              Assets.defaultCategoryImage,
-                                          fit: BoxFit.fill,
-                                          width: 200,
-                                          height: 200)),
+                                            )),
                             ),
                           ),
                         ),
@@ -302,13 +308,13 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                         color: bmPrimaryColor,
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            if (!kIsWeb) {
-                              if (pickedImage == null) {
-                                Utils.flushBarErrorMessage(
-                                    "Please pic a shop logo", context);
-                                return;
-                              }
-                            }
+                            // if (!kIsWeb) {
+                            //   if (pickedImage == null) {
+                            //     Utils.flushBarErrorMessage(
+                            //         "Please pic a shop logo", context);
+                            //     return;
+                            //   }
+                            // }
 
                             if (kDebugMode) {
                               print("form is valid");
@@ -327,7 +333,7 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                                 .map((k, v) => MapEntry(k, v.toString()));
 
                             Map<String, dynamic?> files = {
-                              'tagPic': pickedImage,
+                              'tagPic': widget.category?.tagPic,
                             };
                             data.remove('tagPic');
 

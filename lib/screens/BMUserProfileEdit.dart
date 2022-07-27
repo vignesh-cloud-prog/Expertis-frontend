@@ -60,7 +60,7 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
       final name = basename(image.path);
       final imageFile = File('${directory.path}/$name');
       final newImage = await File(image.path).copy(imageFile.path);
-      setState(() => user.userPic = newImage.path);
+      setState(() => user.userPic = image.path);
 
       setState(() {
         isFileSelected = true;
