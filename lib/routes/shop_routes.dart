@@ -1,5 +1,4 @@
 import 'package:beamer/beamer.dart';
-import 'package:expertis/components/tags_edit_component.dart';
 import 'package:expertis/routes/home_routes.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/BMCreateShopScreen.dart';
@@ -39,8 +38,6 @@ class ShopsLocation extends BeamLocation<BeamState> {
         RoutesName.updateShop,
         RoutesName.createService,
         RoutesName.updateService,
-        RoutesName.createTag,
-        RoutesName.updateTag,
         RoutesName.ownerDashboard,
         RoutesName.bookAppointment,
       ];
@@ -180,22 +177,6 @@ class ShopsLocation extends BeamLocation<BeamState> {
           title: 'Update ${state.pathParameters['serviceId']}',
           child: ShopViewScreen(
             shopId: state.pathParameters['serviceId'] ?? 'null',
-          ),
-        ),
-      if (state.uri.pathSegments.contains('tag') &&
-          state.uri.pathSegments.contains('create'))
-        const BeamPage(
-          key: ValueKey(RoutesName.createTag),
-          title: 'Create Tag',
-          child: EditTagComponent(),
-        ),
-      if (state.uri.pathSegments.contains('tag') &&
-          state.pathParameters.containsKey('tagId'))
-        BeamPage(
-          key: ValueKey('Update ${state.pathParameters['tagId']}'),
-          title: 'Update ${state.pathParameters['tagId']}',
-          child: ShopViewScreen(
-            shopId: state.pathParameters['tagId'] ?? 'null',
           ),
         ),
     ];

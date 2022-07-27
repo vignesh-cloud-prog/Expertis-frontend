@@ -37,7 +37,7 @@ class CategoryViewModel with ChangeNotifier {
     });
   }
 
-  Future<void> sendTagData(
+  Future<void> sendCategoryData(
       bool isEditMode,
       Map<String, String> data,
       bool isFileSelected,
@@ -49,7 +49,7 @@ class CategoryViewModel with ChangeNotifier {
       print('files: $files');
     }
     _myRepo
-        .uploadTagDataApi(isEditMode, data, isFileSelected, files)
+        .uploadCategoryDataApi(isEditMode, data, isFileSelected, files)
         .then((value) {
       if (kDebugMode) {
         print(value.toString());
@@ -57,7 +57,7 @@ class CategoryViewModel with ChangeNotifier {
       // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
       // userViewModel.saveUser(UserModel.fromJson(value['data']));
       setLoading(false);
-      Beamer.of(context).beamToReplacementNamed(RoutesName.home);
+      Beamer.of(context).beamToReplacementNamed(RoutesName.adminDashboard);
       Utils.flushBarErrorMessage('successfully', context);
     }).onError((error, stackTrace) {
       setLoading(false);

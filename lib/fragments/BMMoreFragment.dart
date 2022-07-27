@@ -182,6 +182,21 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                                       },
                                     )
                               : Container(),
+                          if (user!.role!.toLowerCase() == "admin")
+                            SettingItemWidget(
+                              title: 'Admin Dashboard',
+                              leading: Icon(Icons.add_home_work_outlined,
+                                  color: bmPrimaryColor, size: 30),
+                              titleTextStyle: boldTextStyle(
+                                  size: 20,
+                                  color: appStore.isDarkModeOn
+                                      ? white
+                                      : bmSpecialColorDark),
+                              onTap: () {
+                                Beamer.of(context)
+                                    .beamToNamed(RoutesName.adminDashboard);
+                              },
+                            ),
                           SettingItemWidget(
                             title: 'Contact Us',
                             leading: Icon(Icons.call,

@@ -2,12 +2,15 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:expertis/models/categories_model.dart';
+import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
-import 'package:expertis/widgets/text_widget.dart';
+import 'package:expertis/view_model/shop_view_model.dart';
+import 'package:expertis/models/user_model.dart';
+import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import '../main.dart';
@@ -15,26 +18,20 @@ import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 
-class EditTagComponent extends StatefulWidget {
-  final String title;
-  final String buttonName;
+class CreateUpdateTagScreen extends StatefulWidget {
+  final String? tagId;
 
-  const EditTagComponent(
-      {Key? key, this.title = "Create Tag", this.buttonName = "Create"})
-      : super(key: key);
+  const CreateUpdateTagScreen({Key? key, this.tagId}) : super(key: key);
 
   @override
-  _EditTagComponentState createState() => _EditTagComponentState();
+  CreateUpdateTagScreenState createState() => CreateUpdateTagScreenState();
 }
 
-class _EditTagComponentState extends State<EditTagComponent> {
+class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
   FocusNode description = FocusNode();
 
-  String? selectedGender;
   bool isFileSelected = false;
   File? pickedImage;
-  PlatformFile? file;
-
   Uint8List webImage = Uint8List(8);
   CategoryModel category = CategoryModel();
 
@@ -52,30 +49,43 @@ class _EditTagComponentState extends State<EditTagComponent> {
     super.dispose();
   }
 
-  Future<void> pickImage() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-    if (result != null) {
-      file = result.files.first;
-      if (!kIsWeb) {
+  Future<void> pickImage({ImageSource source = ImageSource.gallery}) async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: source);
+      if (image != null) {
+        var selected = File(image.path);
         setState(() {
-          pickedImage = File(file?.path ?? '');
+          pickedImage = selected;
           isFileSelected = true;
         });
-      } else if (kIsWeb) {
-        var f = file != null ? file?.bytes : null;
+      } else {
+        print('No image has been picked');
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: source);
+      if (image != null) {
+        var f = await image.readAsBytes();
         setState(() {
-          webImage = f ?? Uint8List(8);
+          webImage = f;
           pickedImage = File('a');
           isFileSelected = true;
         });
+      } else {
+        print('No image has been picked');
       }
+    } else {
+      print('Something went wrong');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    CategoryViewModel categoryViewModel =
-        Provider.of<CategoryViewModel>(context, listen: false);
+    CategoryViewModel categoryViewModel = Provider.of<CategoryViewModel>(
+      context,
+    );
+
     // print(shop.toJson());
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
@@ -88,7 +98,10 @@ class _EditTagComponentState extends State<EditTagComponent> {
           children: [
             upperContainer(
               screenContext: context,
-              child: headerText(title: widget.title),
+              child: headerText(
+                  title: widget.tagId == null
+                      ? 'Create Category'
+                      : 'Update Category'),
             ),
             lowerContainer(
                 screenContext: context,
@@ -98,7 +111,7 @@ class _EditTagComponentState extends State<EditTagComponent> {
                     children: [
                       16.height,
 
-                      Text('Tag Name',
+                      Text('Category Name',
                           style: primaryTextStyle(
                               color: appStore.isDarkModeOn
                                   ? bmTextColorDarkMode
@@ -107,13 +120,12 @@ class _EditTagComponentState extends State<EditTagComponent> {
                       AppTextField(
                         keyboardType: TextInputType.text,
                         nextFocus: description,
-                        // initialValue: shop.shopName ?? '',
-
+                        initialValue: category.tagName ?? '',
                         onChanged: (value) {
                           category.tagName = value;
                         },
                         textFieldType: TextFieldType.NAME,
-                        errorThisFieldRequired: 'Tag Name is required',
+                        errorThisFieldRequired: 'Name is required',
                         autoFocus: true,
                         cursorColor: bmPrimaryColor,
                         textStyle: boldTextStyle(
@@ -139,7 +151,7 @@ class _EditTagComponentState extends State<EditTagComponent> {
                         ),
                       ),
                       20.height,
-                      Text('Tag Photo',
+                      Text('Tag Picture',
                           style: primaryTextStyle(
                               color: appStore.isDarkModeOn
                                   ? bmTextColorDarkMode
@@ -197,18 +209,41 @@ class _EditTagComponentState extends State<EditTagComponent> {
                                 },
                               ),
                               SizedBox(height: 12),
-                              AppButton(
-                                shapeBorder: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: Text('Change',
-                                    style: boldTextStyle(color: Colors.white)),
-                                padding: EdgeInsets.all(16),
-                                width: 150,
-                                color: bmPrimaryColor,
-                                onTap: () {
-                                  pickImage();
-                                },
-                              ),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      color: appStore.isDarkModeOn
+                                          ? bmTextColorDarkMode
+                                          : bmPrimaryColor,
+                                      icon: Icon(Icons.photo),
+                                      onPressed: () {
+                                        pickImage(source: ImageSource.gallery);
+                                      },
+                                    ),
+                                    IconButton(
+                                      color: appStore.isDarkModeOn
+                                          ? bmTextColorDarkMode
+                                          : bmPrimaryColor,
+                                      icon: Icon(Icons.camera_alt),
+                                      onPressed: () {
+                                        pickImage(source: ImageSource.camera);
+                                      },
+                                    ),
+                                  ]),
+                              // AppButton(
+                              //   shapeBorder: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(12)),
+                              //   child: Text('Change',
+                              //       style: boldTextStyle(color: Colors.white)),
+                              //   padding: EdgeInsets.all(16),
+                              //   width: 150,
+                              //   color: bmPrimaryColor,
+                              //   onTap: () {
+                              //     // pickImage();
+                              //   },
+                              // ),
                             ],
                           ),
                         ),
@@ -228,13 +263,16 @@ class _EditTagComponentState extends State<EditTagComponent> {
                                   : bmSpecialColor,
                               size: 14)),
                       AppTextField(
-                        // initialValue: shop.shopId ?? '',
                         keyboardType: TextInputType.multiline,
+                        focus: description,
+                        initialValue: category.description ?? '',
+                        nextFocus: null,
+                        textFieldType: TextFieldType.MULTILINE,
                         onChanged: (value) {
                           category.description = value;
                         },
-                        focus: description,
-                        textFieldType: TextFieldType.MULTILINE,
+
+                        // controller: _addressController,
                         cursorColor: bmPrimaryColor,
                         textStyle: boldTextStyle(
                             color: appStore.isDarkModeOn
@@ -268,45 +306,53 @@ class _EditTagComponentState extends State<EditTagComponent> {
                         color: bmPrimaryColor,
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            if (pickedImage == null) {
-                              Utils.flushBarErrorMessage(
-                                  "Please pic a shop logo", context);
-                              return;
+                            if (!kIsWeb) {
+                              if (pickedImage == null) {
+                                Utils.flushBarErrorMessage(
+                                    "Please pic a shop logo", context);
+                                return;
+                              }
                             }
 
                             if (kDebugMode) {
                               print("form is valid");
-                              print('shop name: ${category.tagName}');
-                              print(category);
+
                               print(category.toJson());
                             }
 
                             Map categoryData = category.toJson() as Map
                               ..removeWhere((key, value) =>
                                   key == null ||
+                                  key == 'id' ||
                                   value == null ||
                                   value == '' ||
                                   value == 'null');
-                            print('map: $categoryData');
 
                             Map<String, String> data = categoryData
                                 .map((k, v) => MapEntry(k, v.toString()));
+
                             Map<String, dynamic?> files = {
-                              'tagPic': file,
+                              'tagPic': pickedImage,
                             };
                             data.remove('tagPic');
 
-                            print('data: $data');
-                            print('files: $files');
-                            categoryViewModel.sendTagData(
-                                false, data, isFileSelected, files, context);
+                            if (kDebugMode) {
+                              print('data: $data');
+                              print('files: $files');
+                            }
+                            categoryViewModel.sendCategoryData(
+                                widget.tagId != null,
+                                data,
+                                isFileSelected,
+                                files,
+                                context);
                           }
                         },
                         child: categoryViewModel.loading
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )
-                            : Text('Submit',
+                            : Text(widget.tagId == null ? 'Submit' : 'Update',
                                 style: boldTextStyle(color: Colors.white)),
                       ),
                       30.height,
@@ -334,22 +380,13 @@ class _EditTagComponentState extends State<EditTagComponent> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.image_outlined,
-                  color: color,
-                  size: 50,
+                Text(
+                  'Drag and drop image here',
+                  style: boldTextStyle(
+                    color: color,
+                    size: 14,
+                  ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextButton(
-                    onPressed: (() {
-                      pickImage();
-                    }),
-                    child: TextWidget(
-                      text: 'Choose an image',
-                      color: Colors.blue,
-                    ))
               ],
             ),
           )),

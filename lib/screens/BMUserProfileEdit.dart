@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
-import 'package:expertis/utils/assets.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -10,6 +8,7 @@ import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
@@ -42,9 +41,7 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
   UserModel? user;
   String selectedRole = 'CUSTOMER';
   String userPic = "";
-  // XFile? imageFile;
-  File? pickedImage;
-  Uint8List webImage = Uint8List(8);
+  File? image;
   String? selectedGender;
   bool isFileSelected = false;
 
@@ -52,38 +49,28 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
 
   final TextEditingController _dobController = TextEditingController();
 
-  // Future<void> pickImage(ImageSource source) async {
-  //   if (!kIsWeb) {
-  //     final ImagePicker _picker = ImagePicker();
-  //     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-  //     if (image != null) {
-  //       imageFile = image;
-  //       var selected = File(image.path);
-  //       setState(() {
-  //         pickedImage = selected;
-  //         isFileSelected = true;
-  //       });
-  //     } else {
-  //       print('No image has been picked');
-  //     }
-  //   } else if (kIsWeb) {
-  //     final ImagePicker _picker = ImagePicker();
-  //     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-  //     if (image != null) {
-  //       imageFile = image;
-  //       var f = await image.readAsBytes();
-  //       setState(() {
-  //         webImage = f;
-  //         pickedImage = File('a');
-  //         isFileSelected = true;
-  //       });
-  //     } else {
-  //       print('No image has been picked');
-  //     }
-  //   } else {
-  //     print('Something went wrong');
-  //   }
-  // }
+  Future pickImage(ImageSource source) async {
+    try {
+      var image = await ImagePicker().pickImage(source: source);
+      if (image == null) {
+        return;
+      }
+      final directory = await getApplicationDocumentsDirectory();
+      final name = basename(image.path);
+      final imageFile = File('${directory.path}/$name');
+      final newImage = await File(image.path).copy(imageFile.path);
+      setState(() => user!.userPic = newImage.path);
+
+      setState(() {
+        isFileSelected = true;
+        this.image = imageFile;
+      });
+    } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print("failed to pick image ${e.toString()}");
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -129,10 +116,10 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                     children: [
                       16.height,
                       ProfileWidget(
-                        imagePath: user?.userPic ?? Assets.defaultUserImage,
+                        imagePath: user!.userPic,
                         isEdit: true,
                         onClicked: () async {
-                          // await pickImage(ImageSource.gallery);
+                          await pickImage(ImageSource.gallery);
                         },
                       ),
                       20.height,
@@ -145,7 +132,7 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                       AppTextField(
                         keyboardType: TextInputType.text,
                         nextFocus: role,
-                        initialValue: user?.name.toString() ?? '',
+                        initialValue: user!.name.toString(),
                         onChanged: (value) {
                           user!.name = value;
                         },
@@ -356,57 +343,75 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                                   ? bmTextColorDarkMode
                                   : bmSpecialColor,
                               size: 14)),
-                      AppTextField(
-                        focus: dob,
-                        readOnly: true,
-                        textFieldType: TextFieldType.OTHER,
-                        suffix: InkWell(
-                          onTap: () async {
-                            DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1900),
-                              lastDate: DateTime.now(),
-                            );
-                            if (pickedDate != null) {
-                              setState(() {
-                                var date =
-                                    DateFormat('yyyy-MM-dd').format(pickedDate);
-                                user!.dob = date;
-                                _dobController.text = date;
-                              });
-                            }
-                          },
-                          child: const Icon(
-                            Icons.calendar_today,
-                            color: bmPrimaryColor,
+                      InkWell(
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime.now(),
+                          );
+                          if (pickedDate != null) {
+                            setState(() {
+                              var date =
+                                  DateFormat('yyyy-MM-dd').format(pickedDate);
+                              user!.dob = date;
+                              _dobController.text = date;
+                            });
+                          }
+                        },
+                        child: AppTextField(
+                          focus: dob,
+                          readOnly: true,
+                          textFieldType: TextFieldType.OTHER,
+                          suffix: InkWell(
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime.now(),
+                              );
+                              if (pickedDate != null) {
+                                setState(() {
+                                  var date = DateFormat('yyyy-MM-dd')
+                                      .format(pickedDate);
+                                  user!.dob = date;
+                                  _dobController.text = date;
+                                });
+                              }
+                            },
+                            child: const Icon(
+                              Icons.calendar_today,
+                              color: bmPrimaryColor,
+                            ),
                           ),
-                        ),
-                        nextFocus: null,
-                        controller: _dobController,
-                        errorThisFieldRequired: 'DOB is required',
-                        cursorColor: bmPrimaryColor,
-                        textStyle: boldTextStyle(
-                            color: appStore.isDarkModeOn
-                                ? bmTextColorDarkMode
-                                : bmPrimaryColor),
-                        suffixIconColor: bmPrimaryColor,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
+                          nextFocus: null,
+                          controller: _dobController,
+                          errorThisFieldRequired: 'DOB is required',
+                          cursorColor: bmPrimaryColor,
+                          textStyle: boldTextStyle(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor),
+                          suffixIconColor: bmPrimaryColor,
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: appStore.isDarkModeOn
+                                        ? bmTextColorDarkMode
+                                        : bmPrimaryColor)),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: appStore.isDarkModeOn
+                                        ? bmTextColorDarkMode
+                                        : bmPrimaryColor)),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: appStore.isDarkModeOn
+                                        ? bmTextColorDarkMode
+                                        : bmPrimaryColor)),
+                          ),
                         ),
                       ),
                       20.height,
@@ -464,16 +469,15 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                         color: bmPrimaryColor,
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            // Map<String, String> data = user!
-                            //     .toJson()
-                            //     .map((k, v) => MapEntry(k, v.toString()));
-                            // Map<String, XFile?> files = {
-                            //   'userPic': imageFile,
-                            // };
-                            // data.remove('userPic');
-                            // print("files $files");
-                            // userViewModel.updateUser(
-                            //     true, data, isFileSelected, files, context);
+                            Map<String, String> data = user!
+                                .toJson()
+                                .map((k, v) => MapEntry(k, v.toString()));
+                            Map<String, String> files = {
+                              'userPic': user!.userPic.toString(),
+                            };
+                            data.remove('userPic');
+                            userViewModel.updateUser(
+                                true, data, isFileSelected, files, context);
                           }
                         },
                         child: userViewModel.loading

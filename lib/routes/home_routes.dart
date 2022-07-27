@@ -20,6 +20,7 @@ class HomeLocation extends BeamLocation<BeamState> {
   //     );
   @override
   List<String> get pathPatterns => [
+        '',
         RoutesName.splash,
         RoutesName.home,
         RoutesName.onboarding,
@@ -34,7 +35,7 @@ class HomeLocation extends BeamLocation<BeamState> {
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
       const BeamPage(
-        key: ValueKey(RoutesName.splash),
+        key: ValueKey("SplashScreen"),
         title: 'Welcome to $appName',
         child: BMSplashScreen(),
       ),
