@@ -141,7 +141,9 @@ class ShopsLocation extends BeamLocation<BeamState> {
         BeamPage(
           key: const ValueKey(RoutesName.ownerDashboard),
           title: 'Shop Dashboard',
-          child: ShopOwnerDashboardScreen(),
+          child: ShopOwnerDashboardScreen(
+            shopId: state.pathParameters['shopId'] ?? 'null',
+          ),
         ),
       if (state.uri.pathSegments.contains('shop') &&
           state.uri.pathSegments.contains('services'))
@@ -149,8 +151,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
           key: const ValueKey(RoutesName.shopServices),
           title: 'Shop services',
           child: ShopOwnerDashboardScreen(
-            tabNo: 1,
-          ),
+              shopId: state.pathParameters['shopId'] ?? 'null'),
         ),
       if (state.uri.pathSegments.contains('shop') &&
           state.uri.pathSegments.contains('appointments'))
@@ -158,15 +159,15 @@ class ShopsLocation extends BeamLocation<BeamState> {
           key: const ValueKey(RoutesName.shopAppointments),
           title: 'Shop appointments',
           child: ShopOwnerDashboardScreen(
-            tabNo: 2,
-          ),
+              shopId: state.pathParameters['shopId'] ?? 'null'),
         ),
       if (state.uri.pathSegments.contains('shop') &&
           state.uri.pathSegments.contains('info'))
         BeamPage(
           key: const ValueKey(RoutesName.shopDetails),
           title: 'Shop Info',
-          child: ShopOwnerDashboardScreen(tabNo: 3),
+          child: ShopOwnerDashboardScreen(
+              shopId: state.pathParameters['shopId'] ?? 'null'),
         ),
 
       if (state.pathParameters.containsKey('serviceId') &&

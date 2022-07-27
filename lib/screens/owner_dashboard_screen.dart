@@ -10,6 +10,7 @@ import 'package:expertis/screens/admin_dashboard_home.dart';
 import 'package:expertis/screens/owner_dashboard_home_screen.dart';
 import 'package:expertis/screens/services_home_screeen.dart';
 import 'package:expertis/screens/shop_info_screen.dart';
+import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -23,9 +24,14 @@ import '../utils/BMDataGenerator.dart';
 
 class ShopOwnerDashboardScreen extends StatefulWidget {
   bool flag = false;
+  String shopId;
   int tabNo;
 
-  ShopOwnerDashboardScreen({super.key, this.tabNo = 0});
+  ShopOwnerDashboardScreen({
+    super.key,
+    required this.shopId,
+    this.tabNo = 0,
+  });
 
   @override
   ShopOwnerDashboardScreenState createState() =>
@@ -45,13 +51,19 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
     setState(() {
       selectedTab = widget.tabNo;
     });
+    UserViewModel.getUser().then((value) => {
+          setState(() {
+            widget.shopId = value.shop!.first;
+            print(value.shop?.first);
+          })
+        });
   }
 
   Widget getFragment() {
     if (selectedTab == 0) {
       return ShopDashBoardHomeScreen();
     } else if (selectedTab == 1) {
-      return ServicesHomeScreen(tabOne: true);
+      return ServicesHomeScreen(shopId: widget.shopId);
     } else if (selectedTab == 2) {
       return const BMAppointmentFragment();
     } else if (selectedTab == 3) {

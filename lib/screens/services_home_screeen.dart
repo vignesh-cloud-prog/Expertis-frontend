@@ -1,5 +1,7 @@
+import 'package:expertis/components/service_card_component.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
+import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -9,60 +11,41 @@ import 'package:provider/provider.dart';
 import '../components/BMAppointmentComponent.dart';
 
 class ServicesHomeScreen extends StatefulWidget {
-  bool tabOne;
-
-  ServicesHomeScreen({Key? key, required this.tabOne}) : super(key: key);
+  String shopId;
+  ServicesHomeScreen({Key? key, required this.shopId}) : super(key: key);
 
   @override
   State<ServicesHomeScreen> createState() => _ServicesHomeScreenState();
 }
 
 class _ServicesHomeScreenState extends State<ServicesHomeScreen> {
-  AppointmentListViewModel appointmentViewModel = AppointmentListViewModel();
-  getCurrentDate() {
-    return DateFormat.yMMMMd('en_US').format(DateTime.now());
-  }
-
-  getTomorrowDate() {
-    return DateFormat.yMMMMd('en_US')
-        .format(DateTime.now().add(const Duration(days: 1)));
-  }
-
-  getYesterdayDate() {
-    return DateFormat.yMMMMd('en_US')
-        .format(DateTime.now().subtract(const Duration(days: 1)));
-  }
-
+  final shopViewModel = ShopViewModel();
   @override
   void initState() {
-    UserViewModel.getUser().then((value) => {
-          appointmentViewModel.getUserAppointmentsApi(
-              value.id ?? '', widget.tabOne)
-        });
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AppointmentListViewModel>.value(
-      value: appointmentViewModel,
-      child: Consumer<AppointmentListViewModel>(builder: (context, value, _) {
-        switch (value.appointments.status) {
+    shopViewModel.fetchServicesDataApi(widget.shopId);
+
+    return ChangeNotifierProvider<ShopViewModel>.value(
+      value: shopViewModel,
+      child: Consumer<ShopViewModel>(builder: (context, value, _) {
+        switch (value.services.status) {
           case Status.LOADING:
             return const Center(child: CircularProgressIndicator());
           case Status.ERROR:
             return Center(
-              child: Text(value.appointments.message.toString()),
+              child: Text(value.services.message.toString()),
             );
           case Status.COMPLETED:
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: value.appointments.data?.appointments?.map((e) {
-                    return BMAppointmentComponent(element: e);
-                  }).toList() ??
-                  [Center(child: Text('No appointments'))],
-            );
+            print(value.services.data.toString());
+            return ListView.builder(
+                itemCount: 10,
+                itemBuilder: (ctx, index) {
+                  return const ServiceCardComponent();
+                });
           default:
             return Container();
         }
