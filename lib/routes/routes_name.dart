@@ -72,16 +72,14 @@ class RoutesName {
   static const String updateShop = '/shop/update/:shopId';
   static const String createService = '/shop/service/add';
   static const String updateService = '/shop/service/update/:serviceId';
-  static const String createTag = '/shop/tag/create';
-  static const String updateTag = '/shop/tag/update/:tagId';
 
   // Admin Dashboard Routes
   static const String adminDashboard = '/admin/dashboard';
   static const String adminUsers = '/admin/users';
   static const String adminShops = '/admin/shops';
   static const String adminTags = '/admin/tags';
-
-  
+  static const String createTag = '/admin/tag/create';
+  static const String updateTag = '/admin/tag/update/:tagId';
 
   // Error pages
   static const String tokenExpired = '/error/token-expired';

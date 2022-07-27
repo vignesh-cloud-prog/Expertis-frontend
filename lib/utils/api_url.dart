@@ -26,5 +26,5 @@ class ApiUrl {
       '${baseUrl}appointments/$appointmentId';
 
   static String createShopEndPoint = '${baseUrl}shops/shop';
-  static String createTagEndPoint = '${baseUrl}tags';
+  static String tagsEndPoint = '${baseUrl}tags';
 }

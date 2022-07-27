@@ -133,7 +133,7 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
                       AppTextField(
                         keyboardType: TextInputType.text,
                         focus: name,
-                        nextFocus: password,
+                        nextFocus: phone,
                         textFieldType: TextFieldType.NAME,
                         controller: _nameController,
                         errorThisFieldRequired: 'Name is required',
@@ -172,7 +172,7 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
                         focus: phone,
                         textFieldType: TextFieldType.PHONE,
                         autoFocus: true,
-                        nextFocus: null,
+                        nextFocus: password,
                         controller: _phoneController,
                         validator: (value) {
                           Pattern pattern =
@@ -222,7 +222,7 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
                         focus: password,
                         textFieldType: TextFieldType.PASSWORD,
                         autoFocus: true,
-                        nextFocus: phone,
+                        nextFocus: null,
                         controller: _passwordController,
                         errorThisFieldRequired: 'Password is required',
                         errorMinimumPasswordLength:

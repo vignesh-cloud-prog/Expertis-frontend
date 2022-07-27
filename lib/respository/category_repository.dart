@@ -34,24 +34,22 @@ class CategoryRepository {
     }
   }
 
-  Future<dynamic> uploadTagDataApi(bool isEditMode, Map<String, String> data,
-      bool isFileSelected, Map<String, dynamic?> files) async {
+  Future<dynamic> uploadCategoryDataApi(
+      bool isEditMode,
+      Map<String, String> data,
+      bool isFileSelected,
+      Map<String, dynamic?> files) async {
     final String token = await UserViewModel.getUserToken();
     requestHeaders["Authorization"] = token;
     if (kDebugMode) {
-      print("inside api caller\n");
+      print("inside category api caller\n");
       print("data ${data.toString()}");
       print("files ${files.toString()}");
       print("requestHeaders: ${requestHeaders.toString()}");
     }
     try {
-      dynamic response = await _apiServices.getMultipartApiResponse(
-          isEditMode,
-          ApiUrl.createTagEndPoint,
-          requestHeaders,
-          data,
-          isFileSelected,
-          files);
+      dynamic response = await _apiServices.getMultipartApiResponse(isEditMode,
+          ApiUrl.tagsEndPoint, requestHeaders, data, isFileSelected, files);
       if (kDebugMode) {
         print("response ${response.toString()}");
       }
