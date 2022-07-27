@@ -1,4 +1,5 @@
 import 'package:beamer/beamer.dart';
+import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/admin_dashboard_screen.dart';
 import 'package:expertis/screens/shop_details_screen.dart';
@@ -63,7 +64,7 @@ class AdminLocation extends BeamLocation<BeamState> {
       if (state.uri.pathSegments.contains('tag') &&
           state.uri.pathSegments.contains('admin') &&
           state.uri.pathSegments.contains('create'))
-        const BeamPage(
+        BeamPage(
           key: ValueKey(RoutesName.createTag),
           title: 'Create Tag',
           child: CreateUpdateTagScreen(),
@@ -76,6 +77,7 @@ class AdminLocation extends BeamLocation<BeamState> {
           title: 'Update ${state.pathParameters['tagId']}',
           child: CreateUpdateTagScreen(
             tagId: state.pathParameters['tagId'],
+            category: data as CategoryModel,
           ),
         ),
     ];

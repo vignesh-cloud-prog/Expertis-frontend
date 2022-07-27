@@ -1,13 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:expertis/models/categories_model.dart';
-import 'package:expertis/models/shop_model.dart';
+import 'package:expertis/utils/assets.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
-import 'package:expertis/view_model/shop_view_model.dart';
-import 'package:expertis/models/user_model.dart';
-import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,8 +16,10 @@ import 'package:dotted_border/dotted_border.dart';
 
 class CreateUpdateTagScreen extends StatefulWidget {
   final String? tagId;
+  CategoryModel? category = CategoryModel();
 
-  const CreateUpdateTagScreen({Key? key, this.tagId}) : super(key: key);
+  CreateUpdateTagScreen({Key? key, this.tagId, this.category})
+      : super(key: key);
 
   @override
   CreateUpdateTagScreenState createState() => CreateUpdateTagScreenState();
@@ -33,7 +31,6 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
   bool isFileSelected = false;
   File? pickedImage;
   Uint8List webImage = Uint8List(8);
-  CategoryModel category = CategoryModel();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -41,6 +38,7 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
   void initState() {
     setStatusBarColor(bmSpecialColor);
     super.initState();
+    if (widget.tagId != null) {}
   }
 
   @override
@@ -82,11 +80,13 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("hii hell namaskara");
+    print('id is ${widget.tagId}');
+    print('object is ${widget.category?.tagPic}');
     CategoryViewModel categoryViewModel = Provider.of<CategoryViewModel>(
       context,
     );
 
-    // print(shop.toJson());
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!
@@ -120,9 +120,9 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                       AppTextField(
                         keyboardType: TextInputType.text,
                         nextFocus: description,
-                        initialValue: category.tagName ?? '',
+                        initialValue: widget.category?.tagName ?? '',
                         onChanged: (value) {
-                          category.tagName = value;
+                          widget.category?.tagName = value;
                         },
                         textFieldType: TextFieldType.NAME,
                         errorThisFieldRequired: 'Name is required',
@@ -173,21 +173,29 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                                         .scaffoldBackgroundColor,
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),
-                                  child: pickedImage == null
-                                      ? dottedBorder(color: Colors.grey)
-                                      : ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          child: kIsWeb
-                                              ? Image.memory(webImage,
-                                                  fit: BoxFit.fill,
-                                                  width: 200,
-                                                  height: 200)
-                                              : Image.file(pickedImage!,
-                                                  fit: BoxFit.fill,
-                                                  width: 200,
-                                                  height: 200),
-                                        )),
+                                  child: widget.category?.tagPic == null ||
+                                          widget.category?.tagPic == ""
+                                      ? pickedImage == null
+                                          ? dottedBorder(color: Colors.grey)
+                                          : ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              child: kIsWeb
+                                                  ? Image.memory(webImage,
+                                                      fit: BoxFit.fill,
+                                                      width: 200,
+                                                      height: 200)
+                                                  : Image.file(pickedImage!,
+                                                      fit: BoxFit.fill,
+                                                      width: 200,
+                                                      height: 200),
+                                            )
+                                      : Image.network(
+                                          widget.category?.tagPic ??
+                                              Assets.defaultCategoryImage,
+                                          fit: BoxFit.fill,
+                                          width: 200,
+                                          height: 200)),
                             ),
                           ),
                         ),
@@ -232,18 +240,6 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                                       },
                                     ),
                                   ]),
-                              // AppButton(
-                              //   shapeBorder: RoundedRectangleBorder(
-                              //       borderRadius: BorderRadius.circular(12)),
-                              //   child: Text('Change',
-                              //       style: boldTextStyle(color: Colors.white)),
-                              //   padding: EdgeInsets.all(16),
-                              //   width: 150,
-                              //   color: bmPrimaryColor,
-                              //   onTap: () {
-                              //     // pickImage();
-                              //   },
-                              // ),
                             ],
                           ),
                         ),
@@ -265,11 +261,11 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                       AppTextField(
                         keyboardType: TextInputType.multiline,
                         focus: description,
-                        initialValue: category.description ?? '',
+                        initialValue: widget.category?.description ?? '',
                         nextFocus: null,
                         textFieldType: TextFieldType.MULTILINE,
                         onChanged: (value) {
-                          category.description = value;
+                          widget.category?.description = value;
                         },
 
                         // controller: _addressController,
@@ -317,18 +313,17 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                             if (kDebugMode) {
                               print("form is valid");
 
-                              print(category.toJson());
+                              print(widget.category?.toJson());
                             }
 
-                            Map categoryData = category.toJson() as Map
-                              ..removeWhere((key, value) =>
-                                  key == null ||
-                                  key == 'id' ||
+                            var categoryData = widget.category?.toJson()
+                              ?..removeWhere((key, value) =>
                                   value == null ||
                                   value == '' ||
-                                  value == 'null');
+                                  value == 'null' ||
+                                  value == []);
 
-                            Map<String, String> data = categoryData
+                            Map<String, String> data = categoryData!
                                 .map((k, v) => MapEntry(k, v.toString()));
 
                             Map<String, dynamic?> files = {

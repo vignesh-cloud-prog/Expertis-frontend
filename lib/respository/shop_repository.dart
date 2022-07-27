@@ -108,7 +108,7 @@ class HomeRepository {
     requestHeaders["Authorization"] = await UserViewModel.getUserToken();
     try {
       dynamic response = await _apiServices.getGetApiResponse(
-          ApiUrl.fetchServicesData(shopId), requestHeaders);
+          ApiUrl.fetchServicesDataEndPoint(shopId), requestHeaders);
       // print(response);
       response = Services.fromJson(response);
       // print("response after from json ${response.toString()}");

@@ -62,7 +62,11 @@ class NetworkApiService extends BaseApiServices {
       bool isFileSelected,
       Map<String, dynamic> files) async {
     dynamic responseJson;
-    // print("isFileSelected $isFileSelected");
+    print("isFileSelected $isFileSelected");
+    print('data ${data.toString()}');
+    print('url $url');
+    print('isEditMode $isEditMode');
+    print('files ${files.toString()}');
     try {
       var requestMethod = isEditMode ? "PATCH" : "POST";
 
@@ -77,10 +81,10 @@ class NetworkApiService extends BaseApiServices {
       }
 
       var response = await request.send();
-      // print(response.statusCode);
+      print(response.statusCode);
 
       var responded = await http.Response.fromStream(response);
-      print('responded.body ');
+      print('responded.body ${responded.body} ');
       return responseJson = returnResponse(responded);
     } on SocketException {
       throw FetchDataException('No Internet Connection');

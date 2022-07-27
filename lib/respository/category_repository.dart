@@ -40,6 +40,7 @@ class CategoryRepository {
       bool isFileSelected,
       Map<String, dynamic?> files) async {
     final String token = await UserViewModel.getUserToken();
+    String url = ApiUrl.tagsEndPoint;
     requestHeaders["Authorization"] = token;
     if (kDebugMode) {
       print("inside category api caller\n");
@@ -48,8 +49,8 @@ class CategoryRepository {
       print("requestHeaders: ${requestHeaders.toString()}");
     }
     try {
-      dynamic response = await _apiServices.getMultipartApiResponse(isEditMode,
-          ApiUrl.tagsEndPoint, requestHeaders, data, isFileSelected, files);
+      dynamic response = await _apiServices.getMultipartApiResponse(
+          isEditMode, url, requestHeaders, data, isFileSelected, files);
       if (kDebugMode) {
         print("response ${response.toString()}");
       }

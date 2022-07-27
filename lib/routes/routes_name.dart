@@ -80,6 +80,7 @@ class RoutesName {
   static const String adminTags = '/admin/tags';
   static const String createTag = '/admin/tag/create';
   static const String updateTag = '/admin/tag/update/:tagId';
+  static get updateTagWithId => (String tagId) => '/admin/tag/update/$tagId';
 
   // Error pages
   static const String tokenExpired = '/error/token-expired';

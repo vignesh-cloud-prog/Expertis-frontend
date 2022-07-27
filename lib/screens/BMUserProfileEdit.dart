@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:expertis/utils/assets.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -38,7 +39,7 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
   FocusNode pinCode = FocusNode();
   FocusNode dob = FocusNode();
   List<String> roles = ['CUSTOMER', 'OWNER', 'MEMBER'];
-  UserModel? user;
+  UserModel user = UserModel();
   String selectedRole = 'CUSTOMER';
   String userPic = "";
   File? image;
@@ -59,7 +60,7 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
       final name = basename(image.path);
       final imageFile = File('${directory.path}/$name');
       final newImage = await File(image.path).copy(imageFile.path);
-      setState(() => user!.userPic = newImage.path);
+      setState(() => user.userPic = newImage.path);
 
       setState(() {
         isFileSelected = true;
@@ -75,13 +76,6 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
   @override
   void initState() {
     setStatusBarColor(bmSpecialColor);
-    UserViewModel.getUser().then((value) {
-      setState(() {
-        user = value;
-        _dobController.text = user!.dob.toString().splitBefore('T');
-        selectedRole = user!.role ?? 'CUSTOMER';
-      });
-    });
     super.initState();
   }
 
@@ -94,6 +88,13 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
   @override
   Widget build(BuildContext context) {
     final userViewModel = Provider.of<UserViewModel>(context);
+    UserViewModel.getUser().then((value) {
+      setState(() {
+        user = value;
+        _dobController.text = user.dob.toString().splitBefore('T');
+        selectedRole = user.role == 'ADMIN' ? 'OWNER' : 'CUSTOMER';
+      });
+    });
 
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
@@ -116,7 +117,9 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                     children: [
                       16.height,
                       ProfileWidget(
-                        imagePath: user!.userPic,
+                        imagePath: user.userPic == "" || user.userPic == 'null'
+                            ? Assets.defaultUserImage
+                            : user.userPic,
                         isEdit: true,
                         onClicked: () async {
                           await pickImage(ImageSource.gallery);
@@ -132,9 +135,9 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                       AppTextField(
                         keyboardType: TextInputType.text,
                         nextFocus: role,
-                        initialValue: user!.name.toString(),
+                        initialValue: user.name.toString(),
                         onChanged: (value) {
-                          user!.name = value;
+                          user.name = value;
                         },
                         textFieldType: TextFieldType.NAME,
                         errorThisFieldRequired: 'Name is required',
@@ -188,7 +191,7 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                           setState(() {
                             selectedRole = value.toString();
                           });
-                          user!.role = value.toString();
+                          user.role = value.toString();
                         },
                         onSaved: ((newValue) {
                           Utils.focusChange(context, role, phone);
@@ -203,9 +206,9 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                               size: 14)),
                       AppTextField(
                         focus: phone,
-                        initialValue: user!.phone.toString(),
+                        initialValue: user.phone.toString(),
                         textFieldType: TextFieldType.PHONE,
-                        onChanged: (p0) => user!.phone = p0,
+                        onChanged: (p0) => user.phone = p0,
                         nextFocus: address,
                         // controller: _phoneController,
                         validator: (value) {
@@ -256,11 +259,11 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                         keyboardType: TextInputType.text,
                         focus: address,
                         initialValue:
-                            user!.address == "null" ? "" : user!.address,
+                            user.address == "null" ? "" : user.address ?? '',
                         nextFocus: pinCode,
                         textFieldType: TextFieldType.NAME,
                         onChanged: (value) {
-                          user!.address = value;
+                          user.address = value;
                         },
                         // controller: _addressController,
                         errorThisFieldRequired: 'City name is required',
@@ -299,10 +302,10 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                         textFieldType: TextFieldType.PHONE,
                         autoFocus: true,
                         nextFocus: dob,
-                        initialValue: user!.pinCode.toString() == "null"
+                        initialValue: user.pinCode.toString() == "null"
                             ? ""
-                            : user!.pinCode.toString(),
-                        onChanged: (p0) => user!.pinCode = p0,
+                            : user.pinCode.toString(),
+                        onChanged: (p0) => user.pinCode = p0,
                         // controller: _pinCodeController,
                         validator: (value) {
                           if (value!.length != 6) {
@@ -343,75 +346,57 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                                   ? bmTextColorDarkMode
                                   : bmSpecialColor,
                               size: 14)),
-                      InkWell(
-                        onTap: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime.now(),
-                          );
-                          if (pickedDate != null) {
-                            setState(() {
-                              var date =
-                                  DateFormat('yyyy-MM-dd').format(pickedDate);
-                              user!.dob = date;
-                              _dobController.text = date;
-                            });
-                          }
-                        },
-                        child: AppTextField(
-                          focus: dob,
-                          readOnly: true,
-                          textFieldType: TextFieldType.OTHER,
-                          suffix: InkWell(
-                            onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(1900),
-                                lastDate: DateTime.now(),
-                              );
-                              if (pickedDate != null) {
-                                setState(() {
-                                  var date = DateFormat('yyyy-MM-dd')
-                                      .format(pickedDate);
-                                  user!.dob = date;
-                                  _dobController.text = date;
-                                });
-                              }
-                            },
-                            child: const Icon(
-                              Icons.calendar_today,
-                              color: bmPrimaryColor,
-                            ),
+                      AppTextField(
+                        focus: dob,
+                        readOnly: true,
+                        textFieldType: TextFieldType.OTHER,
+                        suffix: InkWell(
+                          onTap: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime.now(),
+                            );
+                            if (pickedDate != null) {
+                              setState(() {
+                                var date =
+                                    DateFormat('yyyy-MM-dd').format(pickedDate);
+                                _dobController.text = date;
+                                user.dob = date;
+                              });
+                            }
+                          },
+                          child: const Icon(
+                            Icons.calendar_today,
+                            color: bmPrimaryColor,
                           ),
-                          nextFocus: null,
-                          controller: _dobController,
-                          errorThisFieldRequired: 'DOB is required',
-                          cursorColor: bmPrimaryColor,
-                          textStyle: boldTextStyle(
-                              color: appStore.isDarkModeOn
-                                  ? bmTextColorDarkMode
-                                  : bmPrimaryColor),
-                          suffixIconColor: bmPrimaryColor,
-                          decoration: InputDecoration(
-                            border: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: appStore.isDarkModeOn
-                                        ? bmTextColorDarkMode
-                                        : bmPrimaryColor)),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: appStore.isDarkModeOn
-                                        ? bmTextColorDarkMode
-                                        : bmPrimaryColor)),
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: appStore.isDarkModeOn
-                                        ? bmTextColorDarkMode
-                                        : bmPrimaryColor)),
-                          ),
+                        ),
+                        nextFocus: null,
+                        controller: _dobController,
+                        errorThisFieldRequired: 'DOB is required',
+                        cursorColor: bmPrimaryColor,
+                        textStyle: boldTextStyle(
+                            color: appStore.isDarkModeOn
+                                ? bmTextColorDarkMode
+                                : bmPrimaryColor),
+                        suffixIconColor: bmPrimaryColor,
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: appStore.isDarkModeOn
+                                      ? bmTextColorDarkMode
+                                      : bmPrimaryColor)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: appStore.isDarkModeOn
+                                      ? bmTextColorDarkMode
+                                      : bmPrimaryColor)),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: appStore.isDarkModeOn
+                                      ? bmTextColorDarkMode
+                                      : bmPrimaryColor)),
                         ),
                       ),
                       20.height,
@@ -426,11 +411,13 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                         showOtherGender: true,
                         verticalAlignedText: false,
 
-                        selectedGender: user!.gender!.toLowerCase() == "male"
-                            ? Gender.Male
-                            : user!.gender!.toLowerCase() == "female"
-                                ? Gender.Female
-                                : Gender.Others,
+                        selectedGender: user.gender != null
+                            ? user.gender!.toLowerCase() == "male"
+                                ? Gender.Male
+                                : user.gender!.toLowerCase() == "female"
+                                    ? Gender.Female
+                                    : Gender.Others
+                            : Gender.Others,
                         selectedGenderTextStyle: TextStyle(
                             color: appStore.isDarkModeOn
                                 ? bmTextColorDarkMode
@@ -441,7 +428,7 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                         onChanged: (Gender? gender) {
                           selectedGender =
                               gender.toString().splitAfter(".").toUpperCase();
-                          user!.gender = selectedGender;
+                          user.gender = selectedGender;
                           if (kDebugMode) {
                             // print("selectedGender $selectedGender");
                           }
@@ -469,11 +456,11 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                         color: bmPrimaryColor,
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            Map<String, String> data = user!
+                            Map<String, String> data = user
                                 .toJson()
                                 .map((k, v) => MapEntry(k, v.toString()));
                             Map<String, String> files = {
-                              'userPic': user!.userPic.toString(),
+                              'userPic': user.userPic.toString(),
                             };
                             data.remove('userPic');
                             userViewModel.updateUser(

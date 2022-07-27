@@ -25,6 +25,11 @@ class ApiUrl {
   static String fetchSelectedAppointmentEndPoint(String appointmentId) =>
       '${baseUrl}appointments/$appointmentId';
 
+  static String fetchServicesDataEndPoint(String shopId) =>
+      '${baseUrl}shops/shop/services/$shopId';
+
   static String createShopEndPoint = '${baseUrl}shops/shop';
   static String tagsEndPoint = '${baseUrl}tags';
+  static String updateTagEndPoint(String tagId) =>
+      '${baseUrl}tags/update/$tagId';
 }
