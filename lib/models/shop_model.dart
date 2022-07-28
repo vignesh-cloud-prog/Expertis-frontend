@@ -142,8 +142,23 @@ class Contact {
   String? address;
   int? pinCode;
   String? id;
+  String? whatsapp;
+  String? facebook;
+  String? instagram;
+  String? twitter;
+  String? website;
 
-  Contact({this.email, this.phone, this.address, this.pinCode, this.id});
+  Contact(
+      {this.email,
+      this.phone,
+      this.address,
+      this.pinCode,
+      this.id,
+      this.whatsapp,
+      this.facebook,
+      this.instagram,
+      this.twitter,
+      this.website});
 
   Contact.fromJson(Map<String, dynamic> json) {
     email = json['email'];
@@ -151,6 +166,11 @@ class Contact {
     address = json['address'];
     pinCode = json['pinCode'];
     id = json['id'];
+    whatsapp = json['whatsapp'];
+    facebook = json['facebook'];
+    instagram = json['instagram'];
+    twitter = json['twitter'];
+    website = json['website'];
   }
 
   Map<String, dynamic> toJson() {
@@ -160,6 +180,12 @@ class Contact {
     data['address'] = this.address;
     data['pinCode'] = this.pinCode;
     data['id'] = this.id;
+    data['whatsapp'] = this.whatsapp;
+    data['facebook'] = this.facebook;
+    data['instagram'] = this.instagram;
+    data['twitter'] = this.twitter;
+    data['website'] = this.website;
+
     return data;
   }
 }

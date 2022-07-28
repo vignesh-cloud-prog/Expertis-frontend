@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:expertis/main.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -17,7 +18,7 @@ AppBar appBar(BuildContext context, String title,
     leading: showBack
         ? IconButton(
             onPressed: () {
-              finish(context);
+              Beamer.of(context).beamBack();
             },
             icon: Icon(Icons.arrow_back,
                 color: appStore.isDarkModeOn ? white : black),

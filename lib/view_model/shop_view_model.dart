@@ -59,7 +59,7 @@ class ShopViewModel with ChangeNotifier {
       // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
       // userViewModel.saveUser(UserModel.fromJson(value['data']));
       setLoading(false);
-      Beamer.of(context).beamToReplacementNamed(RoutesName.home);
+      Beamer.of(context).beamToReplacementNamed(RoutesName.shopDetails);
       Utils.flushBarErrorMessage('successfully', context);
     }).onError((error, stackTrace) {
       setLoading(false);

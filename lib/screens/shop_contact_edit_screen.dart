@@ -1,14 +1,11 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
+import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/models/shop_model.dart';
-import 'package:expertis/utils/utils.dart';
+import 'package:expertis/view_model/categories_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
-import 'package:expertis/models/user_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:expertis/main.dart';
@@ -16,37 +13,23 @@ import 'package:expertis/utils/BMColors.dart';
 import 'package:expertis/utils/BMWidgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 
-class CreateShopScreen extends StatefulWidget {
-  final String title;
-  final String buttonName;
+class ShopContactEditScreen extends StatefulWidget {
+  ShopModel? shop;
+  String? shopId;
 
-  const CreateShopScreen(
-      {Key? key, this.title = "Create Shop", this.buttonName = "Create"})
-      : super(key: key);
+  ShopContactEditScreen({Key? key, this.shopId, this.shop}) : super(key: key);
 
   @override
-  CreateShopScreenState createState() => CreateShopScreenState();
+  ShopContactEditScreenState createState() => ShopContactEditScreenState();
 }
 
-class CreateShopScreenState extends State<CreateShopScreen> {
+class ShopContactEditScreenState extends State<ShopContactEditScreen> {
+  CategoryViewModel categoryViewModel = CategoryViewModel();
   FocusNode name = FocusNode();
   FocusNode shopId = FocusNode();
   FocusNode gender = FocusNode();
-  FocusNode email = FocusNode();
-  FocusNode phone = FocusNode();
-  FocusNode address = FocusNode();
-  FocusNode about = FocusNode();
-  FocusNode pinCode = FocusNode();
-  FocusNode dob = FocusNode();
-  List<String> roles = ['MALE', 'FEMALE', 'UNISEX'];
-  UserModel? user;
-  String selectedRole = 'UNISEX';
 
-  String? selectedGender;
-  bool isFileSelected = false;
-  File? pickedImage;
-  Uint8List webImage = Uint8List(8);
-  ShopModel shop = ShopModel();
+  FocusNode about = FocusNode();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -55,13 +38,10 @@ class CreateShopScreenState extends State<CreateShopScreen> {
   @override
   void initState() {
     setStatusBarColor(bmSpecialColor);
+
+    widget.shop ??= ShopModel();
+
     super.initState();
-    UserViewModel.getUser().then((value) {
-      setState(() {
-        shop.owner = value.id;
-      });
-    });
-    shop.gender = "UNISEX";
   }
 
   @override
@@ -70,42 +50,15 @@ class CreateShopScreenState extends State<CreateShopScreen> {
     super.dispose();
   }
 
-  Future<void> pickImage({ImageSource source = ImageSource.gallery}) async {
-    if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(
-          source: source, maxHeight: 200, maxWidth: 200);
-      if (image != null) {
-        shop.shopLogo = image.path;
-        setState(() {
-          pickedImage = File(image.path);
-          isFileSelected = true;
-        });
-      } else {
-        print('No image has been picked');
-      }
-    } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: source);
-      if (image != null) {
-        var f = await image.readAsBytes();
-        setState(() {
-          webImage = f;
-          pickedImage = File('a');
-          isFileSelected = true;
-        });
-      } else {
-        print('No image has been picked');
-      }
-    } else {
-      print('Something went wrong');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    UserViewModel.getUser().then((value) {
+      widget.shop?.id = value.shop?.first;
+      widget.shop?.owner = value.id;
+    });
+
     ShopViewModel shopViewModel = Provider.of<ShopViewModel>(context);
-    // print(shop.toJson());
+
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!
@@ -115,526 +68,470 @@ class CreateShopScreenState extends State<CreateShopScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            upperContainer(
-              screenContext: context,
-              child: headerText(title: widget.title),
-            ),
-            lowerContainer(
-                screenContext: context,
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      16.height,
-
-                      Text('Shop Name',
-                          style: primaryTextStyle(
-                              color: appStore.isDarkModeOn
-                                  ? bmTextColorDarkMode
-                                  : bmSpecialColor,
-                              size: 14)),
-                      AppTextField(
-                        keyboardType: TextInputType.text,
-                        nextFocus: shopId,
-                        // initialValue: shop.shopName ?? '',
-                        onChanged: (value) {
-                          shop.shopName = value;
-                        },
-                        textFieldType: TextFieldType.NAME,
-                        errorThisFieldRequired: 'Name is required',
-                        autoFocus: true,
-                        cursorColor: bmPrimaryColor,
-                        textStyle: boldTextStyle(
-                            color: appStore.isDarkModeOn
-                                ? bmTextColorDarkMode
-                                : bmPrimaryColor),
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                        ),
-                      ),
-                      20.height,
-                      Text('Shop Logo',
-                          style: primaryTextStyle(
-                              color: appStore.isDarkModeOn
-                                  ? bmTextColorDarkMode
-                                  : bmSpecialColor,
-                              size: 14)),
-                      // Image to be picked code is here
-                      Row(children: [
-                        Expanded(
-                          flex: 2,
-                          child: SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                  height: 200,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  child: pickedImage == null
-                                      ? dottedBorder(color: Colors.grey)
-                                      : ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          child: kIsWeb
-                                              ? Image.memory(webImage,
-                                                  fit: BoxFit.fill,
-                                                  width: 200,
-                                                  height: 200)
-                                              : Image.file(pickedImage!,
-                                                  fit: BoxFit.fill,
-                                                  width: 200,
-                                                  height: 200),
-                                        )),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              AppButton(
-                                child: Text('Clear',
-                                    style: boldTextStyle(color: Colors.red)),
-                                padding: EdgeInsets.all(16),
-                                width: 150,
-                                onTap: () {
-                                  setState(() {
-                                    pickedImage = null;
-                                    isFileSelected = false;
-                                    webImage = Uint8List(8);
-                                  });
-                                },
-                              ),
-                              SizedBox(height: 12),
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      color: appStore.isDarkModeOn
-                                          ? bmTextColorDarkMode
-                                          : bmPrimaryColor,
-                                      icon: Icon(Icons.photo),
-                                      onPressed: () {
-                                        pickImage(source: ImageSource.gallery);
-                                      },
-                                    ),
-                                    IconButton(
-                                      color: appStore.isDarkModeOn
-                                          ? bmTextColorDarkMode
-                                          : bmPrimaryColor,
-                                      icon: Icon(Icons.camera_alt),
-                                      onPressed: () {
-                                        pickImage(source: ImageSource.camera);
-                                      },
-                                    ),
-                                  ]),
-                              // AppButton(
-                              //   shapeBorder: RoundedRectangleBorder(
-                              //       borderRadius: BorderRadius.circular(12)),
-                              //   child: Text('Change',
-                              //       style: boldTextStyle(color: Colors.white)),
-                              //   padding: EdgeInsets.all(16),
-                              //   width: 150,
-                              //   color: bmPrimaryColor,
-                              //   onTap: () {
-                              //     // pickImage();
-                              //   },
-                              // ),
-                            ],
-                          ),
-                        ),
-                      ]),
-                      Divider(
+            appBar(context, "Shop Contact Details"),
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  16.height,
+                  Text('Email address',
+                      style: primaryTextStyle(
+                          color: appStore.isDarkModeOn
+                              ? bmTextColorDarkMode
+                              : bmSpecialColor,
+                          size: 14)),
+                  AppTextField(
+                    keyboardType: TextInputType.emailAddress,
+                    // nextFocus: phone,
+                    // focus: email,
+                    textFieldType: TextFieldType.EMAIL,
+                    initialValue: widget.shop?.contact?.email ?? '',
+                    onChanged: (value) {
+                      widget.shop?.contact == null
+                          ? widget.shop?.contact = Contact(email: value)
+                          : widget.shop?.contact?.email = value;
+                    },
+                    errorInvalidEmail: 'Invalid email',
+                    errorThisFieldRequired: 'Email is required',
+                    autoFocus: true,
+                    cursorColor: bmPrimaryColor,
+                    textStyle: boldTextStyle(
                         color: appStore.isDarkModeOn
                             ? bmTextColorDarkMode
-                            : bmPrimaryColor,
-                        thickness: 1,
-                      ),
-                      20.height,
-
-                      Text('Shop Id',
-                          style: primaryTextStyle(
+                            : bmPrimaryColor),
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(
                               color: appStore.isDarkModeOn
                                   ? bmTextColorDarkMode
-                                  : bmSpecialColor,
-                              size: 14)),
-                      AppTextField(
-                        // initialValue: shop.shopId ?? '',
-                        keyboardType: TextInputType.text,
-                        nextFocus: email,
-                        focus: shopId,
-                        onChanged: (value) {
-                          shop.shopId = value;
-                        },
-                        textFieldType: TextFieldType.USERNAME,
-                        errorThisFieldRequired: 'Name id required',
-                        autoFocus: true,
-                        cursorColor: bmPrimaryColor,
-                        textStyle: boldTextStyle(
-                            color: appStore.isDarkModeOn
-                                ? bmTextColorDarkMode
-                                : bmPrimaryColor),
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                        ),
-                      ),
-                      20.height,
-                      Text('Type',
-                          style: primaryTextStyle(
+                                  : bmPrimaryColor)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
                               color: appStore.isDarkModeOn
                                   ? bmTextColorDarkMode
-                                  : bmSpecialColor,
-                              size: 14)),
-                      20.height,
-                      DropdownButtonFormField(
-                        value: selectedRole,
-                        focusNode: gender,
-                        items: roles.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value,
-                                style: primaryTextStyle(
-                                    color: appStore.isDarkModeOn
-                                        ? bmTextColorDarkMode
-                                        : bmSpecialColor,
-                                    size: 14)),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            selectedRole = value.toString();
-                          });
-                          shop.gender = value.toString();
-                        },
-                        onSaved: ((newValue) {
-                          Utils.focusChange(context, gender, phone);
-                        }),
-                      ),
-                      20.height,
-                      Text('Enter your email',
-                          style: primaryTextStyle(
+                                  : bmPrimaryColor)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
                               color: appStore.isDarkModeOn
                                   ? bmTextColorDarkMode
-                                  : bmSpecialColor,
-                              size: 14)),
-                      AppTextField(
-                        keyboardType: TextInputType.emailAddress,
-                        nextFocus: phone,
-                        focus: email,
-                        textFieldType: TextFieldType.EMAIL,
-                        // initialValue: shop.contact!.email ?? '',
-                        onChanged: (value) {
-                          shop.contact == null
-                              ? shop.contact = Contact(email: value)
-                              : shop.contact?.email = value;
-                        },
-                        errorInvalidEmail: 'Invalid email',
-                        errorThisFieldRequired: 'Email is required',
-                        autoFocus: true,
-                        cursorColor: bmPrimaryColor,
-                        textStyle: boldTextStyle(
-                            color: appStore.isDarkModeOn
-                                ? bmTextColorDarkMode
-                                : bmPrimaryColor),
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                        ),
-                      ),
-                      20.height,
-                      Text('Phone number',
-                          style: primaryTextStyle(
+                                  : bmPrimaryColor)),
+                    ),
+                  ),
+                  20.height,
+                  Text('Phone number',
+                      style: primaryTextStyle(
+                          color: appStore.isDarkModeOn
+                              ? bmTextColorDarkMode
+                              : bmSpecialColor,
+                          size: 14)),
+                  AppTextField(
+                    // focus: phone,
+                    initialValue: widget.shop?.contact?.phone.toString() ?? '',
+                    textFieldType: TextFieldType.PHONE,
+                    // nextFocus: address,
+                    maxLength: 10,
+                    onChanged: (p0) => widget.shop?.contact == null
+                        ? widget.shop?.contact = Contact(phone: p0.toInt())
+                        : widget.shop?.contact?.phone = p0.toInt(),
+                    // controller: _phoneController,
+                    validator: (value) {
+                      Pattern pattern = r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$';
+                      RegExp regex = RegExp(pattern.toString());
+
+                      if (value!.length != 10) {
+                        return 'Phone number must be 10 digits';
+                      } else if (!regex.hasMatch(value)) {
+                        return 'Invalid phone number';
+                      }
+                      return null;
+                    },
+                    errorThisFieldRequired: 'Phone number is required',
+                    cursorColor: bmPrimaryColor,
+                    textStyle: boldTextStyle(
+                        color: appStore.isDarkModeOn
+                            ? bmTextColorDarkMode
+                            : bmPrimaryColor),
+                    suffixIconColor: bmPrimaryColor,
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(
                               color: appStore.isDarkModeOn
                                   ? bmTextColorDarkMode
-                                  : bmSpecialColor,
-                              size: 14)),
-                      AppTextField(
-                        focus: phone,
-                        // initialValue: shop.contact?.phone.toString() ?? '',
-                        textFieldType: TextFieldType.PHONE,
-                        nextFocus: address,
-                        maxLength: 10,
-                        onChanged: (p0) => shop.contact == null
-                            ? shop.contact = Contact(phone: p0.toInt())
-                            : shop.contact?.phone = p0.toInt(),
-                        // controller: _phoneController,
-                        validator: (value) {
-                          Pattern pattern =
-                              r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$';
-                          RegExp regex = RegExp(pattern.toString());
+                                  : bmPrimaryColor)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                    ),
+                  ),
+                  Text('Address',
+                      style: primaryTextStyle(
+                          color: appStore.isDarkModeOn
+                              ? bmTextColorDarkMode
+                              : bmSpecialColor,
+                          size: 14)),
+                  AppTextField(
+                    keyboardType: TextInputType.text,
+                    // focus: address,
+                    initialValue: widget.shop?.contact?.address ?? '',
+                    // nextFocus: pinCode,
+                    textFieldType: TextFieldType.NAME,
+                    onChanged: (p0) {
+                      widget.shop?.contact == null
+                          ? widget.shop?.contact = Contact(address: p0)
+                          : widget.shop?.contact?.address = p0;
+                    },
 
-                          if (value!.length != 10) {
-                            return 'Phone number must be 10 digits';
-                          } else if (!regex.hasMatch(value)) {
-                            return 'Invalid phone number';
-                          }
-                          return null;
-                        },
-                        errorThisFieldRequired: 'Phone number is required',
-                        cursorColor: bmPrimaryColor,
-                        textStyle: boldTextStyle(
-                            color: appStore.isDarkModeOn
-                                ? bmTextColorDarkMode
-                                : bmPrimaryColor),
-                        suffixIconColor: bmPrimaryColor,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                        ),
-                      ),
-                      20.height,
-                      // Text('Address',
-                      //     style: primaryTextStyle(
-                      //         color: appStore.isDarkModeOn
-                      //             ? bmTextColorDarkMode
-                      //             : bmSpecialColor,
-                      //         size: 14)),
-                      // AppTextField(
-                      //   keyboardType: TextInputType.text,
-                      //   focus: address,
-                      //   // initialValue: shop.contact?.address ?? '',
-                      //   nextFocus: pinCode,
-                      //   textFieldType: TextFieldType.NAME,
-                      //   onChanged: (p0) {
-                      //     shop.contact == null
-                      //         ? shop.contact = Contact(address: p0)
-                      //         : shop.contact?.address = p0;
-                      //   },
+                    // controller: _addressController,
+                    errorThisFieldRequired: 'Address is required',
+                    cursorColor: bmPrimaryColor,
+                    textStyle: boldTextStyle(
+                        color: appStore.isDarkModeOn
+                            ? bmTextColorDarkMode
+                            : bmPrimaryColor),
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                    ),
+                  ),
+                  20.height,
+                  Text('Pin Code',
+                      style: primaryTextStyle(
+                          color: appStore.isDarkModeOn
+                              ? bmTextColorDarkMode
+                              : bmSpecialColor,
+                          size: 14)),
+                  AppTextField(
+                    keyboardType: TextInputType.text,
+                    // focus: address,
+                    initialValue:
+                        widget.shop?.contact?.pinCode.toString() ?? '',
+                    // nextFocus: pinCode,
+                    maxLength: 6,
+                    textFieldType: TextFieldType.NAME,
+                    onChanged: (p0) {
+                      widget.shop?.contact == null
+                          ? widget.shop?.contact = Contact(pinCode: p0.toInt())
+                          : widget.shop?.contact?.pinCode = p0.toInt();
+                    },
 
-                      //   // controller: _addressController,
-                      //   errorThisFieldRequired: 'Address is required',
-                      //   cursorColor: bmPrimaryColor,
-                      //   textStyle: boldTextStyle(
-                      //       color: appStore.isDarkModeOn
-                      //           ? bmTextColorDarkMode
-                      //           : bmPrimaryColor),
-                      //   decoration: InputDecoration(
-                      //     border: UnderlineInputBorder(
-                      //         borderSide: BorderSide(
-                      //             color: appStore.isDarkModeOn
-                      //                 ? bmTextColorDarkMode
-                      //                 : bmPrimaryColor)),
-                      //     focusedBorder: UnderlineInputBorder(
-                      //         borderSide: BorderSide(
-                      //             color: appStore.isDarkModeOn
-                      //                 ? bmTextColorDarkMode
-                      //                 : bmPrimaryColor)),
-                      //     enabledBorder: UnderlineInputBorder(
-                      //         borderSide: BorderSide(
-                      //             color: appStore.isDarkModeOn
-                      //                 ? bmTextColorDarkMode
-                      //                 : bmPrimaryColor)),
-                      //   ),
-                      // ),
-                      // 20.height,
-                      // Text('Pin Code',
-                      //     style: primaryTextStyle(
-                      //         color: appStore.isDarkModeOn
-                      //             ? bmTextColorDarkMode
-                      //             : bmSpecialColor,
-                      //         size: 14)),
-                      // AppTextField(
-                      //   focus: pinCode,
-                      //   textFieldType: TextFieldType.PHONE,
-                      //   autoFocus: true,
-                      //   nextFocus: about,
-                      //   // initialValue: shop.contact?.pinCode.toString() ?? '',
-                      //   onChanged: (p0) => shop.contact == null
-                      //       ? shop.contact = Contact(pinCode: p0.toInt())
-                      //       : shop.contact?.pinCode = p0.toInt(),
-                      //   // controller: _pinCodeController,
-                      //   validator: (value) {
-                      //     if (value!.length != 6) {
-                      //       return 'Pin code must be 6 digits';
-                      //     }
-                      //     return null;
-                      //   },
-                      //   errorThisFieldRequired: 'Pin code is required',
-                      //   maxLength: 6,
-                      //   cursorColor: bmPrimaryColor,
-                      //   textStyle: boldTextStyle(
-                      //       color: appStore.isDarkModeOn
-                      //           ? bmTextColorDarkMode
-                      //           : bmPrimaryColor),
-                      //   suffixIconColor: bmPrimaryColor,
-                      //   decoration: InputDecoration(
-                      //     border: UnderlineInputBorder(
-                      //         borderSide: BorderSide(
-                      //             color: appStore.isDarkModeOn
-                      //                 ? bmTextColorDarkMode
-                      //                 : bmPrimaryColor)),
-                      //     focusedBorder: UnderlineInputBorder(
-                      //         borderSide: BorderSide(
-                      //             color: appStore.isDarkModeOn
-                      //                 ? bmTextColorDarkMode
-                      //                 : bmPrimaryColor)),
-                      //     enabledBorder: UnderlineInputBorder(
-                      //         borderSide: BorderSide(
-                      //             color: appStore.isDarkModeOn
-                      //                 ? bmTextColorDarkMode
-                      //                 : bmPrimaryColor)),
-                      //   ),
-                      // ),
-                      // 20.height,
-                      // Text('About Shop',
-                      //     style: primaryTextStyle(
-                      //         color: appStore.isDarkModeOn
-                      //             ? bmTextColorDarkMode
-                      //             : bmSpecialColor,
-                      //         size: 14)),
-                      // AppTextField(
-                      //   keyboardType: TextInputType.multiline,
-                      //   focus: about,
-                      //   // initialValue: shop.contact?.address ?? '',
-                      //   nextFocus: null,
-                      //   textFieldType: TextFieldType.MULTILINE,
-                      //   onChanged: (p0) {
-                      //     shop.about = p0;
-                      //   },
-
-                      //   // controller: _addressController,
-                      //   cursorColor: bmPrimaryColor,
-                      //   textStyle: boldTextStyle(
-                      //       color: appStore.isDarkModeOn
-                      //           ? bmTextColorDarkMode
-                      //           : bmPrimaryColor),
-                      //   decoration: InputDecoration(
-                      //     border: UnderlineInputBorder(
-                      //         borderSide: BorderSide(
-                      //             color: appStore.isDarkModeOn
-                      //                 ? bmTextColorDarkMode
-                      //                 : bmPrimaryColor)),
-                      //     focusedBorder: UnderlineInputBorder(
-                      //         borderSide: BorderSide(
-                      //             color: appStore.isDarkModeOn
-                      //                 ? bmTextColorDarkMode
-                      //                 : bmPrimaryColor)),
-                      //     enabledBorder: UnderlineInputBorder(
-                      //         borderSide: BorderSide(
-                      //             color: appStore.isDarkModeOn
-                      //                 ? bmTextColorDarkMode
-                      //                 : bmPrimaryColor)),
-                      //   ),
-                      // ),
-
-                      // 30.height,
-                      AppButton(
-                        width: context.width() - 32,
-                        shapeBorder: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32)),
-                        padding: const EdgeInsets.all(16),
+                    // controller: _addressController,
+                    cursorColor: bmPrimaryColor,
+                    textStyle: boldTextStyle(
+                        color: appStore.isDarkModeOn
+                            ? bmTextColorDarkMode
+                            : bmPrimaryColor),
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                    ),
+                  ),
+                  20.height,
+                  Text('Online Media',
+                      style: primaryTextStyle(
+                          color: appStore.isDarkModeOn
+                              ? bmTextColorDarkMode
+                              : bmSpecialColor,
+                          size: 14)),
+                  20.height,
+                  AppTextField(
+                    isValidationRequired: false,
+                    textFieldType: TextFieldType.PHONE,
+                    autoFocus: true,
+                    nextFocus: about,
+                    initialValue:
+                        widget.shop?.contact?.whatsapp.toString() ?? '',
+                    onChanged: (p0) => widget.shop?.contact == null
+                        ? widget.shop?.contact = Contact(whatsapp: p0)
+                        : widget.shop?.contact?.whatsapp = p0,
+                    // controller: _pinCodeController,
+                    validator: (value) {
+                      if (value!.length != 10) {
+                        return 'Whatsapp number must be greater than 9 digits';
+                      }
+                      return null;
+                    },
+                    // errorThisFieldRequired: 'Pin code is required',
+                    maxLength: 13,
+                    cursorColor: bmPrimaryColor,
+                    textStyle: boldTextStyle(
+                        color: appStore.isDarkModeOn
+                            ? bmTextColorDarkMode
+                            : bmPrimaryColor),
+                    suffixIconColor: bmPrimaryColor,
+                    decoration: InputDecoration(
+                      hintText: 'WhatsApp',
+                      prefixIcon: const Icon(
+                        Icons.whatsapp,
                         color: bmPrimaryColor,
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            if (!kIsWeb) {
-                              if (pickedImage == null) {
-                                Utils.flushBarErrorMessage(
-                                    "Please pic a shop logo", context);
-                                return;
-                              }
-                            }
-
-                            if (kDebugMode) {
-                              print("form is valid");
-                              print('shop name: ${shop.contact?.email}');
-                              print(shop);
-                              print(shop.toJson());
-                            }
-
-                            Map shopData = shop.toJson()
-                              ..removeWhere((key, value) =>
-                                  key == 'id' ||
-                                  value == null ||
-                                  value == '' ||
-                                  value == 'null');
-                            print('map: $shopData');
-
-                            Map<String, String> data = shopData
-                                .map((k, v) => MapEntry(k, v.toString()));
-
-                            data['phone'] =
-                                shop.contact?.phone.toString() ?? '';
-                            data['email'] = shop.contact?.email ?? '';
-                            Map<String, dynamic?> files = {
-                              'shopLogo': shop.shopLogo,
-                            };
-                            data.remove('shopLogo');
-                            data.remove('contact');
-                            shopViewModel.sendShopData(
-                                false, data, isFileSelected, files, context);
-                          }
-                        },
-                        child: shopViewModel.loading
-                            ? const CircularProgressIndicator(
-                                color: Colors.white,
-                              )
-                            : Text('Submit',
-                                style: boldTextStyle(color: Colors.white)),
                       ),
-                      30.height,
-                    ],
-                  ).paddingSymmetric(horizontal: 16),
-                )).expand()
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                    ),
+                  ),
+                  AppTextField(
+                    isValidationRequired: false,
+                    keyboardType: TextInputType.text,
+                    // focus: address,
+                    initialValue: widget.shop?.contact?.website ?? '',
+                    // nextFocus: pinCode,
+                    textFieldType: TextFieldType.URL,
+                    onChanged: (p0) {
+                      widget.shop?.contact == null
+                          ? widget.shop?.contact = Contact(website: p0)
+                          : widget.shop?.contact?.website = p0;
+                    },
+
+                    // controller: _addressController,
+                    cursorColor: bmPrimaryColor,
+                    textStyle: boldTextStyle(
+                        color: appStore.isDarkModeOn
+                            ? bmTextColorDarkMode
+                            : bmPrimaryColor),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.web,
+                        color: bmPrimaryColor,
+                      ),
+                      hintText: 'Website',
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                    ),
+                  ),
+                  20.height,
+                  AppTextField(
+                    isValidationRequired: false,
+                    keyboardType: TextInputType.text,
+                    // focus: address,
+                    initialValue: widget.shop?.contact?.facebook ?? '',
+                    // nextFocus: pinCode,
+                    textFieldType: TextFieldType.URL,
+                    onChanged: (p0) {
+                      widget.shop?.contact == null
+                          ? widget.shop?.contact = Contact(facebook: p0)
+                          : widget.shop?.contact?.facebook = p0;
+                    },
+
+                    // controller: _addressController,
+                    cursorColor: bmPrimaryColor,
+                    textStyle: boldTextStyle(
+                        color: appStore.isDarkModeOn
+                            ? bmTextColorDarkMode
+                            : bmPrimaryColor),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        FeatherIcons.facebook,
+                        color: bmPrimaryColor,
+                      ),
+                      hintText: 'Facebook',
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                    ),
+                  ),
+                  20.height,
+                  AppTextField(
+                    isValidationRequired: false,
+                    keyboardType: TextInputType.text,
+                    // focus: address,
+                    initialValue: widget.shop?.contact?.instagram ?? '',
+                    // nextFocus: pinCode,
+                    textFieldType: TextFieldType.URL,
+                    onChanged: (p0) {
+                      widget.shop?.contact == null
+                          ? widget.shop?.contact = Contact(instagram: p0)
+                          : widget.shop?.contact?.instagram = p0;
+                    },
+
+                    // controller: _addressController,
+                    cursorColor: bmPrimaryColor,
+                    textStyle: boldTextStyle(
+                        color: appStore.isDarkModeOn
+                            ? bmTextColorDarkMode
+                            : bmPrimaryColor),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        FeatherIcons.instagram,
+                        color: bmPrimaryColor,
+                      ),
+                      hintText: 'Instagram',
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                    ),
+                  ),
+                  20.height,
+                  AppTextField(
+                    isValidationRequired: false,
+                    keyboardType: TextInputType.text,
+                    // focus: address,
+                    initialValue: widget.shop?.contact?.twitter ?? '',
+                    // nextFocus: pinCode,
+                    textFieldType: TextFieldType.URL,
+                    onChanged: (p0) {
+                      widget.shop?.contact == null
+                          ? widget.shop?.contact = Contact(twitter: p0)
+                          : widget.shop?.contact?.twitter = p0;
+                    },
+
+                    // controller: _addressController,
+                    cursorColor: bmPrimaryColor,
+                    textStyle: boldTextStyle(
+                        color: appStore.isDarkModeOn
+                            ? bmTextColorDarkMode
+                            : bmPrimaryColor),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        FeatherIcons.twitter,
+                        color: bmPrimaryColor,
+                      ),
+                      hintText: 'Twitter',
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                    ),
+                  ),
+                  30.height,
+                  AppButton(
+                    width: context.width() - 32,
+                    shapeBorder: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32)),
+                    padding: const EdgeInsets.all(16),
+                    color: bmPrimaryColor,
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        if (kDebugMode) {
+                          print("form is valid");
+                          // print('shop name: ${widget.shop?.contact?.email}');
+                          print(widget.shop?.shopId);
+                          print(widget.shop?.toJson());
+                        }
+
+                        Map shopContactData = widget.shop!.contact!.toJson()
+                          ..removeWhere((key, value) =>
+                              value == null || value == '' || value == 'null');
+                        shopContactData["owner"] = widget.shop?.owner;
+                        shopContactData["id"] = widget.shop?.id;
+                        print('map: $shopContactData');
+
+                        Map<String, String> data = shopContactData
+                            .map((k, v) => MapEntry(k, v.toString()));
+
+                        Map<String, dynamic?> files = {
+                          'shopLogo': widget.shop?.shopLogo,
+                        };
+
+                        data.remove('shopLogo');
+                        data.remove('tags');
+                        shopViewModel.sendShopData(
+                            true, data, false, files, context);
+                      }
+                    },
+                    child: shopViewModel.loading
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : Text('Submit',
+                            style: boldTextStyle(color: Colors.white)),
+                  ),
+                  30.height,
+                ],
+              ).paddingSymmetric(horizontal: 16),
+            ).expand()
           ],
         ),
       ),
