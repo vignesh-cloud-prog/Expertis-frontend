@@ -32,4 +32,7 @@ class ApiUrl {
   static String tagsEndPoint = '${baseUrl}tags';
   static String updateTagEndPoint(String tagId) =>
       '${baseUrl}tags/update/$tagId';
+
+  //services
+  static String uploadServiceApiEndPoint = '${baseUrl}shops/services';
 }

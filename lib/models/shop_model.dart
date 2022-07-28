@@ -321,6 +321,7 @@ class Members {
 }
 
 class Services {
+  // String? shop;
   String? serviceName;
   int? price;
   String? time;
@@ -329,16 +330,19 @@ class Services {
   List<String>? tags;
   String? id;
   String? photo;
+  String? discription;
 
-  Services(
-      {this.serviceName,
-      this.price,
-      this.time,
-      this.isVerifiedByAdmin,
-      this.shop,
-      this.tags,
-      this.id,
-      this.photo});
+  Services({
+    this.serviceName,
+    this.price,
+    this.time,
+    this.isVerifiedByAdmin,
+    this.shop,
+    this.tags,
+    this.id,
+    this.photo,
+    this.discription,
+  });
 
   Services.fromJson(Map<String, dynamic> json) {
     serviceName = json['serviceName'];
@@ -349,6 +353,8 @@ class Services {
     tags = json['tags'] != null ? List<String>.from(json['tags']) : null;
     id = json['id'];
     photo = json['photo'];
+    discription = json['discription'];
+    // shopId = json['shopId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -361,6 +367,8 @@ class Services {
     data['tags'] = this.tags;
     data['id'] = this.id;
     data['photo'] = this.photo;
+    data['discription'] = this.discription;
+    // data['shopId'] = this.shopId;
     return data;
   }
 }

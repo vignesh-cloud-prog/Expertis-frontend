@@ -87,4 +87,35 @@ class ShopViewModel with ChangeNotifier {
       setSelectedShop(ApiResponse.error(error.toString()));
     });
   }
+
+  Future<void> sendServiceData(
+      bool isEditMode,
+      Map<String, String> data,
+      bool isFileSelected,
+      Map<String, dynamic?> files,
+      BuildContext context) async {
+    setLoading(true);
+    if (kDebugMode) {
+      print('data: $data');
+      print('files: $files');
+    }
+    _myRepo
+        .uploadServiceDataApi(isEditMode, data, isFileSelected, files)
+        .then((value) {
+      if (kDebugMode) {
+        print(value.toString());
+      }
+      // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
+      // userViewModel.saveUser(UserModel.fromJson(value['data']));
+      setLoading(false);
+      Beamer.of(context).beamToReplacementNamed(RoutesName.shopServices);
+      Utils.flushBarErrorMessage('successfully', context);
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      Utils.flushBarErrorMessage(error.toString(), context);
+      if (kDebugMode) {
+        // print(error.toString());
+      }
+    });
+  }
 }

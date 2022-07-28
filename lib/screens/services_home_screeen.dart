@@ -1,5 +1,7 @@
+import 'package:beamer/beamer.dart';
 import 'package:expertis/components/service_card_component.dart';
 import 'package:expertis/data/response/status.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
@@ -36,7 +38,9 @@ class _ServicesHomeScreenState extends State<ServicesHomeScreen> {
           children: [
             AppButton(
               text: 'Add Service',
-              onTap: () {},
+              onTap: () {
+                Beamer.of(context).beamToNamed(RoutesName.createService);
+              },
             ),
             ChangeNotifierProvider<ShopViewModel>.value(
               value: shopViewModel,
