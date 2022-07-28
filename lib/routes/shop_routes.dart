@@ -5,6 +5,7 @@ import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/create_shop_screen.dart';
 import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/screens/review_shop_screen.dart';
+import 'package:expertis/screens/shop_contact_edit_screen.dart';
 import 'package:expertis/screens/shop_details_screen.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';
 import 'package:expertis/screens/add_service_screen.dart';
@@ -66,9 +67,20 @@ class ShopsLocation extends BeamLocation<BeamState> {
           state.uri.pathSegments.contains('update') &&
           state.uri.pathSegments.contains('info'))
         BeamPage(
-          key: ValueKey('create_shop'),
-          title: 'Create Shop',
+          key: const ValueKey(RoutesName.updateShopInfo),
+          title: 'Shop Information Edit',
           child: ShopInfoEditScreen(
+            shopId: state.pathParameters['shopId'] ?? 'null',
+            shop: data != null ? data as ShopModel : null,
+          ),
+        ),
+      if (state.uri.pathSegments.contains('shop') &&
+          state.uri.pathSegments.contains('update') &&
+          state.uri.pathSegments.contains('contact'))
+        BeamPage(
+          key: const ValueKey(RoutesName.updateShopContact),
+          title: 'Shop Contact Edit',
+          child: ShopContactEditScreen(
             shopId: state.pathParameters['shopId'] ?? 'null',
             shop: data != null ? data as ShopModel : null,
           ),

@@ -102,7 +102,9 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
   @override
   Widget build(BuildContext context) {
     if (widget.shop != null) {
-      selectedRole = widget.shop?.gender ?? 'UNISEX';
+      setState(() {
+        selectedRole = widget.shop?.gender ?? 'UNISEX';
+      });
     }
     UserViewModel.getUser().then((value) {
       widget.shop?.id = value.shop?.first;

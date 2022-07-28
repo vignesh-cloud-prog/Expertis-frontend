@@ -72,7 +72,8 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
                         IconButton(
                             onPressed: (() {
                               Beamer.of(context).beamToNamed(
-                                  RoutesName.updateShopContactWithId(shop?.id));
+                                  RoutesName.updateShopContactWithId(shop?.id),
+                                  data: shop);
                             }),
                             icon: Icon(Icons.edit)),
                       ],
