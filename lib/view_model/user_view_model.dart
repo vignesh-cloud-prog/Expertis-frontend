@@ -23,8 +23,7 @@ class UserViewModel with ChangeNotifier {
   List<String>? appointments;
   String? createdAt;
   String? updatedAt;
-  String userPic =
-      'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2015%2F10%2F05%2F22%2F37%2Fblank-profile-picture-973460_1280.png&imgrefurl=https%3A%2F%2Fpixabay.com%2Fvectors%2Fblank-profile-picture-mystery-man-973460%2F&tbnid=H6pHpB03ZEAgeM&vet=12ahUKEwigm-bJnun4AhWm_zgGHfolDUAQMygBegUIARDZAQ..i&docid=wg0CyFWNfK7o5M&w=1280&h=1280&q=profile%20picture&ved=2ahUKEwigm-bJnun4AhWm_zgGHfolDUAQMygBegUIARDZAQ';
+  String userPic = "";
   String? id;
   String? token;
   String? message;
@@ -78,7 +77,7 @@ class UserViewModel with ChangeNotifier {
     await sp.remove('token');
     await sp.remove('user');
     print('user logged out');
-    notifyListeners();
+    // notifyListeners();
     return true;
   }
 

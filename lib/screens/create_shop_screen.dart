@@ -11,9 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-import '../main.dart';
-import '../utils/BMColors.dart';
-import '../utils/BMWidgets.dart';
+import 'package:expertis/main.dart';
+import 'package:expertis/utils/BMColors.dart';
+import 'package:expertis/utils/BMWidgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 class CreateShopScreen extends StatefulWidget {
@@ -41,7 +41,7 @@ class CreateShopScreenState extends State<CreateShopScreen> {
   List<String> roles = ['MALE', 'FEMALE', 'UNISEX'];
   UserModel? user;
   String selectedRole = 'UNISEX';
-  String userPic = "";
+
   String? selectedGender;
   bool isFileSelected = false;
   File? pickedImage;
@@ -73,11 +73,12 @@ class CreateShopScreenState extends State<CreateShopScreen> {
   Future<void> pickImage({ImageSource source = ImageSource.gallery}) async {
     if (!kIsWeb) {
       final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: source);
+      XFile? image = await _picker.pickImage(
+          source: source, maxHeight: 200, maxWidth: 200);
       if (image != null) {
-        var selected = File(image.path);
+        shop.shopLogo = image.path;
         setState(() {
-          pickedImage = selected;
+          pickedImage = File(image.path);
           isFileSelected = true;
         });
       } else {
@@ -442,141 +443,141 @@ class CreateShopScreenState extends State<CreateShopScreen> {
                         ),
                       ),
                       20.height,
-                      Text('Address',
-                          style: primaryTextStyle(
-                              color: appStore.isDarkModeOn
-                                  ? bmTextColorDarkMode
-                                  : bmSpecialColor,
-                              size: 14)),
-                      AppTextField(
-                        keyboardType: TextInputType.text,
-                        focus: address,
-                        // initialValue: shop.contact?.address ?? '',
-                        nextFocus: pinCode,
-                        textFieldType: TextFieldType.NAME,
-                        onChanged: (p0) {
-                          shop.contact == null
-                              ? shop.contact = Contact(address: p0)
-                              : shop.contact?.address = p0;
-                        },
+                      // Text('Address',
+                      //     style: primaryTextStyle(
+                      //         color: appStore.isDarkModeOn
+                      //             ? bmTextColorDarkMode
+                      //             : bmSpecialColor,
+                      //         size: 14)),
+                      // AppTextField(
+                      //   keyboardType: TextInputType.text,
+                      //   focus: address,
+                      //   // initialValue: shop.contact?.address ?? '',
+                      //   nextFocus: pinCode,
+                      //   textFieldType: TextFieldType.NAME,
+                      //   onChanged: (p0) {
+                      //     shop.contact == null
+                      //         ? shop.contact = Contact(address: p0)
+                      //         : shop.contact?.address = p0;
+                      //   },
 
-                        // controller: _addressController,
-                        errorThisFieldRequired: 'Address is required',
-                        cursorColor: bmPrimaryColor,
-                        textStyle: boldTextStyle(
-                            color: appStore.isDarkModeOn
-                                ? bmTextColorDarkMode
-                                : bmPrimaryColor),
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                        ),
-                      ),
-                      20.height,
-                      Text('Pin Code',
-                          style: primaryTextStyle(
-                              color: appStore.isDarkModeOn
-                                  ? bmTextColorDarkMode
-                                  : bmSpecialColor,
-                              size: 14)),
-                      AppTextField(
-                        focus: pinCode,
-                        textFieldType: TextFieldType.PHONE,
-                        autoFocus: true,
-                        nextFocus: about,
-                        // initialValue: shop.contact?.pinCode.toString() ?? '',
-                        onChanged: (p0) => shop.contact == null
-                            ? shop.contact = Contact(pinCode: p0.toInt())
-                            : shop.contact?.pinCode = p0.toInt(),
-                        // controller: _pinCodeController,
-                        validator: (value) {
-                          if (value!.length != 6) {
-                            return 'Pin code must be 6 digits';
-                          }
-                          return null;
-                        },
-                        errorThisFieldRequired: 'Pin code is required',
-                        maxLength: 6,
-                        cursorColor: bmPrimaryColor,
-                        textStyle: boldTextStyle(
-                            color: appStore.isDarkModeOn
-                                ? bmTextColorDarkMode
-                                : bmPrimaryColor),
-                        suffixIconColor: bmPrimaryColor,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                        ),
-                      ),
-                      20.height,
-                      Text('About Shop',
-                          style: primaryTextStyle(
-                              color: appStore.isDarkModeOn
-                                  ? bmTextColorDarkMode
-                                  : bmSpecialColor,
-                              size: 14)),
-                      AppTextField(
-                        keyboardType: TextInputType.multiline,
-                        focus: about,
-                        // initialValue: shop.contact?.address ?? '',
-                        nextFocus: null,
-                        textFieldType: TextFieldType.MULTILINE,
-                        onChanged: (p0) {
-                          shop.about = p0;
-                        },
+                      //   // controller: _addressController,
+                      //   errorThisFieldRequired: 'Address is required',
+                      //   cursorColor: bmPrimaryColor,
+                      //   textStyle: boldTextStyle(
+                      //       color: appStore.isDarkModeOn
+                      //           ? bmTextColorDarkMode
+                      //           : bmPrimaryColor),
+                      //   decoration: InputDecoration(
+                      //     border: UnderlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             color: appStore.isDarkModeOn
+                      //                 ? bmTextColorDarkMode
+                      //                 : bmPrimaryColor)),
+                      //     focusedBorder: UnderlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             color: appStore.isDarkModeOn
+                      //                 ? bmTextColorDarkMode
+                      //                 : bmPrimaryColor)),
+                      //     enabledBorder: UnderlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             color: appStore.isDarkModeOn
+                      //                 ? bmTextColorDarkMode
+                      //                 : bmPrimaryColor)),
+                      //   ),
+                      // ),
+                      // 20.height,
+                      // Text('Pin Code',
+                      //     style: primaryTextStyle(
+                      //         color: appStore.isDarkModeOn
+                      //             ? bmTextColorDarkMode
+                      //             : bmSpecialColor,
+                      //         size: 14)),
+                      // AppTextField(
+                      //   focus: pinCode,
+                      //   textFieldType: TextFieldType.PHONE,
+                      //   autoFocus: true,
+                      //   nextFocus: about,
+                      //   // initialValue: shop.contact?.pinCode.toString() ?? '',
+                      //   onChanged: (p0) => shop.contact == null
+                      //       ? shop.contact = Contact(pinCode: p0.toInt())
+                      //       : shop.contact?.pinCode = p0.toInt(),
+                      //   // controller: _pinCodeController,
+                      //   validator: (value) {
+                      //     if (value!.length != 6) {
+                      //       return 'Pin code must be 6 digits';
+                      //     }
+                      //     return null;
+                      //   },
+                      //   errorThisFieldRequired: 'Pin code is required',
+                      //   maxLength: 6,
+                      //   cursorColor: bmPrimaryColor,
+                      //   textStyle: boldTextStyle(
+                      //       color: appStore.isDarkModeOn
+                      //           ? bmTextColorDarkMode
+                      //           : bmPrimaryColor),
+                      //   suffixIconColor: bmPrimaryColor,
+                      //   decoration: InputDecoration(
+                      //     border: UnderlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             color: appStore.isDarkModeOn
+                      //                 ? bmTextColorDarkMode
+                      //                 : bmPrimaryColor)),
+                      //     focusedBorder: UnderlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             color: appStore.isDarkModeOn
+                      //                 ? bmTextColorDarkMode
+                      //                 : bmPrimaryColor)),
+                      //     enabledBorder: UnderlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             color: appStore.isDarkModeOn
+                      //                 ? bmTextColorDarkMode
+                      //                 : bmPrimaryColor)),
+                      //   ),
+                      // ),
+                      // 20.height,
+                      // Text('About Shop',
+                      //     style: primaryTextStyle(
+                      //         color: appStore.isDarkModeOn
+                      //             ? bmTextColorDarkMode
+                      //             : bmSpecialColor,
+                      //         size: 14)),
+                      // AppTextField(
+                      //   keyboardType: TextInputType.multiline,
+                      //   focus: about,
+                      //   // initialValue: shop.contact?.address ?? '',
+                      //   nextFocus: null,
+                      //   textFieldType: TextFieldType.MULTILINE,
+                      //   onChanged: (p0) {
+                      //     shop.about = p0;
+                      //   },
 
-                        // controller: _addressController,
-                        cursorColor: bmPrimaryColor,
-                        textStyle: boldTextStyle(
-                            color: appStore.isDarkModeOn
-                                ? bmTextColorDarkMode
-                                : bmPrimaryColor),
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: appStore.isDarkModeOn
-                                      ? bmTextColorDarkMode
-                                      : bmPrimaryColor)),
-                        ),
-                      ),
+                      //   // controller: _addressController,
+                      //   cursorColor: bmPrimaryColor,
+                      //   textStyle: boldTextStyle(
+                      //       color: appStore.isDarkModeOn
+                      //           ? bmTextColorDarkMode
+                      //           : bmPrimaryColor),
+                      //   decoration: InputDecoration(
+                      //     border: UnderlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             color: appStore.isDarkModeOn
+                      //                 ? bmTextColorDarkMode
+                      //                 : bmPrimaryColor)),
+                      //     focusedBorder: UnderlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             color: appStore.isDarkModeOn
+                      //                 ? bmTextColorDarkMode
+                      //                 : bmPrimaryColor)),
+                      //     enabledBorder: UnderlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             color: appStore.isDarkModeOn
+                      //                 ? bmTextColorDarkMode
+                      //                 : bmPrimaryColor)),
+                      //   ),
+                      // ),
 
-                      30.height,
+                      // 30.height,
                       AppButton(
                         width: context.width() - 32,
                         shapeBorder: RoundedRectangleBorder(
@@ -600,9 +601,8 @@ class CreateShopScreenState extends State<CreateShopScreen> {
                               print(shop.toJson());
                             }
 
-                            Map shopData = shop.toJson() as Map
+                            Map shopData = shop.toJson()
                               ..removeWhere((key, value) =>
-                                  key == null ||
                                   key == 'id' ||
                                   value == null ||
                                   value == '' ||
@@ -611,17 +611,15 @@ class CreateShopScreenState extends State<CreateShopScreen> {
 
                             Map<String, String> data = shopData
                                 .map((k, v) => MapEntry(k, v.toString()));
+
+                            data['phone'] =
+                                shop.contact?.phone.toString() ?? '';
+                            data['email'] = shop.contact?.email ?? '';
                             Map<String, dynamic?> files = {
-                              'shopLogo': pickedImage,
+                              'shopLogo': shop.shopLogo,
                             };
                             data.remove('shopLogo');
-                            data.removeWhere((key, value) => key == 'id');
-
-                            print('data: $data');
-
-                            data['contact'] = jsonEncode(
-                                data['contact'] as Map<String, String>);
-                            // print('files: $files');
+                            data.remove('contact');
                             shopViewModel.sendShopData(
                                 false, data, isFileSelected, files, context);
                           }

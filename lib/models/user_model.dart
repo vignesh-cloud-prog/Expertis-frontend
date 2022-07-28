@@ -17,8 +17,8 @@ class UserModel {
   String? pinCode;
 
   UserModel({
-    this.email = "example.com",
-    this.name = "Vignesh",
+    this.email = "",
+    this.name = "",
     this.phone,
     this.role,
     this.verified,

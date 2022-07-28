@@ -72,6 +72,7 @@ dependencies:
   image_picker: ^0.8.5+3
   flutter_iconly: ^1.0.2
   fancy_shimmer_image: ^2.0.2
+  multi_select_flutter: ^4.1.2
 
 dev_dependencies:
   build_runner: ^2.2.0

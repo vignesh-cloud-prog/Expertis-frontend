@@ -1,7 +1,8 @@
 import 'package:beamer/beamer.dart';
+import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/home_routes.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/screens/BMCreateShopScreen.dart';
+import 'package:expertis/screens/create_shop_screen.dart';
 import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/screens/review_shop_screen.dart';
 import 'package:expertis/screens/shop_details_screen.dart';
@@ -9,6 +10,7 @@ import 'package:expertis/screens/BMSplashScreen.dart';
 import 'package:expertis/screens/add_service_screen.dart';
 import 'package:expertis/screens/book_appointment_screen.dart';
 import 'package:expertis/screens/owner_dashboard_screen.dart';
+import 'package:expertis/screens/shop_info_edit_screen.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +37,8 @@ class ShopsLocation extends BeamLocation<BeamState> {
         RoutesName.shopReviewsById,
         RoutesName.reviewShop,
         RoutesName.createShop,
-        RoutesName.updateShop,
+        RoutesName.updateShopInfo,
+        RoutesName.updateShopContact,
         RoutesName.createService,
         RoutesName.updateService,
         RoutesName.ownerDashboard,
@@ -59,6 +62,18 @@ class ShopsLocation extends BeamLocation<BeamState> {
           title: 'Create Shop',
           child: CreateShopScreen(),
         ),
+      if (state.uri.pathSegments.contains('shop') &&
+          state.uri.pathSegments.contains('update') &&
+          state.uri.pathSegments.contains('info'))
+        BeamPage(
+          key: ValueKey('create_shop'),
+          title: 'Create Shop',
+          child: ShopInfoEditScreen(
+            shopId: state.pathParameters['shopId'] ?? 'null',
+            shop: data != null ? data as ShopModel : null,
+          ),
+        ),
+
       if (state.uri.pathSegments.contains('book') &&
           state.pathParameters.containsKey('shopId'))
         BeamPage(
@@ -161,14 +176,14 @@ class ShopsLocation extends BeamLocation<BeamState> {
           child: ShopOwnerDashboardScreen(
               shopId: state.pathParameters['shopId'] ?? 'null'),
         ),
-      if (state.uri.pathSegments.contains('shop') &&
-          state.uri.pathSegments.contains('info'))
-        BeamPage(
-          key: const ValueKey(RoutesName.shopDetails),
-          title: 'Shop Info',
-          child: ShopOwnerDashboardScreen(
-              shopId: state.pathParameters['shopId'] ?? 'null'),
-        ),
+      // if (state.uri.pathSegments.contains('shop') &&
+      //     state.uri.pathSegments.contains('info'))
+      //   BeamPage(
+      //     key: const ValueKey(RoutesName.shopDetails),
+      //     title: 'Shop Info',
+      //     child: ShopOwnerDashboardScreen(
+      //         shopId: state.pathParameters['shopId'] ?? 'null'),
+      //   ),
 
       if (state.pathParameters.containsKey('serviceId') &&
           state.uri.pathSegments.contains('update'))

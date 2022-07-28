@@ -48,8 +48,6 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
     super.dispose();
   }
 
-  PlatformFile? objFile;
-
   Future<void> pickImage({ImageSource source = ImageSource.gallery}) async {
     if (!kIsWeb) {
       final ImagePicker _picker = ImagePicker();

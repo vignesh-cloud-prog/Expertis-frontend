@@ -69,9 +69,16 @@ class RoutesName {
   static const String shopAppointments = '/shop/appointments';
   static const String shopDetails = '/shop/info';
   static const String createShop = '/shop/create';
-  static const String updateShop = '/shop/update/:shopId';
+  static const String updateShopInfo = '/shop/update/info/:shopId';
+  static get updateShopInfoWithId =>
+      (String shopId) => '/shop/update/info/$shopId';
+  static const String updateShopContact = '/shop/update/contact/:shopId';
+  static get updateShopContactWithId =>
+      (String shopId) => '/shop/update/contact/$shopId';
   static const String createService = '/shop/service/add';
   static const String updateService = '/shop/service/update/:serviceId';
+  static get updateServiceWithId =>
+      (String serviceId) => '/shop/service/update/$serviceId';
 
   // Admin Dashboard Routes
   static const String adminDashboard = '/admin/dashboard';

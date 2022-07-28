@@ -52,19 +52,19 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
 
   Future pickImage(ImageSource source) async {
     try {
-      var image = await ImagePicker().pickImage(source: source);
+      var image = await ImagePicker()
+          .pickImage(source: source, maxHeight: 200, maxWidth: 200);
       if (image == null) {
         return;
       }
-      final directory = await getApplicationDocumentsDirectory();
-      final name = basename(image.path);
-      final imageFile = File('${directory.path}/$name');
-      final newImage = await File(image.path).copy(imageFile.path);
-      setState(() => user.userPic = image.path);
+
+      setState(() {
+        user.userPic = image.path;
+      });
 
       setState(() {
         isFileSelected = true;
-        this.image = imageFile;
+        // this.image = imageFile;
       });
     } on PlatformException catch (e) {
       if (kDebugMode) {
@@ -92,6 +92,7 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
       setState(() {
         user = value;
         _dobController.text = user.dob.toString().splitBefore('T');
+
         selectedRole = user.role == 'ADMIN' ? 'OWNER' : 'CUSTOMER';
       });
     });
@@ -117,9 +118,9 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                     children: [
                       16.height,
                       ProfileWidget(
-                        imagePath: user.userPic == "" || user.userPic == 'null'
-                            ? Assets.defaultUserImage
-                            : user.userPic,
+                        imagePath: user.userPic != "" && user.userPic != 'null'
+                            ? user.userPic
+                            : Assets.defaultUserImage,
                         isEdit: true,
                         onClicked: () async {
                           await pickImage(ImageSource.gallery);
@@ -206,8 +207,11 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                               size: 14)),
                       AppTextField(
                         focus: phone,
-                        initialValue: user.phone.toString(),
+                        initialValue: user.phone.toString() != 'null'
+                            ? user.phone.toString()
+                            : '',
                         textFieldType: TextFieldType.PHONE,
+                        maxLength: 10,
                         onChanged: (p0) => user.phone = p0,
                         nextFocus: address,
                         // controller: _phoneController,
