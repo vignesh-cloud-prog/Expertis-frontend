@@ -8,6 +8,8 @@ import 'package:expertis/utils/api_url.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 
+import '../models/services_list_model.dart';
+
 class HomeRepository {
   BaseApiServices _apiServices = NetworkApiService();
   Map<String, String> requestHeaders = {
@@ -104,14 +106,15 @@ class HomeRepository {
     }
   }
 
-  Future<Services> fetchServicesData(String shopId) async {
+  Future<ServicesListModel> fetchServicesData(String shopId) async {
     requestHeaders["Authorization"] = await UserViewModel.getUserToken();
     try {
+      print("its in try");
       dynamic response = await _apiServices.getGetApiResponse(
           ApiUrl.fetchServicesDataEndPoint(shopId), requestHeaders);
-      // print(response);
-      response = Services.fromJson(response);
-      // print("response after from json ${response.toString()}");
+      print("res ${response}");
+      response = ServicesListModel.fromJson(response);
+      print("response after from json ${response.toString()}");
       return response;
     } catch (e) {
       rethrow;

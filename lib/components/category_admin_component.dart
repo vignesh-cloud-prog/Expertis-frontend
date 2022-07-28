@@ -14,7 +14,7 @@ class CategoryAdminCardComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('category?.tagPicture: ${category?.tagPic}');
+    // print('category?.tagPicture: ${category?.tagPic}');
     Size size = MediaQuery.of(context).size;
     return ListTile(
       leading: FancyShimmerImage(

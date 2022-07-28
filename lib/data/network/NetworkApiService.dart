@@ -17,10 +17,11 @@ class NetworkApiService extends BaseApiServices {
       }
       final response = await http
           .get(Uri.parse(url), headers: header)
-          .timeout(const Duration(seconds: 60));
+          .timeout(const Duration(seconds: 600));
       if (kDebugMode) {
         // print("response ${response.body}");
       }
+      print("response ${response.body}");
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');

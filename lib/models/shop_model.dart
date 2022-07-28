@@ -328,6 +328,7 @@ class Services {
   String? shop;
   List<String>? tags;
   String? id;
+  String? photo;
 
   Services(
       {this.serviceName,
@@ -336,7 +337,8 @@ class Services {
       this.isVerifiedByAdmin,
       this.shop,
       this.tags,
-      this.id});
+      this.id,
+      this.photo});
 
   Services.fromJson(Map<String, dynamic> json) {
     serviceName = json['serviceName'];
@@ -346,6 +348,7 @@ class Services {
     shop = json['shop'];
     tags = json['tags'] != null ? List<String>.from(json['tags']) : null;
     id = json['id'];
+    photo = json['photo'];
   }
 
   Map<String, dynamic> toJson() {
@@ -357,6 +360,7 @@ class Services {
     data['shop'] = this.shop;
     data['tags'] = this.tags;
     data['id'] = this.id;
+    data['photo'] = this.photo;
     return data;
   }
 }

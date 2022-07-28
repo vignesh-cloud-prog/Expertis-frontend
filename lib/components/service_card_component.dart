@@ -1,10 +1,16 @@
+import 'dart:developer';
+
+import 'package:expertis/models/shop_model.dart';
+import 'package:expertis/utils/assets.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_iconly/flutter_iconly.dart';
 // import 'package:store_api_flutter_course/consts/global_colors.dart';
 
 class ServiceCardComponent extends StatelessWidget {
-  const ServiceCardComponent({Key? key}) : super(key: key);
+  final Services? element;
+  const ServiceCardComponent({Key? key, required this.element})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +24,24 @@ class ServiceCardComponent extends StatelessWidget {
           color: Colors.red,
           size: 28,
         ),
-        imageUrl: "https://placeimg.com/640/480/any",
+        imageUrl: element?.photo ?? Assets.defaultServiceImage,
         boxFit: BoxFit.fill,
       ),
-      title: const Text("User name"),
-      subtitle: const Text("Email@email.com"),
-      trailing: Text(
-        "User role",
-        style: TextStyle(
-          // color: lightIconsColor,
-          fontWeight: FontWeight.bold,
-        ),
+      title: Text(element?.serviceName ?? ""),
+      subtitle: Text(element?.price.toString() ?? ""),
+      trailing: SizedBox(
+        height: size.width * 0.30,
+        width: size.width * 0.30,
+        child: Row(children: [
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {},
+          ),
+        ]),
       ),
     );
   }
