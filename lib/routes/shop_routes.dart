@@ -176,14 +176,15 @@ class ShopsLocation extends BeamLocation<BeamState> {
           child: ShopOwnerDashboardScreen(
               shopId: state.pathParameters['shopId'] ?? 'null'),
         ),
-      // if (state.uri.pathSegments.contains('shop') &&
-      //     state.uri.pathSegments.contains('info'))
-      //   BeamPage(
-      //     key: const ValueKey(RoutesName.shopDetails),
-      //     title: 'Shop Info',
-      //     child: ShopOwnerDashboardScreen(
-      //         shopId: state.pathParameters['shopId'] ?? 'null'),
-      //   ),
+      if (state.uri.pathSegments.contains('shop') &&
+          state.uri.pathSegments.contains('view') &&
+          state.uri.pathSegments.contains('info'))
+        BeamPage(
+          key: const ValueKey(RoutesName.shopDetails),
+          title: 'Shop Info',
+          child: ShopOwnerDashboardScreen(
+              shopId: state.pathParameters['shopId'] ?? 'null'),
+        ),
 
       if (state.pathParameters.containsKey('serviceId') &&
           state.uri.pathSegments.contains('update'))

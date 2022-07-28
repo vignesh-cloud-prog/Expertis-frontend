@@ -67,7 +67,7 @@ class RoutesName {
   static const String ownerDashboard = '/shop/dashboard/:shopId';
   static const String shopServices = '/shop/services';
   static const String shopAppointments = '/shop/appointments';
-  static const String shopDetails = '/shop/info';
+  static const String shopDetails = '/shop/view/info';
   static const String createShop = '/shop/create';
   static const String updateShopInfo = '/shop/update/info/:shopId';
   static get updateShopInfoWithId =>
