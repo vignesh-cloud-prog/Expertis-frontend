@@ -12,7 +12,7 @@ class ShopViewModel with ChangeNotifier {
   final _myRepo = HomeRepository();
 
   ApiResponse<ShopModel> selectedShop = ApiResponse.loading();
-  ApiResponse<ServicesListModel> services = ApiResponse.completed(null);
+  ApiResponse<ServicesListModel> services = ApiResponse.loading();
 
   bool _loading = false;
   bool get loading => _loading;
@@ -31,9 +31,9 @@ class ShopViewModel with ChangeNotifier {
 
   Future<void> fetchServicesDataApi(String shopId) async {
     print("shop id is $shopId");
-    _myRepo.fetchSelectedShopData(shopId).then((value) {
+    _myRepo.fetchServicesData(shopId).then((value) {
       // print("Selected shop data is \n ${value.toString()}");
-      setSelectedShop(ApiResponse.completed(value));
+      setServices(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
       setSelectedShop(ApiResponse.error(error.toString()));
     });

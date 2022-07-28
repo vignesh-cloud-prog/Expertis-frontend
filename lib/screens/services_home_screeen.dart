@@ -22,60 +22,77 @@ class _ServicesHomeScreenState extends State<ServicesHomeScreen> {
   final shopViewModel = ShopViewModel();
   @override
   void initState() {
+    shopViewModel
+        .fetchServicesDataApi("62e182bc8a591ad3d983f7f2"); //widget.shopId
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    shopViewModel.fetchServicesDataApi(widget.shopId);
-
-    return ChangeNotifierProvider<ShopViewModel>.value(
-      value: shopViewModel,
-      child: Consumer<ShopViewModel>(builder: (context, value, _) {
-        switch (value.services.status) {
-          case Status.LOADING:
-            return const Center(child: CircularProgressIndicator());
-          case Status.ERROR:
-            return Center(
-              child: Text(value.services.message.toString()),
-            );
-          case Status.COMPLETED:
-            print(value.services.data.toString());
-            return ListView.builder(
-                itemCount: 10,
-                itemBuilder: (ctx, index) {
-                  return const ServiceCardComponent();
-                });
-          default:
-            return Container();
-        }
-      }),
-      // );
-      // Column(
-      //   crossAxisAlignment: CrossAxisAlignment.start,
-      //   mainAxisSize: MainAxisSize.min,
-      //   children: [
-      //     titleText(title: 'Today, ${getCurrentDate()}'),
-      //     16.height,
-      //     // Column(
-      //     //   mainAxisSize: MainAxisSize.min,
-      //     //   children: getAppointments().map((e) {
-      //     //     return BMAppointmentComponent(element: e);
-      //     //   }).toList(),
-      //     // ),
-      //     // 20.height,
-      //     // titleText(
-      //     //     title: widget.tabOne
-      //     //         ? getTomorrowDate()
-      //     //         : 'Yesterday, ${getYesterdayDate()}'),
-      //     // 20.height,
-      //     Column(
-      //       mainAxisSize: MainAxisSize.min,
-      //       children: getMoreAppointmentsList().map((e) {
-      //         return BMAppointmentComponent(element: e);
-      //       }).toList(),
-      //     )
-      //   ],
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            AppButton(
+              text: 'Add Service',
+              onTap: () {},
+            ),
+            ChangeNotifierProvider<ShopViewModel>.value(
+              value: shopViewModel,
+              child: Consumer<ShopViewModel>(builder: (context, value, _) {
+                switch (value.services.status) {
+                  case Status.LOADING:
+                    return const Center(child: CircularProgressIndicator());
+                  case Status.ERROR:
+                    return Center(
+                      child: Text(value.services.message.toString()),
+                    );
+                  case Status.COMPLETED:
+                    print(
+                        "value ${value.services.data?.services?.first.toJson()}");
+                    // print("printed ${value.services.data.toString()}");
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: value.services.data?.services?.length,
+                        itemBuilder: (ctx, index) {
+                          return ServiceCardComponent(
+                              element: value.services.data?.services![index]);
+                        });
+                  default:
+                    return Container();
+                }
+              }),
+              // );
+              // Column(
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   mainAxisSize: MainAxisSize.min,
+              //   children: [
+              //     titleText(title: 'Today, ${getCurrentDate()}'),
+              //     16.height,
+              //     // Column(
+              //     //   mainAxisSize: MainAxisSize.min,
+              //     //   children: getAppointments().map((e) {
+              //     //     return BMAppointmentComponent(element: e);
+              //     //   }).toList(),
+              //     // ),
+              //     // 20.height,
+              //     // titleText(
+              //     //     title: widget.tabOne
+              //     //         ? getTomorrowDate()
+              //     //         : 'Yesterday, ${getYesterdayDate()}'),
+              //     // 20.height,
+              //     Column(
+              //       mainAxisSize: MainAxisSize.min,
+              //       children: getMoreAppointmentsList().map((e) {
+              //         return BMAppointmentComponent(element: e);
+              //       }).toList(),
+              //     )
+              //   ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
