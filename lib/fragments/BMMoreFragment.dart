@@ -38,6 +38,10 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
         user = value;
       });
     });
+    print('role ${user?.roles!.toJson()}');
+    // print("admin ${user!.roles!.isAdmin}");
+    // print("owner ${user!.roles!.isShopOwner}");
+    // print("member ${user!.roles!.isShopMember.toString() == "true"}");
 
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
@@ -151,7 +155,7 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                               BMFavouritesScreen().launch(context);
                             },
                           ),
-                          user!.role!.toLowerCase() == "owner"
+                          user!.roles?.isShopOwner == true
                               ? user!.shop!.length > 0
                                   ? SettingItemWidget(
                                       title: 'Dashboard',
@@ -182,7 +186,7 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                                       },
                                     )
                               : Container(),
-                          if (user!.role!.toLowerCase() == "admin")
+                          if (user!.roles!.isAdmin == true)
                             SettingItemWidget(
                               title: 'Admin Dashboard',
                               leading: Icon(Icons.add_home_work_outlined,

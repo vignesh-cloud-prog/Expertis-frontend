@@ -11,17 +11,17 @@ class NetworkApiService extends BaseApiServices {
   Future getGetApiResponse(String url, dynamic header) async {
     dynamic responseJson;
     try {
-      if (kDebugMode) {
-        print("url $url");
-        print("header $header");
-      }
+      // if (kDebugMode) {
+      //   print("url $url");
+      //   print("header $header");
+      // }
       final response = await http
           .get(Uri.parse(url), headers: header)
           .timeout(const Duration(seconds: 600));
       if (kDebugMode) {
         // print("response ${response.body}");
       }
-      print("response ${response.body}");
+      // print("response ${response.body}");
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');
@@ -35,15 +35,15 @@ class NetworkApiService extends BaseApiServices {
     dynamic responseJson;
 
     if (kDebugMode) {
-      // print("data ${data.toString()}");
+      print("data ${data.toString()}");
     }
     try {
       Response response = await http
           .post(Uri.parse(url), headers: header, body: data)
-          .timeout(Duration(seconds: 30));
+          .timeout(Duration(seconds: 120));
 
       if (kDebugMode) {
-        // print("response ${response.body}");
+        print("response Post API ${response.body}");
       }
 
       responseJson = returnResponse(response);
@@ -85,7 +85,7 @@ class NetworkApiService extends BaseApiServices {
       print(response.statusCode);
 
       var responded = await http.Response.fromStream(response);
-      print('responded.body ${responded.body} ');
+      print('responded.body Multipart ${responded.body} ');
       return responseJson = returnResponse(responded);
     } on SocketException {
       throw FetchDataException('No Internet Connection');

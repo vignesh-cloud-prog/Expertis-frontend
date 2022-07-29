@@ -102,7 +102,17 @@ class UserViewModel with ChangeNotifier {
       userViewModel.saveUser(UserModel.fromJson(value['data']));
       setLoading(false);
       Utils.flushBarErrorMessage('Profile updated successfully', context);
-      Beamer.of(context).beamToReplacementNamed(RoutesName.home);
+      bool isShopOwner = value['data']['roles']["isShopOwner"];
+      print('isShopOwner: $isShopOwner');
+      List<dynamic> shop = value['data']["shop"];
+      print('shop: $shop');
+      print(shop.length);
+      if (isShopOwner == true && shop.isEmpty) {
+        print("You need to add a shop");
+        Beamer.of(context).beamToNamed(RoutesName.createShop);
+      } else {
+        Beamer.of(context).beamToReplacementNamed(RoutesName.more);
+      }
     }).onError((error, stackTrace) {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);

@@ -224,7 +224,9 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                     keyboardType: TextInputType.text,
                     // focus: address,
                     initialValue:
-                        widget.shop?.contact?.pinCode.toString() ?? '',
+                        widget.shop?.contact?.pinCode.toString() != "null"
+                            ? widget.shop?.contact?.pinCode.toString()
+                            : '',
                     // nextFocus: pinCode,
                     maxLength: 6,
                     textFieldType: TextFieldType.NAME,

@@ -109,7 +109,8 @@ class _BMWalkThroughScreenState extends State<BMWalkThroughScreen> {
                           width: 150,
                           color: bmPrimaryColor,
                           onTap: () {
-                            Beamer.of(context).beamToNamed(RoutesName.login);
+                            Beamer.of(context)
+                                .beamToReplacementNamed(RoutesName.login);
 
                             // BMLoginScreen().launch(context, isNewTask: true);
                           },
@@ -124,7 +125,8 @@ class _BMWalkThroughScreenState extends State<BMWalkThroughScreen> {
                           padding: EdgeInsets.all(16),
                           color: Colors.grey,
                           onTap: () {
-                            Beamer.of(context).beamToNamed(RoutesName.signUp);
+                            Beamer.of(context)
+                                .beamToReplacementNamed(RoutesName.signUp);
 
                             // BMRegisterScreen().launch(context, isNewTask: true);
                           },

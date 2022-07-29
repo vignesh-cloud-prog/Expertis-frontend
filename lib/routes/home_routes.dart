@@ -35,10 +35,16 @@ class HomeLocation extends BeamLocation<BeamState> {
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
       const BeamPage(
-        key: ValueKey("SplashScreen"),
+        key: ValueKey(RoutesName.onboarding),
         title: 'Welcome to $appName',
-        child: BMSplashScreen(),
+        child: BMWalkThroughScreen(),
       ),
+      if (state.pathPatternSegments.contains('splash'))
+        const BeamPage(
+          key: ValueKey("SplashScreen"),
+          title: 'Welcome to $appName',
+          child: BMSplashScreen(),
+        ),
       if (state.pathPatternSegments.contains("home"))
         BeamPage(
           key: ValueKey(RoutesName.home),

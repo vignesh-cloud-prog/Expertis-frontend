@@ -56,10 +56,33 @@ class ShopViewModel with ChangeNotifier {
       if (kDebugMode) {
         print(value.toString());
       }
-      // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
-      // userViewModel.saveUser(UserModel.fromJson(value['data']));
+      String shopId = value["data"]["id"];
+      ShopModel shop = ShopModel.fromJson(value["data"]);
+      print("shop id is $shopId");
+      print("shop is ${shop.toJson()}");
       setLoading(false);
-      Beamer.of(context).beamToReplacementNamed(RoutesName.shopDetails);
+      if (shop.shopName == null) {
+        print("You need to give shop info");
+        Beamer.of(context).beamToReplacementNamed(
+            RoutesName.updateShopInfoWithId(shop.id),
+            data: shop);
+      } else if (shop.contact?.pinCode == null) {
+        print("You need to give contact info");
+        Beamer.of(context).beamToReplacementNamed(
+            RoutesName.updateShopContactWithId(shop.id),
+            data: shop);
+      } else if (shop.services!.isEmpty) {
+        Beamer.of(context)
+            .beamToReplacementNamed(RoutesName.ownerDashboard, data: shop);
+        print("You need to give services info");
+      } else {
+        Beamer.of(context)
+            .beamToReplacementNamed(RoutesName.ownerDashboard, data: shop);
+        print("You are good to go");
+      }
+
+      // Beamer.of(context)
+      //     .beamToReplacementNamed(RoutesName.updateShopInfoWithId());
       Utils.flushBarErrorMessage('successfully', context);
     }).onError((error, stackTrace) {
       setLoading(false);

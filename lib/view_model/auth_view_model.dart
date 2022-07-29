@@ -101,7 +101,7 @@ class AuthViewModel with ChangeNotifier {
           UserViewModel.getUser();
         }
 
-        Beamer.of(context).beamToNamed(RoutesName.home);
+        Beamer.of(context).beamToReplacementNamed(RoutesName.home);
         Utils.toastMessage("Login Successfully");
       }
     }).onError((error, stackTrace) {
@@ -181,7 +181,7 @@ class AuthViewModel with ChangeNotifier {
       final userViewModel = Provider.of<UserViewModel>(context, listen: false);
       userViewModel.saveUser(UserModel.fromJson(value['data']));
       userViewModel.saveToken(value['data']['token']);
-      Beamer.of(context).beamToNamed(RoutesName.createProfile);
+      Beamer.of(context).beamToReplacementNamed(RoutesName.createProfile);
       Utils.toastMessage("OTP verified successfully");
       if (kDebugMode) {
         // print(value.toString());

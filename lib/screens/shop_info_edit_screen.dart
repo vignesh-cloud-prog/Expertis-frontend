@@ -448,13 +448,13 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                     color: bmPrimaryColor,
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
-                        if (!kIsWeb) {
-                          if (pickedImage == null) {
-                            Utils.flushBarErrorMessage(
-                                "Please pic a shop logo", context);
-                            return;
-                          }
-                        }
+                        // if (!kIsWeb) {
+                        //   if (pickedImage == null) {
+                        //     Utils.flushBarErrorMessage(
+                        //         "Please pic a shop logo", context);
+                        //     return;
+                        //   }
+                        // }
 
                         if (kDebugMode) {
                           print("form is valid");
@@ -487,7 +487,11 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                         };
 
                         data.remove('shopLogo');
+                        data.remove('workingHours');
+                        data.remove('contact');
+                        data.remove('members');
                         data.remove('tags');
+                        print("shop data : $data");
                         shopViewModel.sendShopData(
                             true, data, isFileSelected, files, context);
                       }

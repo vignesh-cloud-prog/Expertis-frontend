@@ -4,6 +4,7 @@ import 'package:expertis/routes/appointment_routes.dart';
 import 'package:expertis/routes/errors.routes.dart';
 import 'package:expertis/routes/home_routes.dart';
 import 'package:expertis/routes/more_routes.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/routes/search_routes.dart';
 import 'package:expertis/routes/shop_routes.dart';
 import 'package:expertis/routes/user_routes.dart';
@@ -53,7 +54,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   final routerDelegate = BeamerDelegate(
-    // initialPath: RoutesName.splash,
+    initialPath: RoutesName.splash,
     locationBuilder: BeamerLocationBuilder(
       beamLocations: [
         HomeLocation(),
