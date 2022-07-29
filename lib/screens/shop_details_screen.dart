@@ -57,7 +57,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
 
   String navigateToTab(int index) {
     if (index == 0) {
-      return RoutesName.shopServicesWithId(widget.shopId);
+      return RoutesName.shopsServicesWithId(widget.shopId);
     } else if (index == 1) {
       return RoutesName.shopPortfolioWithId(widget.shopId);
     } else if (index == 2) {
@@ -65,7 +65,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
     } else if (index == 3) {
       return RoutesName.shopReviewsWithId(widget.shopId);
     }
-    return RoutesName.shopServicesWithId(widget.shopId);
+    return RoutesName.shopsServicesWithId(widget.shopId);
   }
 
   @override

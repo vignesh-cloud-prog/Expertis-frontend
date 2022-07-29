@@ -1,14 +1,12 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/models/shop_model.dart';
-import 'package:expertis/routes/home_routes.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/create_shop_screen.dart';
 import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/screens/review_shop_screen.dart';
+import 'package:expertis/screens/service_add_or_update_screen.dart';
 import 'package:expertis/screens/shop_contact_edit_screen.dart';
 import 'package:expertis/screens/shop_details_screen.dart';
-import 'package:expertis/screens/BMSplashScreen.dart';
-import 'package:expertis/screens/add_service_screen.dart';
 import 'package:expertis/screens/book_appointment_screen.dart';
 import 'package:expertis/screens/owner_dashboard_screen.dart';
 import 'package:expertis/screens/shop_info_edit_screen.dart';
@@ -33,7 +31,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
         RoutesName.shopDetails,
         RoutesName.aboutShop,
         RoutesName.shopPortfolio,
-        RoutesName.shopServicesById,
+        RoutesName.shopsServicesById,
         RoutesName.aboutShop,
         RoutesName.shopReviewsById,
         RoutesName.reviewShop,
@@ -107,7 +105,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
       if (state.uri.pathSegments.contains('services') &&
           state.pathParameters.containsKey('shopId'))
         BeamPage(
-          key: const ValueKey(RoutesName.shopServicesById),
+          key: const ValueKey(RoutesName.shopsServicesById),
           title: ' ${state.pathParameters['shopId']} services',
           child: ShopViewScreen(
             shopId: state.pathParameters['shopId'] ?? 'null',
@@ -158,11 +156,24 @@ class ShopsLocation extends BeamLocation<BeamState> {
 
       if (state.uri.pathSegments.contains('service') &&
           state.uri.pathSegments.contains('add'))
-        const BeamPage(
+        BeamPage(
           key: ValueKey(RoutesName.createService),
           title: 'Add Service',
-          child: CreateServiceScreen(),
+          child: CreateUpdateServiceScreen(),
         ),
+
+      if (state.pathParameters.containsKey('serviceId') &&
+          state.uri.pathSegments.contains('update') &&
+          state.uri.pathSegments.contains('service'))
+        BeamPage(
+          key: ValueKey('Update ${state.pathParameters['serviceId']}'),
+          title: 'Update ${state.pathParameters['serviceId']}',
+          child: CreateUpdateServiceScreen(
+            serviceId: state.pathParameters['serviceId'] ?? 'null',
+            service: data != null ? data as Services : null,
+          ),
+        ),
+
       if (state.uri.pathSegments.contains('shop') &&
           state.uri.pathSegments.contains('dashboard'))
         BeamPage(
@@ -178,7 +189,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
           key: const ValueKey(RoutesName.shopServices),
           title: 'Shop services',
           child: ShopOwnerDashboardScreen(
-              shopId: state.pathParameters['shopId'] ?? 'null'),
+              tabNo: 1, shopId: state.pathParameters['shopId'] ?? null),
         ),
       if (state.uri.pathSegments.contains('shop') &&
           state.uri.pathSegments.contains('appointments'))
@@ -186,7 +197,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
           key: const ValueKey(RoutesName.shopAppointments),
           title: 'Shop appointments',
           child: ShopOwnerDashboardScreen(
-              shopId: state.pathParameters['shopId'] ?? 'null'),
+              tabNo: 2, shopId: state.pathParameters['shopId'] ?? 'null'),
         ),
       if (state.uri.pathSegments.contains('shop') &&
           state.uri.pathSegments.contains('view') &&
@@ -195,17 +206,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
           key: const ValueKey(RoutesName.shopDetails),
           title: 'Shop Info',
           child: ShopOwnerDashboardScreen(
-              shopId: state.pathParameters['shopId'] ?? 'null'),
-        ),
-
-      if (state.pathParameters.containsKey('serviceId') &&
-          state.uri.pathSegments.contains('update'))
-        BeamPage(
-          key: ValueKey('Update ${state.pathParameters['serviceId']}'),
-          title: 'Update ${state.pathParameters['serviceId']}',
-          child: ShopViewScreen(
-            shopId: state.pathParameters['serviceId'] ?? 'null',
-          ),
+              tabNo: 3, shopId: state.pathParameters['shopId'] ?? 'null'),
         ),
     ];
   }

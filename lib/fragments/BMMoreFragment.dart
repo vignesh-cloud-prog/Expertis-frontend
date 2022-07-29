@@ -26,6 +26,11 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
   UserModel? user;
   @override
   void initState() {
+    UserViewModel.getUser().then((value) {
+      setState(() {
+        user = value;
+      });
+    });
     setStatusBarColor(bmSpecialColor);
     super.initState();
   }
@@ -33,11 +38,7 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
   @override
   Widget build(BuildContext context) {
     final userViewModel = Provider.of<UserViewModel>(context);
-    UserViewModel.getUser().then((value) {
-      setState(() {
-        user = value;
-      });
-    });
+
     print('role ${user?.roles!.toJson()}');
     // print("admin ${user!.roles!.isAdmin}");
     // print("owner ${user!.roles!.isShopOwner}");
@@ -156,7 +157,7 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                             },
                           ),
                           user!.roles?.isShopOwner == true
-                              ? user!.shop!.length > 0
+                              ? user!.shop?.isEmpty == false
                                   ? SettingItemWidget(
                                       title: 'Dashboard',
                                       leading: Icon(Icons.dashboard,
@@ -168,7 +169,8 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                                               : bmSpecialColorDark),
                                       onTap: () {
                                         Beamer.of(context).beamToNamed(
-                                            RoutesName.ownerDashboard);
+                                            RoutesName.ownerDashboardWithId(
+                                                user?.shop!.first));
                                       },
                                     )
                                   : SettingItemWidget(

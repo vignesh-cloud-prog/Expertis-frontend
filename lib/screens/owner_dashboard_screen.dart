@@ -24,7 +24,7 @@ import '../utils/BMDataGenerator.dart';
 
 class ShopOwnerDashboardScreen extends StatefulWidget {
   bool flag = false;
-  String shopId;
+  String? shopId;
   int tabNo;
 
   ShopOwnerDashboardScreen({
@@ -74,13 +74,18 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
 
   void getFragmentNo(selectedTab) {
     if (selectedTab == 0) {
-      return Beamer.of(context).beamToNamed(RoutesName.ownerDashboard);
+      return Beamer.of(context).beamToNamed(RoutesName.ownerDashboardWithId(
+        widget.shopId,
+      ));
     } else if (selectedTab == 1) {
-      return Beamer.of(context).beamToNamed(RoutesName.shopServices);
+      return Beamer.of(context)
+          .beamToNamed(RoutesName.shopServicesWithId(widget.shopId));
     } else if (selectedTab == 2) {
-      return Beamer.of(context).beamToNamed(RoutesName.shopAppointments);
+      return Beamer.of(context)
+          .beamToNamed(RoutesName.shopAppointmentsWithId(widget.shopId));
     } else if (selectedTab == 3) {
-      return Beamer.of(context).beamToNamed(RoutesName.shopDetails);
+      return Beamer.of(context)
+          .beamToNamed(RoutesName.shopDetailsWithId(widget.shopId));
     } else {
       return Beamer.of(context).beamToNamed(RoutesName.ownerDashboard);
     }

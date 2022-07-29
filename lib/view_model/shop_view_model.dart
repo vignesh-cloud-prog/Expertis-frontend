@@ -2,9 +2,11 @@ import 'package:beamer/beamer.dart';
 import 'package:expertis/data/response/api_response.dart';
 import 'package:expertis/models/services_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
+import 'package:expertis/models/user_model.dart';
 import 'package:expertis/respository/shop_repository.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/utils.dart';
+import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
@@ -29,10 +31,10 @@ class ShopViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchServicesDataApi(String shopId) async {
+  Future<void> fetchServicesDataApi(String? shopId) async {
     print("shop id is $shopId");
     _myRepo.fetchServicesData(shopId).then((value) {
-      // print("Selected shop data is \n ${value.toString()}");
+      print("Services data is \n ${value.toString()}");
       setServices(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
       setSelectedShop(ApiResponse.error(error.toString()));
@@ -61,6 +63,11 @@ class ShopViewModel with ChangeNotifier {
       print("shop id is $shopId");
       print("shop is ${shop.toJson()}");
       setLoading(false);
+      UserViewModel.getUser().then((value) {
+        UserModel user = value;
+        user.shop!.add(shopId);
+        UserViewModel().saveUser(user);
+      });
       if (shop.shopName == null) {
         print("You need to give shop info");
         Beamer.of(context).beamToReplacementNamed(
@@ -72,9 +79,10 @@ class ShopViewModel with ChangeNotifier {
             RoutesName.updateShopContactWithId(shop.id),
             data: shop);
       } else if (shop.services!.isEmpty) {
-        Beamer.of(context)
-            .beamToReplacementNamed(RoutesName.ownerDashboard, data: shop);
-        print("You need to give services info");
+        Beamer.of(context).beamToReplacementNamed(
+            RoutesName.shopServicesWithId(shop.id),
+            data: shop);
+        print("You need to add services info");
       } else {
         Beamer.of(context)
             .beamToReplacementNamed(RoutesName.ownerDashboard, data: shop);
@@ -108,6 +116,38 @@ class ShopViewModel with ChangeNotifier {
       setSelectedShop(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
       setSelectedShop(ApiResponse.error(error.toString()));
+    });
+  }
+
+  Future<void> sendServiceData(
+      bool isEditMode,
+      Map<String, String> data,
+      bool isFileSelected,
+      Map<String, dynamic?> files,
+      BuildContext context) async {
+    setLoading(true);
+    if (kDebugMode) {
+      print('data: $data');
+      print('files: $files');
+    }
+    _myRepo
+        .uploadServiceDataApi(isEditMode, data, isFileSelected, files)
+        .then((value) {
+      if (kDebugMode) {
+        print(value.toString());
+      }
+      // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
+      // userViewModel.saveUser(UserModel.fromJson(value['data']));
+      setLoading(false);
+      Beamer.of(context)
+          .beamToReplacementNamed(RoutesName.shopServicesWithId(null));
+      Utils.flushBarErrorMessage('successfully', context);
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      Utils.flushBarErrorMessage(error.toString(), context);
+      if (kDebugMode) {
+        // print(error.toString());
+      }
     });
   }
 }

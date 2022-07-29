@@ -112,7 +112,6 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
     });
 
     ShopViewModel shopViewModel = Provider.of<ShopViewModel>(context);
-    List<CategoryModel?> selectedTags = [];
 
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn

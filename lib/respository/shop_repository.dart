@@ -106,7 +106,7 @@ class HomeRepository {
     }
   }
 
-  Future<ServicesListModel> fetchServicesData(String shopId) async {
+  Future<ServicesListModel> fetchServicesData(String? shopId) async {
     requestHeaders["Authorization"] = await UserViewModel.getUserToken();
     try {
       print("its in try");
@@ -116,6 +116,36 @@ class HomeRepository {
       response = ServicesListModel.fromJson(response);
       print("response after from json ${response.toString()}");
       return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> uploadServiceDataApi(
+      bool isEditMode,
+      Map<String, String> data,
+      bool isFileSelected,
+      Map<String, dynamic?> files) async {
+    final String token = await UserViewModel.getUserToken();
+    String url = ApiUrl.uploadServiceApiEndPoint;
+    requestHeaders["Authorization"] = token;
+    if (kDebugMode) {
+      print("inside category api caller\n");
+      print("data ${data.toString()}");
+      print("files ${files.toString()}");
+      print("requestHeaders: ${requestHeaders.toString()}");
+    }
+    try {
+      dynamic response = await _apiServices.getMultipartApiResponse(
+          isEditMode, url, requestHeaders, data, isFileSelected, files);
+      if (kDebugMode) {
+        print("response ${response.toString()}");
+      }
+      if (response != null) {
+        return response;
+      } else {
+        throw FetchDataException('No Internet Connection');
+      }
     } catch (e) {
       rethrow;
     }

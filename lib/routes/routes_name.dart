@@ -55,8 +55,9 @@ class RoutesName {
       (String shopId) => '/shops/portfolio/$shopId';
   static const String shopReviewsById = '/shops/reviews/:shopId';
   static get shopReviewsWithId => (String shopId) => '/shops/reviews/$shopId';
-  static const String shopServicesById = '/shops/services/:shopId';
-  static get shopServicesWithId => (String shopId) => '/shops/services/$shopId';
+  static const String shopsServicesById = '/shops/services/:shopId';
+  static get shopsServicesWithId =>
+      (String shopId) => '/shops/services/$shopId';
   static const String aboutShop = '/shops/about/:shopId';
   static get aboutShopWithId => (String shopId) => '/shops/about/$shopId';
   static const String reviewShop = '/shop/write-review/:shopId';
@@ -65,9 +66,16 @@ class RoutesName {
 
   // Owner Dashboard Routes
   static const String ownerDashboard = '/shop/dashboard/:shopId';
-  static const String shopServices = '/shop/services';
-  static const String shopAppointments = '/shop/appointments';
-  static const String shopDetails = '/shop/view/info';
+  static get ownerDashboardWithId =>
+      (String shopId) => '/shop/dashboard/$shopId';
+  static const String shopServices = '/shop/services/:shopId';
+  static get shopServicesWithId => (String? shopId) =>
+      shopId != null ? '/shop/services/$shopId' : '/shop/services';
+  static const String shopAppointments = '/shop/appointments/:shopId';
+  static get shopAppointmentsWithId =>
+      (String shopId) => '/shop/appointments/$shopId';
+  static const String shopDetails = '/shop/view/info/:shopId';
+  static get shopDetailsWithId => (String shopId) => '/shop/view/info/$shopId';
   static const String createShop = '/shop/create';
   static const String updateShopInfo = '/shop/update/info/:shopId';
   static get updateShopInfoWithId =>
