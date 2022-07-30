@@ -12,6 +12,7 @@ class ApiUrl {
 
   static var fetchCategoryEndPoint = '${baseUrl}tags';
   static var fetchHomeDataEndPoint = '${baseUrl}shops';
+  static var fetchUserDataEndPoint = '${baseUrl}users/allUser';
   static String fetchNearbyShopsEndPoint(pin, city) =>
       '${baseUrl}shops?pinCode=$pin&city=$city';
   static String fetchSelectedShopEndPoint(shopId) =>

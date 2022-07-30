@@ -51,8 +51,6 @@ class _AdminTagsHomeScreenState extends State<AdminTagsHomeScreen> {
                     return Center(
                         child: Text(value.categoryList.message.toString()));
                   case Status.COMPLETED:
-                    print(
-                        ' picture  ${value.categoryList.data?.categories?.first.tagPic}');
                     return ListView.builder(
                         shrinkWrap: true,
                         itemCount: value.categoryList.data?.categories?.length,
