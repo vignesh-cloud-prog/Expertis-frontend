@@ -71,7 +71,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
   @override
   void initState() {
     setStatusBarColor(Colors.transparent);
-    shopViewModel.fetchServicesDataApi(widget.shopId);
+    shopViewModel.fetchSelectedShopDataApi(widget.shopId, id: false);
     setState(() {
       selectedTab = widget.selectedTab;
     });

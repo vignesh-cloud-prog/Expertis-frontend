@@ -109,9 +109,9 @@ class ShopViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchSelectedShopDataApi(String shopId) async {
+  Future<void> fetchSelectedShopDataApi(String shopId, {bool id = true}) async {
     print("shop id is $shopId");
-    _myRepo.fetchSelectedShopData(shopId).then((value) {
+    _myRepo.fetchSelectedShopData(shopId, id: id).then((value) {
       // print("Selected shop data is \n ${value.toString()}");
       setSelectedShop(ApiResponse.completed(value));
     }).onError((error, stackTrace) {

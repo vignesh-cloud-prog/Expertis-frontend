@@ -55,6 +55,31 @@ class NetworkApiService extends BaseApiServices {
   }
 
   @override
+  Future getPatchApiResponse(String url, dynamic header, dynamic data) async {
+    print("path url $url");
+    dynamic responseJson;
+
+    if (kDebugMode) {
+      print("data ${data.toString()}");
+    }
+    try {
+      Response response = await http
+          .patch(Uri.parse(url), headers: header, body: data)
+          .timeout(Duration(seconds: 120));
+
+      if (kDebugMode) {
+        print("response Post API ${response.body}");
+      }
+
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet Connection');
+    }
+
+    return responseJson;
+  }
+
+  @override
   Future getMultipartApiResponse(
       bool isEditMode,
       String url,

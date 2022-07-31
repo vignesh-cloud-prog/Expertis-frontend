@@ -54,14 +54,17 @@ class HomeRepository {
     }
   }
 
-  Future<ShopModel> fetchSelectedShopData(String shopId) async {
+  Future<ShopModel> fetchSelectedShopData(String shopId,
+      {bool id = true}) async {
     String token = await UserViewModel.getUserToken();
     if (token == 'dummy' || token.isEmpty) {
       throw TokenNotFoundException();
     }
     requestHeaders["Authorization"] = token;
-
     String url = ApiUrl.fetchSelectedShopEndPoint(shopId);
+    if (!id) {
+      url = ApiUrl.fetchSelectedShopEndPointWithShopId(shopId);
+    }
     print("url is $url");
     try {
       dynamic response =

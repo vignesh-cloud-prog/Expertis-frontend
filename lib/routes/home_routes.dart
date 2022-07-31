@@ -35,7 +35,7 @@ class HomeLocation extends BeamLocation<BeamState> {
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
       const BeamPage(
-        key: ValueKey(RoutesName.onboarding),
+        key: ValueKey("default_screen"),
         title: 'Welcome to $appName',
         child: BMWalkThroughScreen(),
       ),

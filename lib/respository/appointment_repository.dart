@@ -93,4 +93,37 @@ class AppointmentRepository {
       rethrow;
     }
   }
+
+  Future<AppointmentModel> updateAppointmentStatus(
+      String appointmentId, String status) async {
+    String token = await UserViewModel.getUserToken();
+    if (token == 'dummy' || token.isEmpty) {
+      throw TokenNotFoundException();
+    }
+    requestHeaders["Authorization"] = token;
+    print('status in reposiytoy $status');
+    String url = ApiUrl.fetchSelectedAppointmentEndPoint(appointmentId);
+    if (status.toLowerCase() == "cancel") {
+      url = ApiUrl.cancelAppointmentEndPointWithId(appointmentId);
+    } else if (status.toLowerCase() == "complete") {
+      url = ApiUrl.completeAppointmentEndPointWithId(appointmentId);
+    } else if (status.toLowerCase() == "accept") {
+      url = ApiUrl.acceptAppointmentEndPointWithId(appointmentId);
+    } else if (status.toLowerCase() == "reject") {
+      url = ApiUrl.rejectAppointmentEndPointWithId(appointmentId);
+    }
+
+    print("url is $url");
+    try {
+      dynamic response =
+          await _apiServices.getPatchApiResponse(url, requestHeaders, null);
+      print("Appointment response ");
+      print(response["data"]);
+      response = AppointmentModel.fromJson(response["data"]);
+      print("response after from json ${response.toString()}");
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -21,23 +21,10 @@ class RoutesName {
   static const String appointment = '/appointments';
   static const String viewAppointment = '/appointment/view/:appointmentId';
   static get viewAppointmentWithId => (String id) => '/appointment/view/$id';
-  static const String acceptAppointment = '/appointment/accept/:appointmentId';
-  static get acceptAppointmentWithId =>
-      (String id) => '/appointment/accept/$id';
-  static const String cancelAppointment = '/appointment/cancel/:appointmentId';
-  static get cancelAppointmentWithId =>
-      (String id) => '/appointment/cancel/$id';
-  static const String confirmAppointment =
-      '/appointment/confirm/:appointmentId';
-  static get confirmAppointmentWithId =>
-      (String id) => '/appointment/confirm/$id';
-  static const String rejectAppointment = '/appointment/reject/:appointmentId';
-  static get rejectAppointmentWithId =>
-      (String id) => '/appointment/reject/$id';
-  static const String completeAppointment =
-      '/appointment/complete/:appointmentId';
-  static get completeAppointmentWithId =>
-      (String id) => '/appointment/complete/$id';
+  static const String setAppointmentStatus =
+      '/appointment/:status/:appointmentId';
+  static get getSetAppointmentStatusURL =>
+      (String id, String status) => '/appointment/$status/$id';
 
   // Search routes name
   static const String search = '/search';
