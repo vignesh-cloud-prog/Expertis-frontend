@@ -1,4 +1,3 @@
-import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
@@ -274,7 +273,9 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                     autoFocus: true,
                     nextFocus: about,
                     initialValue:
-                        widget.shop?.contact?.whatsapp.toString() ?? '',
+                        widget.shop?.contact?.whatsapp.toString() != "null"
+                            ? widget.shop?.contact?.whatsapp.toString()
+                            : '',
                     onChanged: (p0) => widget.shop?.contact == null
                         ? widget.shop?.contact = Contact(whatsapp: p0)
                         : widget.shop?.contact?.whatsapp = p0,
