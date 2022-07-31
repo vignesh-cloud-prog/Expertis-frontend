@@ -1,4 +1,3 @@
-import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';

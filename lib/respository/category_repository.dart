@@ -1,8 +1,10 @@
+import 'package:expertis/data/app_excaptions.dart';
 import 'package:expertis/data/network/BaseApiServices.dart';
 import 'package:expertis/data/network/NetworkApiService.dart';
 import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/utils/api_url.dart';
 import 'package:expertis/view_model/user_view_model.dart';
+import 'package:flutter/foundation.dart';
 
 class CategoryRepository {
   Map<String, String> requestHeaders = {
@@ -27,6 +29,36 @@ class CategoryRepository {
       response = CategoryListModel.fromJson(response);
       // print("response after from json ${response.toString()}");
       return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> uploadCategoryDataApi(
+      bool isEditMode,
+      Map<String, String> data,
+      bool isFileSelected,
+      Map<String, dynamic?> files) async {
+    final String token = await UserViewModel.getUserToken();
+    String url = ApiUrl.tagsEndPoint;
+    requestHeaders["Authorization"] = token;
+    if (kDebugMode) {
+      print("inside category api caller\n");
+      print("data ${data.toString()}");
+      print("files ${files.toString()}");
+      print("requestHeaders: ${requestHeaders.toString()}");
+    }
+    try {
+      dynamic response = await _apiServices.getMultipartApiResponse(
+          isEditMode, url, requestHeaders, data, isFileSelected, files);
+      if (kDebugMode) {
+        print("response ${response.toString()}");
+      }
+      if (response != null) {
+        return response;
+      } else {
+        throw FetchDataException('No Internet Connection');
+      }
     } catch (e) {
       rethrow;
     }

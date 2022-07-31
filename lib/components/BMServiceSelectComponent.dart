@@ -47,7 +47,7 @@ class _BMSelectServiceComponentState extends State<BMSelectServiceComponent> {
         MaterialState.focused,
       };
       if (states.any(interactiveStates.contains)) {
-        return Colors.blue;
+        return bmSpecialColor;
       }
       return bmPrimaryColor;
     }

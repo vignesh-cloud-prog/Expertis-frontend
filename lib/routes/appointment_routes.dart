@@ -26,11 +26,7 @@ class AppointmentLocation extends BeamLocation<BeamState> {
   List<String> get pathPatterns => [
         RoutesName.appointment,
         RoutesName.viewAppointment,
-        RoutesName.cancelAppointment,
-        RoutesName.rejectAppointment,
-        RoutesName.acceptAppointment,
-        RoutesName.confirmAppointment,
-        RoutesName.completeAppointment,
+        RoutesName.setAppointmentStatus,
       ];
 
   @override
@@ -50,54 +46,15 @@ class AppointmentLocation extends BeamLocation<BeamState> {
             appointmentId: state.pathParameters['appointmentId'] ?? 'null',
           ),
         ),
-      if (state.uri.pathSegments.contains('cancel') &&
+      if (state.pathParameters.containsKey('status') &&
           state.pathParameters.containsKey('appointmentId'))
         BeamPage(
-          key: const ValueKey(RoutesName.cancelAppointment),
-          title: 'cancel ${state.pathParameters['appointmentId']}',
+          key: const ValueKey(RoutesName.setAppointmentStatus),
+          title:
+              '${state.pathParameters['status']} ${state.pathParameters['appointmentId']}',
           child: SetAppointmentStatus(
             appointmentId: state.pathParameters['appointmentId'] ?? 'null',
-            status: 'cancelled',
-          ),
-        ),
-      if (state.uri.pathSegments.contains('reject') &&
-          state.pathParameters.containsKey('appointmentId'))
-        BeamPage(
-          key: const ValueKey(RoutesName.rejectAppointment),
-          title: 'reject ${state.pathParameters['appointmentId']}',
-          child: SetAppointmentStatus(
-            appointmentId: state.pathParameters['appointmentId'] ?? 'null',
-            status: 'rejected',
-          ),
-        ),
-      if (state.uri.pathSegments.contains('accept') &&
-          state.pathParameters.containsKey('appointmentId'))
-        BeamPage(
-          key: const ValueKey(RoutesName.acceptAppointment),
-          title: 'accept ${state.pathParameters['appointmentId']}',
-          child: SetAppointmentStatus(
-            appointmentId: state.pathParameters['appointmentId'] ?? 'null',
-            status: 'accepted',
-          ),
-        ),
-      if (state.uri.pathSegments.contains('confirm') &&
-          state.pathParameters.containsKey('appointmentId'))
-        BeamPage(
-          key: const ValueKey(RoutesName.confirmAppointment),
-          title: 'confirm ${state.pathParameters['appointmentId']}',
-          child: SetAppointmentStatus(
-            appointmentId: state.pathParameters['appointmentId'] ?? 'null',
-            status: 'confirmed',
-          ),
-        ),
-      if (state.uri.pathSegments.contains('complete') &&
-          state.pathParameters.containsKey('appointmentId'))
-        BeamPage(
-          key: const ValueKey(RoutesName.completeAppointment),
-          title: 'complete ${state.pathParameters['appointmentId']}',
-          child: SetAppointmentStatus(
-            appointmentId: state.pathParameters['appointmentId'] ?? 'null',
-            status: 'completed',
+            status: state.pathParameters['status'] ?? '',
           ),
         ),
     ];

@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../components/BMCommonCardComponent.dart';
 import '../components/BMHomeFragmentHeadComponent.dart';
-import '../components/BMTopServiceHomeComponent.dart';
+import '../components/category_home_component.dart';
 import '../main.dart';
 import '../models/BMCommonCardModel.dart';
 import '../screens/BMRecommendedScreen.dart';
@@ -59,7 +59,7 @@ class _BMHomeFragmentState extends State<BMHomeFragment> {
                     ],
                   ).paddingSymmetric(horizontal: 16),
                   20.height,
-                  const BMTopServiceHomeComponent(),
+                  const CategoryHomeComponent(),
                   20.height,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

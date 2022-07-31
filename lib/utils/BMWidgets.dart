@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:expertis/main.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -17,7 +18,7 @@ AppBar appBar(BuildContext context, String title,
     leading: showBack
         ? IconButton(
             onPressed: () {
-              finish(context);
+              Navigator.of(context).maybePop();
             },
             icon: Icon(Icons.arrow_back,
                 color: appStore.isDarkModeOn ? white : black),
@@ -126,7 +127,7 @@ Widget headerText({required String title}) {
     mainAxisSize: MainAxisSize.min,
     children: [
       50.height,
-      Text(title, style: boldTextStyle(size: 30, color: white)),
+      Text(title, style: boldTextStyle(size: 30, color: bmSpecialColor)),
       16.height,
     ],
   );

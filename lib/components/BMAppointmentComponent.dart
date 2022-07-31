@@ -3,6 +3,7 @@ import 'package:expertis/main.dart';
 import 'package:expertis/models/appointment_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/BMColors.dart';
+import 'package:expertis/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -42,8 +43,11 @@ class _BMAppointmentComponentState extends State<BMAppointmentComponent> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(widget.element.shopId?.shopLogo ?? '',
-                  height: 50, width: 50, fit: BoxFit.cover)
+          Image.network(
+                  widget.element.shopId?.shopLogo ?? Assets.defaultShopImage,
+                  height: 50,
+                  width: 50,
+                  fit: BoxFit.cover)
               .cornerRadiusWithClipRRect(32),
           16.width,
           Column(

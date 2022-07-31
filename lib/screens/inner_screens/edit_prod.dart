@@ -12,7 +12,6 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:iconly/iconly.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class EditProductScreen extends StatefulWidget {
@@ -554,40 +553,40 @@ class _EditProductScreenState extends State<EditProductScreen> {
       );
     }
 
-    Future<void> _pickImage() async {
-      // MOBILE
-      if (!kIsWeb) {
-        final ImagePicker _picker = ImagePicker();
-        XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    //   Future<void> _pickImage() async {
+    //     // MOBILE
+    //     if (!kIsWeb) {
+    //       final ImagePicker _picker = ImagePicker();
+    //       XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
-        if (image != null) {
-          var selected = File(image.path);
+    //       if (image != null) {
+    //         var selected = File(image.path);
 
-          setState(() {
-            _pickedImage = selected;
-          });
-        } else {
-          log('No file selected');
-          // showToast("No file selected");
-        }
-      }
-      // WEB
-      else if (kIsWeb) {
-        final ImagePicker _picker = ImagePicker();
-        XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-        if (image != null) {
-          var f = await image.readAsBytes();
-          setState(() {
-            _pickedImage = File("a");
-            webImage = f;
-          });
-        } else {
-          log('No file selected');
-        }
-      } else {
-        log('Perm not granted');
-      }
-    }
+    //         setState(() {
+    //           _pickedImage = selected;
+    //         });
+    //       } else {
+    //         log('No file selected');
+    //         // showToast("No file selected");
+    //       }
+    //     }
+    //     // WEB
+    //     else if (kIsWeb) {
+    //       final ImagePicker _picker = ImagePicker();
+    //       XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    //       if (image != null) {
+    //         var f = await image.readAsBytes();
+    //         setState(() {
+    //           _pickedImage = File("a");
+    //           webImage = f;
+    //         });
+    //       } else {
+    //         log('No file selected');
+    //       }
+    //     } else {
+    //       log('Perm not granted');
+    //     }
+    //   }
   }
 
   @override

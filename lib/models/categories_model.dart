@@ -26,6 +26,7 @@ class CategoryListModel {
 class CategoryModel {
   String? tagName;
   String? tagPic;
+  String? description;
   String? isVerifiedByAdmin;
   List<String>? shops;
   List<String>? services;
@@ -34,6 +35,7 @@ class CategoryModel {
   CategoryModel(
       {this.tagName,
       this.tagPic,
+      this.description,
       this.isVerifiedByAdmin,
       this.shops,
       this.services,
@@ -42,6 +44,7 @@ class CategoryModel {
   CategoryModel.fromJson(Map<String, dynamic> json) {
     tagName = json['tagName'];
     tagPic = json['tagPic'];
+    description = json['description'];
     isVerifiedByAdmin = json['isVerifiedByAdmin'];
     shops = json['shops'] != null ? List<String>.from(json['shops']) : null;
     services =
@@ -53,6 +56,7 @@ class CategoryModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['tagName'] = this.tagName;
     data['tagPic'] = this.tagPic;
+    data['description'] = this.description;
     data['isVerifiedByAdmin'] = this.isVerifiedByAdmin;
     data['shops'] = this.shops;
     data['services'] = this.services;

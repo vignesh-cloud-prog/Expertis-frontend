@@ -26,6 +26,11 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
   UserModel? user;
   @override
   void initState() {
+    UserViewModel.getUser().then((value) {
+      setState(() {
+        user = value;
+      });
+    });
     setStatusBarColor(bmSpecialColor);
     super.initState();
   }
@@ -33,11 +38,11 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
   @override
   Widget build(BuildContext context) {
     final userViewModel = Provider.of<UserViewModel>(context);
-    UserViewModel.getUser().then((value) {
-      setState(() {
-        user = value;
-      });
-    });
+
+    print('role ${user?.roles!.toJson()}');
+    // print("admin ${user!.roles!.isAdmin}");
+    // print("owner ${user!.roles!.isShopOwner}");
+    // print("member ${user!.roles!.isShopMember.toString() == "true"}");
 
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
@@ -151,8 +156,8 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                               BMFavouritesScreen().launch(context);
                             },
                           ),
-                          user!.role!.toLowerCase() == "owner"
-                              ? user!.shop!.length > 0
+                          user!.roles?.isShopOwner == true
+                              ? user!.shop?.isEmpty == false
                                   ? SettingItemWidget(
                                       title: 'Dashboard',
                                       leading: Icon(Icons.dashboard,
@@ -163,8 +168,9 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                                               ? white
                                               : bmSpecialColorDark),
                                       onTap: () {
-                                        BMShoppingScreen(isOrders: true)
-                                            .launch(context);
+                                        Beamer.of(context).beamToNamed(
+                                            RoutesName.ownerDashboardWithId(
+                                                user?.shop!.first));
                                       },
                                     )
                                   : SettingItemWidget(
@@ -182,6 +188,21 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                                       },
                                     )
                               : Container(),
+                          if (user!.roles!.isAdmin == true)
+                            SettingItemWidget(
+                              title: 'Admin Dashboard',
+                              leading: Icon(Icons.add_home_work_outlined,
+                                  color: bmPrimaryColor, size: 30),
+                              titleTextStyle: boldTextStyle(
+                                  size: 20,
+                                  color: appStore.isDarkModeOn
+                                      ? white
+                                      : bmSpecialColorDark),
+                              onTap: () {
+                                Beamer.of(context)
+                                    .beamToNamed(RoutesName.adminDashboard);
+                              },
+                            ),
                           SettingItemWidget(
                             title: 'Contact Us',
                             leading: Icon(Icons.call,

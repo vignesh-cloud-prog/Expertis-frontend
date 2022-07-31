@@ -1,4 +1,5 @@
 class ApiUrl {
+  // static var baseUrl = 'http://localhost:4000/';
   static var baseUrl = 'https://expertis-api.azurewebsites.net/';
 
   static var loginEndPint = '${baseUrl}users/login';
@@ -15,12 +16,35 @@ class ApiUrl {
       '${baseUrl}shops?pinCode=$pin&city=$city';
   static String fetchSelectedShopEndPoint(shopId) =>
       '${baseUrl}shops/shop/$shopId';
+  static String fetchSelectedShopEndPointWithShopId(shopId) =>
+      '${baseUrl}shops/shops/$shopId';
   static String fetchSlotsEndPoint(shopId, memberId, date) =>
       '${baseUrl}shops/shop/slot/$shopId/$memberId/$date';
 
   static var bookAppointmentEndPoint = '${baseUrl}appointments/book';
+  static var cancelAppointmentEndPointWithId =
+      (String id) => '${baseUrl}appointments/cancel/$id';
+  static var acceptAppointmentEndPointWithId =
+      (String id) => '${baseUrl}appointments/accept/$id';
+  static var rejectAppointmentEndPointWithId =
+      (String id) => '${baseUrl}appointments/reject/$id';
+  static var confirmAppointmentEndPointWithId =
+      (String id) => '${baseUrl}appointments/confirm/$id';
+  static var completeAppointmentEndPointWithId =
+      (String id) => '${baseUrl}appointments/complete/$id';
+
   static String fetchUserAppointmentsEndPoint(String userId, bool past) =>
       '${baseUrl}appointments/user/$userId?past=$past';
   static String fetchSelectedAppointmentEndPoint(String appointmentId) =>
       '${baseUrl}appointments/$appointmentId';
+
+  static String fetchServicesDataEndPoint(String? shopId) =>
+      '${baseUrl}shops/shop/services/$shopId';
+
+  static String createShopEndPoint = '${baseUrl}shops/shop';
+  static String tagsEndPoint = '${baseUrl}tags';
+  static String updateTagEndPoint(String tagId) =>
+      '${baseUrl}tags/update/$tagId';
+
+  static String uploadServiceApiEndPoint = '${baseUrl}shops/services';
 }

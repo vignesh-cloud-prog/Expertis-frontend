@@ -6,7 +6,7 @@ import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/screens/BMLoginNowScreen.dart';
 import 'package:expertis/screens/BMRegisterScreen.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';
-import 'package:expertis/screens/BMUserProfileEdit.dart';
+import 'package:expertis/screens/user_profile_edit_screen.dart';
 import 'package:expertis/screens/BMVerifyOTPScreen.dart';
 import 'package:expertis/screens/BMWalkThroughScreen.dart';
 import 'package:expertis/utils/BMConstants.dart';

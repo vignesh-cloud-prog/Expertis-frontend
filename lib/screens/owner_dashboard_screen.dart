@@ -2,9 +2,15 @@ import 'package:beamer/beamer.dart';
 import 'package:expertis/routes/appointment_routes.dart';
 import 'package:expertis/routes/home_routes.dart';
 import 'package:expertis/routes/more_routes.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/routes/search_routes.dart';
 
 import 'package:expertis/screens/BMPurchaseMoreScreen.dart';
+import 'package:expertis/screens/admin_dashboard_home.dart';
+import 'package:expertis/screens/owner_dashboard_home_screen.dart';
+import 'package:expertis/screens/services_home_screeen.dart';
+import 'package:expertis/screens/shop_info_screen.dart';
+import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -18,8 +24,14 @@ import '../utils/BMDataGenerator.dart';
 
 class ShopOwnerDashboardScreen extends StatefulWidget {
   bool flag = false;
+  String? shopId;
+  int tabNo;
 
-  ShopOwnerDashboardScreen({super.key});
+  ShopOwnerDashboardScreen({
+    super.key,
+    required this.shopId,
+    this.tabNo = 0,
+  });
 
   @override
   ShopOwnerDashboardScreenState createState() =>
@@ -30,52 +42,71 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
   List<BMDashboardModel> list = getShopOwnerDashboardList();
 
   int selectedTab = 0;
-
-  Widget getFragment() {
-    if (selectedTab == 0) {
-      return BMHomeFragment();
-    } else if (selectedTab == 1) {
-      return PurchaseMoreScreen();
-    } else if (selectedTab == 2) {
-      return const BMAppointmentFragment();
-    } else {
-      return const BMMoreFragment();
-    }
-  }
-
-  void getFragmentNo(selectedTab) {
-    if (selectedTab == 0) {
-      return Beamer.of(context).beamToNamed("/home");
-    } else if (selectedTab == 1) {
-      return Beamer.of(context).beamToNamed("/search");
-    } else if (selectedTab == 2) {
-      return Beamer.of(context).beamToNamed("/appointment");
-    } else {
-      return Beamer.of(context).beamToNamed("/more");
-    }
-  }
-
-  int getBeamLocation() {
-    if (Beamer.of(context).currentBeamLocation is HomeLocation) {
-      return 0;
-    } else if (Beamer.of(context).currentBeamLocation is SearchLocation) {
-      return 1;
-    } else if (Beamer.of(context).currentBeamLocation is AppointmentLocation) {
-      return 2;
-    } else if (Beamer.of(context).currentBeamLocation is MoreLocation) {
-      return 3;
-    } else {
-      return 0;
-    }
-  }
-
   @override
   void initState() {
     setStatusBarColor(appStore.isDarkModeOn
         ? appStore.scaffoldBackground!
         : bmLightScaffoldBackgroundColor);
     super.initState();
+    setState(() {
+      selectedTab = widget.tabNo;
+    });
+    UserViewModel.getUser().then((value) => {
+          setState(() {
+            widget.shopId = value.shop!.first;
+            print(value.shop?.first);
+          })
+        });
   }
+
+  Widget getFragment() {
+    if (selectedTab == 0) {
+      return ShopDashBoardHomeScreen();
+    } else if (selectedTab == 1) {
+      return ServicesHomeScreen(shopId: widget.shopId);
+    } else if (selectedTab == 2) {
+      return const BMAppointmentFragment();
+    } else if (selectedTab == 3) {
+      return ShopInfoScreen();
+    }
+    return ShopDashBoardHomeScreen();
+  }
+
+  void getFragmentNo(selectedTab) {
+    if (selectedTab == 0) {
+      return Beamer.of(context).beamToNamed(RoutesName.ownerDashboardWithId(
+        widget.shopId,
+      ));
+    } else if (selectedTab == 1) {
+      return Beamer.of(context)
+          .beamToNamed(RoutesName.shopServicesWithId(widget.shopId));
+    } else if (selectedTab == 2) {
+      return Beamer.of(context)
+          .beamToNamed(RoutesName.shopAppointmentsWithId(widget.shopId));
+    } else if (selectedTab == 3) {
+      return Beamer.of(context)
+          .beamToNamed(RoutesName.shopDetailsWithId(widget.shopId));
+    } else {
+      return Beamer.of(context).beamToNamed(RoutesName.ownerDashboard);
+    }
+  }
+
+  // int getBeamLocation() {
+  //   if (Beamer.of(context).currentBeamLocation.pathPatterns ==
+  //       ["/shop/dashboard"]) {
+  //     return 0;
+  //   } else if (Beamer.of(context).currentBeamLocation.pathPatterns ==
+  //       ["/shop/services"]) {
+  //     return 1;
+  //   } else if (Beamer.of(context).currentBeamLocation.pathPatterns ==
+  //       ["/shop/appointment"]) {
+  //     return 2;
+  //   } else if (Beamer.of(context).currentBeamLocation is MoreLocation) {
+  //     return 3;
+  //   } else {
+  //     return 0;
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -108,7 +139,6 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    selectedTab = getBeamLocation();
     return Scaffold(
       backgroundColor: getDashboardColor(),
       body: getFragment(),

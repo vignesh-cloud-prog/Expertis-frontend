@@ -20,6 +20,7 @@ class HomeLocation extends BeamLocation<BeamState> {
   //     );
   @override
   List<String> get pathPatterns => [
+        '',
         RoutesName.splash,
         RoutesName.home,
         RoutesName.onboarding,
@@ -34,10 +35,16 @@ class HomeLocation extends BeamLocation<BeamState> {
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
       const BeamPage(
-        key: ValueKey(RoutesName.splash),
+        key: ValueKey("default_screen"),
         title: 'Welcome to $appName',
-        child: BMSplashScreen(),
+        child: BMWalkThroughScreen(),
       ),
+      if (state.pathPatternSegments.contains('splash'))
+        const BeamPage(
+          key: ValueKey("SplashScreen"),
+          title: 'Welcome to $appName',
+          child: BMSplashScreen(),
+        ),
       if (state.pathPatternSegments.contains("home"))
         BeamPage(
           key: ValueKey(RoutesName.home),

@@ -6,6 +6,9 @@ import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/utils/api_url.dart';
 import 'package:expertis/view_model/user_view_model.dart';
+import 'package:flutter/foundation.dart';
+
+import '../models/services_list_model.dart';
 
 class HomeRepository {
   BaseApiServices _apiServices = NetworkApiService();
@@ -51,14 +54,17 @@ class HomeRepository {
     }
   }
 
-  Future<ShopModel> fetchSelectedShopData(String shopId) async {
+  Future<ShopModel> fetchSelectedShopData(String shopId,
+      {bool id = true}) async {
     String token = await UserViewModel.getUserToken();
     if (token == 'dummy' || token.isEmpty) {
       throw TokenNotFoundException();
     }
     requestHeaders["Authorization"] = token;
-
     String url = ApiUrl.fetchSelectedShopEndPoint(shopId);
+    if (!id) {
+      url = ApiUrl.fetchSelectedShopEndPointWithShopId(shopId);
+    }
     print("url is $url");
     try {
       dynamic response =
@@ -67,6 +73,82 @@ class HomeRepository {
       response = ShopModel.fromJson(response["data"]);
       // print("response after from json ${response.toString()}");
       return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> uploadShopDataApi(bool isEditMode, Map<String, String> data,
+      bool isFileSelected, Map<String, dynamic> files) async {
+    final String token = await UserViewModel.getUserToken();
+    requestHeaders["Authorization"] = token;
+    if (kDebugMode) {
+      print("inside api caller\n");
+      print("data ${data.toString()}");
+      print("files ${files.toString()}");
+      print("requestHeaders: ${requestHeaders.toString()}");
+    }
+    try {
+      dynamic response = await _apiServices.getMultipartApiResponse(
+          isEditMode,
+          ApiUrl.createShopEndPoint,
+          requestHeaders,
+          data,
+          isFileSelected,
+          files);
+      if (kDebugMode) {
+        print("response ${response.toString()}");
+      }
+      if (response != null) {
+        return response;
+      } else {
+        throw FetchDataException('No Internet Connection');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ServicesListModel> fetchServicesData(String? shopId) async {
+    requestHeaders["Authorization"] = await UserViewModel.getUserToken();
+    try {
+      print("its in try");
+      dynamic response = await _apiServices.getGetApiResponse(
+          ApiUrl.fetchServicesDataEndPoint(shopId), requestHeaders);
+      print("res ${response}");
+      response = ServicesListModel.fromJson(response);
+      print("response after from json ${response.toString()}");
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> uploadServiceDataApi(
+      bool isEditMode,
+      Map<String, String> data,
+      bool isFileSelected,
+      Map<String, dynamic?> files) async {
+    final String token = await UserViewModel.getUserToken();
+    String url = ApiUrl.uploadServiceApiEndPoint;
+    requestHeaders["Authorization"] = token;
+    if (kDebugMode) {
+      print("inside category api caller\n");
+      print("data ${data.toString()}");
+      print("files ${files.toString()}");
+      print("requestHeaders: ${requestHeaders.toString()}");
+    }
+    try {
+      dynamic response = await _apiServices.getMultipartApiResponse(
+          isEditMode, url, requestHeaders, data, isFileSelected, files);
+      if (kDebugMode) {
+        print("response ${response.toString()}");
+      }
+      if (response != null) {
+        return response;
+      } else {
+        throw FetchDataException('No Internet Connection');
+      }
     } catch (e) {
       rethrow;
     }

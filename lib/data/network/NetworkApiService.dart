@@ -11,16 +11,17 @@ class NetworkApiService extends BaseApiServices {
   Future getGetApiResponse(String url, dynamic header) async {
     dynamic responseJson;
     try {
-      if (kDebugMode) {
-        print("url $url");
-        print("header $header");
-      }
+      // if (kDebugMode) {
+      //   print("url $url");
+      //   print("header $header");
+      // }
       final response = await http
           .get(Uri.parse(url), headers: header)
-          .timeout(const Duration(seconds: 60));
+          .timeout(const Duration(seconds: 600));
       if (kDebugMode) {
         // print("response ${response.body}");
       }
+      // print("response ${response.body}");
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');
@@ -34,15 +35,40 @@ class NetworkApiService extends BaseApiServices {
     dynamic responseJson;
 
     if (kDebugMode) {
-      // print("data ${data.toString()}");
+      print("data ${data.toString()}");
     }
     try {
       Response response = await http
           .post(Uri.parse(url), headers: header, body: data)
-          .timeout(Duration(seconds: 30));
+          .timeout(Duration(seconds: 120));
 
       if (kDebugMode) {
-        // print("response ${response.body}");
+        print("response Post API ${response.body}");
+      }
+
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet Connection');
+    }
+
+    return responseJson;
+  }
+
+  @override
+  Future getPatchApiResponse(String url, dynamic header, dynamic data) async {
+    print("path url $url");
+    dynamic responseJson;
+
+    if (kDebugMode) {
+      print("data ${data.toString()}");
+    }
+    try {
+      Response response = await http
+          .patch(Uri.parse(url), headers: header, body: data)
+          .timeout(Duration(seconds: 120));
+
+      if (kDebugMode) {
+        print("response Post API ${response.body}");
       }
 
       responseJson = returnResponse(response);
@@ -60,9 +86,13 @@ class NetworkApiService extends BaseApiServices {
       Map<String, String> header,
       Map<String, String> data,
       bool isFileSelected,
-      Map<String, String> files) async {
+      Map<String, dynamic> files) async {
     dynamic responseJson;
-    // print("isFileSelected $isFileSelected");
+    print("isFileSelected $isFileSelected");
+    print('data ${data.toString()}');
+    print('url $url');
+    print('isEditMode $isEditMode');
+    print('files ${files.toString()}');
     try {
       var requestMethod = isEditMode ? "PATCH" : "POST";
 
@@ -77,10 +107,10 @@ class NetworkApiService extends BaseApiServices {
       }
 
       var response = await request.send();
-      // print(response.statusCode);
+      print(response.statusCode);
 
       var responded = await http.Response.fromStream(response);
-      // print(responded.body);
+      print('responded.body Multipart ${responded.body} ');
       return responseJson = returnResponse(responded);
     } on SocketException {
       throw FetchDataException('No Internet Connection');

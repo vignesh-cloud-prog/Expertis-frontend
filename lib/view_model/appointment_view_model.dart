@@ -27,4 +27,26 @@ class AppointmentViewModel with ChangeNotifier {
       setSelectedAppointment(ApiResponse.error(error.toString()));
     });
   }
+
+  setAppointmentStatus(ApiResponse<AppointmentModel> response) {
+    selectedAppointment = response;
+    if (kDebugMode) {
+      // print("response ${nearbyShopList.toString()}");
+    }
+    notifyListeners();
+  }
+
+  Future<void> updateAppointmentStatusApi(
+      String appointmentId, String status) async {
+    print("appointment id is $appointmentId");
+    print("status is $status");
+    setAppointmentStatus(ApiResponse.loading());
+    print("appointment id is $appointmentId");
+    _myRepo.updateAppointmentStatus(appointmentId, status).then((value) {
+      print("Updated appointment data is \n ${value.toString()}");
+      setAppointmentStatus(ApiResponse.completed(value));
+    }).onError((error, stackTrace) {
+      setAppointmentStatus(ApiResponse.error(error.toString()));
+    });
+  }
 }

@@ -73,13 +73,33 @@ List<BMDashboardModel> getShopOwnerDashboardList() {
       label: "Appointment",
       selectedIcon: 'images/calendar_selected.png',
       unSelectedIcon: 'images/calendar.png'));
-  // list.add(BMDashboardModel(
-  //     selectedIcon: 'images/chat_selected.png',
-  //     unSelectedIcon: 'images/chat.png'));
   list.add(BMDashboardModel(
       label: "Shop",
       selectedIcon: 'images/shop_filled.png',
       unSelectedIcon: 'images/shop_outlined.png'));
+
+  return list;
+}
+
+List<BMDashboardModel> getAdminDashboardList() {
+  List<BMDashboardModel> list = [];
+
+  list.add(BMDashboardModel(
+      label: "Home",
+      selectedIcon: 'images/home.png',
+      unSelectedIcon: 'images/house.png'));
+  list.add(BMDashboardModel(
+      label: "Shops",
+      selectedIcon: 'images/shop_filled.png',
+      unSelectedIcon: 'images/shop_outlined.png'));
+  list.add(BMDashboardModel(
+      label: "Users",
+      selectedIcon: 'images/user_filled.png',
+      unSelectedIcon: 'images/user_outlined.png'));
+  list.add(BMDashboardModel(
+      label: "Categories",
+      selectedIcon: 'images/category_filled.png',
+      unSelectedIcon: 'images/category_outlined.png'));
 
   return list;
 }

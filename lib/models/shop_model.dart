@@ -142,8 +142,23 @@ class Contact {
   String? address;
   int? pinCode;
   String? id;
+  String? whatsapp;
+  String? facebook;
+  String? instagram;
+  String? twitter;
+  String? website;
 
-  Contact({this.email, this.phone, this.address, this.pinCode, this.id});
+  Contact(
+      {this.email,
+      this.phone,
+      this.address,
+      this.pinCode,
+      this.id,
+      this.whatsapp,
+      this.facebook,
+      this.instagram,
+      this.twitter,
+      this.website});
 
   Contact.fromJson(Map<String, dynamic> json) {
     email = json['email'];
@@ -151,6 +166,11 @@ class Contact {
     address = json['address'];
     pinCode = json['pinCode'];
     id = json['id'];
+    whatsapp = json['whatsapp'];
+    facebook = json['facebook'];
+    instagram = json['instagram'];
+    twitter = json['twitter'];
+    website = json['website'];
   }
 
   Map<String, dynamic> toJson() {
@@ -160,6 +180,12 @@ class Contact {
     data['address'] = this.address;
     data['pinCode'] = this.pinCode;
     data['id'] = this.id;
+    data['whatsapp'] = this.whatsapp;
+    data['facebook'] = this.facebook;
+    data['instagram'] = this.instagram;
+    data['twitter'] = this.twitter;
+    data['website'] = this.website;
+
     return data;
   }
 }
@@ -321,6 +347,7 @@ class Members {
 }
 
 class Services {
+  // String? shop;
   String? serviceName;
   int? price;
   String? time;
@@ -328,15 +355,20 @@ class Services {
   String? shop;
   List<String>? tags;
   String? id;
+  String? photo;
+  String? description;
 
-  Services(
-      {this.serviceName,
-      this.price,
-      this.time,
-      this.isVerifiedByAdmin,
-      this.shop,
-      this.tags,
-      this.id});
+  Services({
+    this.serviceName,
+    this.price,
+    this.time,
+    this.isVerifiedByAdmin,
+    this.shop,
+    this.tags,
+    this.id,
+    this.photo,
+    this.description,
+  });
 
   Services.fromJson(Map<String, dynamic> json) {
     serviceName = json['serviceName'];
@@ -346,6 +378,9 @@ class Services {
     shop = json['shop'];
     tags = json['tags'] != null ? List<String>.from(json['tags']) : null;
     id = json['id'];
+    photo = json['photo'];
+    description = json['description'];
+    // shopId = json['shopId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -357,6 +392,9 @@ class Services {
     data['shop'] = this.shop;
     data['tags'] = this.tags;
     data['id'] = this.id;
+    data['photo'] = this.photo;
+    data['description'] = this.description;
+    // data['shopId'] = this.shopId;
     return data;
   }
 }

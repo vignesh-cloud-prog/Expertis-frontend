@@ -3,6 +3,7 @@ import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/BMConstants.dart';
+import 'package:expertis/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -40,7 +41,7 @@ class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.network(
-                widget.element.shopLogo ?? '',
+                widget.element.shopLogo ?? Assets.defaultShopImage,
                 width: widget.fullScreenComponent ? context.width() - 32 : 250,
                 height: 150,
                 fit: BoxFit.cover,

@@ -40,7 +40,7 @@ class Utils {
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         padding: const EdgeInsets.all(15),
         message: message,
-        duration: const Duration(seconds: 3),
+        duration: const Duration(seconds: 10),
         borderRadius: BorderRadius.circular(8),
         flushbarPosition: FlushbarPosition.TOP,
         backgroundColor: Colors.red,
@@ -64,6 +64,8 @@ class Utils {
     // print("error $error");
     if (error.contains("XMLHttpRequest")) {
       // Beamer.of(context).beamToNamed(RoutesName.noConnection);
+      return const BMNoInternetScreen();
+    } else if (error.contains('Error During Communication')) {
       return const BMNoInternetScreen();
     } else if (error.contains("Authentication Failed")) {
       // Beamer.of(context).beamToNamed(RoutesName.tokenExpired);
