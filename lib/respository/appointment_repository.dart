@@ -51,6 +51,23 @@ class AppointmentRepository {
     }
   }
 
+  Future<AppointmentListModel> fetchShopAppointments(
+      String shopId, bool upcoming) async {
+    final String token = await UserViewModel.getUserToken();
+    requestHeaders["Authorization"] = token;
+    try {
+      dynamic response = await _apiServices.getGetApiResponse(
+          ApiUrl.fetchShopAppointmentsEndPoint(shopId, upcoming),
+          requestHeaders);
+      print(response.runtimeType);
+      response = AppointmentListModel.fromJson(response);
+      // print("\n\nresponse after from json ${response.toString()}");
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<dynamic> bookAppointment(dynamic data) async {
     String token = await UserViewModel.getUserToken();
     // print("Verify toke n: $token");

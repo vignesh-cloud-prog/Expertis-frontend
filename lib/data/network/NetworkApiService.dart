@@ -11,12 +11,35 @@ class NetworkApiService extends BaseApiServices {
   Future getGetApiResponse(String url, dynamic header) async {
     dynamic responseJson;
     try {
-      // if (kDebugMode) {
-      //   print("url $url");
-      //   print("header $header");
-      // }
+      if (kDebugMode) {
+        print("url $url");
+        print("header $header");
+      }
       final response = await http
           .get(Uri.parse(url), headers: header)
+          .timeout(const Duration(seconds: 600));
+      if (kDebugMode) {
+        // print("response ${response.body}");
+      }
+      // print("response ${response.body}");
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet Connection');
+    }
+
+    return responseJson;
+  }
+
+  @override
+  Future getDeleteApiResponse(String url, dynamic header) async {
+    dynamic responseJson;
+    try {
+      if (kDebugMode) {
+        print("url $url");
+        print("header $header");
+      }
+      final response = await http
+          .delete(Uri.parse(url), headers: header)
           .timeout(const Duration(seconds: 600));
       if (kDebugMode) {
         // print("response ${response.body}");

@@ -153,7 +153,8 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                           onTap: () {
                             Beamer.of(context).beamToReplacementNamed(
                                 RoutesName.getSetAppointmentStatusURL(
-                                    appointment.id, 'reject'));
+                                    appointment.id, 'reject'),
+                                data: appointment);
                           },
                         ).expand(flex: 1)
                       else if (appointment.appointmentStatus == "PENDING" &&
@@ -171,7 +172,8 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                           onTap: () {
                             Beamer.of(context).beamToReplacementNamed(
                                 RoutesName.getSetAppointmentStatusURL(
-                                    appointment.id, 'cancel'));
+                                    appointment.id, 'cancel'),
+                                data: appointment);
                           },
                         ).expand(flex: 1),
                       if (appointment.appointmentStatus == "PENDING" &&
@@ -185,8 +187,9 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                           color: bmPrimaryColor,
                           onTap: () {
                             Beamer.of(context).beamToReplacementNamed(
-                                RoutesName.getSetAppointmentStatusURL(
-                                    appointment.id, 'accept'));
+                              RoutesName.getSetAppointmentStatusURL(
+                                  appointment.id, 'accept'),
+                            );
                           },
                         ).expand(flex: 2)
                       else if (appointment.appointmentStatus == "PENDING" &&
@@ -202,8 +205,25 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                             // Beamer.of(context).beamToReplacementNamed(RoutesName.login);
                           },
                         ).expand(flex: 2)
+                      else if (appointment.appointmentStatus == "ACCEPTED" &&
+                          appointment.memberId.toString() != user.id.toString())
+                        AppButton(
+                          shapeBorder: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32)),
+                          child: Text('Mark as Completed',
+                              style: boldTextStyle(color: Colors.white)),
+                          padding: EdgeInsets.all(16),
+                          color: bmPrimaryColor,
+                          onTap: () {
+                            Beamer.of(context).beamToReplacementNamed(
+                              RoutesName.getSetAppointmentStatusURL(
+                                  appointment.id, 'complete'),
+                            );
+                          },
+                        ).expand(flex: 2)
                       else if (appointment.appointmentStatus == "CANCELLED" ||
-                          appointment.appointmentStatus == "REJECTED")
+                          appointment.appointmentStatus == "REJECTED" ||
+                          appointment.appointmentStatus == "COMPLETED")
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32)),

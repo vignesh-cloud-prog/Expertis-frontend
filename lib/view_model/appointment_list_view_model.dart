@@ -63,44 +63,65 @@ class AppointmentListViewModel with ChangeNotifier {
 
   ApiResponse<AppointmentListModel> appointments = ApiResponse.loading();
 
-  setShopList(ApiResponse<AppointmentListModel> response) {
+  setUserAppointments(ApiResponse<AppointmentListModel> response) {
     appointments = response;
-    // if (kDebugMode) {
-    //   // print("response ${shopList.toString()}");
-    // }
+    if (kDebugMode) {
+      print("response ${appointments.toString()}");
+    }
     notifyListeners();
   }
 
   Future<void> getUserAppointmentsApi(String userId, bool past) async {
+    setUserAppointments(ApiResponse.loading());
     _myRepo.fetchUserAppointments(userId, past).then((value) {
-      setShopList(ApiResponse.completed(value));
+      setUserAppointments(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
-      setShopList(ApiResponse.error(error.toString()));
+      setUserAppointments(ApiResponse.error(error.toString()));
+    });
+  }
+
+  ApiResponse<AppointmentListModel> shopAppointments = ApiResponse.loading();
+
+  AppointmentListModel upcoming = AppointmentListModel();
+  AppointmentListModel pending = AppointmentListModel();
+  AppointmentListModel completed = AppointmentListModel();
+  AppointmentListModel rejected = AppointmentListModel();
+  AppointmentListModel cancelled = AppointmentListModel();
+
+  setShopAppointments(ApiResponse<AppointmentListModel> response) {
+    shopAppointments = response;
+    if (kDebugMode) {
+      print("response of shop appointments ${shopAppointments.data?.toJson()}");
+    }
+    shopAppointments.data!.appointments!.forEach((e) {
+      print("e ${e.appointmentStatus}");
+      if (e.appointmentStatus?.toLowerCase() == "accepted") {
+        upcoming.addAppointment(e);
+      } else if (e.appointmentStatus?.toLowerCase() == "pending") {
+        pending.addAppointment(e);
+      } else if (e.appointmentStatus?.toLowerCase() == "completed") {
+        completed.addAppointment(e);
+      } else if (e.appointmentStatus?.toLowerCase() == "rejected") {
+        rejected.addAppointment(e);
+      } else if (e.appointmentStatus?.toLowerCase() == "cancelled") {
+        cancelled.addAppointment(e);
+      }
+    });
+    if (kDebugMode) {
+      print("upcoming ${upcoming.toJson()}");
+      print("pending ${pending.toJson()}");
+      print("completed ${completed.toJson()}");
+      print("rejected ${rejected.toJson()}");
+      print("cancelled ${cancelled.toJson()}");
+    }
+    notifyListeners();
+  }
+
+  Future<void> getShopAppointmentsApi(String shopId, bool upcoming) async {
+    _myRepo.fetchShopAppointments(shopId, upcoming).then((value) {
+      setShopAppointments(ApiResponse.completed(value));
+    }).onError((error, stackTrace) {
+      setShopAppointments(ApiResponse.error(error.toString()));
     });
   }
 }
-
-  // ApiResponse<AppointmentModel> selectedShop = ApiResponse.loading();
-
-
-
-  // setSelectedShop(ApiResponse<AppointmentModel> response) {
-  //   selectedShop = response;
-  //   if (kDebugMode) {
-  //     // print("response ${nearbyShopList.toString()}");
-  //   }
-  //   notifyListeners();
-  // }
-
-
-
-  // Future<void> fetchSelectedShopDataApi(String shopId) async {
-  //   print("shop id is $shopId");
-  //   _myRepo.fetchSelectedShopData(shopId).then((value) {
-  //     // print("Selected shop data is \n ${value.toString()}");
-  //     setSelectedShop(ApiResponse.completed(value));
-  //   }).onError((error, stackTrace) {
-  //     setSelectedShop(ApiResponse.error(error.toString()));
-  //   });
-  // }
-

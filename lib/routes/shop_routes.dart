@@ -197,7 +197,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
           key: const ValueKey(RoutesName.shopAppointments),
           title: 'Shop appointments',
           child: ShopOwnerDashboardScreen(
-              tabNo: 2, shopId: state.pathParameters['shopId'] ?? 'null'),
+              tabNo: 2, shopId: state.pathParameters['shopId'] ?? null),
         ),
       if (state.uri.pathSegments.contains('shop') &&
           state.uri.pathSegments.contains('view') &&

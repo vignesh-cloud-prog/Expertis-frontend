@@ -1,6 +1,6 @@
 class ApiUrl {
-  // static var baseUrl = 'http://localhost:4000/';
-  static var baseUrl = 'https://expertis-api.azurewebsites.net/';
+  static var baseUrl = 'http://localhost:4000/';
+  // static var baseUrl = 'https://expertis-api.azurewebsites.net/';
 
   static var loginEndPint = '${baseUrl}users/login';
   static var forgetPasswordEndPint = '${baseUrl}users/forget-password';
@@ -35,6 +35,9 @@ class ApiUrl {
 
   static String fetchUserAppointmentsEndPoint(String userId, bool past) =>
       '${baseUrl}appointments/user/$userId?past=$past';
+  static String fetchShopAppointmentsEndPoint(String shopId, bool upcoming) =>
+      '${baseUrl}appointments/shop/$shopId?upcoming=$upcoming';
+
   static String fetchSelectedAppointmentEndPoint(String appointmentId) =>
       '${baseUrl}appointments/$appointmentId';
 
@@ -45,6 +48,7 @@ class ApiUrl {
   static String tagsEndPoint = '${baseUrl}tags';
   static String updateTagEndPoint(String tagId) =>
       '${baseUrl}tags/update/$tagId';
+  static String deleteTagEndPoint(String? tagId) => '${baseUrl}tags/$tagId';
 
   static String uploadServiceApiEndPoint = '${baseUrl}shops/services';
 }

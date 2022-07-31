@@ -63,4 +63,29 @@ class CategoryRepository {
       rethrow;
     }
   }
+
+  Future<dynamic> deleteCategory(String? id) async {
+    final String token = await UserViewModel.getUserToken();
+    String url = ApiUrl.tagsEndPoint;
+    requestHeaders["Authorization"] = token;
+    if (kDebugMode) {
+      print("inside category delete api caller\n");
+      print("data ${id.toString()}");
+      print("requestHeaders: ${requestHeaders.toString()}");
+    }
+    try {
+      dynamic response = await _apiServices.getDeleteApiResponse(
+          ApiUrl.deleteTagEndPoint(id), requestHeaders);
+      if (kDebugMode) {
+        print("response ${response.toString()}");
+      }
+      if (response != null) {
+        return response;
+      } else {
+        throw FetchDataException('No Internet Connection');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

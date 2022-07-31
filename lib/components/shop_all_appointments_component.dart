@@ -1,5 +1,7 @@
 import 'package:expertis/components/BMAppointmentComponent.dart';
 import 'package:expertis/data/response/status.dart';
+import 'package:expertis/models/appointment_list_model.dart';
+import 'package:expertis/models/appointment_model.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
@@ -11,19 +13,25 @@ import '../main.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
-class ShopUpcomingAppointmentComponent extends StatefulWidget {
+class ShopAllAppointmentComponent extends StatefulWidget {
   final String? shopId;
-  const ShopUpcomingAppointmentComponent({Key? key, required this.shopId})
+  const ShopAllAppointmentComponent({Key? key, required this.shopId})
       : super(key: key);
 
   @override
-  State<ShopUpcomingAppointmentComponent> createState() =>
-      _ShopUpcomingAppointmentComponentState();
+  State<ShopAllAppointmentComponent> createState() =>
+      _ShopAllAppointmentComponentState();
 }
 
-class _ShopUpcomingAppointmentComponentState
-    extends State<ShopUpcomingAppointmentComponent> {
-  List<String> tabList = ['CONFIRMED', 'PENDING'];
+class _ShopAllAppointmentComponentState
+    extends State<ShopAllAppointmentComponent> {
+  List<String> tabList = [
+    'CONFIRMED',
+    'PENDING',
+    'COMPLETED',
+    'REJECTED',
+    'CANCELLED'
+  ];
   int selectedTab = 0;
   AppointmentListViewModel appointmentViewModel = AppointmentListViewModel();
 
@@ -36,10 +44,10 @@ class _ShopUpcomingAppointmentComponentState
     if (widget.shopId == null) {
       UserViewModel.getUser().then((value) => {
             appointmentViewModel.getShopAppointmentsApi(
-                value.shop?.first ?? '', true)
+                value.shop?.first ?? '', false)
           });
     } else {
-      appointmentViewModel.getShopAppointmentsApi(widget.shopId ?? '', true);
+      appointmentViewModel.getShopAppointmentsApi(widget.shopId ?? '', false);
     }
   }
 
@@ -104,30 +112,30 @@ class _ShopUpcomingAppointmentComponentState
                     child: Text(value.shopAppointments.message.toString()),
                   );
                 case Status.COMPLETED:
-                  return Container(
-                      child: selectedTab == 0
-                          ? Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: value.upcoming.appointments?.map((e) {
-                                    return BMAppointmentComponent(element: e);
-                                  }).toList() ??
-                                  [
-                                    Center(
-                                      child: Text('No upcoming appointments'),
-                                    ),
-                                  ],
-                            )
-                          : Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: value.pending.appointments?.map((e) {
-                                    return BMAppointmentComponent(element: e);
-                                  }).toList() ??
-                                  [
-                                    Center(
-                                      child: Text('No pending appointments'),
-                                    ),
-                                  ],
-                            ));
+                  List<AppointmentModel>? appointments;
+                  if (selectedTab == 1) {
+                    appointments = value.pending.appointments;
+                  } else if (selectedTab == 2) {
+                    appointments = value.completed.appointments;
+                  } else if (selectedTab == 3) {
+                    appointments = value.rejected.appointments;
+                  } else if (selectedTab == 4) {
+                    appointments = value.cancelled.appointments;
+                  } else {
+                    appointments = value.upcoming.appointments;
+                  }
+
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: appointments?.map((e) {
+                          return BMAppointmentComponent(element: e);
+                        }).toList() ??
+                        [
+                          Center(
+                            child: Text('No upcoming appointments'),
+                          ),
+                        ],
+                  );
 
                 default:
                   return Container();

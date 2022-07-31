@@ -23,4 +23,13 @@ class AppointmentListModel {
     }
     return data;
   }
+
+  bool get isEmpty => appointments == null || appointments!.isEmpty;
+
+  void addAppointment(AppointmentModel appointment) {
+    if (appointments == null) {
+      appointments = <AppointmentModel>[];
+    }
+    appointments!.add(appointment);
+  }
 }

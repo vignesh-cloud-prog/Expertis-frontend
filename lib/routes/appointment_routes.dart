@@ -25,6 +25,8 @@ class AppointmentLocation extends BeamLocation<BeamState> {
   @override
   List<String> get pathPatterns => [
         RoutesName.appointment,
+        RoutesName.pastAppointment,
+        RoutesName.upcomingAppointment,
         RoutesName.viewAppointment,
         RoutesName.setAppointmentStatus,
       ];
@@ -37,6 +39,24 @@ class AppointmentLocation extends BeamLocation<BeamState> {
           title: 'Appointment',
           child: BMDashboardScreen(),
           type: BeamPageType.slideTransition),
+      if (state.uri.pathSegments.contains('appointments') &&
+          state.pathParameters.containsKey('past'))
+        BeamPage(
+          key: const ValueKey(RoutesName.pastAppointment),
+          title: 'View old Appointments',
+          child: BMAppointmentFragment(
+            tabNo: 1,
+          ),
+        ),
+      if (state.uri.pathSegments.contains('appointments') &&
+          state.pathParameters.containsKey('upcoming'))
+        BeamPage(
+          key: const ValueKey(RoutesName.upcomingAppointment),
+          title: 'View Upcoming Appointments',
+          child: BMAppointmentFragment(
+            tabNo: 0,
+          ),
+        ),
       if (state.uri.pathSegments.contains('view') &&
           state.pathParameters.containsKey('appointmentId'))
         BeamPage(

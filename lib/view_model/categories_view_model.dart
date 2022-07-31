@@ -57,8 +57,32 @@ class CategoryViewModel with ChangeNotifier {
       // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
       // userViewModel.saveUser(UserModel.fromJson(value['data']));
       setLoading(false);
-      Beamer.of(context).beamToReplacementNamed(RoutesName.adminDashboard);
+      Beamer.of(context).beamToReplacementNamed(RoutesName.adminTags);
       Utils.flushBarErrorMessage('successfully', context);
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      Utils.flushBarErrorMessage(error.toString(), context);
+      if (kDebugMode) {
+        // print(error.toString());
+      }
+    });
+  }
+
+  Future<void> deleteCategoryApi(String? id, BuildContext context) async {
+    setLoading(true);
+    if (kDebugMode) {
+      print('id: $id');
+    }
+    _myRepo.deleteCategory(id).then((value) {
+      if (kDebugMode) {
+        print(value.toString());
+      }
+      // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
+      // userViewModel.saveUser(UserModel.fromJson(value['data']));
+      setLoading(false);
+      Utils.toastMessage(' successfully deleted');
+      categoryList.data?.categories!.removeWhere((element) => element.id == id);
+      Beamer.of(context).beamToReplacementNamed(RoutesName.adminTags);
     }).onError((error, stackTrace) {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);

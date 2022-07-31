@@ -1,3 +1,4 @@
+import 'package:expertis/components/shop_all_appointments_component.dart';
 import 'package:expertis/components/shop_upcoming_appointments_component.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -8,7 +9,9 @@ import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
 class ShopAppointmentsHomeScreen extends StatefulWidget {
-  const ShopAppointmentsHomeScreen({Key? key}) : super(key: key);
+  final String? shopId;
+  const ShopAppointmentsHomeScreen({Key? key, required this.shopId})
+      : super(key: key);
 
   @override
   State<ShopAppointmentsHomeScreen> createState() =>
@@ -17,7 +20,7 @@ class ShopAppointmentsHomeScreen extends StatefulWidget {
 
 class _ShopAppointmentsHomeScreenState
     extends State<ShopAppointmentsHomeScreen> {
-  List<String> tabList = ['UPCOMING', 'PAST'];
+  List<String> tabList = ['UPCOMING', 'ALL'];
   int selectedTab = 0;
 
   @override
@@ -94,8 +97,12 @@ class _ShopAppointmentsHomeScreenState
               ).center(),
               20.height,
               selectedTab == 0
-                  ? ShopUpcomingAppointmentComponent()
-                  : BMAppointMentTabComponent(tabOne: false),
+                  ? ShopUpcomingAppointmentComponent(
+                      shopId: widget.shopId,
+                    )
+                  : ShopAllAppointmentComponent(
+                      shopId: widget.shopId,
+                    ),
               20.height,
             ],
           ).paddingAll(16),

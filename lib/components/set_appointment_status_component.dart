@@ -92,8 +92,14 @@ class _SetAppointmentStatusState extends State<SetAppointmentStatus> {
                       width: 150,
                       color: bmPrimaryColor,
                       onTap: () {
-                        Beamer.of(context)
-                            .beamToReplacementNamed(RoutesName.appointment);
+                        if (widget.status == 'reject' ||
+                            widget.status == 'accept') {
+                          Beamer.of(context).beamToReplacementNamed(
+                              RoutesName.shopAppointmentsWithId(null));
+                        } else {
+                          Beamer.of(context)
+                              .beamToReplacementNamed(RoutesName.appointment);
+                        }
                       },
                     ),
                   ],

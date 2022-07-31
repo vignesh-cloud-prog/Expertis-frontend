@@ -17,7 +17,7 @@ import 'package:dotted_border/dotted_border.dart';
 
 class CreateUpdateTagScreen extends StatefulWidget {
   final String? tagId;
-  CategoryModel? category = CategoryModel();
+  CategoryModel? category;
 
   CreateUpdateTagScreen({Key? key, this.tagId, this.category})
       : super(key: key);
@@ -39,7 +39,8 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
   void initState() {
     setStatusBarColor(bmSpecialColor);
     super.initState();
-    if (widget.tagId != null) {}
+
+    widget.category ??= CategoryModel();
   }
 
   @override
@@ -83,9 +84,6 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("hii hell namaskara");
-    print('id is ${widget.tagId}');
-    print('object is ${widget.category?.tagPic}');
     CategoryViewModel categoryViewModel = Provider.of<CategoryViewModel>(
       context,
     );
@@ -125,7 +123,8 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                         nextFocus: description,
                         initialValue: widget.category?.tagName ?? '',
                         onChanged: (value) {
-                          widget.category?.tagName = value;
+                          widget.category!.tagName = value;
+                          print(widget.category?.tagName);
                         },
                         textFieldType: TextFieldType.NAME,
                         errorThisFieldRequired: 'Name is required',
@@ -269,7 +268,8 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                         nextFocus: null,
                         textFieldType: TextFieldType.MULTILINE,
                         onChanged: (value) {
-                          widget.category?.description = value;
+                          widget.category!.description = value;
+                          print(widget.category!.description);
                         },
 
                         // controller: _addressController,
@@ -306,18 +306,16 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                         color: bmPrimaryColor,
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            // if (!kIsWeb) {
-                            //   if (pickedImage == null) {
-                            //     Utils.flushBarErrorMessage(
-                            //         "Please pic a shop logo", context);
-                            //     return;
-                            //   }
-                            // }
+                            if (!kIsWeb) {
+                              if (pickedImage == null) {
+                                Utils.flushBarErrorMessage(
+                                    "Please pic a shop logo", context);
+                                return;
+                              }
+                            }
 
                             if (kDebugMode) {
                               print("form is valid");
-
-                              print(widget.category?.toJson());
                             }
 
                             var categoryData = widget.category?.toJson()

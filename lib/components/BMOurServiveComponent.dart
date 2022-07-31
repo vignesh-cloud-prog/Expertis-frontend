@@ -233,7 +233,7 @@ class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
                             listen: false)
                         .fetchSlotsApi(
                       shopId,
-                      element[selectedTab].id,
+                      element[selectedTab].member,
                       date,
                     );
                     Beamer.of(context)

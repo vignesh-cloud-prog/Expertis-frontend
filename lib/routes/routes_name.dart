@@ -19,6 +19,8 @@ class RoutesName {
 
   // Appointment routes name
   static const String appointment = '/appointments';
+  static const String pastAppointment = '/appointments/past';
+  static const String upcomingAppointment = '/appointments/upcoming';
   static const String viewAppointment = '/appointment/view/:appointmentId';
   static get viewAppointmentWithId => (String id) => '/appointment/view/$id';
   static const String setAppointmentStatus =
@@ -59,8 +61,8 @@ class RoutesName {
   static get shopServicesWithId => (String? shopId) =>
       shopId != null ? '/shop/services/$shopId' : '/shop/services';
   static const String shopAppointments = '/shop/appointments/:shopId';
-  static get shopAppointmentsWithId =>
-      (String shopId) => '/shop/appointments/$shopId';
+  static get shopAppointmentsWithId => (String? shopId) =>
+      shopId == null ? '/shop/appointments' : '/shop/appointments/$shopId';
   static const String shopDetails = '/shop/view/info/:shopId';
   static get shopDetailsWithId => (String shopId) => '/shop/view/info/$shopId';
   static const String createShop = '/shop/create';
