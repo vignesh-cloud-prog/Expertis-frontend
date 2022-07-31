@@ -1,0 +1,106 @@
+import 'package:expertis/components/shop_upcoming_appointments_component.dart';
+import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+
+import '../components/BMAppointMentTabComponent.dart';
+import '../main.dart';
+import '../utils/BMColors.dart';
+import '../utils/BMWidgets.dart';
+
+class ShopAppointmentsHomeScreen extends StatefulWidget {
+  const ShopAppointmentsHomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ShopAppointmentsHomeScreen> createState() =>
+      _ShopAppointmentsHomeScreenState();
+}
+
+class _ShopAppointmentsHomeScreenState
+    extends State<ShopAppointmentsHomeScreen> {
+  List<String> tabList = ['UPCOMING', 'PAST'];
+  int selectedTab = 0;
+
+  @override
+  void initState() {
+    setStatusBarColor(appStore.isDarkModeOn
+        ? appStore.scaffoldBackground!
+        : bmLightScaffoldBackgroundColor);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    setStatusBarColor(Colors.transparent);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: appStore.isDarkModeOn
+          ? appStore.scaffoldBackground!
+          : bmLightScaffoldBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: appStore.isDarkModeOn
+            ? appStore.scaffoldBackground!
+            : bmLightScaffoldBackgroundColor,
+        elevation: 0,
+        leading: SizedBox(),
+        leadingWidth: 16,
+        title: titleText(title: 'Appointments'),
+      ),
+      body: Container(
+        margin: EdgeInsets.only(top: 16),
+        decoration: BoxDecoration(
+            color: appStore.isDarkModeOn
+                ? bmSecondBackgroundColorDark
+                : bmSecondBackgroundColorLight,
+            borderRadius: radiusOnly(topLeft: 32, topRight: 32)),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              16.height,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: tabList.map((e) {
+                  int index = tabList.indexOf(e);
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      borderRadius: radius(32),
+                      color: selectedTab == index
+                          ? bmPrimaryColor
+                          : Colors.transparent,
+                    ),
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      tabList[index],
+                      style: boldTextStyle(
+                        size: 14,
+                        color: selectedTab == index
+                            ? white
+                            : appStore.isDarkModeOn
+                                ? bmPrimaryColor
+                                : bmSpecialColorDark,
+                      ),
+                    ).onTap(() {
+                      setState(() {
+                        selectedTab = index;
+                      });
+                    }),
+                  );
+                }).toList(),
+              ).center(),
+              20.height,
+              selectedTab == 0
+                  ? ShopUpcomingAppointmentComponent()
+                  : BMAppointMentTabComponent(tabOne: false),
+              20.height,
+            ],
+          ).paddingAll(16),
+        ),
+      ),
+    );
+  }
+}

@@ -1,4 +1,6 @@
 import 'package:beamer/beamer.dart';
+import 'package:expertis/data/response/status.dart';
+import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/appointment_routes.dart';
 import 'package:expertis/routes/home_routes.dart';
 import 'package:expertis/routes/more_routes.dart';
@@ -9,10 +11,17 @@ import 'package:expertis/screens/BMPurchaseMoreScreen.dart';
 import 'package:expertis/screens/admin_dashboard_home.dart';
 import 'package:expertis/screens/owner_dashboard_home_screen.dart';
 import 'package:expertis/screens/services_home_screeen.dart';
+import 'package:expertis/screens/shop_appointments_home_screen.dart';
 import 'package:expertis/screens/shop_info_screen.dart';
+import 'package:expertis/utils/assets.dart';
+import 'package:expertis/utils/utils.dart';
+import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
 import '../fragments/BMAppointmentFragment.dart';
 import '../fragments/BMHomeFragment.dart';
@@ -40,6 +49,7 @@ class ShopOwnerDashboardScreen extends StatefulWidget {
 
 class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
   List<BMDashboardModel> list = getShopOwnerDashboardList();
+  final shopViewModel = ShopViewModel();
 
   int selectedTab = 0;
   @override
@@ -51,12 +61,16 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
     setState(() {
       selectedTab = widget.tabNo;
     });
-    UserViewModel.getUser().then((value) => {
-          setState(() {
-            widget.shopId = value.shop!.first;
-            print(value.shop?.first);
-          })
-        });
+    if (widget.shopId == null) {
+      UserViewModel.getUser().then((value) => {
+            setState(() {
+              widget.shopId = value.shop!.first;
+              print(value.shop?.first);
+            })
+          });
+    }
+
+    shopViewModel.fetchSelectedShopDataApi(widget.shopId ?? "");
   }
 
   Widget getFragment() {
@@ -65,7 +79,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
     } else if (selectedTab == 1) {
       return ServicesHomeScreen(shopId: widget.shopId);
     } else if (selectedTab == 2) {
-      return const BMAppointmentFragment();
+      return const ShopAppointmentsHomeScreen();
     } else if (selectedTab == 3) {
       return ShopInfoScreen();
     }
@@ -90,23 +104,6 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
       return Beamer.of(context).beamToNamed(RoutesName.ownerDashboard);
     }
   }
-
-  // int getBeamLocation() {
-  //   if (Beamer.of(context).currentBeamLocation.pathPatterns ==
-  //       ["/shop/dashboard"]) {
-  //     return 0;
-  //   } else if (Beamer.of(context).currentBeamLocation.pathPatterns ==
-  //       ["/shop/services"]) {
-  //     return 1;
-  //   } else if (Beamer.of(context).currentBeamLocation.pathPatterns ==
-  //       ["/shop/appointment"]) {
-  //     return 2;
-  //   } else if (Beamer.of(context).currentBeamLocation is MoreLocation) {
-  //     return 3;
-  //   } else {
-  //     return 0;
-  //   }
-  // }
 
   @override
   void dispose() {
@@ -141,6 +138,89 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: getDashboardColor(),
+      appBar: PreferredSize(
+        preferredSize: MediaQuery.of(context).size * 0.1,
+        child: ChangeNotifierProvider<ShopViewModel>.value(
+          value: shopViewModel,
+          child: Consumer<ShopViewModel>(builder: (context, value, _) {
+            switch (value.selectedShop.status) {
+              case Status.LOADING:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              case Status.ERROR:
+                String error = value.selectedShop.message.toString();
+                return Utils.findErrorPage(context, error);
+
+              case Status.COMPLETED:
+                ShopModel? shop = value.selectedShop.data;
+                if (kDebugMode) {
+                  print(shop!.toJson());
+                }
+                return Container(
+                  color: bmPrimaryColor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      FancyShimmerImage(
+                        height: MediaQuery.of(context).size.height * 0.5,
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        errorWidget: const Icon(
+                          Icons.dangerous,
+                          color: Colors.red,
+                          size: 28,
+                        ),
+                        imageUrl: shop?.shopLogo ?? Assets.defaultShopImage,
+                        boxFit: BoxFit.fill,
+                      ).expand(flex: 1),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              shop?.shopName ?? "",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Switch(
+                                  value: shop?.isOpen == true,
+                                  onChanged: (value) {},
+                                  activeTrackColor: Colors.lightGreenAccent,
+                                  activeColor: Colors.green,
+                                ),
+                                8.width,
+                                Text(
+                                  shop?.isOpen == true ? "Open" : "Closed",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ]).paddingOnly(left: 10, right: 10).expand(flex: 3),
+                      IconButton(
+                        icon: Icon(
+                          size: 30,
+                          Icons.exit_to_app,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Beamer.of(context).beamToNamed(RoutesName.home);
+                        },
+                      ).expand(flex: 1),
+                    ],
+                  ),
+                );
+              default:
+                return Container();
+            }
+          }),
+        ),
+      ),
       body: getFragment(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (int index) {

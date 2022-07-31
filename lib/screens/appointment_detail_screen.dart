@@ -202,7 +202,8 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                             // Beamer.of(context).beamToReplacementNamed(RoutesName.login);
                           },
                         ).expand(flex: 2)
-                      else if (appointment.appointmentStatus == "CANCELLED")
+                      else if (appointment.appointmentStatus == "CANCELLED" ||
+                          appointment.appointmentStatus == "REJECTED")
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32)),
