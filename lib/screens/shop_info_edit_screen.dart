@@ -71,7 +71,7 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
     if (!kIsWeb) {
       final ImagePicker _picker = ImagePicker();
       XFile? image = await _picker.pickImage(
-          source: source, maxHeight: 200, maxWidth: 200);
+          source: source, maxHeight: 800, maxWidth: 800);
       if (image != null) {
         widget.shop?.shopLogo = image.path;
         setState(() {

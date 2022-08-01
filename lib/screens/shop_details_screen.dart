@@ -12,7 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../components/BMOurServiveComponent.dart';
 import '../components/BMPortfolioComponent.dart';
 import '../main.dart';
@@ -270,7 +270,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                       ),
                                       6.width,
                                       Text(
-                                          shop.rating!.totalMembers!.toString(),
+                                          ' ${shop.rating!.totalMembers!.toString()} reviews',
                                           style: secondaryTextStyle(
                                               color: bmTextColorDarkMode)),
                                     ],
@@ -301,7 +301,10 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                           ],
                                         ),
                                       ).onTap(() {
-                                        BMCallScreen().launch(context);
+                                        launchUrl(Uri(
+                                            scheme: 'tel',
+                                            path: shop.contact!.phone
+                                                .toString()));
                                       }, borderRadius: radius(32)),
                                       Container(
                                         decoration: BoxDecoration(
@@ -326,6 +329,15 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                           ],
                                         ),
                                       ).onTap(() {
+                                        final Uri smsLaunchUri = Uri(
+                                          scheme: 'sms',
+                                          path: shop.contact!.phone.toString(),
+                                          queryParameters: <String, String>{
+                                            'body':
+                                                'Hello, is seats available now?',
+                                          },
+                                        );
+                                        launchUrl(smsLaunchUri);
                                         // BMChatScreen(
                                         //     element: BMMessageModel(
                                         //   image: shop.shopLogo ?? defaultImg,

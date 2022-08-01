@@ -65,7 +65,7 @@ class _BMSelectServiceComponentState extends State<BMSelectServiceComponent> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '${widget.element.price}+',
+                  'Rs ${widget.element.price}+',
                   style: secondaryTextStyle(
                     color: appStore.isDarkModeOn
                         ? bmTextColorDarkMode
@@ -75,7 +75,7 @@ class _BMSelectServiceComponentState extends State<BMSelectServiceComponent> {
                 ),
                 16.width,
                 Text(
-                  widget.element.time ?? '',
+                  '${widget.element.time} min',
                   style: secondaryTextStyle(
                     color: appStore.isDarkModeOn
                         ? bmTextColorDarkMode
@@ -99,7 +99,7 @@ class _BMSelectServiceComponentState extends State<BMSelectServiceComponent> {
               child: InkWell(
                 child: Icon(Icons.info, color: bmPrimaryColor),
                 onTap: () {
-                  // showBookBottomSheet(context, element);
+                  showBookBottomSheet(context, widget.element);
                 },
               ),
             ),

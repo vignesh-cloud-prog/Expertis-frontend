@@ -60,15 +60,15 @@ class _BMWalkThroughScreenState extends State<BMWalkThroughScreen> {
                     },
                   ),
                 ),
-                Positioned(
-                  right: 20,
-                  top: 30,
-                  child:
-                      Text('SKIP', style: boldTextStyle(color: white, size: 14))
-                          .onTap(() {
-                    BMDashboardScreen().launch(context, isNewTask: true);
-                  }),
-                ),
+                // Positioned(
+                //   right: 20,
+                //   top: 30,
+                //   child:
+                //       Text('SKIP', style: boldTextStyle(color: white, size: 14))
+                //           .onTap(() {
+                //     BMDashboardScreen().launch(context, isNewTask: true);
+                //   }),
+                // ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   mainAxisSize: MainAxisSize.max,

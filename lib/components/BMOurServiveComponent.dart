@@ -63,7 +63,7 @@ class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
                 ),
               ),
               16.height,
-              titleText(title: 'Popular Services'),
+              titleText(title: 'Our Services'),
               16.height,
               popularServiceList != null && popularServiceList.length > 0
                   ? ListView.builder(
@@ -86,7 +86,6 @@ class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
                         ),
                       ),
                     ),
-
               16.height,
               Row(
                 children: [
@@ -106,32 +105,8 @@ class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
                     child: Text("Book Appointment Now",
                         style: boldTextStyle(color: Colors.white)),
                   ).expand(),
-
-                  // 16.width,
-                  // AppButton(
-                  //   height: 40,
-                  //   width: 40,
-                  //   child:
-                  //       Icon(Icons.qr_code_scanner_rounded, color: white),
-                  //   shapeBorder: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(100)),
-                  //   padding: EdgeInsets.all(16),
-                  //   color: Colors.grey,
-                  //   onTap: () {
-                  //     //
-                  //   },
-                  // ),
                 ],
               ),
-              // titleText(title: 'Other Services'),
-              // 16.height,
-              // Column(
-              //   mainAxisSize: MainAxisSize.min,
-              //   children: otherServiceList.map((e) {
-              //     return BMServiceComponent(element: e);
-              //   }).toList(),
-              // ),
-              // 30.height,
             ],
           ).paddingSymmetric(horizontal: 16);
   }

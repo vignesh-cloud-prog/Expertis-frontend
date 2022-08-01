@@ -1,6 +1,7 @@
 import 'package:expertis/components/BMCommentComponent.dart';
 import 'package:expertis/models/appointment_model.dart';
 import 'package:expertis/models/shop_list_model.dart';
+import 'package:expertis/models/shop_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -235,7 +236,7 @@ void showFilterBottomSheet(BuildContext context) {
       });
 }
 
-void showBookBottomSheet(BuildContext context, BMServiceListModel element) {
+void showBookBottomSheet(BuildContext context, Services element) {
   showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -260,10 +261,10 @@ void showBookBottomSheet(BuildContext context, BMServiceListModel element) {
                       color: bmTextColorDarkMode),
                 ),
               ),
-              titleText(title: element.name, size: 24),
+              titleText(title: element.serviceName ?? '', size: 24),
               16.height,
               Text(
-                'Lorem Ipsum is simply dummy text of the // printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown // printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                element.description ?? '',
                 style: primaryTextStyle(
                     color: appStore.isDarkModeOn
                         ? Colors.white
@@ -277,9 +278,12 @@ void showBookBottomSheet(BuildContext context, BMServiceListModel element) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      titleText(title: element.cost, size: 16, maxLines: 2),
+                      titleText(
+                          title: 'Rs ${element.price.toString()}',
+                          size: 16,
+                          maxLines: 2),
                       Text(
-                        element.time,
+                        '${element.time.toString()} min',
                         style: secondaryTextStyle(
                             color: appStore.isDarkModeOn
                                 ? bmTextColorDarkMode
@@ -287,18 +291,18 @@ void showBookBottomSheet(BuildContext context, BMServiceListModel element) {
                       )
                     ],
                   ),
-                  AppButton(
-                    //padding: EdgeInsets.all(0),
-                    shapeBorder: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32)),
-                    child: Text('Book Now',
-                        style: boldTextStyle(color: Colors.white, size: 12)),
-                    color: bmPrimaryColor,
-                    onTap: () {
-                      // BMCalenderScreen(element: element, isStaffBooking: false)
-                      // .launch(context);
-                    },
-                  ),
+                  // AppButton(
+                  //   //padding: EdgeInsets.all(0),
+                  //   shapeBorder: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(32)),
+                  //   child: Text('Book Now',
+                  //       style: boldTextStyle(color: Colors.white, size: 12)),
+                  //   color: bmPrimaryColor,
+                  //   onTap: () {
+                  //     // BMCalenderScreen(element: element, isStaffBooking: false)
+                  //     // .launch(context);
+                  //   },
+                  // ),
                 ],
               )
             ],
