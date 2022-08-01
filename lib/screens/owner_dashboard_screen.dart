@@ -62,8 +62,10 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
       selectedTab = widget.tabNo;
     });
     if (widget.shopId == null) {
-      UserViewModel.getUser().then((value) =>
-          {shopViewModel.fetchSelectedShopDataApi(value.shop?.first ?? '')});
+      UserViewModel.getUser().then((value) => {
+            widget.shopId = value.shop?.first,
+            shopViewModel.fetchSelectedShopDataApi(value.shop?.first ?? '')
+          });
     } else {
       shopViewModel.fetchSelectedShopDataApi(widget.shopId ?? "");
     }

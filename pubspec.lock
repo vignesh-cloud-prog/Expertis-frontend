@@ -15,13 +15,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.0"
-  animate_do:
-    dependency: "direct main"
-    description:
-      name: animate_do
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.0"
   another_flushbar:
     dependency: "direct main"
     description:
@@ -288,13 +281,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
-  file_picker:
-    dependency: "direct main"
-    description:
-      name: file_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.4"
   fixnum:
     dependency: transitive
     description:
@@ -335,13 +321,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0+1"
-  flutter_iconly:
-    dependency: "direct main"
-    description:
-      name: flutter_iconly
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -349,13 +328,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.3"
-  flutter_mobx:
-    dependency: "direct main"
-    description:
-      name: flutter_mobx
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.6+1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -363,13 +335,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.7"
-  flutter_progress_hud:
-    dependency: "direct main"
-    description:
-      name: flutter_progress_hud
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.2"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -377,13 +342,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1+1"
-  flutter_vector_icons:
-    dependency: "direct main"
-    description:
-      name: flutter_vector_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -410,13 +368,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  get:
-    dependency: "direct main"
-    description:
-      name: get
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.6.5"
   glob:
     dependency: transitive
     description:
@@ -437,14 +388,14 @@ packages:
       name: google_maps_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.8"
+    version: "2.1.10"
   google_maps_flutter_platform_interface:
     dependency: transitive
     description:
       name: google_maps_flutter_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.2.1"
   graphs:
     dependency: transitive
     description:
@@ -473,13 +424,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
-  iconly:
-    dependency: "direct main"
-    description:
-      name: iconly
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   image:
     dependency: transitive
     description:
@@ -550,13 +494,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.6.0"
-  line_icons:
-    dependency: "direct main"
-    description:
-      name: line_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
   logging:
     dependency: transitive
     description:
@@ -593,7 +530,7 @@ packages:
     source: hosted
     version: "1.0.2"
   mobx:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: mobx
       url: "https://pub.dartlang.org"
@@ -649,7 +586,7 @@ packages:
     source: hosted
     version: "2.1.0"
   path:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path
       url: "https://pub.dartlang.org"
@@ -670,7 +607,7 @@ packages:
     source: hosted
     version: "1.0.0"
   path_provider:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path_provider
       url: "https://pub.dartlang.org"
@@ -739,13 +676,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.4.0"
-  pin_input_text_field:
-    dependency: transitive
-    description:
-      name: pin_input_text_field
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.1.2"
   platform:
     dependency: transitive
     description:
@@ -884,13 +814,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  sms_autofill:
-    dependency: "direct main"
-    description:
-      name: sms_autofill
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.0"
   source_gen:
     dependency: transitive
     description:
@@ -1031,13 +954,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  url_strategy:
-    dependency: "direct main"
-    description:
-      name: url_strategy
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   uuid:
     dependency: transitive
     description:

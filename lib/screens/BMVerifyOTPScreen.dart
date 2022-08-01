@@ -5,7 +5,6 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:sms_autofill/sms_autofill.dart';
 
 import '../main.dart';
 import '../utils/BMColors.dart';

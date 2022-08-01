@@ -4,7 +4,6 @@ import 'package:beamer/beamer.dart';
 import 'package:expertis/screens/login_screen.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 

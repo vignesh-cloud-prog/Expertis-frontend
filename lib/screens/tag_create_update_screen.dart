@@ -4,7 +4,7 @@ import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
-import 'package:file_picker/file_picker.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
