@@ -127,7 +127,7 @@ Widget headerText({required String title}) {
     mainAxisSize: MainAxisSize.min,
     children: [
       50.height,
-      Text(title, style: boldTextStyle(size: 30, color: bmSpecialColor)),
+      Text(title, style: boldTextStyle(size: 30, color: white)),
       16.height,
     ],
   );

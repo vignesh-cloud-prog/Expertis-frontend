@@ -1,16 +1,11 @@
-import 'dart:convert';
-
 import 'package:beamer/beamer.dart';
-import 'package:expertis/components/BMAvailabilityComponent.dart';
 import 'package:expertis/components/service_component.dart';
 import 'package:expertis/data/response/status.dart';
-import 'package:expertis/models/BMServiceListModel.dart';
 import 'package:expertis/models/appointment_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/utils.dart';
-import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/appointment_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';

@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:beamer/beamer.dart';
 import 'package:expertis/components/BMAvailabilityComponent.dart';
 import 'package:expertis/models/BMServiceListModel.dart';
 import 'package:expertis/utils/utils.dart';
@@ -131,17 +129,15 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
     AppointmentListViewModel appointmentViewModel =
         Provider.of<AppointmentListViewModel>(context);
     UserViewModel userViewModel = Provider.of<UserViewModel>(context);
-    // print(appointmentViewModel.slots);
-    // print(appointmentViewModel.appointmentModel.memberId);
-    // print(appointmentViewModel.appointmentModel.services);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: bmSpecialColor,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Beamer.of(context).beamBack();
+            Navigator.of(context).maybePop();
           },
         ),
         title: Text(
@@ -193,7 +189,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                       ),
                       nextFocus: null,
                       controller: _bookingDateController,
-                      errorThisFieldRequired: 'DOB is required',
+                      errorThisFieldRequired: 'Date is required',
                       cursorColor: bmPrimaryColor,
                       textStyle: boldTextStyle(
                           color: appStore.isDarkModeOn
@@ -220,7 +216,8 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                     ),
                     // bookStaff(),
                     bookAppointment(context),
-                    20.height,
+
+                    40.height,
                     Row(
                       children: [
                         AppButton(
@@ -319,6 +316,8 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
   }
 
   Widget bookAppointment(context) {
+    AppointmentListViewModel appointmentViewModel =
+        Provider.of<AppointmentListViewModel>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -365,24 +364,25 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
         Divider(),
         16.height,
         BMAvailabilityComponent(
-            element: appointmentViewModel.appointmentModel.services),
+            selectedServices: appointmentViewModel.appointmentModel.services),
         16.height,
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: bmPrimaryColor.withAlpha(50),
-            borderRadius: radius(32),
-            border: Border.all(color: bmPrimaryColor),
-          ),
-          child: Text(' + Add another Services',
-              style: primaryTextStyle(
-                  color: appStore.isDarkModeOn
-                      ? Colors.white
-                      : bmSpecialColorDark)),
-        ).onTap(() {
-          // finish(context);
-          // finish(context);
-        }),
+
+        // Container(
+        //   padding: EdgeInsets.all(8),
+        //   decoration: BoxDecoration(
+        //     color: bmPrimaryColor.withAlpha(50),
+        //     borderRadius: radius(32),
+        //     border: Border.all(color: bmPrimaryColor),
+        //   ),
+        //   child: Text(' + Add another Services',
+        //       style: primaryTextStyle(
+        //           color: appStore.isDarkModeOn
+        //               ? Colors.white
+        //               : bmSpecialColorDark)),
+        // ).onTap(() {
+        //   // finish(context);
+        //   // finish(context);
+        // }),
       ],
     );
   }

@@ -1,6 +1,7 @@
 import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
+import 'package:expertis/view_model/appointment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
@@ -37,9 +38,15 @@ class _BMSelectServiceComponentState extends State<BMSelectServiceComponent> {
   bool? selected = false;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     AppointmentListViewModel appointmentViewModel =
         Provider.of<AppointmentListViewModel>(context);
+
     Color getColor(Set<MaterialState> states) {
       const Set<MaterialState> interactiveStates = <MaterialState>{
         MaterialState.pressed,
@@ -111,14 +118,19 @@ class _BMSelectServiceComponentState extends State<BMSelectServiceComponent> {
                 if (value == true) {
                   appointmentViewModel.appointmentModel.selectedServices
                       .add(widget.element.id.toString());
-                  appointmentViewModel.appointmentModel.services
-                      ?.add(widget.element);
+                  appointmentViewModel.appointmentModel.services == null
+                      ? appointmentViewModel.appointmentModel.services = [
+                          widget.element
+                        ]
+                      : appointmentViewModel.appointmentModel.services
+                          ?.add(widget.element);
                 } else {
                   appointmentViewModel.appointmentModel.selectedServices
                       .remove(widget.element.id.toString());
                   appointmentViewModel.appointmentModel.services
                       ?.remove(widget.element);
                 }
+                print(appointmentViewModel.appointmentModel.services);
 
                 setState(() {
                   selected = value;

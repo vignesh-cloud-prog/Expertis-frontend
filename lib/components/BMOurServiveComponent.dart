@@ -30,6 +30,7 @@ class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
   Widget build(BuildContext context) {
     AppointmentListViewModel appointmentViewModel =
         Provider.of<AppointmentListViewModel>(context);
+    appointmentViewModel.appointmentModel.selectedServices = [];
     ShopViewModel shopViewModel = Provider.of<ShopViewModel>(context);
     // print(
     //     "shopViewModel.selectedShop.data!.services.length: ${shopViewModel.selectedShop.data?.services}");
