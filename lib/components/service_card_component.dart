@@ -6,6 +6,8 @@ import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+
 // import 'package:flutter_iconly/flutter_iconly.dart';
 // import 'package:store_api_flutter_course/consts/global_colors.dart';
 
@@ -31,9 +33,9 @@ class ServiceCardComponent extends StatelessWidget {
       title: Text(element?.serviceName ?? ""),
       subtitle: Text(element?.price.toString() ?? ""),
       trailing: SizedBox(
-        height: size.width * 0.30,
-        width: size.width * 0.30,
-        child: Row(children: [
+        height: size.width * 0.20,
+        width: size.width * 0.20,
+        child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: () {

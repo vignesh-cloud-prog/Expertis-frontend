@@ -2,9 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:expertis/data/response/api_response.dart';
 import 'package:expertis/models/appointment_list_model.dart';
 import 'package:expertis/models/appointment_model.dart';
-import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/respository/appointment_repository.dart';
-import 'package:expertis/respository/shop_repository.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,24 +18,6 @@ class AppointmentListViewModel with ChangeNotifier {
   }
 
   AppointmentModel appointmentModel = AppointmentModel();
-  ApiResponse<dynamic> getSlots = ApiResponse.loading();
-  List<int> slots = [];
-  Future<void> fetchSlotsApi(
-      String? shopId, String? memberId, String date) async {
-    _myRepo.fetchSlots(shopId, memberId, date).then((value) {
-      setSlots(value);
-    }).onError((error, stackTrace) {
-      print(error);
-    });
-  }
-
-  setSlots(ApiResponse<dynamic> response) {
-    if (kDebugMode) {
-      print("response ${response.data}");
-    }
-    slots = response.data;
-    notifyListeners();
-  }
 
   Future<void> BookAppointment(dynamic data, BuildContext context) async {
     setLoading(true);

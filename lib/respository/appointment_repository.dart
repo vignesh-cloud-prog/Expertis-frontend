@@ -21,20 +21,6 @@ class AppointmentRepository {
     'Content-Type': 'application/json',
   };
 
-  Future<dynamic> fetchSlots(shopId, memberId, date) async {
-    final String token = await UserViewModel.getUserToken();
-    requestHeaders["Authorization"] = token;
-    try {
-      dynamic response = await _apiServices.getGetApiResponse(
-          ApiUrl.fetchSlotsEndPoint(shopId, memberId, date), requestHeaders);
-      // print(response);
-
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
   Future<AppointmentListModel> fetchUserAppointments(
       String userId, bool past) async {
     final String token = await UserViewModel.getUserToken();

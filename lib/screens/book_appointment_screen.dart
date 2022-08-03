@@ -1,8 +1,10 @@
 import 'dart:convert';
-import 'package:expertis/components/BMAvailabilityComponent.dart';
+import 'package:expertis/components/selected_services_component.dart';
+import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/BMServiceListModel.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
+import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,23 +19,26 @@ class BookAppointmentScreen extends StatefulWidget {
   BMServiceListModel? element =
       BMServiceListModel(name: "haircut", cost: "100", time: "20");
   bool isStaffBooking = false;
-  String? shopId;
+  String shopId;
+  String memberId;
 
-  BookAppointmentScreen({Key? key, this.shopId}) : super(key: key);
+  BookAppointmentScreen(
+      {Key? key, required this.shopId, required this.memberId})
+      : super(key: key);
 
   @override
   BookAppointmentScreenState createState() => BookAppointmentScreenState();
 }
 
 class BookAppointmentScreenState extends State<BookAppointmentScreen> {
-  AppointmentListViewModel appointmentViewModel = AppointmentListViewModel();
   List<BMServiceListModel> availabilityList = [];
+  ShopViewModel slotsModel = ShopViewModel();
   String selectedSlot = "";
 
   int selectedTimer = 0;
   String openingTime = "08:00:AM";
   String closingTime = "08:00:PM";
-  List<int> bookedSlot = [];
+  // List<int> bookedSlots = [];
   int getSlotNoByTime(String time) {
     int hour = int.parse(time.split(":")[0]);
     int min = int.parse(time.split(":")[1]);
@@ -60,7 +65,8 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
     return "${hour.toString().padLeft(2, '0')}:${min.toString().padLeft(2, '0')}:$day";
   }
 
-  List<String>? getAvailableTimes() {
+  List<String>? getAvailableTimes(List bookedSlots) {
+    print("Booked Slots: ${bookedSlots.toString()}");
     List<String> times = [];
     DateTime now = DateTime.now();
     String currentTime = DateFormat("HH:mm:a").format(now);
@@ -76,7 +82,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
           i >= getSlotNoByTime(closingTime)) {
         continue;
       }
-      if (bookedSlot.contains(i)) {
+      if (bookedSlots.contains(i)) {
         continue;
       }
       times.add(getTimeBySlotNo(i));
@@ -113,8 +119,9 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
     setState(() {
       _bookingDateController.text =
           DateFormat('dd-MMM-yyyy').format(DateTime.now());
-      bookedSlot = appointmentViewModel.slots;
     });
+    slotsModel.fetchSlotsApi(
+        widget.shopId, widget.memberId, _bookingDateController.text);
     super.initState();
   }
 
@@ -159,64 +166,14 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    titleText(title: 'Select Date'),
-                    AppTextField(
-                      focus: dob,
-                      readOnly: true,
-                      textFieldType: TextFieldType.OTHER,
-                      suffix: InkWell(
-                        onTap: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate:
-                                DateTime.now().add(const Duration(days: 90)),
-                          );
-                          if (pickedDate != null) {
-                            setState(() {
-                              var date =
-                                  DateFormat('dd-MMM-yyyy').format(pickedDate);
-
-                              _bookingDateController.text = date;
-                            });
-                          }
-                        },
-                        child: const Icon(
-                          Icons.calendar_today,
-                          color: bmPrimaryColor,
-                        ),
-                      ),
-                      nextFocus: null,
-                      controller: _bookingDateController,
-                      errorThisFieldRequired: 'Date is required',
-                      cursorColor: bmPrimaryColor,
-                      textStyle: boldTextStyle(
-                          color: appStore.isDarkModeOn
-                              ? bmTextColorDarkMode
-                              : bmPrimaryColor),
-                      suffixIconColor: bmPrimaryColor,
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: appStore.isDarkModeOn
-                                    ? bmTextColorDarkMode
-                                    : bmPrimaryColor)),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: appStore.isDarkModeOn
-                                    ? bmTextColorDarkMode
-                                    : bmPrimaryColor)),
-                        enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: appStore.isDarkModeOn
-                                    ? bmTextColorDarkMode
-                                    : bmPrimaryColor)),
-                      ),
-                    ),
-                    // bookStaff(),
+                    selectDate(context),
+                    // timing(),
                     bookAppointment(context),
-
+                    Divider(),
+                    16.height,
+                    SelectedServicesComponent(
+                        selectedServices:
+                            appointmentViewModel.appointmentModel.services),
                     40.height,
                     Row(
                       children: [
@@ -304,8 +261,12 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                             appointmentViewModel.BookAppointment(
                                 jsonEncode(data), context);
                           },
-                          child: Text("Book Appointment ",
-                              style: boldTextStyle(color: Colors.white)),
+                          child: appointmentViewModel.loading
+                              ? CircularProgressIndicator(
+                                  color: white,
+                                )
+                              : Text("Book Appointment ",
+                                  style: boldTextStyle(color: Colors.white)),
                         ).expand(),
                       ],
                     )
@@ -315,83 +276,131 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
     );
   }
 
-  Widget bookAppointment(context) {
-    AppointmentListViewModel appointmentViewModel =
-        Provider.of<AppointmentListViewModel>(context);
+  Widget selectDate(context) {
+    ShopViewModel slotsModel = Provider.of<ShopViewModel>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        titleText(title: 'Availability'),
-        16.height,
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: getAvailableTimes()?.map((e) {
-                int index = getAvailableTimes()!.indexOf(e);
-                if (index == 0) {
-                  selectedSlot = e;
-                }
-                return Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: selectedTimer == index
-                        ? bmPrimaryColor
-                        : bmPrimaryColor.withAlpha(50),
-                    borderRadius: radius(32),
-                    border: Border.all(color: bmPrimaryColor),
-                  ),
-                  child: Text(e,
-                      style: primaryTextStyle(
-                          color: selectedTimer == index
-                              ? Colors.white
-                              : appStore.isDarkModeOn
-                                  ? Colors.white
-                                  : bmSpecialColorDark)),
-                ).onTap(() {
-                  selectedTimer = index;
-                  setState(() {
-                    selectedSlot = e;
-                  });
-                });
-              }).toList() ??
-              [
-                Center(
-                  child: Text("Slots are not available for the day"),
-                )
-              ],
-        ),
-        16.height,
-        Divider(),
-        16.height,
-        BMAvailabilityComponent(
-            selectedServices: appointmentViewModel.appointmentModel.services),
-        16.height,
+        titleText(title: 'Select Date'),
+        AppTextField(
+          focus: dob,
+          readOnly: true,
+          textFieldType: TextFieldType.OTHER,
+          suffix: InkWell(
+            onTap: () async {
+              DateTime? pickedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(const Duration(days: 90)),
+              );
+              if (pickedDate != null) {
+                var date = DateFormat('dd-MMM-yyyy').format(pickedDate);
+                slotsModel.fetchSlotsApi(widget.shopId, widget.memberId, date);
 
-        // Container(
-        //   padding: EdgeInsets.all(8),
-        //   decoration: BoxDecoration(
-        //     color: bmPrimaryColor.withAlpha(50),
-        //     borderRadius: radius(32),
-        //     border: Border.all(color: bmPrimaryColor),
-        //   ),
-        //   child: Text(' + Add another Services',
-        //       style: primaryTextStyle(
-        //           color: appStore.isDarkModeOn
-        //               ? Colors.white
-        //               : bmSpecialColorDark)),
-        // ).onTap(() {
-        //   // finish(context);
-        //   // finish(context);
-        // }),
+                setState(() {
+                  _bookingDateController.text = date;
+                });
+              }
+            },
+            child: const Icon(
+              Icons.calendar_today,
+              color: bmPrimaryColor,
+            ),
+          ),
+          nextFocus: null,
+          controller: _bookingDateController,
+          errorThisFieldRequired: 'Date is required',
+          cursorColor: bmPrimaryColor,
+          textStyle: boldTextStyle(
+              color:
+                  appStore.isDarkModeOn ? bmTextColorDarkMode : bmPrimaryColor),
+          suffixIconColor: bmPrimaryColor,
+          decoration: InputDecoration(
+            border: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: appStore.isDarkModeOn
+                        ? bmTextColorDarkMode
+                        : bmPrimaryColor)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: appStore.isDarkModeOn
+                        ? bmTextColorDarkMode
+                        : bmPrimaryColor)),
+            enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: appStore.isDarkModeOn
+                        ? bmTextColorDarkMode
+                        : bmPrimaryColor)),
+          ),
+        ),
       ],
     );
   }
 
-  Widget bookStaff() {
+  Widget bookAppointment(context) {
+    AppointmentListViewModel appointmentViewModel =
+        Provider.of<AppointmentListViewModel>(context);
+    ShopViewModel slotsModel = Provider.of<ShopViewModel>(context);
+    print(slotsModel.loading);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        titleText(title: 'Availability'),
+        16.height,
+        slotsModel.loading
+            ? CircularProgressIndicator().center()
+            : Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: getAvailableTimes(slotsModel.slots)?.map((e) {
+                      int index =
+                          getAvailableTimes(slotsModel.slots)!.indexOf(e);
+                      if (index == 0) {
+                        selectedSlot = e;
+                      }
+                      return Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: selectedTimer == index
+                              ? bmPrimaryColor
+                              : bmPrimaryColor.withAlpha(50),
+                          borderRadius: radius(32),
+                          border: Border.all(color: bmPrimaryColor),
+                        ),
+                        child: Text(e,
+                            style: primaryTextStyle(
+                                color: selectedTimer == index
+                                    ? Colors.white
+                                    : appStore.isDarkModeOn
+                                        ? Colors.white
+                                        : bmSpecialColorDark)),
+                      ).onTap(() {
+                        selectedTimer = index;
+                        setState(() {
+                          selectedSlot = e;
+                        });
+                      });
+                    }).toList() ??
+                    [
+                      Center(
+                        child: Text("Slots are not available for the day"),
+                      )
+                    ],
+              ),
+        16.height,
+      ],
+    );
+  }
+
+  Widget timing() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        titleText(title: 'Staff'),
+        titleText(title: 'Timing'),
         16.height,
         Wrap(
           spacing: 12,

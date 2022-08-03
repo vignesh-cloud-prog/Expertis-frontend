@@ -37,8 +37,9 @@ class RoutesName {
   static const String allShops = '/shops';
   static const String viewShop = '/shops/view/:shopId';
   static get viewShopWithId => (String shopId) => '/shops/view/$shopId';
-  static const String bookAppointment = '/shops/book/:shopId';
-  static get bookAppointmentWithId => (String shopId) => '/shops/book/$shopId';
+  static const String bookAppointment = '/shops/book/:shopId/:memberId';
+  static get bookAppointmentWithId =>
+      (String shopId, String memberId) => '/shops/book/$shopId/$memberId';
   static const String shopPortfolio = '/shops/portfolio/:shopId';
   static get shopPortfolioWithId =>
       (String shopId) => '/shops/portfolio/$shopId';

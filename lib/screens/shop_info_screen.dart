@@ -9,6 +9,7 @@ import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class ShopInfoScreen extends StatefulWidget {
   ShopInfoScreen({Key? key}) : super(key: key);
@@ -28,8 +29,8 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ChangeNotifierProvider<ShopViewModel>.value(
+    return Container(
+      child: ChangeNotifierProvider<ShopViewModel>.value(
         value: shopViewModel,
         child: Consumer<ShopViewModel>(builder: (context, value, _) {
           switch (value.selectedShop.status) {
@@ -49,7 +50,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
               return SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    headerText(title: " My Shop"),
+                    titleText(title: "About My Shop"),
                     SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,6 +87,6 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
           }
         }),
       ),
-    );
+    ).paddingAll(16);
   }
 }

@@ -1,13 +1,8 @@
-import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
-import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:provider/provider.dart';
 
 import '../main.dart';
-import '../models/BMServiceListModel.dart';
-import '../utils/BMBottomSheet.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
@@ -37,7 +32,7 @@ class _ServiceComponentState extends State<ServiceComponent> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '${widget.element.price}+',
+                  'Rs ${widget.element.price} , ${widget.element.time} min',
                   style: secondaryTextStyle(
                     color: appStore.isDarkModeOn
                         ? bmTextColorDarkMode

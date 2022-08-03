@@ -9,18 +9,18 @@ import '../../../main.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
-class BMAvailabilityComponent extends StatefulWidget {
+class SelectedServicesComponent extends StatefulWidget {
   List<Services>? selectedServices;
 
-  BMAvailabilityComponent({Key? key, required this.selectedServices})
+  SelectedServicesComponent({Key? key, required this.selectedServices})
       : super(key: key);
 
   @override
-  _BMAvailabilityComponentState createState() =>
-      _BMAvailabilityComponentState();
+  _SelectedServicesComponentState createState() =>
+      _SelectedServicesComponentState();
 }
 
-class _BMAvailabilityComponentState extends State<BMAvailabilityComponent> {
+class _SelectedServicesComponentState extends State<SelectedServicesComponent> {
   @override
   Widget build(BuildContext context) {
     AppointmentListViewModel appointmentViewModel =

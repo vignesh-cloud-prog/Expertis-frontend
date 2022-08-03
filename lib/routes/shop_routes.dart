@@ -91,6 +91,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
           title: 'book ${state.pathParameters['shopId']}',
           child: BookAppointmentScreen(
             shopId: state.pathParameters['shopId'] ?? 'null',
+            memberId: state.pathParameters['memberId'] ?? 'null',
           ),
         ),
       if (state.uri.pathSegments.contains('view') &&

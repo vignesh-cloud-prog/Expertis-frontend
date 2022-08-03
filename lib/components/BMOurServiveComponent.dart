@@ -1,9 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/main.dart';
-import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/utils/BMBottomSheet.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
@@ -12,9 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../models/BMServiceListModel.dart';
 import '../utils/BMColors.dart';
-import '../utils/BMDataGenerator.dart';
 import '../utils/BMWidgets.dart';
 import 'BMServiceSelectComponent.dart';
 
@@ -157,23 +153,26 @@ class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
                         Row(
                           children: [
                             Image.network(e.pic ?? Assets.defaultServiceImage,
-                                    height: 30, width: 30, fit: BoxFit.cover)
+                                    height: 40, width: 40, fit: BoxFit.cover)
                                 .cornerRadiusWithClipRRect(100),
                             8.width,
-                            Row(
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(e.name ?? '',
-                                    style: primaryTextStyle(
+                                    style: boldTextStyle(
                                         color: appStore.isDarkModeOn
                                             ? white
-                                            : bmSpecialColorDark)),
+                                            : black,
+                                        size: 18)),
                                 Text(e.role ?? '',
                                     style: primaryTextStyle(
                                         color: appStore.isDarkModeOn
                                             ? white
                                             : bmSpecialColorDark)),
                               ],
-                            ),
+                            ).paddingAll(8),
                           ],
                         ),
                         IconButton(
@@ -205,15 +204,16 @@ class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
                     String date =
                         DateFormat('dd-MMM-yyyy').format(DateTime.now());
                     // print(date);
-                    Provider.of<AppointmentListViewModel>(context,
-                            listen: false)
+                    Provider.of<ShopViewModel>(context, listen: false)
                         .fetchSlotsApi(
                       shopId,
                       element[selectedTab].member,
                       date,
                     );
-                    Beamer.of(context)
-                        .beamToNamed(RoutesName.bookAppointmentWithId(shopId));
+                    print("member id: ${element[selectedTab].member}");
+                    Beamer.of(context).beamToNamed(
+                        RoutesName.bookAppointmentWithId(
+                            shopId, element[selectedTab].member));
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

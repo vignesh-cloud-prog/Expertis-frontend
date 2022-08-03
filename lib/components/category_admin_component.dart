@@ -6,8 +6,7 @@ import 'package:expertis/view_model/categories_view_model.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:flutter_iconly/flutter_iconly.dart';
-// import 'package:store_api_flutter_course/consts/global_colors.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class CategoryAdminCardComponent extends StatelessWidget {
   final CategoryModel? category;
@@ -32,13 +31,13 @@ class CategoryAdminCardComponent extends StatelessWidget {
             ? Assets.defaultCategoryImage
             : category?.tagPic ?? Assets.defaultCategoryImage,
         boxFit: BoxFit.fill,
-      ),
+      ).paddingAll(4),
       title: Text(category?.tagName ?? ""),
       trailing: Expanded(
         child: SizedBox(
-          height: size.width * 0.30,
-          width: size.width * 0.30,
-          child: Row(children: [
+          height: size.width * 0.20,
+          width: size.width * 0.20,
+          child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             IconButton(
               icon: Icon(Icons.edit),
               onPressed: () {

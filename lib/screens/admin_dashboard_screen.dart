@@ -93,7 +93,7 @@ class AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
       if (selectedTab == 1 || selectedTab == 2 || selectedTab == 3) {
         return bmSecondBackgroundColorDark;
       } else {
-        return appStore.scaffoldBackground!;
+        return bmLightScaffoldBackgroundColor;
       }
     }
   }
@@ -101,6 +101,23 @@ class AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: bmSpecialColor,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Beamer.of(context).beamToNamed(RoutesName.home);
+          },
+        ),
+        title: Text(
+          'Admin Dashboard',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       backgroundColor: getDashboardColor(),
       body: getFragment(),
       bottomNavigationBar: BottomNavigationBar(

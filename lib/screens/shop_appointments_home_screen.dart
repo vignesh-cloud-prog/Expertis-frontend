@@ -39,74 +39,64 @@ class _ShopAppointmentsHomeScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: appStore.isDarkModeOn
-          ? appStore.scaffoldBackground!
-          : bmLightScaffoldBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: appStore.isDarkModeOn
-            ? appStore.scaffoldBackground!
-            : bmLightScaffoldBackgroundColor,
-        elevation: 0,
-        leading: SizedBox(),
-        leadingWidth: 16,
-        title: titleText(title: 'Appointments'),
-      ),
-      body: Container(
-        margin: EdgeInsets.only(top: 16),
-        decoration: BoxDecoration(
-            color: appStore.isDarkModeOn
-                ? bmSecondBackgroundColorDark
-                : bmSecondBackgroundColorLight,
-            borderRadius: radiusOnly(topLeft: 32, topRight: 32)),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              16.height,
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: tabList.map((e) {
-                  int index = tabList.indexOf(e);
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                      borderRadius: radius(32),
+    return Container(
+      margin: EdgeInsets.only(top: 16),
+      decoration: BoxDecoration(
+          color: appStore.isDarkModeOn
+              ? bmSecondBackgroundColorDark
+              : bmSecondBackgroundColorLight,
+          borderRadius: radiusOnly(topLeft: 32, topRight: 32)),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            16.height,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: tabList.map((e) {
+                int index = tabList.indexOf(e);
+                return Container(
+                  margin: EdgeInsets.symmetric(horizontal: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: radius(32),
+                    color: selectedTab == index
+                        ? bmPrimaryColor
+                        : Colors.transparent,
+                  ),
+                  padding: EdgeInsets.all(8),
+                  child: Text(
+                    tabList[index],
+                    style: boldTextStyle(
+                      size: 14,
                       color: selectedTab == index
-                          ? bmPrimaryColor
-                          : Colors.transparent,
+                          ? white
+                          : appStore.isDarkModeOn
+                              ? bmPrimaryColor
+                              : bmSpecialColorDark,
                     ),
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      tabList[index],
-                      style: boldTextStyle(
-                        size: 14,
-                        color: selectedTab == index
-                            ? white
-                            : appStore.isDarkModeOn
-                                ? bmPrimaryColor
-                                : bmSpecialColorDark,
-                      ),
-                    ).onTap(() {
-                      setState(() {
-                        selectedTab = index;
-                      });
-                    }),
-                  );
-                }).toList(),
-              ).center(),
-              20.height,
-              selectedTab == 0
-                  ? ShopUpcomingAppointmentComponent(
-                      shopId: widget.shopId,
-                    )
-                  : ShopAllAppointmentComponent(
-                      shopId: widget.shopId,
-                    ),
-              20.height,
-            ],
-          ).paddingAll(16),
-        ),
+                  ).onTap(() {
+                    setState(() {
+                      selectedTab = index;
+                    });
+                  }),
+                );
+              }).toList(),
+            ).center(),
+            20.height,
+            Divider(
+              color: bmPrimaryColor,
+              thickness: 1,
+            ),
+            selectedTab == 0
+                ? ShopUpcomingAppointmentComponent(
+                    shopId: widget.shopId,
+                  )
+                : ShopAllAppointmentComponent(
+                    shopId: widget.shopId,
+                  ),
+            20.height,
+          ],
+        ).paddingAll(16),
       ),
     );
   }

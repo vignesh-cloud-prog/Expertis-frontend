@@ -58,13 +58,21 @@ class _BMAppointmentFragmentState extends State<BMAppointmentFragment> {
           ? appStore.scaffoldBackground!
           : bmLightScaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: appStore.isDarkModeOn
-            ? appStore.scaffoldBackground!
-            : bmLightScaffoldBackgroundColor,
+        backgroundColor: bmSpecialColor,
         elevation: 0,
-        leading: SizedBox(),
-        leadingWidth: 16,
-        title: titleText(title: 'Appointments'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).maybePop();
+          },
+        ),
+        title: Text(
+          'Appointments',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Container(
         margin: EdgeInsets.only(top: 16),

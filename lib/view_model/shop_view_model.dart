@@ -150,4 +150,27 @@ class ShopViewModel with ChangeNotifier {
       }
     });
   }
+
+  List slots = [];
+  Future<void> fetchSlotsApi(
+      String? shopId, String? memberId, String date) async {
+    setLoading(true);
+    _myRepo.fetchSlots(shopId, memberId, date).then((value) {
+      setSlots(value ?? []);
+      print("slots in view model is ${slots.toString()}");
+
+      setLoading(false);
+    }).onError((error, stackTrace) {
+      print(error);
+      Utils.toastMessage(error.toString());
+    });
+  }
+
+  setSlots(List<dynamic> response) {
+    print("response ${response}");
+    slots = response.isEmpty ? [] : response.map((e) => e as int).toList();
+
+    print('slots are $slots');
+    notifyListeners();
+  }
 }
