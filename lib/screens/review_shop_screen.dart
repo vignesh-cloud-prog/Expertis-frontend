@@ -1,27 +1,33 @@
 import 'package:beamer/beamer.dart';
+import 'package:expertis/models/categories_model.dart';
+import 'package:expertis/models/review_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/BMWidgets.dart';
 import 'package:expertis/utils/flutter_rating_bar.dart';
+import 'package:expertis/view_model/review_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-
+import 'package:provider/provider.dart';
 import '../main.dart';
 import '../utils/BMColors.dart';
 
 class WriteReviewScreen extends StatefulWidget {
-  final String shopId;
-  const WriteReviewScreen({Key? key, required this.shopId}) : super(key: key);
+  String? shopId;
+  ReviewModel? review = ReviewModel();
+  WriteReviewScreen({Key? key, this.shopId, this.review}) : super(key: key);
   @override
   State<WriteReviewScreen> createState() => _WriteReviewScreenState();
 }
 
 class _WriteReviewScreenState extends State<WriteReviewScreen> {
   @override
+  final _formKey = GlobalKey<FormState>();
   void initState() {
     setStatusBarColor(appStore.isDarkModeOn
         ? appStore.scaffoldBackground!
         : bmLightScaffoldBackgroundColor);
     super.initState();
+    widget.review ??= ReviewModel();
   }
 
   @override
@@ -32,7 +38,12 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _reviewController = TextEditingController();
+    ReviewViewModel reviewViewModel = ReviewViewModel();
+    print('review ${widget.review?.toJson()}');
+    print('title of review ${widget.review?.title}');
+
+    // final _formKey = GlobalKey<FormState>();
+    // TextEditingController _reviewController = TextEditingController();
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!
@@ -53,7 +64,26 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
             child: Text('Post', style: boldTextStyle(color: bmPrimaryColor)),
             width: 150,
             onTap: () {
-              Beamer.of(context).beamToReplacementNamed(RoutesName.login);
+              print(' ontap click ${widget.review?.toJson()}');
+              print('shop id ${widget.shopId}');
+              widget.review?.to = widget.shopId;
+              widget.review?.modelType = "Shop";
+              var reviewData = widget.review?.toJson()
+                ?..removeWhere((key, value) =>
+                    value == null ||
+                    value == '' ||
+                    value == 'null' ||
+                    value == []);
+              print(' ontap click ${reviewData}');
+
+              Map<String, String> data =
+                  reviewData!.map((k, v) => MapEntry(k, v.toString()));
+
+              Map<String, dynamic?> files = {
+                'reviewPhotos': widget.review?.reviewPhotos,
+              };
+              reviewViewModel.addOrUpdateReviewData(
+                  false, data, false, files, context);
             },
           ),
         ],
@@ -65,6 +95,44 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
           headerText(title: "So What Do You Think?"),
           16.height,
           Icon(Icons.format_quote_rounded, size: 50, color: bmPrimaryColor),
+          16.height,
+          titleText(
+            title: 'Title',
+            size: 16,
+          ),
+          AppTextField(
+            keyboardType: TextInputType.text,
+            // nextFocus: shopId,
+            initialValue: widget.review?.title ?? '',
+            onChanged: (value) {
+              widget.review?.title = value;
+            },
+            textFieldType: TextFieldType.NAME,
+            errorThisFieldRequired: 'Title is required',
+            autoFocus: true,
+            cursorColor: bmPrimaryColor,
+            textStyle: boldTextStyle(
+                color: appStore.isDarkModeOn
+                    ? bmTextColorDarkMode
+                    : bmPrimaryColor),
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: appStore.isDarkModeOn
+                          ? bmTextColorDarkMode
+                          : bmPrimaryColor)),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: appStore.isDarkModeOn
+                          ? bmTextColorDarkMode
+                          : bmPrimaryColor)),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: appStore.isDarkModeOn
+                          ? bmTextColorDarkMode
+                          : bmPrimaryColor)),
+            ),
+          ),
           16.height,
           Text(
             'Tell us about your experience: the services, the environment, the staff, or anything , etc.',
@@ -80,9 +148,13 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
           ),
           AppTextField(
             keyboardType: TextInputType.multiline,
+            initialValue: widget.review?.comment ?? '',
+            onChanged: (value) {
+              widget.review?.comment = value;
+            },
             autoFocus: true,
             textFieldType: TextFieldType.NAME,
-            controller: _reviewController,
+            // controller: _reviewController,
             cursorColor: bmPrimaryColor,
             textStyle: boldTextStyle(
                 color: appStore.isDarkModeOn
@@ -114,7 +186,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
           16.height,
           Center(
             child: RatingBar(
-              initialRating: 0,
+              initialRating: widget.review?.rating ?? 0,
               minRating: 5,
               direction: Axis.horizontal,
               allowHalfRating: true,
@@ -126,7 +198,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                 color: Colors.amber,
               ),
               onRatingUpdate: (rating) {
-                //
+                widget.review?.rating = rating;
               },
             ),
           ),

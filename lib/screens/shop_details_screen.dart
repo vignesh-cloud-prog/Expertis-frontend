@@ -34,6 +34,7 @@ class ShopViewScreen extends StatefulWidget {
 
 class ShopViewScreenState extends State<ShopViewScreen> {
   int selectedTab = 0;
+  String? id = "";
   ShopViewModel shopViewModel = ShopViewModel();
   bool isLiked = false;
   String defaultImg = "https://www.totallyrepair.in/images/wow-5.jpg";
@@ -48,7 +49,10 @@ class ShopViewScreenState extends State<ShopViewScreen> {
       case 2:
         return const AboutShopComponent();
       case 3:
-        return const ShopReviewComponent();
+        print("shop id in shop detail screen ${id}");
+        return ShopReviewComponent(
+          shopId: id,
+        );
 
       default:
         return const BMOurServiceComponent();
@@ -63,7 +67,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
     } else if (index == 2) {
       return RoutesName.aboutShopWithId(widget.shopId);
     } else if (index == 3) {
-      return RoutesName.shopReviewsWithId(widget.shopId);
+      return RoutesName.shopReviewsWithId(id);
     }
     return RoutesName.shopsServicesWithId(widget.shopId);
   }
@@ -106,8 +110,9 @@ class ShopViewScreenState extends State<ShopViewScreen> {
 
             case Status.COMPLETED:
               ShopModel? shop = value.selectedShop.data;
+              id = shop?.id;
               if (kDebugMode) {
-                print(shop!.toJson());
+                // print(shop!.toJson());
               }
               return NestedScrollView(
                 floatHeaderSlivers: true,

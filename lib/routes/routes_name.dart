@@ -49,9 +49,6 @@ class RoutesName {
       (String shopId) => '/shops/services/$shopId';
   static const String aboutShop = '/shops/about/:shopId';
   static get aboutShopWithId => (String shopId) => '/shops/about/$shopId';
-  static const String reviewShop = '/shop/write-review/:shopId';
-  static get reviewShopWithId =>
-      (String shopId) => '/shop/write-review/$shopId';
 
   // Owner Dashboard Routes
   static const String ownerDashboard = '/shop/dashboard/:shopId';
@@ -85,6 +82,12 @@ class RoutesName {
   static const String createTag = '/admin/tag/create';
   static const String updateTag = '/admin/tag/update/:tagId';
   static get updateTagWithId => (String tagId) => '/admin/tag/update/$tagId';
+
+  //review screen
+  static const String reviewShop = '/shop/write-review/:shopId';
+  static const String editReviewShop = '/shop/edit-review/:shopId';
+  static get reviewShopWithId =>
+      (String shopId) => '/shop/write-review/$shopId';
 
   // Error pages
   static const String tokenExpired = '/error/token-expired';
