@@ -40,7 +40,6 @@ class ShopOwnerDashboardScreen extends StatefulWidget {
 
 class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
   List<BMDashboardModel> list = getShopOwnerDashboardList();
-  final shopViewModel = ShopViewModel();
 
   int selectedTab = 0;
   @override
@@ -54,12 +53,9 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
     });
     if (widget.shopId == null) {
       UserViewModel.getUser().then((value) => {
-            widget.shopId = value.shop?.first,
-            shopViewModel.fetchSelectedShopDataApi(value.shop?.first ?? '')
+            widget.shopId = value.shop?.first.id,
           });
-    } else {
-      shopViewModel.fetchSelectedShopDataApi(widget.shopId ?? "");
-    }
+    } else {}
   }
 
   Widget getFragment() {
@@ -125,109 +121,76 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserViewModel userViewModel = Provider.of<UserViewModel>(context);
+    ShopModel? shop = userViewModel.user.shop?.first;
     return Scaffold(
       body: Column(
         children: [
           upperContainer(
             screenContext: context,
-            child: ChangeNotifierProvider<ShopViewModel>.value(
-              value: shopViewModel,
-              child: Consumer<ShopViewModel>(builder: (context, value, _) {
-                switch (value.selectedShop.status) {
-                  case Status.LOADING:
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  case Status.ERROR:
-                    String error = value.selectedShop.message.toString();
-                    return Center(
-                      child: Text(
-                        error,
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    );
-
-                  case Status.COMPLETED:
-                    ShopModel? shop = value.selectedShop.data;
-                    if (kDebugMode) {
-                      print(shop!.toJson());
-                    }
-                    return Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FancyShimmerImage(
-                            height: MediaQuery.of(context).size.height * 0.1,
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            errorWidget: const Icon(
-                              Icons.dangerous,
-                              color: Colors.red,
-                              size: 28,
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FancyShimmerImage(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    errorWidget: const Icon(
+                      Icons.dangerous,
+                      color: Colors.red,
+                      size: 28,
+                    ),
+                    imageUrl: shop?.shopLogo ?? Assets.defaultShopImage,
+                    boxFit: BoxFit.fill,
+                  ).paddingAll(10).cornerRadiusWithClipRRect(10),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          shop?.shopName ?? "",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Switch(
+                              value: shop?.isOpen == true,
+                              onChanged: (value) {},
+                              activeTrackColor: Colors.lightGreenAccent,
+                              activeColor: Colors.green,
                             ),
-                            imageUrl: shop?.shopLogo ?? Assets.defaultShopImage,
-                            boxFit: BoxFit.fill,
-                          )
-                              .paddingAll(10)
-                              .expand(flex: 1)
-                              .cornerRadiusWithClipRRect(10),
-                          Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                Text(
-                                  shop?.shopName ?? "",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Switch(
-                                      value: shop?.isOpen == true,
-                                      onChanged: (value) {},
-                                      activeTrackColor: Colors.lightGreenAccent,
-                                      activeColor: Colors.green,
-                                    ),
-                                    8.width,
-                                    Text(
-                                      shop?.isOpen == true
-                                          ? "Open Now"
-                                          : "Closed Now",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ])
-                              .paddingOnly(left: 10, right: 10)
-                              .expand(flex: 3),
-                          IconButton(
-                            icon: Icon(
-                              size: 30,
-                              Icons.exit_to_app,
-                              color: Colors.white,
+                            8.width,
+                            Text(
+                              shop?.isOpen == true ? "Open Now" : "Closed Now",
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
                             ),
-                            onPressed: () {
-                              Beamer.of(context).beamToNamed(RoutesName.home);
-                            },
-                          ).center().expand(flex: 1),
-                        ],
-                      ),
-                    );
-                  default:
-                    return Container();
-                }
-              }),
+                          ],
+                        )
+                      ]).paddingOnly(left: 10, right: 10),
+                  IconButton(
+                    icon: Icon(
+                      size: 30,
+                      Icons.exit_to_app,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Beamer.of(context).beamToNamed(RoutesName.home);
+                    },
+                  ).center(),
+                ],
+              ),
             ),
           ),
           lowerContainer(
-                  child: SingleChildScrollView(
-                    child: getFragment(),
-                  ),
-                  screenContext: context)
-              .expand(flex: 1),
+              child: SingleChildScrollView(
+                child: getFragment(),
+              ),
+              screenContext: context),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

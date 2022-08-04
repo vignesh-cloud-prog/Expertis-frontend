@@ -52,7 +52,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
   @override
   Widget build(BuildContext context) {
     UserViewModel.getUser().then((value) {
-      widget.shop?.id = value.shop?.first;
+      widget.shop?.id = value.shop?.first.id;
       widget.shop?.owner = value.id;
     });
 

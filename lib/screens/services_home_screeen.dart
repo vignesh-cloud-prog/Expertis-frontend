@@ -1,6 +1,5 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/components/service_card_component.dart';
-import 'package:expertis/data/response/status.dart';
 import 'package:expertis/main.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
@@ -25,11 +24,8 @@ class _ServicesHomeScreenState extends State<ServicesHomeScreen> {
   void initState() {
     if (widget.shopId == null) {
       UserViewModel.getUser().then((value) => {
-            shopViewModel
-                .fetchServicesDataApi(value.shop!.first) //widget.shopId
+            widget.shopId = value.shop?.first.id //widget.shopId
           });
-    } else {
-      shopViewModel.fetchServicesDataApi(widget.shopId); //widget.shopId
     }
 
     super.initState();
@@ -37,6 +33,8 @@ class _ServicesHomeScreenState extends State<ServicesHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserViewModel userViewModel = Provider.of<UserViewModel>(context);
+    List<Services>? services = userViewModel.user.shop?.first.services;
     return Column(
       children: [
         AppButton(
@@ -48,45 +46,23 @@ class _ServicesHomeScreenState extends State<ServicesHomeScreen> {
             Beamer.of(context).beamToNamed(RoutesName.createService);
           },
         ).paddingAll(16),
-        ChangeNotifierProvider<ShopViewModel>.value(
-          value: shopViewModel,
-          child: Consumer<ShopViewModel>(builder: (context, value, _) {
-            switch (value.services.status) {
-              case Status.LOADING:
-                return const Center(child: CircularProgressIndicator());
-              case Status.ERROR:
-                return Center(
-                  child: Text(value.services.message.toString()),
-                );
-              case Status.COMPLETED:
-                print("value ${value.services.data}");
-                List<Services>? services = value.services.data?.services;
-                return services!.length > 0
-                    ? Container(
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: value.services.data?.services?.length,
-                            itemBuilder: (ctx, index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                    color:
-                                        appStore.isDarkModeOn ? white : white,
-                                    borderRadius: radius(20)),
-                                child: ServiceCardComponent(
-                                    element:
-                                        value.services.data?.services![index]),
-                              ).paddingAll(12);
-                            }),
-                      )
-                    : Center(
-                        child: Text('No Services'),
-                      );
-
-              default:
-                return Container();
-            }
-          }),
-        ),
+        services!.length > 0
+            ? Container(
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: services.length,
+                    itemBuilder: (ctx, index) {
+                      return Container(
+                        decoration: BoxDecoration(
+                            color: appStore.isDarkModeOn ? white : white,
+                            borderRadius: radius(20)),
+                        child: ServiceCardComponent(element: services[index]),
+                      ).paddingAll(12);
+                    }),
+              )
+            : Center(
+                child: Text('No Services'),
+              ),
       ],
     );
   }

@@ -33,8 +33,8 @@ class ServiceCardComponent extends StatelessWidget {
       title: Text(element?.serviceName ?? ""),
       subtitle: Text(element?.price.toString() ?? ""),
       trailing: SizedBox(
-        height: size.width * 0.20,
-        width: size.width * 0.20,
+        height: size.width * 0.25,
+        width: size.width * 0.25,
         child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
           IconButton(
             icon: Icon(Icons.edit),

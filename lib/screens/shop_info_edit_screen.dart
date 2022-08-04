@@ -107,7 +107,7 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
       });
     }
     UserViewModel.getUser().then((value) {
-      widget.shop?.id = value.shop?.first;
+      widget.shop?.id = value.shop?.first.id;
       widget.shop?.owner = value.id;
     });
 

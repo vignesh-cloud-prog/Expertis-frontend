@@ -15,7 +15,8 @@ class CategoryAdminCardComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryViewModel = Provider.of<CategoryViewModel>(context);
+    CategoryViewModel categoryViewModel =
+        Provider.of<CategoryViewModel>(context);
     // print('category?.tagPicture: ${category?.tagPic}');
     Size size = MediaQuery.of(context).size;
     return ListTile(

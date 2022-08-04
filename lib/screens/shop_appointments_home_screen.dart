@@ -39,65 +39,54 @@ class _ShopAppointmentsHomeScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 16),
-      decoration: BoxDecoration(
-          color: appStore.isDarkModeOn
-              ? bmSecondBackgroundColorDark
-              : bmSecondBackgroundColorLight,
-          borderRadius: radiusOnly(topLeft: 32, topRight: 32)),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            16.height,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: tabList.map((e) {
-                int index = tabList.indexOf(e);
-                return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: radius(32),
-                    color: selectedTab == index
-                        ? bmPrimaryColor
-                        : Colors.transparent,
-                  ),
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    tabList[index],
-                    style: boldTextStyle(
-                      size: 14,
-                      color: selectedTab == index
-                          ? white
-                          : appStore.isDarkModeOn
-                              ? bmPrimaryColor
-                              : bmSpecialColorDark,
-                    ),
-                  ).onTap(() {
-                    setState(() {
-                      selectedTab = index;
-                    });
-                  }),
-                );
-              }).toList(),
-            ).center(),
-            20.height,
-            Divider(
-              color: bmPrimaryColor,
-              thickness: 1,
-            ),
-            selectedTab == 0
-                ? ShopUpcomingAppointmentComponent(
-                    shopId: widget.shopId,
-                  )
-                : ShopAllAppointmentComponent(
-                    shopId: widget.shopId,
-                  ),
-            20.height,
-          ],
-        ).paddingAll(16),
-      ),
-    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        16.height,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: tabList.map((e) {
+            int index = tabList.indexOf(e);
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: 8),
+              decoration: BoxDecoration(
+                borderRadius: radius(32),
+                color:
+                    selectedTab == index ? bmPrimaryColor : Colors.transparent,
+              ),
+              padding: EdgeInsets.all(8),
+              child: Text(
+                tabList[index],
+                style: boldTextStyle(
+                  size: 14,
+                  color: selectedTab == index
+                      ? white
+                      : appStore.isDarkModeOn
+                          ? bmPrimaryColor
+                          : bmSpecialColorDark,
+                ),
+              ).onTap(() {
+                setState(() {
+                  selectedTab = index;
+                });
+              }),
+            );
+          }).toList(),
+        ).center(),
+        20.height,
+        Divider(
+          color: bmPrimaryColor,
+          thickness: 1,
+        ),
+        selectedTab == 0
+            ? ShopUpcomingAppointmentComponent(
+                shopId: widget.shopId,
+              )
+            : ShopAllAppointmentComponent(
+                shopId: widget.shopId,
+              ),
+        20.height,
+      ],
+    ).paddingAll(16);
   }
 }

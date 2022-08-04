@@ -59,7 +59,7 @@ class DynamicLinksService {
     final PendingDynamicLinkData? data =
         await FirebaseDynamicLinks.instance.getInitialLink();
 
-    _handleDynamicLink(data!, context);
+    _handleDynamicLink(data, context);
 
     FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) {
       _handleDynamicLink(dynamicLinkData, context);
@@ -78,14 +78,14 @@ class DynamicLinksService {
   }
 
   static _handleDynamicLink(
-      PendingDynamicLinkData data, BuildContext context) async {
-    final Uri? deepLink = data.link;
+      PendingDynamicLinkData? data, BuildContext context) async {
+    final Uri? deepLink = data?.link;
 
     if (deepLink == null) {
       return;
     }
 
-    var isShop = data.link.path.contains('shops/view');
+    var isShop = data!.link.path.contains('shops/view');
     if (isShop) {
       Beamer.of(context).beamToNamed(data.link.path.split('/').last);
     }

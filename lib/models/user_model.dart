@@ -1,10 +1,12 @@
+import 'package:expertis/models/shop_model.dart';
+
 class UserModel {
   late String email;
   late String name;
   String? phone;
   Roles? roles;
   bool? verified;
-  List<String>? shop;
+  List<ShopModel>? shop;
   List<String>? appointments;
   String? createdAt;
   String? updatedAt;
@@ -42,9 +44,9 @@ class UserModel {
     roles = json['roles'] != null ? new Roles.fromJson(json['roles']) : null;
     verified = json['verified'];
     if (json['shop'] != null) {
-      shop = <String>[];
-      json['shop'].forEach((v) {
-        shop!.add(v.toString());
+      shop = <ShopModel>[];
+      json['shop']?.forEach((v) {
+        shop!.add(new ShopModel.fromJson(v));
       });
     }
     if (json['appointments'] != null) {
@@ -73,8 +75,8 @@ class UserModel {
       data['roles'] = this.roles!.toJson();
     }
     data['verified'] = verified;
-    if (shop != null) {
-      data['shop'] = shop!.map((v) => v.toString()).toList();
+    if (this.shop != null) {
+      data['shop'] = this.shop!.map((v) => v.toJson()).toList();
     }
     if (appointments != null) {
       data['appointments'] = appointments!.map((v) => v.toString()).toList();

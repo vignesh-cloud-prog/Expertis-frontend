@@ -44,7 +44,7 @@ class _ShopAllAppointmentComponentState
     if (widget.shopId == null) {
       UserViewModel.getUser().then((value) => {
             appointmentViewModel.getShopAppointmentsApi(
-                value.shop?.first ?? '', false)
+                value.shop?.first.id ?? '', false)
           });
     } else {
       appointmentViewModel.getShopAppointmentsApi(widget.shopId ?? '', false);

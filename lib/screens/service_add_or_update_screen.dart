@@ -49,7 +49,7 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
     categoryViewModel.fetchCategoryListApi();
 
     UserViewModel.getUser()
-        .then((value) => {widget.service?.shop = value.shop!.first});
+        .then((value) => {widget.service?.shop = value.shop!.first.id});
     if (widget.serviceId != null) {}
     super.initState();
   }

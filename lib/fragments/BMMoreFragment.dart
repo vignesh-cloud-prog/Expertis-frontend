@@ -170,7 +170,7 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                                       onTap: () {
                                         Beamer.of(context).beamToNamed(
                                             RoutesName.ownerDashboardWithId(
-                                                user?.shop!.first));
+                                                user?.shop!.first.id));
                                       },
                                     )
                                   : SettingItemWidget(

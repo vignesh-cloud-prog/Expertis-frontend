@@ -14,6 +14,7 @@ import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/utils/BMDataGenerator.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
+import 'package:expertis/view_model/services/firebase_dynamic_link.dart';
 import 'package:expertis/view_model/shop_list_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   //region Entry Point
 
   appStore.toggleDarkMode(value: getBoolAsync(isDarkModeOnPref));
@@ -78,6 +80,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DynamicLinksService.initDynamicLinks(context);
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: '$appName${!isMobile ? ' ${platformName()}' : ''}',
