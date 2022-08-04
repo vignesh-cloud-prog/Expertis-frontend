@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "161518534901",
+    "project_id": "expertis-service",
+    "storage_bucket": "expertis-service.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161518534901:android:fe173a1569da98acf105bc",
+        "android_client_info": {
+          "package_name": "com.example.expertis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161518534901-re8nqofv3aouh58aap2vausqa207bvmq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq0rw91g2uO6-BTF9nWWvgfu4CMBXG8PA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161518534901-re8nqofv3aouh58aap2vausqa207bvmq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "161518534901-qdqlq2qrvf2qvgnhlh4ts2p2o13c9pv3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.expertis"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

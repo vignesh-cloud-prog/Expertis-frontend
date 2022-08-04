@@ -7,6 +7,7 @@ import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/BMCallScreen.dart';
 import 'package:expertis/screens/BMChatScreen.dart';
 import 'package:expertis/utils/utils.dart';
+import 'package:expertis/view_model/services/firebase_dynamic_link.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -132,7 +133,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                         IconButton(
                           icon: const Icon(Icons.subdirectory_arrow_right,
                               color: bmPrimaryColor),
-                          onPressed: () {
+                          onPressed: () async {
                             // BMSingleImageScreen(element: widget.element)
                             // .launch(context);
                           },
@@ -348,11 +349,22 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                         //   lastSeen: 'today , at 11:30 am',
                                         // )).launch(context);
                                       }),
+                                      IconButton(
+                                        onPressed: () async {
+                                          print("clicked");
+                                          String link =
+                                              await DynamicLinksService
+                                                  .createShopDynamicLink(shop);
+                                          print("link is $link");
+                                        },
+                                        icon: Icon(Icons.share,
+                                            color: bmPrimaryColor, size: 30),
+                                      ),
                                     ],
                                   )
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),

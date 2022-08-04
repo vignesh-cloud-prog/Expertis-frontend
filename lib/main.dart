@@ -22,16 +22,22 @@ import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:beamer/beamer.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 AppStore appStore = AppStore();
 
 int currentIndex = 0;
 
 void main() async {
-  //region Entry Point
   Beamer.setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   await initialize(aLocaleLanguageList: languageList());
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  //region Entry Point
 
   appStore.toggleDarkMode(value: getBoolAsync(isDarkModeOnPref));
 

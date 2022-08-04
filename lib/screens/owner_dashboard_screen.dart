@@ -126,96 +126,6 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: PreferredSize(
-      //   preferredSize: MediaQuery.of(context).size * 0.1,
-      //   child: ChangeNotifierProvider<ShopViewModel>.value(
-      //     value: shopViewModel,
-      //     child: Consumer<ShopViewModel>(builder: (context, value, _) {
-      //       switch (value.selectedShop.status) {
-      //         case Status.LOADING:
-      //           return const Center(
-      //             child: CircularProgressIndicator(),
-      //           );
-      //         case Status.ERROR:
-      //           String error = value.selectedShop.message.toString();
-      //           return Center(
-      //             child: Text(
-      //               error,
-      //               style: TextStyle(color: Colors.red),
-      //             ),
-      //           );
-
-      //         case Status.COMPLETED:
-      //           ShopModel? shop = value.selectedShop.data;
-      //           if (kDebugMode) {
-      //             print(shop!.toJson());
-      //           }
-      //           return Container(
-      //             color: bmPrimaryColor,
-      //             child: Row(
-      //               mainAxisAlignment: MainAxisAlignment.center,
-      //               children: <Widget>[
-      //                 FancyShimmerImage(
-      //                   height: MediaQuery.of(context).size.height * 0.5,
-      //                   width: MediaQuery.of(context).size.width * 0.2,
-      //                   errorWidget: const Icon(
-      //                     Icons.dangerous,
-      //                     color: Colors.red,
-      //                     size: 28,
-      //                   ),
-      //                   imageUrl: shop?.shopLogo ?? Assets.defaultShopImage,
-      //                   boxFit: BoxFit.fill,
-      //                 ).expand(flex: 1),
-      //                 Column(
-      //                     crossAxisAlignment: CrossAxisAlignment.start,
-      //                     mainAxisAlignment: MainAxisAlignment.center,
-      //                     children: [
-      //                       Text(
-      //                         shop?.shopName ?? "",
-      //                         style: TextStyle(
-      //                           fontSize: 20,
-      //                           fontWeight: FontWeight.bold,
-      //                         ),
-      //                       ),
-      //                       Row(
-      //                         children: [
-      //                           Switch(
-      //                             value: shop?.isOpen == true,
-      //                             onChanged: (value) {},
-      //                             activeTrackColor: Colors.lightGreenAccent,
-      //                             activeColor: Colors.green,
-      //                           ),
-      //                           8.width,
-      //                           Text(
-      //                             shop?.isOpen == true
-      //                                 ? "Open Now"
-      //                                 : "Closed Now",
-      //                             style: TextStyle(
-      //                               fontSize: 16,
-      //                             ),
-      //                           ),
-      //                         ],
-      //                       )
-      //                     ]).paddingOnly(left: 10, right: 10).expand(flex: 3),
-      //                 IconButton(
-      //                   icon: Icon(
-      //                     size: 30,
-      //                     Icons.exit_to_app,
-      //                     color: Colors.white,
-      //                   ),
-      //                   onPressed: () {
-      //                     Beamer.of(context).beamToNamed(RoutesName.home);
-      //                   },
-      //                 ).center().expand(flex: 1),
-      //               ],
-      //             ),
-      //           );
-      //         default:
-      //           return Container();
-      //       }
-      //     }),
-      //   ),
-      // ),
       body: Column(
         children: [
           upperContainer(
@@ -257,8 +167,8 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
                             imageUrl: shop?.shopLogo ?? Assets.defaultShopImage,
                             boxFit: BoxFit.fill,
                           )
-                              .expand(flex: 1)
                               .paddingAll(10)
+                              .expand(flex: 1)
                               .cornerRadiusWithClipRRect(10),
                           Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

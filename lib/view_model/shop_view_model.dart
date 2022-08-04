@@ -156,7 +156,7 @@ class ShopViewModel with ChangeNotifier {
       String? shopId, String? memberId, String date) async {
     setLoading(true);
     _myRepo.fetchSlots(shopId, memberId, date).then((value) {
-      setSlots(value ?? []);
+      setSlots(value);
       print("slots in view model is ${slots.toString()}");
 
       setLoading(false);
