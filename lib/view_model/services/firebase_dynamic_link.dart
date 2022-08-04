@@ -16,24 +16,30 @@ class DynamicLinksService {
       link: Uri.parse(
           'https://expertis-web.vercel.app/shops/view/${shop.shopId}'),
       androidParameters: AndroidParameters(
+        fallbackUrl: Uri.parse(
+            'https://expertis-web.vercel.app/shops/view/${shop.shopId}'),
         packageName: packageInfo.packageName,
         minimumVersion: 125,
       ),
       iosParameters: IOSParameters(
+        fallbackUrl: Uri.parse(
+            'https://expertis-web.vercel.app/shops/view/${shop.shopId}'),
         bundleId: packageInfo.packageName,
         minimumVersion: packageInfo.version,
         appStoreId: '123456789',
       ),
       googleAnalyticsParameters: GoogleAnalyticsParameters(
-        campaign: 'example-promo',
+        campaign: 'Share',
         medium: 'social',
-        source: 'orkut',
+        source: 'app',
       ),
       socialMetaTagParameters: SocialMetaTagParameters(
-          title: 'Example of a Dynamic Link',
-          description: 'This link works whether app is installed or not!',
+          title: shop.shopName,
+          description: shop.about,
           imageUrl: Uri.parse(
-              "https://images.pexels.com/photos/3841338/pexels-photo-3841338.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")),
+            shop.shopLogo ??
+                'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png',
+          )),
     );
 
     // final Uri dynamicUrl = await parameters.buildUrl();

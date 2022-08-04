@@ -13,6 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../components/BMOurServiveComponent.dart';
 import '../components/BMPortfolioComponent.dart';
@@ -355,6 +356,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                           String link =
                                               await DynamicLinksService
                                                   .createShopDynamicLink(shop);
+                                          Share.share(link);
                                           print("link is $link");
                                         },
                                         icon: Icon(Icons.share,
