@@ -1,11 +1,8 @@
-import 'package:beamer/beamer.dart';
 import 'package:expertis/components/about_shop_component.dart';
 import 'package:expertis/components/shop_reviews_component.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/screens/BMCallScreen.dart';
-import 'package:expertis/screens/BMChatScreen.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/services/firebase_dynamic_link.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
@@ -13,16 +10,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../components/BMOurServiveComponent.dart';
 import '../components/BMPortfolioComponent.dart';
 import '../main.dart';
-import '../models/BMMessageModel.dart';
-import '../models/shop_list_model.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 import '../utils/flutter_rating_bar.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ShopViewScreen extends StatefulWidget {
   final String shopId;
@@ -355,8 +350,12 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                           print("clicked");
                                           String link =
                                               await DynamicLinksService
-                                                  .createShopDynamicLink(shop);
-                                          Share.share(link);
+                                                  .createShopDynamicLink(shop,
+                                                      short: true);
+                                          Share.share(
+                                              'check out my website $link',
+                                              subject: 'Look what I made!');
+
                                           print("link is $link");
                                         },
                                         icon: Icon(Icons.share,

@@ -59,8 +59,14 @@ void main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final routerDelegate = BeamerDelegate(
     initialPath: RoutesName.splash,
     locationBuilder: BeamerLocationBuilder(
@@ -79,9 +85,13 @@ class MyApp extends StatelessWidget {
   );
 
   @override
-  Widget build(BuildContext context) {
-    DynamicLinksService.initDynamicLinks(context);
+  void initState() {
+    DynamicLinksService.initDynamicLink(context);
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: '$appName${!isMobile ? ' ${platformName()}' : ''}',

@@ -55,27 +55,27 @@ class DynamicLinksService {
     return url.toString();
   }
 
-  static void initDynamicLinks(BuildContext context) async {
-    final PendingDynamicLinkData? data =
-        await FirebaseDynamicLinks.instance.getInitialLink();
+  // static void initDynamicLinks(BuildContext context) async {
+  //   final PendingDynamicLinkData? data =
+  //       await FirebaseDynamicLinks.instance.getInitialLink();
 
-    _handleDynamicLink(data, context);
+  //   _handleDynamicLink(data, context);
 
-    FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) {
-      _handleDynamicLink(dynamicLinkData, context);
-    }).onError((error) {
-      print(error.toString());
-      // Handle errors
-    });
+  //   FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) {
+  //     _handleDynamicLink(dynamicLinkData, context);
+  //   }).onError((error) {
+  //     print(error.toString());
+  //     // Handle errors
+  //   });
 
-    // FirebaseDynamicLinks.instance.onLink(
-    //     onSuccess: (PendingDynamicLinkData dynamicLink) async {
-    //   _handleDynamicLink(dynamicLink);
-    // }, onError: (OnLinkErrorException e) async {
-    //   print('onLinkError');
-    //   print(e.message);
-    // });
-  }
+  //   // FirebaseDynamicLinks.instance.onLink(
+  //   //     onSuccess: (PendingDynamicLinkData dynamicLink) async {
+  //   //   _handleDynamicLink(dynamicLink);
+  //   // }, onError: (OnLinkErrorException e) async {
+  //   //   print('onLinkError');
+  //   //   print(e.message);
+  //   // });
+  // }
 
   static _handleDynamicLink(
       PendingDynamicLinkData? data, BuildContext context) async {
@@ -84,16 +84,35 @@ class DynamicLinksService {
     if (deepLink == null) {
       return;
     }
-
-    var isShop = data!.link.path.contains('shops/view');
-    if (isShop) {
-      Beamer.of(context).beamToNamed(data.link.path.split('/').last);
-    }
+    print('deep link is ${deepLink.path.toString()}');
+    // Beamer.of(context).beamToNamed(deepLink.path);
+    // var isShop = data!.link.path.contains('shops/view');
+    // if (isShop) {
+    //   Beamer.of(context).beamToNamed(data.link.path.split('/').last);
+    // }
     // if (deepLink.pathSegments.contains('refer')) {
     //   var title = deepLink.queryParameters['code'];
     //   if (title != null) {
     //     print("refercode=$title");
     //   }
     // }
+  }
+
+  static Future<void> initDynamicLink(BuildContext context) async {
+    FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) {
+      _handleDynamicLink(dynamicLinkData, context);
+      // Navigator.pushNamed(context, dynamicLinkData.link.path);
+    }).onError((error) {
+      // Handle errors
+    });
+
+    final PendingDynamicLinkData? initialLink =
+        await FirebaseDynamicLinks.instance.getInitialLink();
+    if (initialLink != null) {
+      final Uri deepLink = initialLink.link;
+      _handleDynamicLink(initialLink, context);
+      // Example of using the dynamic link to push the user to a different screen
+      // Navigator.pushNamed(context, deepLink.path);
+    }
   }
 }
