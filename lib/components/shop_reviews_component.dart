@@ -110,7 +110,7 @@ class _ShopReviewComponentState extends State<ShopReviewComponent> {
                     titleText(title: 'Reviews', size: 20),
                     2.width,
                     titleText(
-                      title: '(560 reviews)',
+                      title: '(${value.reviewList.data?.review?.length})',
                       size: 16,
                     ),
                   ],

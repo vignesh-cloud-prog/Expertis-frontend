@@ -1,5 +1,7 @@
+import 'package:expertis/models/user_model.dart';
+
 class ReviewModel {
-  String? from;
+  UserModel? from;
   String? modelType;
   String? to;
   String? comment;
@@ -23,7 +25,7 @@ class ReviewModel {
       this.id});
 
   ReviewModel.fromJson(Map<String, dynamic> json) {
-    from = json['from'];
+    from = json['from'] != null ? new UserModel.fromJson(json['from']) : null;
     modelType = json['model_type'];
     to = json['to'];
     comment = json['comment'];

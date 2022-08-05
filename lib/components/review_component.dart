@@ -30,14 +30,18 @@ class _ReviewComponentState extends State<ReviewComponent> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
+                Image.network(widget.element?.from?.userPic ?? '',
+                        height: 40, width: 40, fit: BoxFit.cover)
+                    .cornerRadiusWithClipRRect(100),
+                8.width,
                 titleText(title: widget.element?.title ?? '', size: 16),
-                Text(widget.element?.from ?? '',
+                Text(widget.element?.from?.name ?? '',
                     style: primaryTextStyle(
                         color: appStore.isDarkModeOn
                             ? bmTextColorDarkMode
                             : bmSpecialColor)),
                 RatingBar(
-                  initialRating: 5,
+                  initialRating: widget.element?.rating,
                   minRating: 5,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
