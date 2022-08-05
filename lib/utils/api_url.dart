@@ -51,4 +51,11 @@ class ApiUrl {
   static String deleteTagEndPoint(String? tagId) => '${baseUrl}tags/$tagId';
 
   static String uploadServiceApiEndPoint = '${baseUrl}shops/services';
+
+  static String reviewEndPoint = '${baseUrl}reviews/';
+
+  static String getShopReviewEndPoint(String? id) => '${baseUrl}reviews/$id';
+  static String deleteShopReviewEndPoint(String? shopId) =>
+      '${baseUrl}reviews/$shopId';
+  static String getReviewsEndPoint = '${baseUrl}tags';
 }

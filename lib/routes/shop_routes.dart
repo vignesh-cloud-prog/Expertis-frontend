@@ -1,4 +1,5 @@
 import 'package:beamer/beamer.dart';
+import 'package:expertis/models/review_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/create_shop_screen.dart';
@@ -143,6 +144,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
             selectedTab: 3,
           ),
         ),
+      //review
       if (state.uri.pathSegments.contains('write-review') &&
           state.pathParameters.containsKey('shopId'))
         BeamPage(
@@ -150,6 +152,18 @@ class ShopsLocation extends BeamLocation<BeamState> {
           title: ' Review ${state.pathParameters['shopId']}',
           child: WriteReviewScreen(
             shopId: state.pathParameters['shopId'] ?? 'null',
+            review: data != null ? data as ReviewModel : null,
+          ),
+        ),
+
+      if (state.uri.pathSegments.contains('edit-review') &&
+          state.pathParameters.containsKey('shopId'))
+        BeamPage(
+          key: const ValueKey(RoutesName.editReviewShop),
+          title: 'Edit Review ${state.pathParameters['shopId']}',
+          child: WriteReviewScreen(
+            shopId: state.pathParameters['shopId'] ?? 'null',
+            review: data != null ? data as ReviewModel : null,
           ),
         ),
 

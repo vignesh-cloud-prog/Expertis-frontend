@@ -1,4 +1,5 @@
 import 'package:expertis/main.dart';
+import 'package:expertis/models/review_model.dart';
 import 'package:expertis/utils/BMColors.dart';
 import 'package:expertis/utils/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import '../models/BMCommentModel.dart';
 import '../utils/BMWidgets.dart';
 
 class ReviewComponent extends StatefulWidget {
-  BMCommentModel element;
+  ReviewModel? element;
 
   ReviewComponent({required this.element});
 
@@ -25,22 +26,22 @@ class _ReviewComponentState extends State<ReviewComponent> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(widget.element.image,
-                    height: 40, width: 40, fit: BoxFit.cover)
-                .cornerRadiusWithClipRRect(100),
-            8.width,
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                titleText(title: widget.element.message, size: 16),
-                Text(widget.element.name,
+                Image.network(widget.element?.from?.userPic ?? '',
+                        height: 40, width: 40, fit: BoxFit.cover)
+                    .cornerRadiusWithClipRRect(100),
+                8.width,
+                titleText(title: widget.element?.title ?? '', size: 16),
+                Text(widget.element?.from?.name ?? '',
                     style: primaryTextStyle(
                         color: appStore.isDarkModeOn
                             ? bmTextColorDarkMode
                             : bmSpecialColor)),
                 RatingBar(
-                  initialRating: 5,
+                  initialRating: widget.element?.rating,
                   minRating: 5,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
@@ -57,8 +58,7 @@ class _ReviewComponentState extends State<ReviewComponent> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.7,
-                  child: Text(
-                      'lorem ipsum djkflj  dkfgkjdf  kdjkfl   dfkjgk dfg k kl dkfg  kdfgl ldkf  ldkfg k  dfkl kdf k kdf  kdf lk kd gk  kkldfgkld fk k fgj fdk  ',
+                  child: Text(widget.element?.comment ?? '',
                       overflow: TextOverflow.visible,
                       maxLines: 5,
                       style: primaryTextStyle(
@@ -72,19 +72,6 @@ class _ReviewComponentState extends State<ReviewComponent> {
         ).expand(flex: 10),
         Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            widget.element.isLiked
-                ? Icon(Icons.favorite, color: Colors.amber).onTap(() {
-                    widget.element.isLiked = !widget.element.isLiked;
-                    setState(() {});
-                  })
-                : Icon(Icons.favorite_outline, color: bmPrimaryColor).onTap(() {
-                    widget.element.isLiked = !widget.element.isLiked;
-                    setState(() {});
-                  }),
-            Text(widget.element.likes,
-                style: secondaryTextStyle(color: bmPrimaryColor))
-          ],
         ).expand(flex: 1),
       ],
     ).paddingOnly(top: 8, bottom: 8, left: 0);
