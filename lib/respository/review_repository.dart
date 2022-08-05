@@ -89,7 +89,7 @@ class ReviewRepository {
       dynamic response =
           await _apiServices.getGetApiResponse(url, requestHeaders);
       if (kDebugMode) {
-        // print("response from get shop reviews ${response.toString()}");
+        print("response from get shop reviews ${response.toString()}");
       }
       if (response != null) {
         return response = ReviewListModel.fromJson(response);

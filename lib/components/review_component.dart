@@ -3,6 +3,7 @@ import 'package:expertis/models/review_model.dart';
 import 'package:expertis/utils/BMColors.dart';
 import 'package:expertis/utils/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../models/BMCommentModel.dart';
@@ -21,59 +22,66 @@ class _ReviewComponentState extends State<ReviewComponent> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+            Row(
               children: [
                 Image.network(widget.element?.from?.userPic ?? '',
                         height: 40, width: 40, fit: BoxFit.cover)
                     .cornerRadiusWithClipRRect(100),
-                8.width,
-                titleText(title: widget.element?.title ?? '', size: 16),
-                Text(widget.element?.from?.name ?? '',
-                    style: primaryTextStyle(
-                        color: appStore.isDarkModeOn
-                            ? bmTextColorDarkMode
-                            : bmSpecialColor)),
-                RatingBar(
-                  initialRating: widget.element?.rating,
-                  minRating: 5,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemSize: 18,
-                  itemPadding: const EdgeInsets.symmetric(horizontal: 0),
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  onRatingUpdate: (rating) {
-                    //
-                  },
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: Text(widget.element?.comment ?? '',
-                      overflow: TextOverflow.visible,
-                      maxLines: 5,
-                      style: primaryTextStyle(
-                          color: appStore.isDarkModeOn
-                              ? bmTextColorDarkMode
-                              : bmSpecialColor)),
+                10.width,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    titleText(
+                        title: widget.element?.from?.name ?? '', size: 16),
+                    Text(
+                        DateFormat('dd MMM yyyy').format(DateTime.parse(
+                            widget.element?.createdAt ??
+                                DateTime.now().toString())),
+                        style: primaryTextStyle(
+                            color: appStore.isDarkModeOn
+                                ? bmTextColorDarkMode
+                                : bmSpecialColor)),
+                  ],
                 ),
               ],
-            )
+            ),
+            10.height,
+            RatingBar(
+              initialRating: widget.element?.rating.toDouble() ?? 0.0,
+              minRating: 5,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemSize: 18,
+              itemPadding: const EdgeInsets.symmetric(horizontal: 0),
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              onRatingUpdate: (rating) {
+                //
+              },
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.7,
+              child: Text(widget.element?.comment ?? '',
+                  overflow: TextOverflow.visible,
+                  maxLines: 5,
+                  style: primaryTextStyle(
+                      color: appStore.isDarkModeOn
+                          ? bmTextColorDarkMode
+                          : bmSpecialColor)),
+            ),
           ],
-        ).expand(flex: 10),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-        ).expand(flex: 1),
+        )
       ],
-    ).paddingOnly(top: 8, bottom: 8, left: 0);
+    ).paddingOnly(left: 16, bottom: 16);
   }
 }
