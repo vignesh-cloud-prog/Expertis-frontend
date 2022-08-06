@@ -22,6 +22,7 @@ import 'package:share_plus/share_plus.dart';
 class ShopViewScreen extends StatefulWidget {
   final String shopId;
   final int selectedTab;
+
   const ShopViewScreen({Key? key, required this.shopId, this.selectedTab = 0})
       : super(key: key);
 
@@ -30,6 +31,7 @@ class ShopViewScreen extends StatefulWidget {
 }
 
 class ShopViewScreenState extends State<ShopViewScreen> {
+  ShopModel? shop;
   int selectedTab = 0;
   String? id = "";
   ShopViewModel shopViewModel = ShopViewModel();
@@ -44,7 +46,9 @@ class ShopViewScreenState extends State<ShopViewScreen> {
       case 1:
         return BMPortfolioComponent();
       case 2:
-        return const AboutShopComponent();
+        return AboutShopComponent(
+          shop: shop,
+        );
       case 3:
         print("shop id in shop detail screen ${id}");
         return ShopReviewComponent(
@@ -106,7 +110,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
               return Utils.findErrorPage(context, error);
 
             case Status.COMPLETED:
-              ShopModel? shop = value.selectedShop.data;
+              shop = value.selectedShop.data;
               id = shop?.id;
               if (kDebugMode) {
                 // print(shop!.toJson());
@@ -164,7 +168,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                             Stack(
                               children: [
                                 Image.network(
-                                  shop.shopLogo ?? defaultImg,
+                                  shop?.shopLogo ?? defaultImg,
                                   height: 280,
                                   width: context.width(),
                                   fit: BoxFit.cover,
@@ -236,10 +240,10 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  titleText(title: shop.shopName ?? ''),
+                                  titleText(title: shop?.shopName ?? ''),
                                   8.height,
                                   Text(
-                                    shop.contact!.address ?? '',
+                                    shop?.contact!.address ?? '',
                                     style: secondaryTextStyle(
                                         color: appStore.isDarkModeOn
                                             ? Colors.white
@@ -249,12 +253,12 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                   8.height,
                                   Row(
                                     children: [
-                                      Text(shop.rating!.avg.toString(),
+                                      Text(shop?.rating!.avg.toString() ?? '',
                                           style: boldTextStyle()),
                                       2.width,
                                       RatingBar(
                                         initialRating:
-                                            shop.rating!.avg!.toDouble(),
+                                            shop?.rating!.avg!.toDouble(),
                                         minRating: 5,
                                         direction: Axis.horizontal,
                                         allowHalfRating: true,
@@ -272,7 +276,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                       ),
                                       6.width,
                                       Text(
-                                          ' ${shop.rating!.totalMembers!.toString()} reviews',
+                                          ' ${shop?.rating!.totalMembers!.toString()} reviews',
                                           style: secondaryTextStyle(
                                               color: bmTextColorDarkMode)),
                                     ],
@@ -305,7 +309,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                       ).onTap(() {
                                         launchUrl(Uri(
                                             scheme: 'tel',
-                                            path: shop.contact!.phone
+                                            path: shop?.contact!.phone
                                                 .toString()));
                                       }, borderRadius: radius(32)),
                                       Container(
@@ -333,7 +337,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                       ).onTap(() {
                                         final Uri smsLaunchUri = Uri(
                                           scheme: 'sms',
-                                          path: shop.contact!.phone.toString(),
+                                          path: shop?.contact!.phone.toString(),
                                           queryParameters: <String, String>{
                                             'body':
                                                 'Hello, is seats available now?',
@@ -355,7 +359,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                           print("clicked");
                                           String link =
                                               await DynamicLinksService
-                                                  .createShopDynamicLink(shop,
+                                                  .createShopDynamicLink(shop!,
                                                       short: true);
                                           Share.share(
                                               'check out my website $link',

@@ -1,32 +1,28 @@
 import 'package:beamer/beamer.dart';
-import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-
 import '../main.dart';
-import '../models/BMCommonCardModel.dart';
-import '../screens/shop_details_screen.dart';
 import '../utils/BMColors.dart';
 
-class BMCommonCardComponent extends StatefulWidget {
+class ShopCardComponent extends StatefulWidget {
   ShopModel element;
   bool fullScreenComponent;
   bool isFavList;
 
-  BMCommonCardComponent(
+  ShopCardComponent(
       {required this.element,
       required this.fullScreenComponent,
       required this.isFavList});
 
   @override
-  State<BMCommonCardComponent> createState() => _BMCommonCardComponentState();
+  State<ShopCardComponent> createState() => _ShopCardComponentState();
 }
 
-class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
+class _ShopCardComponentState extends State<ShopCardComponent> {
   bool isLiked = false;
   bool saveTag = false;
   @override
@@ -94,14 +90,14 @@ class _BMCommonCardComponentState extends State<BMCommonCardComponent> {
                           style: boldTextStyle()),
                       2.width,
                       Text(
-                          '(${widget.element.rating!.totalMembers.toString()})',
+                          '(${widget.element.rating!.totalMembers.toString()}) reviews',
                           style: secondaryTextStyle(
                               color: appStore.isDarkModeOn
                                   ? bmTextColorDarkMode
                                   : bmPrimaryColor)),
                     ],
                   ),
-                  Text(widget.element.rating!.avg.toString(),
+                  Text(widget.element.isOpen == true ? 'Open ' : 'Closed',
                       style: secondaryTextStyle(
                           color: appStore.isDarkModeOn
                               ? bmTextColorDarkMode

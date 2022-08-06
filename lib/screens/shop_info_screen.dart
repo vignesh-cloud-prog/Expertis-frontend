@@ -1,4 +1,6 @@
 import 'package:beamer/beamer.dart';
+import 'package:expertis/components/shop_contact_component.dart';
+import 'package:expertis/components/shop_info_component.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
@@ -55,6 +57,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
                     icon: Icon(Icons.edit)),
               ],
             ),
+            ShopInfoComponent(shop: shop),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,7 +71,8 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
                     }),
                     icon: Icon(Icons.edit)),
               ],
-            )
+            ),
+            ShopContactComponent(contact: shop?.contact),
           ],
         ),
       ),

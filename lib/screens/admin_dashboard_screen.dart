@@ -10,8 +10,8 @@ import 'package:expertis/screens/shop_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../fragments/BMAppointmentFragment.dart';
-import '../fragments/BMHomeFragment.dart';
+import '../fragments/user_appointments_component.dart';
+import '../fragments/user_home_component.dart';
 import '../main.dart';
 import '../models/BMDashboardModel.dart';
 import '../utils/BMColors.dart';
@@ -52,7 +52,7 @@ class AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
     } else if (selectedTab == 3) {
       return AdminTagsHomeScreen();
     }
-    return BMHomeFragment();
+    return UserHomeComponent();
   }
 
   void getFragmentNo(selectedTab) {

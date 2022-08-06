@@ -1,6 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/screens/BMDashboardScreen.dart';
+import 'package:expertis/screens/user_home_screen.dart';
 import 'package:expertis/screens/BMForgetPasswordScreen.dart';
 import 'package:expertis/screens/BMLoginNowScreen.dart';
 import 'package:expertis/screens/login_screen.dart';
@@ -49,7 +49,7 @@ class HomeLocation extends BeamLocation<BeamState> {
         BeamPage(
           key: ValueKey(RoutesName.home),
           title: ' Welcome to $appName home',
-          child: BMDashboardScreen(),
+          child: UserHomeScreen(),
         ),
       if (state.pathPatternSegments.contains("onboarding"))
         const BeamPage(

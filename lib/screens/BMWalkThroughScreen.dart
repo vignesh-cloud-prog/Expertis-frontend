@@ -6,7 +6,7 @@ import 'package:nb_utils/nb_utils.dart';
 import '../main.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMDataGenerator.dart';
-import 'BMDashboardScreen.dart';
+import 'user_home_screen.dart';
 import 'login_screen.dart';
 import 'BMRegisterScreen.dart';
 
