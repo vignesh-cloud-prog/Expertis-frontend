@@ -9,6 +9,7 @@ import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 
 class ShopViewModel with ChangeNotifier {
   final _myRepo = HomeRepository();
@@ -141,6 +142,39 @@ class ShopViewModel with ChangeNotifier {
       Beamer.of(context)
           .beamToReplacementNamed(RoutesName.shopServicesWithId(null));
       Utils.flushBarErrorMessage('successfully', context);
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      Utils.flushBarErrorMessage(error.toString(), context);
+      if (kDebugMode) {
+        // print(error.toString());
+      }
+    });
+  }
+
+  Future<void> deleteServiceApi(String? id, BuildContext context) async {
+    setLoading(true);
+    if (kDebugMode) {
+      print('id: $id');
+    }
+
+    _myRepo.deleteService(id).then((value) {
+      if (kDebugMode) {
+        print(value);
+      }
+      // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
+      // userViewModel.saveUser(UserModel.fromJson(value['data']));
+      setLoading(false);
+      Utils.toastMessage(' successfully deleted');
+      String shopId = value['data']['id'];
+      print("shopid is $shopId");
+      Provider.of<ShopViewModel>(context, listen: false)
+          .services
+          .data
+          ?.services
+          ?.removeWhere((element) => element.id == id);
+
+      Beamer.of(context)
+          .beamToReplacementNamed(RoutesName.shopServicesWithId(shopId));
     }).onError((error, stackTrace) {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);

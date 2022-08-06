@@ -72,7 +72,7 @@ class ShopModel {
         members!.add(new Members.fromJson(v));
       });
     }
-    isVerifiedByAdmin = json['isVerifiedByAdmin'] == "true";
+    isVerifiedByAdmin = json['isVerifiedByAdmin'];
     if (json['services'] != null) {
       services = <Services>[];
       json['services'].forEach((v) {
@@ -89,9 +89,9 @@ class ShopModel {
         json['rating'] != null ? new Rating.fromJson(json['rating']) : null;
     reviews =
         json['reviews'] != null ? List<String>.from(json['reviews']) : null;
-    isDeleted = json['isDeleted'] == "true";
-    isActive = json['isActive'] == "true";
-    isOpen = json['isOpen'] == "true";
+    isDeleted = json['isDeleted'];
+    isActive = json['isActive'];
+    isOpen = json['isOpen'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     id = json['id'];
