@@ -23,8 +23,10 @@ import 'package:dotted_border/dotted_border.dart';
 class ShopInfoEditScreen extends StatefulWidget {
   ShopModel? shop;
   String? shopId;
+  bool isadmin;
 
-  ShopInfoEditScreen({Key? key, this.shopId, this.shop}) : super(key: key);
+  ShopInfoEditScreen({Key? key, this.shopId, this.shop, required this.isadmin})
+      : super(key: key);
 
   @override
   ShopInfoEditScreenState createState() => ShopInfoEditScreenState();
@@ -106,10 +108,11 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
         selectedRole = widget.shop?.gender ?? 'UNISEX';
       });
     }
-    UserViewModel.getUser().then((value) {
-      widget.shop?.id = value.shop?.first.id;
-      widget.shop?.owner = value.id;
-    });
+    if (!widget.isadmin)
+      UserViewModel.getUser().then((value) {
+        widget.shop?.id = value.shop?.first.id;
+        widget.shop?.owner = value.id;
+      });
 
     ShopViewModel shopViewModel = Provider.of<ShopViewModel>(context);
 
@@ -491,8 +494,8 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                         data.remove('members');
                         data.remove('tags');
                         print("shop data : $data");
-                        shopViewModel.sendShopData(
-                            true, data, isFileSelected, files, context);
+                        shopViewModel.sendShopData(true, data, isFileSelected,
+                            widget.isadmin, files, context);
                       }
                     },
                     child: shopViewModel.loading

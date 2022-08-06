@@ -85,6 +85,7 @@ class UserViewModel with ChangeNotifier {
       bool isEditMode,
       Map<String, String> data,
       bool isFileSelected,
+      bool isadmin,
       Map<String, String> files,
       BuildContext context) async {
     setLoading(true);
@@ -110,6 +111,8 @@ class UserViewModel with ChangeNotifier {
       if (isShopOwner == true && shop.isEmpty) {
         print("You need to add a shop");
         Beamer.of(context).beamToNamed(RoutesName.createShop);
+      } else if (isadmin) {
+        Beamer.of(context).beamToReplacementNamed(RoutesName.adminDashboard);
       } else {
         Beamer.of(context).beamToReplacementNamed(RoutesName.more);
       }

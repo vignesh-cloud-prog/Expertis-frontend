@@ -1,4 +1,21 @@
+import 'package:beamer/beamer.dart';
+import 'package:expertis/components/service_card_component.dart';
+import 'package:expertis/components/shop_card_component.dart';
+import 'package:expertis/components/user_card_component.dart';
+import 'package:expertis/data/response/status.dart';
+import 'package:expertis/routes/routes_name.dart';
+import 'package:expertis/view_model/appointment_list_view_model.dart';
+import 'package:expertis/view_model/shop_list_view_model.dart';
+import 'package:expertis/view_model/user_list_view_model.dart';
+// import 'package:expertis/view_model/user_list_view_model.dart';
+// import 'package:expertis/view_model/shop_view_model.dart';
+import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
+
+import '../components/BMAppointmentComponent.dart';
 
 class AdminUsersHomeScreen extends StatefulWidget {
   AdminUsersHomeScreen({Key? key}) : super(key: key);
@@ -8,10 +25,50 @@ class AdminUsersHomeScreen extends StatefulWidget {
 }
 
 class _AdminUsersHomeScreenState extends State<AdminUsersHomeScreen> {
+  final userListViewModel = UserListViewModel();
+  @override
+  void initState() {
+    userListViewModel.fetchUserData(); //widget.shopId
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('AdminUsersHomeScreen'),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ChangeNotifierProvider<UserListViewModel>.value(
+              value: userListViewModel,
+              child: Consumer<UserListViewModel>(builder: (context, value, _) {
+                switch (value.userList.status) {
+                  case Status.LOADING:
+                    return const Center(child: CircularProgressIndicator());
+                  case Status.ERROR:
+                    print("error");
+                    return Center(
+                      child: Text(value.userList.message.toString()),
+                    );
+                  case Status.COMPLETED:
+                    print("value to jason ${value.userList.data?.toJson()}");
+                    print(
+                        "printed to string ${value.userList.data.toString()}");
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: value.userList.data?.users?.length,
+                        itemBuilder: (ctx, index) {
+                          return UserCardComponent(
+                              element: value.userList.data?.users![index]);
+                        });
+                  default:
+                    return Container();
+                }
+              }),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
