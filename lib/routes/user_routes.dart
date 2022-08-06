@@ -46,7 +46,7 @@ class UserLocation extends BeamLocation<BeamState> {
           state.pathPatternSegments.contains("user"))
         BeamPage(
           key: ValueKey(RoutesName.adminUserEditProfile),
-          title: 'Admin shop update Profile',
+          title: 'Admin shop update Profile.',
           child: BMUserProfileEditScreen(
             isadmin: true,
             user: data as UserModel,
