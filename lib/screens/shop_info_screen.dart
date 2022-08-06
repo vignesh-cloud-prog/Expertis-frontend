@@ -1,4 +1,6 @@
 import 'package:beamer/beamer.dart';
+import 'package:expertis/components/shop_contact_component.dart';
+import 'package:expertis/components/shop_info_component.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/BMWidgets.dart';
