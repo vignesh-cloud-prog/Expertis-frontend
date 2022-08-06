@@ -22,9 +22,15 @@ import 'package:gender_picker/source/gender_picker.dart';
 class BMUserProfileEditScreen extends StatefulWidget {
   final String title;
   final String buttonName;
+  bool isadmin;
+  UserModel? user;
 
-  const BMUserProfileEditScreen(
-      {Key? key, this.title = "Update Profile", this.buttonName = "Update"})
+  BMUserProfileEditScreen(
+      {Key? key,
+      this.title = "Update Profile",
+      this.buttonName = "Update",
+      required this.isadmin,
+      this.user})
       : super(key: key);
 
   @override
@@ -77,13 +83,17 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
   void initState() {
     setStatusBarColor(bmSpecialColor);
     super.initState();
-    UserViewModel.getUser().then((value) {
-      setState(() {
-        user = value;
-        print('user: ${user?.name}');
-        _dobController.text = user?.dob.toString().splitBefore('T') ?? '';
+    if (widget.isadmin) {
+      user = widget.user;
+    } else {
+      UserViewModel.getUser().then((value) {
+        setState(() {
+          user = value;
+          print('user: ${user?.name}');
+          _dobController.text = user?.dob.toString().splitBefore('T') ?? '';
+        });
       });
-    });
+    }
   }
 
   Color getColor(Set<MaterialState> states) {
@@ -474,8 +484,8 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                           'userPic': user!.userPic.toString(),
                         };
                         data.remove('userPic');
-                        userViewModel.updateUser(
-                            true, data, isFileSelected, files, context);
+                        userViewModel.updateUser(true, data, isFileSelected,
+                            widget.isadmin, files, context);
                       }
                     },
                     child: userViewModel.loading

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:expertis/data/app_excaptions.dart';
+import 'package:expertis/models/user_list_model.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:http/http.dart';
@@ -47,6 +48,18 @@ class UserRepository {
       } else {
         throw FetchDataException('No Internet Connection');
       }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<UserListModel> fetchUserData() async {
+    requestHeaders["Authorization"] = await UserViewModel.getUserToken();
+    try {
+      dynamic response = await _apiServices.getGetApiResponse(
+          ApiUrl.fetchUserDataEndPoint, requestHeaders);
+      response = UserListModel.fromJson(response);
+      return response;
     } catch (e) {
       rethrow;
     }

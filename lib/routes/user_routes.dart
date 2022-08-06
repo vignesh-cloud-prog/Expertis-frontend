@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/components/BMPortfolioComponent.dart';
+import 'package:expertis/models/user_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/BMChangePasswordScreen.dart';
 import 'package:expertis/screens/BMDashboardScreen.dart';
@@ -18,7 +19,8 @@ class UserLocation extends BeamLocation<BeamState> {
         RoutesName.viewProfile,
         RoutesName.createProfile,
         RoutesName.editProfile,
-        RoutesName.changePassword
+        RoutesName.changePassword,
+        RoutesName.adminUserEditProfile
       ];
 
   @override
@@ -30,19 +32,34 @@ class UserLocation extends BeamLocation<BeamState> {
         child: BMDashboardScreen(),
       ),
       if (state.pathPatternSegments.contains("create-profile"))
-        const BeamPage(
+        BeamPage(
           key: ValueKey(RoutesName.createProfile),
           title: 'Create Profile',
           child: BMUserProfileEditScreen(
             title: 'Create Profile',
+            isadmin: false,
             buttonName: 'Create',
           ),
         ),
-      if (state.pathPatternSegments.contains("edit-profile"))
-        const BeamPage(
+      if (state.pathPatternSegments.contains("admin") &&
+          state.pathPatternSegments.contains("update") &&
+          state.pathPatternSegments.contains("user"))
+        BeamPage(
+          key: ValueKey(RoutesName.adminUserEditProfile),
+          title: 'Admin shop update Profile',
+          child: BMUserProfileEditScreen(
+            isadmin: true,
+            user: data as UserModel,
+          ),
+        ),
+      if (state.pathPatternSegments.contains("user") &&
+          state.pathPatternSegments.contains("edit-profile"))
+        BeamPage(
           key: ValueKey(RoutesName.editProfile),
-          title: 'Update Profile',
-          child: BMUserProfileEditScreen(),
+          title: 'User Update Profile',
+          child: BMUserProfileEditScreen(
+            isadmin: false,
+          ),
         ),
       if (state.pathPatternSegments.contains("change-password"))
         const BeamPage(

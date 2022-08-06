@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:expertis/models/review_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
+import 'package:expertis/screens/admin_shop_info_screen.dart';
 import 'package:expertis/screens/create_shop_screen.dart';
 import 'package:expertis/screens/BMDashboardScreen.dart';
 import 'package:expertis/screens/review_shop_screen.dart';
@@ -11,6 +12,7 @@ import 'package:expertis/screens/shop_details_screen.dart';
 import 'package:expertis/screens/book_appointment_screen.dart';
 import 'package:expertis/screens/owner_dashboard_screen.dart';
 import 'package:expertis/screens/shop_info_edit_screen.dart';
+import 'package:expertis/screens/shop_info_screen.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +45,10 @@ class ShopsLocation extends BeamLocation<BeamState> {
         RoutesName.updateService,
         RoutesName.ownerDashboard,
         RoutesName.bookAppointment,
+        RoutesName.adminShopInfoScreen,
+        RoutesName.adminUpdateShopInfo,
+        RoutesName.adminUpdateShopContact,
+        // RoutesName.adminUpdateShopInfoWithId,
       ];
 
   @override
@@ -62,6 +68,17 @@ class ShopsLocation extends BeamLocation<BeamState> {
           title: 'Create Shop',
           child: CreateShopScreen(),
         ),
+
+      if (state.uri.pathSegments.contains('admin') &&
+          state.uri.pathSegments.contains('shop') &&
+          state.uri.pathSegments.contains('update'))
+        BeamPage(
+            key: const ValueKey(RoutesName.adminUpdateShopInfo),
+            title: 'Admin update shop info',
+            child: ShopInfoEditScreen(
+              shop: data != null ? data as ShopModel : null,
+              isadmin: true,
+            )),
       if (state.uri.pathSegments.contains('shop') &&
           state.uri.pathSegments.contains('update') &&
           state.uri.pathSegments.contains('info'))
@@ -71,8 +88,33 @@ class ShopsLocation extends BeamLocation<BeamState> {
           child: ShopInfoEditScreen(
             shopId: state.pathParameters['shopId'] ?? 'null',
             shop: data != null ? data as ShopModel : null,
+            isadmin: false,
           ),
         ),
+
+      if (state.uri.pathSegments.contains('admin') &&
+          state.uri.pathSegments.contains('shop') &&
+          state.uri.pathSegments.contains('info'))
+        BeamPage(
+            key: const ValueKey(RoutesName.adminShopInfoScreen),
+            title: 'Admin shop info',
+            child: AdminShopInfoScreen(
+              shop: data as ShopModel,
+            )),
+
+      if (state.uri.pathSegments.contains('admin') &&
+          state.uri.pathSegments.contains('update') &&
+          state.uri.pathSegments.contains('contact'))
+        BeamPage(
+          key: const ValueKey(RoutesName.adminUpdateShopContact),
+          title: 'Admin Shop Contact Edit',
+          child: ShopContactEditScreen(
+            shopId: state.pathParameters['shopId'] ?? 'null',
+            shop: data != null ? data as ShopModel : null,
+            isadmin: true,
+          ),
+        ),
+
       if (state.uri.pathSegments.contains('shop') &&
           state.uri.pathSegments.contains('update') &&
           state.uri.pathSegments.contains('contact'))
@@ -82,6 +124,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
           child: ShopContactEditScreen(
             shopId: state.pathParameters['shopId'] ?? 'null',
             shop: data != null ? data as ShopModel : null,
+            isadmin: false,
           ),
         ),
 
