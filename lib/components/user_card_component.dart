@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:beamer/beamer.dart';
 import 'package:expertis/models/shop_model.dart';
+import 'package:expertis/models/user_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -11,9 +12,9 @@ import 'package:nb_utils/nb_utils.dart';
 // import 'package:flutter_iconly/flutter_iconly.dart';
 // import 'package:store_api_flutter_course/consts/global_colors.dart';
 
-class ShopCardComponent extends StatelessWidget {
-  final ShopModel? element;
-  const ShopCardComponent({Key? key, required this.element}) : super(key: key);
+class UserCardComponent extends StatelessWidget {
+  final UserModel? element;
+  const UserCardComponent({Key? key, required this.element}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -26,11 +27,11 @@ class ShopCardComponent extends StatelessWidget {
           color: Colors.red,
           size: 28,
         ),
-        imageUrl: element?.shopLogo ?? Assets.defaultServiceImage,
+        imageUrl: element?.userPic ?? Assets.defaultServiceImage,
         boxFit: BoxFit.fill,
       ),
-      title: Text(element?.shopName ?? ""),
-      subtitle: Text(element?.contact?.address ?? ""),
+      title: Text(element?.name ?? ""),
+      subtitle: Text(element?.email ?? ""),
       trailing: SizedBox(
         height: size.width * 0.25,
         width: size.width * 0.30,
@@ -39,7 +40,7 @@ class ShopCardComponent extends StatelessWidget {
             icon: Icon(Icons.edit),
             onPressed: () {
               Beamer.of(context)
-                  .beamToNamed(RoutesName.adminShopInfoScreen, data: element);
+                  .beamToNamed(RoutesName.adminUserEditProfile, data: element);
             },
           ),
           IconButton(

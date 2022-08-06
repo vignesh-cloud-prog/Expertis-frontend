@@ -1,13 +1,9 @@
-import 'package:expertis/components/shop_card_component.dart';
+import 'package:expertis/components/shop_card_home_component.dart';
 import 'package:expertis/data/response/status.dart';
-import 'package:expertis/view_model/categories_view_model.dart';
 import 'package:expertis/view_model/shop_list_view_model.dart';
-import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-
-import '../screens/BMTopOffersScreen.dart';
 
 class BMNearByShopsComponent extends StatefulWidget {
   const BMNearByShopsComponent({super.key});
@@ -43,7 +39,7 @@ class _BMNearByShopsComponentState extends State<BMNearByShopsComponent> {
               spacing: 16,
               itemCount: value.nearbyShopList.data!.shops!.length,
               itemBuilder: (context, index) {
-                return ShopCardComponent(
+                return ShopCardHomeComponent(
                     element: value.nearbyShopList.data!.shops![index],
                     fullScreenComponent: false,
                     isFavList: false);

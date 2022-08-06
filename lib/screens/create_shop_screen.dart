@@ -266,8 +266,8 @@ class CreateShopScreenState extends State<CreateShopScreen> {
                             };
                             data.remove('shopLogo');
                             data.remove('contact');
-                            shopViewModel.sendShopData(
-                                false, data, isFileSelected, files, context);
+                            shopViewModel.sendShopData(false, data,
+                                isFileSelected, false, files, context);
                           }
                         },
                         child: shopViewModel.loading

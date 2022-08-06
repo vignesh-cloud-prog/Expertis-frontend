@@ -66,7 +66,9 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
     } else if (selectedTab == 2) {
       return ShopAppointmentsHomeScreen(shopId: widget.shopId);
     } else if (selectedTab == 3) {
-      return ShopInfoScreen();
+      return ShopInfoScreen(
+        isadmin: false,
+      );
     }
     return ShopDashBoardHomeScreen();
   }

@@ -15,8 +15,11 @@ import 'package:dotted_border/dotted_border.dart';
 class ShopContactEditScreen extends StatefulWidget {
   ShopModel? shop;
   String? shopId;
+  bool isadmin;
 
-  ShopContactEditScreen({Key? key, this.shopId, this.shop}) : super(key: key);
+  ShopContactEditScreen(
+      {Key? key, this.shopId, this.shop, required this.isadmin})
+      : super(key: key);
 
   @override
   ShopContactEditScreenState createState() => ShopContactEditScreenState();
@@ -51,10 +54,11 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    UserViewModel.getUser().then((value) {
-      widget.shop?.id = value.shop?.first.id;
-      widget.shop?.owner = value.id;
-    });
+    if (!widget.isadmin)
+      UserViewModel.getUser().then((value) {
+        widget.shop?.id = value.shop?.first.id;
+        widget.shop?.owner = value.id;
+      });
 
     ShopViewModel shopViewModel = Provider.of<ShopViewModel>(context);
 
@@ -521,7 +525,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                         data.remove('shopLogo');
                         data.remove('tags');
                         shopViewModel.sendShopData(
-                            true, data, false, files, context);
+                            true, data, false, widget.isadmin, files, context);
                       }
                     },
                     child: shopViewModel.loading

@@ -58,4 +58,6 @@ class ApiUrl {
   static String deleteShopReviewEndPoint(String? shopId) =>
       '${baseUrl}reviews/$shopId';
   static String getReviewsEndPoint = '${baseUrl}tags';
+  //to fetch all the user data for admin
+  static var fetchUserDataEndPoint = '${baseUrl}users/allUser';
 }
