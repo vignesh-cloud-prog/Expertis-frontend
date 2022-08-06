@@ -45,7 +45,7 @@ class ShopViewModel with ChangeNotifier {
       bool isEditMode,
       Map<String, String> data,
       bool isFileSelected,
-      Map<String, dynamic?> files,
+      Map<String, dynamic> files,
       BuildContext context) async {
     setLoading(true);
     if (kDebugMode) {
@@ -136,8 +136,7 @@ class ShopViewModel with ChangeNotifier {
       if (kDebugMode) {
         print(value.toString());
       }
-      // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
-      // userViewModel.saveUser(UserModel.fromJson(value['data']));
+
       setLoading(false);
       Beamer.of(context)
           .beamToReplacementNamed(RoutesName.shopServicesWithId(null));

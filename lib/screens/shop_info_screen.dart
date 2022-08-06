@@ -19,6 +19,7 @@ class ShopInfoScreen extends StatefulWidget {
 }
 
 class _ShopInfoScreenState extends State<ShopInfoScreen> {
+  ShopModel? shop;
   @override
   void initState() {
     super.initState();
@@ -27,7 +28,14 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
   @override
   Widget build(BuildContext context) {
     UserViewModel userViewModel = Provider.of<UserViewModel>(context);
-    ShopModel? shop = userViewModel.user.shop?.first;
+    shop = userViewModel.user.shop?.first;
+    if (shop == null) {
+      UserViewModel.getUser().then((value) => {
+            setState(() {
+              shop = value.shop?.first;
+            })
+          });
+    }
     return Container(
       child: SingleChildScrollView(
         child: Column(

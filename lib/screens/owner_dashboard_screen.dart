@@ -124,74 +124,74 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
     UserViewModel userViewModel = Provider.of<UserViewModel>(context);
     ShopModel? shop = userViewModel.user.shop?.first;
     return Scaffold(
-      body: Column(
-        children: [
-          upperContainer(
-            screenContext: context,
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FancyShimmerImage(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    errorWidget: const Icon(
-                      Icons.dangerous,
-                      color: Colors.red,
-                      size: 28,
-                    ),
-                    imageUrl: shop?.shopLogo ?? Assets.defaultShopImage,
-                    boxFit: BoxFit.fill,
-                  ).paddingAll(10).cornerRadiusWithClipRRect(10),
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          shop?.shopName ?? "",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            upperContainer(
+              screenContext: context,
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    FancyShimmerImage(
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      errorWidget: const Icon(
+                        Icons.dangerous,
+                        color: Colors.red,
+                        size: 28,
+                      ),
+                      imageUrl: shop?.shopLogo ?? Assets.defaultShopImage,
+                      boxFit: BoxFit.fill,
+                    ).paddingAll(10).cornerRadiusWithClipRRect(10),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            shop?.shopName ?? "",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Switch(
-                              value: shop?.isOpen == true,
-                              onChanged: (value) {},
-                              activeTrackColor: Colors.lightGreenAccent,
-                              activeColor: Colors.green,
-                            ),
-                            8.width,
-                            Text(
-                              shop?.isOpen == true ? "Open Now" : "Closed Now",
-                              style: TextStyle(
-                                fontSize: 16,
+                          Row(
+                            children: [
+                              Switch(
+                                value: shop?.isOpen == true,
+                                onChanged: (value) {},
+                                activeTrackColor: Colors.lightGreenAccent,
+                                activeColor: Colors.green,
                               ),
-                            ),
-                          ],
-                        )
-                      ]).paddingOnly(left: 10, right: 10),
-                  IconButton(
-                    icon: Icon(
-                      size: 30,
-                      Icons.exit_to_app,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Beamer.of(context).beamToNamed(RoutesName.home);
-                    },
-                  ).center(),
-                ],
+                              8.width,
+                              Text(
+                                shop?.isOpen == true
+                                    ? "Open Now"
+                                    : "Closed Now",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          )
+                        ]).paddingOnly(left: 10, right: 10),
+                    IconButton(
+                      icon: Icon(
+                        size: 30,
+                        Icons.exit_to_app,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        Beamer.of(context).beamToNamed(RoutesName.home);
+                      },
+                    ).center(),
+                  ],
+                ),
               ),
             ),
-          ),
-          lowerContainer(
-              child: SingleChildScrollView(
-                child: getFragment(),
-              ),
-              screenContext: context),
-        ],
+            lowerContainer(child: getFragment(), screenContext: context),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (int index) {
