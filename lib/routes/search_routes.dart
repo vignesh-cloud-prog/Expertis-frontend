@@ -1,7 +1,7 @@
 import 'package:beamer/beamer.dart';
-import 'package:expertis/fragments/BMMoreFragment.dart';
+import 'package:expertis/fragments/user_more_component.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/screens/BMDashboardScreen.dart';
+import 'package:expertis/screens/user_home_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 class SearchLocation extends BeamLocation<BeamState> {
@@ -22,7 +22,7 @@ class SearchLocation extends BeamLocation<BeamState> {
       BeamPage(
           key: ValueKey(RoutesName.search),
           title: 'Search',
-          child: BMDashboardScreen(),
+          child: UserHomeScreen(),
           type: BeamPageType.slideTransition),
     ];
   }

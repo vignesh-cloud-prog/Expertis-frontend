@@ -97,10 +97,6 @@ class _ShopAllAppointmentComponentState
             ).center(),
           ),
           20.height,
-          // selectedTab == 0
-          //     ? BMAppointMentTabComponent(tabOne: true)
-          //     : BMAppointMentTabComponent(tabOne: false),
-          // 20.height,
           ChangeNotifierProvider<AppointmentListViewModel>.value(
             value: appointmentViewModel,
             child: Consumer<AppointmentListViewModel>(
@@ -126,48 +122,24 @@ class _ShopAllAppointmentComponentState
                     appointments = value.upcoming.appointments;
                   }
 
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: appointments?.map((e) {
-                          return BMAppointmentComponent(element: e);
-                        }).toList() ??
-                        [
-                          Center(
-                            child: Text('No upcoming appointments'),
-                          ),
-                        ],
+                  return SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: appointments?.map((e) {
+                            return BMAppointmentComponent(element: e);
+                          }).toList() ??
+                          [
+                            Center(
+                              child: Text('No upcoming appointments'),
+                            ),
+                          ],
+                    ),
                   );
 
                 default:
                   return Container();
               }
             }),
-            // );
-            // Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   mainAxisSize: MainAxisSize.min,
-            //   children: [
-            //     titleText(title: 'Today, ${getCurrentDate()}'),
-            //     16.height,
-            //     // Column(
-            //     //   mainAxisSize: MainAxisSize.min,
-            //     //   children: getAppointments().map((e) {
-            //     //     return BMAppointmentComponent(element: e);
-            //     //   }).toList(),
-            //     // ),
-            //     // 20.height,
-            //     // titleText(
-            //     //     title: widget.tabOne
-            //     //         ? getTomorrowDate()
-            //     //         : 'Yesterday, ${getYesterdayDate()}'),
-            //     // 20.height,
-            //     Column(
-            //       mainAxisSize: MainAxisSize.min,
-            //       children: getMoreAppointmentsList().map((e) {
-            //         return BMAppointmentComponent(element: e);
-            //       }).toList(),
-            //     )
-            //   ],
           ),
         ],
       ).paddingAll(16),

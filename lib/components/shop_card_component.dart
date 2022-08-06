@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:beamer/beamer.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
@@ -49,5 +48,3 @@ class ShopCardComponent extends StatelessWidget {
         ]),
       ),
     );
-  }
-}

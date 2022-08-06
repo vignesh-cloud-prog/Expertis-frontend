@@ -4,7 +4,7 @@ import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/admin_shop_info_screen.dart';
 import 'package:expertis/screens/create_shop_screen.dart';
-import 'package:expertis/screens/BMDashboardScreen.dart';
+import 'package:expertis/screens/user_home_screen.dart';
 import 'package:expertis/screens/review_shop_screen.dart';
 import 'package:expertis/screens/service_add_or_update_screen.dart';
 import 'package:expertis/screens/shop_contact_edit_screen.dart';
@@ -59,7 +59,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
         BeamPage(
           key: const ValueKey('shops'),
           title: 'Shops',
-          child: BMDashboardScreen(),
+          child: UserHomeScreen(),
         ),
       if (state.uri.pathSegments.contains('shop') &&
           state.uri.pathSegments.contains('create'))

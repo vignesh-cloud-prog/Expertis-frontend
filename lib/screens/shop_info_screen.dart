@@ -1,4 +1,6 @@
 import 'package:beamer/beamer.dart';
+import 'package:expertis/components/shop_contact_component.dart';
+import 'package:expertis/components/shop_info_component.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
@@ -22,6 +24,7 @@ class ShopInfoScreen extends StatefulWidget {
 }
 
 class _ShopInfoScreenState extends State<ShopInfoScreen> {
+  ShopModel? shop;
   @override
   void initState() {
     super.initState();
@@ -29,6 +32,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     if (!widget.isadmin) {
       print("not a admin");
       UserViewModel userViewModel = Provider.of<UserViewModel>(context);
@@ -37,6 +41,14 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
     } else {
       print("is a admin ${widget.shop?.id}");
       // shop = widget.shop;
+    UserViewModel userViewModel = Provider.of<UserViewModel>(context);
+    shop = userViewModel.user.shop?.first;
+    if (shop == null) {
+      UserViewModel.getUser().then((value) => {
+            setState(() {
+              shop = value.shop?.first;
+            })
+          });
     }
     return Container(
       child: SingleChildScrollView(
@@ -64,6 +76,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
                     icon: Icon(Icons.edit)),
               ],
             ),
+            ShopInfoComponent(shop: shop),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,7 +101,8 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
                     }),
                     icon: Icon(Icons.edit)),
               ],
-            )
+            ),
+            ShopContactComponent(contact: shop?.contact),
           ],
         ),
       ),

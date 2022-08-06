@@ -42,16 +42,18 @@ class ReviewViewModel with ChangeNotifier {
     _myRepo
         .createOrUpdateReviewDataApi(isEditMode, data, isFileSelected, files)
         .then((value) {
-      // if (kDebugMode) {
-      print("vale of the review ${value['data']['to']['shopId'].toString()}");
-      // }
+      if (kDebugMode) {
+        print("vale of the review ${value['data']}");
+      }
       // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
       // ShopModel reviews = ShopModel.fromJson(value[data[to['shopId']]]);
       // ReviewModel? reviews = ReviewModel();
       setLoading(false);
       // print("Routed to home ${reviews.to}");
-      Beamer.of(context).beamToReplacementNamed(
-          RoutesName.viewShopWithId(value['data']['to']['shopId'].toString()));
+      String shopId = value['data']['id'];
+      print("shop id $shopId");
+      Beamer.of(context)
+          .beamToReplacementNamed(RoutesName.viewShopWithId(shopId));
       Utils.flushBarErrorMessage('successfully', context);
     }).onError((error, stackTrace) {
       setLoading(false);

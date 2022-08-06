@@ -13,16 +13,16 @@ import '../screens/BMFavouritesScreen.dart';
 import '../screens/BMShoppingScreen.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
-import 'BMAppointmentFragment.dart';
+import 'user_appointments_component.dart';
 
-class BMMoreFragment extends StatefulWidget {
-  const BMMoreFragment({Key? key}) : super(key: key);
+class UserMoreComponent extends StatefulWidget {
+  const UserMoreComponent({Key? key}) : super(key: key);
 
   @override
-  State<BMMoreFragment> createState() => _BMMoreFragmentState();
+  State<UserMoreComponent> createState() => _UserMoreComponentState();
 }
 
-class _BMMoreFragmentState extends State<BMMoreFragment> {
+class _UserMoreComponentState extends State<UserMoreComponent> {
   UserModel? user;
   @override
   void initState() {
@@ -126,7 +126,7 @@ class _BMMoreFragmentState extends State<BMMoreFragment> {
                                     ? white
                                     : bmSpecialColorDark),
                             onTap: () {
-                              BMAppointmentFragment().launch(context);
+                              UserAppointmentsComponent().launch(context);
                             },
                           ),
                           SettingItemWidget(

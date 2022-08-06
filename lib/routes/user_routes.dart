@@ -3,7 +3,7 @@ import 'package:expertis/components/BMPortfolioComponent.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/BMChangePasswordScreen.dart';
-import 'package:expertis/screens/BMDashboardScreen.dart';
+import 'package:expertis/screens/user_home_screen.dart';
 import 'package:expertis/screens/BMLoginNowScreen.dart';
 import 'package:expertis/screens/BMRegisterScreen.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';
@@ -29,7 +29,7 @@ class UserLocation extends BeamLocation<BeamState> {
       BeamPage(
         key: ValueKey(RoutesName.viewProfile),
         title: 'Welcome to $appName',
-        child: BMDashboardScreen(),
+        child: UserHomeScreen(),
       ),
       if (state.pathPatternSegments.contains("create-profile"))
         BeamPage(

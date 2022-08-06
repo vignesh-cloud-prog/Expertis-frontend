@@ -1,6 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/screens/BMDashboardScreen.dart';
+import 'package:expertis/screens/user_home_screen.dart';
 import 'package:expertis/screens/BMNoInternetScreen.dart';
 import 'package:expertis/screens/BMSomethingWentWrongScreen.dart';
 import 'package:expertis/screens/BMSplashScreen.dart';

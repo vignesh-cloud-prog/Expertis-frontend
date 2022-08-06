@@ -35,9 +35,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialize(aLocaleLanguageList: languageList());
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   //region Entry Point
 
@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    DynamicLinksService.initDynamicLink(context);
+    // DynamicLinksService.initDynamicLink(context);
     super.initState();
   }
 

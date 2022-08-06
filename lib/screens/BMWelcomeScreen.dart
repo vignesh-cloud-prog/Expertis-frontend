@@ -3,7 +3,7 @@ import 'package:nb_utils/nb_utils.dart';
 
 import '../main.dart';
 import '../utils/BMColors.dart';
-import 'BMDashboardScreen.dart';
+import 'user_home_screen.dart';
 
 class BMWelcomeScreen extends StatelessWidget {
   const BMWelcomeScreen({Key? key}) : super(key: key);
@@ -41,7 +41,7 @@ class BMWelcomeScreen extends StatelessWidget {
             width: 150,
             color: bmPrimaryColor,
             onTap: () {
-              BMDashboardScreen().launch(context);
+              UserHomeScreen().launch(context);
             },
           ),
         ],

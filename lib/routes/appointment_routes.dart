@@ -1,8 +1,8 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/components/set_appointment_status_component.dart';
-import 'package:expertis/fragments/BMAppointmentFragment.dart';
+import 'package:expertis/fragments/user_appointments_component.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/screens/BMDashboardScreen.dart';
+import 'package:expertis/screens/user_home_screen.dart';
 import 'package:expertis/screens/BMForgetPasswordScreen.dart';
 import 'package:expertis/screens/BMLoginNowScreen.dart';
 import 'package:expertis/screens/appointment_detail_screen.dart';
@@ -37,14 +37,14 @@ class AppointmentLocation extends BeamLocation<BeamState> {
       BeamPage(
           key: const ValueKey(RoutesName.appointment),
           title: 'Appointment',
-          child: BMDashboardScreen(),
+          child: UserHomeScreen(),
           type: BeamPageType.slideTransition),
       if (state.uri.pathSegments.contains('appointments') &&
           state.pathParameters.containsKey('past'))
         BeamPage(
           key: const ValueKey(RoutesName.pastAppointment),
           title: 'View old Appointments',
-          child: BMAppointmentFragment(
+          child: UserAppointmentsComponent(
             tabNo: 1,
           ),
         ),
@@ -53,7 +53,7 @@ class AppointmentLocation extends BeamLocation<BeamState> {
         BeamPage(
           key: const ValueKey(RoutesName.upcomingAppointment),
           title: 'View Upcoming Appointments',
-          child: BMAppointmentFragment(
+          child: UserAppointmentsComponent(
             tabNo: 0,
           ),
         ),

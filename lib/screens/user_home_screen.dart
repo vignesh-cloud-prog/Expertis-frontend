@@ -13,38 +13,38 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../fragments/BMAppointmentFragment.dart';
+import '../fragments/user_appointments_component.dart';
 import '../fragments/BMChatFragment.dart';
-import '../fragments/BMHomeFragment.dart';
-import '../fragments/BMMoreFragment.dart';
+import '../fragments/user_home_component.dart';
+import '../fragments/user_more_component.dart';
 import '../main.dart';
 import '../models/BMDashboardModel.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMDataGenerator.dart';
 
-class BMDashboardScreen extends StatefulWidget {
+class UserHomeScreen extends StatefulWidget {
   bool flag = false;
 
-  BMDashboardScreen({super.key});
+  UserHomeScreen({super.key});
 
   @override
-  BMDashboardScreenState createState() => BMDashboardScreenState();
+  UserHomeScreenState createState() => UserHomeScreenState();
 }
 
-class BMDashboardScreenState extends State<BMDashboardScreen> {
+class UserHomeScreenState extends State<UserHomeScreen> {
   List<BMDashboardModel> list = getDashboardList();
 
   int selectedTab = 0;
 
   Widget getFragment() {
     if (selectedTab == 0) {
-      return BMHomeFragment();
+      return UserHomeComponent();
     } else if (selectedTab == 1) {
       return PurchaseMoreScreen();
     } else if (selectedTab == 2) {
-      return BMAppointmentFragment();
+      return UserAppointmentsComponent();
     } else {
-      return const BMMoreFragment();
+      return const UserMoreComponent();
     }
   }
 

@@ -1,6 +1,6 @@
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/screens/BMDashboardScreen.dart';
+import 'package:expertis/screens/user_home_screen.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
@@ -72,7 +72,7 @@ class BMSplashScreenState extends State<BMSplashScreen> {
 
             case Status.COMPLETED:
               // Beamer.of(context).beamToReplacementNamed(RoutesName.home);
-              return BMDashboardScreen();
+              return UserHomeScreen();
             default:
               return Container();
           }

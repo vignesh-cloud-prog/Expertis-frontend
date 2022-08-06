@@ -64,7 +64,7 @@ class _ShopReviewComponentState extends State<ShopReviewComponent> {
           case Status.COMPLETED:
             List<ReviewModel>? reviews = value.reviewList.data?.review;
             reviews?.forEach((element) => {
-                  if (element.from == userViewModel.user.id)
+                  if (element.from?.id == userViewModel.user.id)
                     {
                       print("review is there"),
                       edit = true,
@@ -73,9 +73,7 @@ class _ShopReviewComponentState extends State<ShopReviewComponent> {
                       print("user review ${userReview?.toJson()}")
                     }
                 });
-            print("completed sucessfully");
-            // print(
-            //     "value ${value.shopList.data?.shops?.first.toJson()}");
+
             print("printed ${value.reviewList.data.toString()}");
             return Column(
               children: [
@@ -97,7 +95,7 @@ class _ShopReviewComponentState extends State<ShopReviewComponent> {
                       Text(edit ? 'Edit Review' : 'Write a Review',
                           style: boldTextStyle(color: bmPrimaryColor)),
                     ],
-                  ).expand().center().onTap(() {
+                  ).center().onTap(() {
                     print("user review ${userReview.toString()}");
                     Beamer.of(context).beamToNamed(
                         RoutesName.reviewShopWithId(widget.shopId),
@@ -109,13 +107,11 @@ class _ShopReviewComponentState extends State<ShopReviewComponent> {
                   children: [
                     titleText(title: 'Reviews', size: 20),
                     2.width,
-                    titleText(
-                      title: '(${value.reviewList.data?.review?.length})',
-                      size: 16,
+                    Text(
+                      '(${value.reviewList.data?.review?.length} reviews)',
                     ),
                   ],
-                ).paddingOnly(top: 8, bottom: 8, left: 10),
-                10.height,
+                ).paddingOnly(top: 8, bottom: 4, left: 10),
                 ListView.builder(
                     shrinkWrap: true,
                     itemCount: value.reviewList.data?.review?.length,

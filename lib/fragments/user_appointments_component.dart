@@ -1,28 +1,24 @@
-import 'package:beamer/beamer.dart';
 import 'package:expertis/components/BMAppointmentComponent.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/appointment_model.dart';
-import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-
-import '../components/BMAppointMentTabComponent.dart';
 import '../main.dart';
 import '../utils/BMColors.dart';
-import '../utils/BMWidgets.dart';
 
-class BMAppointmentFragment extends StatefulWidget {
+class UserAppointmentsComponent extends StatefulWidget {
   int tabNo = 0;
-  BMAppointmentFragment({Key? key, this.tabNo = 0}) : super(key: key);
+  UserAppointmentsComponent({Key? key, this.tabNo = 0}) : super(key: key);
 
   @override
-  State<BMAppointmentFragment> createState() => _BMAppointmentFragmentState();
+  State<UserAppointmentsComponent> createState() =>
+      _UserAppointmentsComponentState();
 }
 
-class _BMAppointmentFragmentState extends State<BMAppointmentFragment> {
+class _UserAppointmentsComponentState extends State<UserAppointmentsComponent> {
   AppointmentListViewModel appointmentViewModel = AppointmentListViewModel();
   List<String> tabList = ['UPCOMING', 'PAST'];
   int selectedTab = 0;

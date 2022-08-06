@@ -6,7 +6,7 @@ class ReviewModel {
   String? to;
   String? comment;
   String? createdAt;
-  double? rating;
+  String? rating;
   List<String>? reviewPhotos;
   String? updatedAt;
   String? id;

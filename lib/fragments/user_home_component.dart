@@ -1,13 +1,13 @@
-import 'package:expertis/components/top_shops.dart';
+import 'package:expertis/components/top_shops_component.dart';
 import 'package:expertis/data/response/status.dart';
-import 'package:expertis/fragments/nearby_shops.dart';
+import 'package:expertis/components/nearby_shops_component.dart';
 import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../components/BMCommonCardComponent.dart';
+import '../components/shop_card_component.dart';
 import '../components/BMHomeFragmentHeadComponent.dart';
 import '../components/category_home_component.dart';
 import '../main.dart';
@@ -18,14 +18,14 @@ import '../utils/BMColors.dart';
 import '../utils/BMDataGenerator.dart';
 import '../utils/BMWidgets.dart';
 
-class BMHomeFragment extends StatefulWidget {
-  const BMHomeFragment({Key? key}) : super(key: key);
+class UserHomeComponent extends StatefulWidget {
+  const UserHomeComponent({Key? key}) : super(key: key);
 
   @override
-  State<BMHomeFragment> createState() => _BMHomeFragmentState();
+  State<UserHomeComponent> createState() => _UserHomeComponentState();
 }
 
-class _BMHomeFragmentState extends State<BMHomeFragment> {
+class _UserHomeComponentState extends State<UserHomeComponent> {
   @override
   void initState() {
     setStatusBarColor(bmSpecialColor);
