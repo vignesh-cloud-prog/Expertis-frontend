@@ -31,7 +31,6 @@ const appShadowColorDark = Color(0x1A3E3942);
 const appSecondaryBackgroundColor = Color(0xff343434);
 
 // additional added for home screen
-
 const Color buttonColor = Color(0xff0065FF);
 const Color iconColor = Color(0xff7E899D);
 const Color text1Color = Color.fromARGB(255, 90, 90, 90);

@@ -62,9 +62,9 @@ List<BMDashboardModel> getShopOwnerDashboardList() {
   List<BMDashboardModel> list = [];
 
   list.add(BMDashboardModel(
-      label: "Home",
-      selectedIcon: 'images/home.png',
-      unSelectedIcon: 'images/house.png'));
+      label: "Overview",
+      selectedIcon: 'images/overview_filled.png',
+      unSelectedIcon: 'images/overview_outlined.png'));
   list.add(BMDashboardModel(
       label: "Services",
       selectedIcon: 'images/service_filled.png',
@@ -85,9 +85,9 @@ List<BMDashboardModel> getAdminDashboardList() {
   List<BMDashboardModel> list = [];
 
   list.add(BMDashboardModel(
-      label: "Home",
-      selectedIcon: 'images/home.png',
-      unSelectedIcon: 'images/house.png'));
+      label: "Overview",
+      selectedIcon: 'images/overview_filled.png',
+      unSelectedIcon: 'images/overview_outlined.png'));
   list.add(BMDashboardModel(
       label: "Shops",
       selectedIcon: 'images/shop_filled.png',
