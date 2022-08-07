@@ -43,6 +43,8 @@ class ApiUrl {
 
   static String fetchServicesDataEndPoint(String? shopId) =>
       '${baseUrl}shops/shop/services/$shopId';
+  static String deleteShopEndPoint(String? id) => '${baseUrl}shops/shop/$id';
+  static String deleteUserEndPoint(String? id) => '${baseUrl}users/delete/$id';
 
   static String createShopEndPoint = '${baseUrl}shops/shop';
   static String tagsEndPoint = '${baseUrl}tags';
