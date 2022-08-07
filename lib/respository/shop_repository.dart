@@ -179,6 +179,32 @@ class HomeRepository {
     }
   }
 
+  //delete the shop
+  Future<dynamic> deleteShop(String? id) async {
+    final String token = await UserViewModel.getUserToken();
+
+    requestHeaders["Authorization"] = token;
+    if (kDebugMode) {
+      print("inside delete shop api caller\n");
+      print("data ${id.toString()}");
+      print("requestHeaders: ${requestHeaders.toString()}");
+    }
+    try {
+      dynamic response = await _apiServices.getDeleteApiResponse(
+          ApiUrl.deleteShopEndPoint(id), requestHeaders);
+      if (kDebugMode) {
+        print("response ${response.toString()}");
+      }
+      if (response != null) {
+        return response;
+      } else {
+        throw FetchDataException('No Internet Connection');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<List<dynamic>> fetchSlots(shopId, memberId, date) async {
     final String token = await UserViewModel.getUserToken();
     requestHeaders["Authorization"] = token;

@@ -64,4 +64,29 @@ class UserRepository {
       rethrow;
     }
   }
+
+  Future<dynamic> deleteUser(String? id) async {
+    final String token = await UserViewModel.getUserToken();
+
+    requestHeaders["Authorization"] = token;
+    if (kDebugMode) {
+      print("inside delete user api caller\n");
+      print("data ${id.toString()}");
+      print("requestHeaders: ${requestHeaders.toString()}");
+    }
+    try {
+      dynamic response = await _apiServices.getDeleteApiResponse(
+          ApiUrl.deleteUserEndPoint(id), requestHeaders);
+      if (kDebugMode) {
+        print("response ${response.toString()}");
+      }
+      if (response != null) {
+        return response;
+      } else {
+        throw FetchDataException('No Internet Connection');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

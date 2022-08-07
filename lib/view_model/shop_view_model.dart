@@ -6,6 +6,7 @@ import 'package:expertis/models/user_model.dart';
 import 'package:expertis/respository/shop_repository.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/utils.dart';
+import 'package:expertis/view_model/shop_list_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -87,7 +88,7 @@ class ShopViewModel with ChangeNotifier {
         print("You need to add services info");
       } else if (isadmin) {
         Beamer.of(context)
-            .beamToReplacementNamed(RoutesName.adminDashboard, data: shop);
+            .beamToReplacementNamed(RoutesName.adminShops, data: shop);
       } else {
         Beamer.of(context)
             .beamToReplacementNamed(RoutesName.ownerDashboard, data: shop);
@@ -179,6 +180,38 @@ class ShopViewModel with ChangeNotifier {
 
       Beamer.of(context)
           .beamToReplacementNamed(RoutesName.shopServicesWithId(shopId));
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      Utils.flushBarErrorMessage(error.toString(), context);
+      if (kDebugMode) {
+        // print(error.toString());
+      }
+    });
+  }
+
+  Future<void> deleteShopApi(String? id, BuildContext context) async {
+    setLoading(true);
+    if (kDebugMode) {
+      print('id: $id');
+    }
+
+    _myRepo.deleteShop(id).then((value) {
+      if (kDebugMode) {
+        print(value);
+      }
+      // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
+      // userViewModel.saveUser(UserModel.fromJson(value['data']));
+      setLoading(false);
+      Utils.toastMessage(' successfully deleted');
+      // String shopId = value['data']['id'];
+      // print("shopid is $shopId");
+      Provider.of<ShopListViewModel>(context, listen: false)
+          .shopList
+          .data
+          ?.shops
+          ?.removeWhere((element) => element.id == id);
+
+      Beamer.of(context).beamToReplacementNamed(RoutesName.adminShops);
     }).onError((error, stackTrace) {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);
