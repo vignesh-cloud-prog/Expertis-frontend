@@ -32,10 +32,10 @@ class BookAppointmentScreen extends StatefulWidget {
 
 class BookAppointmentScreenState extends State<BookAppointmentScreen> {
   List<BMServiceListModel> availabilityList = [];
-  ShopViewModel slotsModel = ShopViewModel();
+
   String selectedSlot = "";
 
-  int selectedTimer = 0;
+  int? selectedTimer = null;
   String openingTime = "08:00:AM";
   String closingTime = "08:00:PM";
   // List<int> bookedSlots = [];
@@ -120,8 +120,9 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
       _bookingDateController.text =
           DateFormat('dd-MMM-yyyy').format(DateTime.now());
     });
-    slotsModel.fetchSlotsApi(
+    Provider.of<ShopViewModel>(context, listen: false).fetchSlotsApi(
         widget.shopId, widget.memberId, _bookingDateController.text);
+
     super.initState();
   }
 
@@ -136,6 +137,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
     AppointmentListViewModel appointmentViewModel =
         Provider.of<AppointmentListViewModel>(context);
     UserViewModel userViewModel = Provider.of<UserViewModel>(context);
+    ShopViewModel slotsModel = Provider.of<ShopViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -232,6 +234,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                             String month = '${months.indexOf(monthName) + 1}';
 
                             String day = date.split('-')[0];
+                            print("selected slot ${selectedSlot}");
                             String hour = selectedSlot.split(':')[0];
                             String minute = selectedSlot.split(':')[1];
                             String ampm = selectedSlot.split(':')[2];
@@ -359,9 +362,9 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                 children: getAvailableTimes(slotsModel.slots)?.map((e) {
                       int index =
                           getAvailableTimes(slotsModel.slots)!.indexOf(e);
-                      if (index == 0) {
-                        selectedSlot = e;
-                      }
+                      // if (index == 0) {
+                      //   selectedSlot = e;
+                      // }
                       return Container(
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -379,10 +382,15 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                         ? Colors.white
                                         : bmSpecialColorDark)),
                       ).onTap(() {
-                        selectedTimer = index;
                         setState(() {
+                          selectedTimer = index;
                           selectedSlot = e;
                         });
+                        selectedTimer = index;
+
+                        print("slot ${e}");
+                        selectedSlot = e;
+                        print("seleced slot ${selectedSlot}");
                       });
                     }).toList() ??
                     [

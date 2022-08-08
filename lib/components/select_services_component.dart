@@ -1,29 +1,24 @@
-import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
-import 'package:expertis/view_model/appointment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-
 import '../main.dart';
-import '../models/BMServiceListModel.dart';
 import '../utils/BMBottomSheet.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
-class BMSelectServiceComponent extends StatefulWidget {
+class SelectServiceComponent extends StatefulWidget {
   Services element;
   // BMServiceListModel element;
 
-  BMSelectServiceComponent({required this.element});
+  SelectServiceComponent({required this.element});
 
   @override
-  State<BMSelectServiceComponent> createState() =>
-      _BMSelectServiceComponentState();
+  State<SelectServiceComponent> createState() => _SelectServiceComponentState();
 }
 
-class _BMSelectServiceComponentState extends State<BMSelectServiceComponent> {
+class _SelectServiceComponentState extends State<SelectServiceComponent> {
   bool isInSelected(id, list) {
     if (list == null) return false;
     print(list);
@@ -39,6 +34,7 @@ class _BMSelectServiceComponentState extends State<BMSelectServiceComponent> {
 
   @override
   void initState() {
+    AppointmentListViewModel().appointmentModel.selectedServices = [];
     super.initState();
   }
 
@@ -46,7 +42,8 @@ class _BMSelectServiceComponentState extends State<BMSelectServiceComponent> {
   Widget build(BuildContext context) {
     AppointmentListViewModel appointmentViewModel =
         Provider.of<AppointmentListViewModel>(context);
-
+    print(
+        "selected services: ${appointmentViewModel.appointmentModel.selectedServices}");
     Color getColor(Set<MaterialState> states) {
       const Set<MaterialState> interactiveStates = <MaterialState>{
         MaterialState.pressed,

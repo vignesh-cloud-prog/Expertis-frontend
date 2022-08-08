@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../components/BMOurServiveComponent.dart';
+import '../components/shop_services_component.dart';
 import '../components/BMPortfolioComponent.dart';
 import '../main.dart';
 import '../utils/BMColors.dart';
@@ -42,7 +42,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
   Widget getSelectedTabComponent() {
     switch (selectedTab) {
       case 0:
-        return const BMOurServiceComponent();
+        return const ShopServiceComponent();
       case 1:
         return BMPortfolioComponent();
       case 2:
@@ -56,7 +56,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
         );
 
       default:
-        return const BMOurServiceComponent();
+        return const ShopServiceComponent();
     }
   }
 
