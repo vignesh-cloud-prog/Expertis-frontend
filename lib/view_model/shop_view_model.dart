@@ -68,7 +68,7 @@ class ShopViewModel with ChangeNotifier {
       setLoading(false);
       UserViewModel.getUser().then((value) {
         UserModel user = value;
-        user.shop!.add(shop);
+        user.shop = [shop];
         UserViewModel().saveUser(user);
       });
       if (shop.shopName == null) {

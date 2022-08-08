@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserViewModel with ChangeNotifier {
   final _myRepo = UserRepository();
-  UserModel user = UserModel();
+  UserModel? user = UserModel();
 
   String email = "vignesh@xmail.com";
   String name = "Vignesh";
@@ -46,6 +46,7 @@ class UserViewModel with ChangeNotifier {
     sp.setString('user', json.encode(user.toJson()));
     final String? userJson = sp.getString('user');
     // print("userJson: $userJson");
+    this.user = UserModel.fromJson(json.decode(userJson!));
     notifyListeners();
     return true;
   }

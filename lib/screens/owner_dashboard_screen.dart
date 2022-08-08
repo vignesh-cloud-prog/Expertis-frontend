@@ -124,7 +124,8 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     UserViewModel userViewModel = Provider.of<UserViewModel>(context);
-    ShopModel? shop = userViewModel.user.shop?.first;
+    print(userViewModel.user?.toJson());
+    ShopModel? shop = userViewModel.user?.shop!.first;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

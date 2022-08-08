@@ -189,7 +189,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                               print('selected slot $selectedSlot');
                               print(
                                   'selected date ${_bookingDateController.text}');
-                              print('User id ${userViewModel.user.id}');
+                              print('User id ${userViewModel.user?.id}');
                               print(
                                   'Member id ${appointmentViewModel.appointmentModel.memberId}');
                               print(
@@ -249,7 +249,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                             Map data = {
                               'memberId': appointmentViewModel
                                   .appointmentModel.memberId,
-                              'userId': userViewModel.user.id,
+                              'userId': userViewModel.user?.id,
                               'shopId': widget.shopId,
                               'startTime': bookingDate.toString(),
                               'services': appointmentViewModel

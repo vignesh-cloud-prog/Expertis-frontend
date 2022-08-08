@@ -46,8 +46,8 @@ class _ShopReviewComponentState extends State<ShopReviewComponent> {
   @override
   Widget build(BuildContext context) {
     UserViewModel userViewModel = Provider.of<UserViewModel>(context);
-    print(userViewModel.user.id);
-    print("user id ${userViewModel.user.id}");
+    print(userViewModel.user?.id);
+    print("user id ${userViewModel.user?.id}");
     return ChangeNotifierProvider<ReviewListViewModel>.value(
       value: reviewListViewModel,
       child: Consumer<ReviewListViewModel>(builder: (context, value, _) {
@@ -64,7 +64,7 @@ class _ShopReviewComponentState extends State<ShopReviewComponent> {
           case Status.COMPLETED:
             List<ReviewModel>? reviews = value.reviewList.data?.review;
             reviews?.forEach((element) => {
-                  if (element.from?.id == userViewModel.user.id)
+                  if (element.from?.id == userViewModel.user?.id)
                     {
                       print("review is there"),
                       edit = true,

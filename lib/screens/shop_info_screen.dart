@@ -32,7 +32,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
     if (!widget.isadmin) {
       print("not a admin");
       UserViewModel userViewModel = Provider.of<UserViewModel>(context);
-      widget.shop = userViewModel.user.shop?.first;
+      widget.shop = userViewModel.user?.shop?.first;
       print(" shop id ${widget.shop?.id}");
     } else {
       print("is a admin ${widget.shop?.id}");

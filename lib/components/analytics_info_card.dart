@@ -34,17 +34,18 @@ class AnalyticInfoCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(16 / 2),
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                    color: info.color!.withOpacity(0.1),
-                    shape: BoxShape.circle),
-                child: SvgPicture.asset(
-                  info.svgSrc!,
-                  color: info.color,
-                ),
-              )
+                  padding: EdgeInsets.all(16 / 2),
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                      color: info.color!.withOpacity(0.1),
+                      shape: BoxShape.circle),
+                  child: Icon(Icons.verified_user)
+                  // child: SvgPicture.asset(
+                  //   info.svgSrc!,
+                  //   color: info.color,
+                  // ),
+                  )
             ],
           ),
           Text(

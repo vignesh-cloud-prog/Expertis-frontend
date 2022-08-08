@@ -43,8 +43,8 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    UserModel user = Provider.of<UserViewModel>(context).user;
-    print(user.id);
+    UserModel? user = Provider.of<UserViewModel>(context).user;
+    print(user?.id);
     return ChangeNotifierProvider<AppointmentViewModel>.value(
       value: appointmentViewModel,
       child: Consumer<AppointmentViewModel>(builder: (context, value, _) {
@@ -134,7 +134,8 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       if (appointment.appointmentStatus == "PENDING" &&
-                          appointment.memberId.toString() == user.id.toString())
+                          appointment.memberId.toString() ==
+                              user?.id.toString())
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
                               side: BorderSide(color: bmSpecialColor),
@@ -153,7 +154,8 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                           },
                         ).expand(flex: 1)
                       else if (appointment.appointmentStatus == "PENDING" &&
-                          appointment.memberId.toString() != user.id.toString())
+                          appointment.memberId.toString() !=
+                              user?.id.toString())
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
                               side: BorderSide(color: bmSpecialColor),
@@ -172,7 +174,8 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                           },
                         ).expand(flex: 1),
                       if (appointment.appointmentStatus == "PENDING" &&
-                          appointment.memberId.toString() == user.id.toString())
+                          appointment.memberId.toString() ==
+                              user?.id.toString())
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32)),
@@ -188,7 +191,8 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                           },
                         ).expand(flex: 2)
                       else if (appointment.appointmentStatus == "PENDING" &&
-                          appointment.memberId.toString() != user.id.toString())
+                          appointment.memberId.toString() !=
+                              user?.id.toString())
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32)),
@@ -201,7 +205,8 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                           },
                         ).expand(flex: 2)
                       else if (appointment.appointmentStatus == "ACCEPTED" &&
-                          appointment.memberId.toString() != user.id.toString())
+                          appointment.memberId.toString() !=
+                              user?.id.toString())
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32)),

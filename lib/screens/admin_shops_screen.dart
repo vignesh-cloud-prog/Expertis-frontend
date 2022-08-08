@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:expertis/components/service_card_component.dart';
 import 'package:expertis/components/shop_card_component.dart';
 import 'package:expertis/data/response/status.dart';
+import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/shop_list_view_model.dart';
@@ -48,14 +49,12 @@ class _AdminShopsHomeScreenState extends State<AdminShopsHomeScreen> {
                       child: Text(value.shopList.message.toString()),
                     );
                   case Status.COMPLETED:
-                    // print("value ${value.shopList.data?.toJson()}");
-                    // print("printed ${value.services.data.toString()}");
+                    List<ShopModel>? shopList = value.shopList.data?.shops;
                     return ListView.builder(
                         shrinkWrap: true,
-                        itemCount: value.shopList.data?.shops?.length,
+                        itemCount: shopList?.length,
                         itemBuilder: (ctx, index) {
-                          return ShopCardComponent(
-                              element: value.shopList.data?.shops![index]);
+                          return ShopCardComponent(element: shopList![index]);
                         });
                   default:
                     return Container();
