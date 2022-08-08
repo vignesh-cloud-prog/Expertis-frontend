@@ -23,10 +23,9 @@ class _AdminTagsHomeScreenState extends State<AdminTagsHomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    // if (categoryViewModel.categoryList.data == null) {
-    categoryViewModel.fetchCategoryListApi();
-    // }
+    if (categoryViewModel.categoryList.data == null) {
+      categoryViewModel.fetchCategoryListApi();
+    }
 
     super.initState();
   }
