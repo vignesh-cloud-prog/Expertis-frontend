@@ -25,8 +25,8 @@ class _CategoryHomeComponentState extends State<CategoryHomeComponent> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CategoryViewModel>(
-      create: (BuildContext context) => categoryViewModel,
+    return ChangeNotifierProvider<CategoryViewModel>.value(
+      value: categoryViewModel,
       child: Consumer<CategoryViewModel>(builder: (context, value, _) {
         switch (value.categoryList.status) {
           case Status.LOADING:
