@@ -10,6 +10,7 @@ import 'package:expertis/screens/BMSplashScreen.dart';
 import 'package:expertis/screens/user_profile_edit_screen.dart';
 import 'package:expertis/screens/BMVerifyOTPScreen.dart';
 import 'package:expertis/screens/BMWalkThroughScreen.dart';
+import 'package:expertis/screens/view_all_screen.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -20,7 +21,8 @@ class UserLocation extends BeamLocation<BeamState> {
         RoutesName.createProfile,
         RoutesName.editProfile,
         RoutesName.changePassword,
-        RoutesName.adminUserEditProfile
+        RoutesName.adminUserEditProfile,
+        RoutesName.viewAll
       ];
 
   @override
@@ -60,6 +62,13 @@ class UserLocation extends BeamLocation<BeamState> {
           child: BMUserProfileEditScreen(
             isadmin: false,
           ),
+        ),
+      if (state.pathPatternSegments.contains("shop") &&
+          state.pathPatternSegments.contains("viewall"))
+        BeamPage(
+          key: ValueKey(RoutesName.viewAll),
+          title: 'viewall shops',
+          child: ViewAllShopsScreen(),
         ),
       if (state.pathPatternSegments.contains("change-password"))
         const BeamPage(
