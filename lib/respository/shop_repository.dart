@@ -179,7 +179,23 @@ class HomeRepository {
     }
   }
 
-  //delete the shop
+  Future<List<dynamic>> fetchSlots(shopId, memberId, date) async {
+    final String token = await UserViewModel.getUserToken();
+    requestHeaders["Authorization"] = token;
+    try {
+      dynamic response = await _apiServices.getGetApiResponse(
+          ApiUrl.fetchSlotsEndPoint(shopId, memberId, date), requestHeaders);
+      print('response: $response');
+      print("respones type: ${response.runtimeType}");
+      dynamic data = response['data'];
+      print("data ${data}");
+      List<dynamic>? slots = data.isEmpty ? null : data['slots'];
+      return slots ?? [];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<dynamic> deleteShop(String? id) async {
     final String token = await UserViewModel.getUserToken();
 
@@ -200,23 +216,6 @@ class HomeRepository {
       } else {
         throw FetchDataException('No Internet Connection');
       }
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<List<dynamic>> fetchSlots(shopId, memberId, date) async {
-    final String token = await UserViewModel.getUserToken();
-    requestHeaders["Authorization"] = token;
-    try {
-      dynamic response = await _apiServices.getGetApiResponse(
-          ApiUrl.fetchSlotsEndPoint(shopId, memberId, date), requestHeaders);
-      print('response: $response');
-      print("respones type: ${response.runtimeType}");
-      dynamic data = response['data'];
-      print("data ${data}");
-      List<dynamic>? slots = data.isEmpty ? null : data['slots'];
-      return slots ?? [];
     } catch (e) {
       rethrow;
     }

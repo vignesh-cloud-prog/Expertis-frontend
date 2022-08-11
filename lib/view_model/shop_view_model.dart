@@ -69,6 +69,7 @@ class ShopViewModel with ChangeNotifier {
       UserViewModel.getUser().then((value) {
         UserModel user = value;
         user.shop = [shop];
+        Provider.of<UserViewModel>(context, listen: false).user = user;
         UserViewModel().saveUser(user);
       });
       if (shop.shopName == null) {
@@ -180,38 +181,6 @@ class ShopViewModel with ChangeNotifier {
 
       Beamer.of(context)
           .beamToReplacementNamed(RoutesName.shopServicesWithId(shopId));
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      Utils.flushBarErrorMessage(error.toString(), context);
-      if (kDebugMode) {
-        // print(error.toString());
-      }
-    });
-  }
-
-  Future<void> deleteShopApi(String? id, BuildContext context) async {
-    setLoading(true);
-    if (kDebugMode) {
-      print('id: $id');
-    }
-
-    _myRepo.deleteShop(id).then((value) {
-      if (kDebugMode) {
-        print(value);
-      }
-      // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
-      // userViewModel.saveUser(UserModel.fromJson(value['data']));
-      setLoading(false);
-      Utils.toastMessage(' successfully deleted');
-      // String shopId = value['data']['id'];
-      // print("shopid is $shopId");
-      Provider.of<ShopListViewModel>(context, listen: false)
-          .shopList
-          .data
-          ?.shops
-          ?.removeWhere((element) => element.id == id);
-
-      Beamer.of(context).beamToReplacementNamed(RoutesName.adminShops);
     }).onError((error, stackTrace) {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);

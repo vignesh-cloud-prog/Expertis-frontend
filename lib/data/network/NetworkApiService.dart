@@ -13,7 +13,7 @@ class NetworkApiService extends BaseApiServices {
     try {
       if (kDebugMode) {
         print("url $url");
-        print("header $header");
+        // print("header $header");
       }
       final response = await http
           .get(Uri.parse(url), headers: header)

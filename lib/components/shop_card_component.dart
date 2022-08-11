@@ -4,6 +4,7 @@ import 'package:beamer/beamer.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/assets.dart';
+import 'package:expertis/view_model/shop_list_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,8 @@ class ShopCardComponent extends StatelessWidget {
   const ShopCardComponent({Key? key, required this.element}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    ShopViewModel shopViewModel = Provider.of<ShopViewModel>(context);
+    ShopListViewModel shopListViewModel =
+        Provider.of<ShopListViewModel>(context);
     Size size = MediaQuery.of(context).size;
     return ListTile(
       leading: FancyShimmerImage(
@@ -48,7 +50,7 @@ class ShopCardComponent extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.delete),
             onPressed: () {
-              shopViewModel.deleteShopApi(element?.id, context);
+              shopListViewModel.deleteShopApi(element?.id, context);
             },
           ),
         ]),

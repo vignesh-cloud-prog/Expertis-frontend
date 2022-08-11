@@ -12,16 +12,16 @@ import 'package:provider/provider.dart';
 
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
-import 'BMServiceSelectComponent.dart';
+import 'select_services_component.dart';
 
-class BMOurServiceComponent extends StatefulWidget {
-  const BMOurServiceComponent({Key? key}) : super(key: key);
+class ShopServiceComponent extends StatefulWidget {
+  const ShopServiceComponent({Key? key}) : super(key: key);
 
   @override
-  State<BMOurServiceComponent> createState() => _BMOurServiceComponentState();
+  State<ShopServiceComponent> createState() => _ShopServiceComponentState();
 }
 
-class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
+class _ShopServiceComponentState extends State<ShopServiceComponent> {
   @override
   Widget build(BuildContext context) {
     AppointmentListViewModel appointmentViewModel =
@@ -68,7 +68,7 @@ class _BMOurServiceComponentState extends State<BMOurServiceComponent> {
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return BMSelectServiceComponent(
+                        return SelectServiceComponent(
                           element: popularServiceList[index],
                         );
                       },

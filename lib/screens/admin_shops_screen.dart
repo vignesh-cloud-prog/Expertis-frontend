@@ -1,20 +1,9 @@
-import 'package:beamer/beamer.dart';
-import 'package:expertis/components/service_card_component.dart';
 import 'package:expertis/components/shop_card_component.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/shop_model.dart';
-import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/shop_list_view_model.dart';
-// import 'package:expertis/view_model/user_list_view_model.dart';
-// import 'package:expertis/view_model/shop_view_model.dart';
-import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-
-import '../components/BMAppointmentComponent.dart';
 
 class AdminShopsHomeScreen extends StatefulWidget {
   AdminShopsHomeScreen({Key? key}) : super(key: key);

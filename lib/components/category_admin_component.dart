@@ -34,27 +34,25 @@ class CategoryAdminCardComponent extends StatelessWidget {
         boxFit: BoxFit.fill,
       ).paddingAll(4),
       title: Text(category?.tagName ?? ""),
-      trailing: Expanded(
-        child: SizedBox(
-          height: size.width * 0.20,
-          width: size.width * 0.20,
-          child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-            IconButton(
-              icon: Icon(Icons.edit),
-              onPressed: () {
-                Beamer.of(context).beamToNamed(
-                    RoutesName.updateTagWithId(category?.id),
-                    data: category);
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                categoryViewModel.deleteCategoryApi(category?.id, context);
-              },
-            ),
-          ]),
-        ),
+      trailing: SizedBox(
+        height: size.width * 0.25,
+        width: size.width * 0.25,
+        child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              Beamer.of(context).beamToNamed(
+                  RoutesName.updateTagWithId(category?.id),
+                  data: category);
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              categoryViewModel.deleteCategoryApi(category?.id, context);
+            },
+          ),
+        ]),
       ),
     );
   }
