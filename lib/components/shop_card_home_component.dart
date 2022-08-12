@@ -27,18 +27,19 @@ class ShopCardHomeComponent extends StatefulWidget {
 class _ShopCardHomeComponentState extends State<ShopCardHomeComponent> {
   bool isLiked = false;
   bool saveTag = false;
+  late List<String>? favoriteShops;
 
   @override
   void initState() {
-    List<String>? favoriteShops = UserViewModel().user?.favoriteShops;
-    print("Favourites in card ${favoriteShops}");
+    favoriteShops =
+        Provider.of<UserViewModel>(context, listen: false).user?.favoriteShops;
+
     if (favoriteShops != null) {
-      for (int i = 0; i < favoriteShops.length; i++) {
-        if (favoriteShops[i] == widget.element.id) {
-          print("is in fav list");
+      favoriteShops.forEachIndexed((element, index) {
+        if (element == widget.element.id) {
           isLiked = true;
         }
-      }
+      });
     }
     super.initState();
   }

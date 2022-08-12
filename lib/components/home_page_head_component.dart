@@ -24,7 +24,6 @@ class _HomeFragmentHeadComponentState extends State<HomeFragmentHeadComponent> {
   @override
   Widget build(BuildContext context) {
     UserViewModel? userViewModel = Provider.of<UserViewModel>(context);
-    print("user in head card: ${userViewModel.user?.address}");
 
     return Container(
         width: double.infinity,
