@@ -48,7 +48,7 @@ class AnalyticInfoCardGridView extends StatelessWidget {
         childAspectRatio: childAspectRatio,
       ),
       itemBuilder: (context, index) => AnalyticInfoCard(
-        info: analyticData[index],
+        info: analyticData.values.elementAt(index),
       ),
     );
   }

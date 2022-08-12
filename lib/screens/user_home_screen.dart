@@ -122,32 +122,34 @@ class UserHomeScreenState extends State<UserHomeScreen> {
       });
     });
     selectedTab = getBeamLocation();
-    return Scaffold(
-      backgroundColor: getDashboardColor(),
-      body: getFragment(),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (int index) {
-          setState(() {
-            selectedTab = index;
-          });
-          getFragmentNo(index);
-        },
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: context.cardColor,
-        unselectedItemColor: bmPrimaryColor,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        currentIndex: selectedTab,
-        items: list.map((e) {
-          return BottomNavigationBarItem(
-            label: e.label,
-            icon: Image.asset(e.unSelectedIcon,
-                height: 24, color: bmPrimaryColor),
-            activeIcon:
-                Image.asset(e.selectedIcon, height: 24, color: bmPrimaryColor),
-          );
-        }).toList(),
-      ).cornerRadiusWithClipRRectOnly(topLeft: 32, topRight: 32),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: getDashboardColor(),
+        body: getFragment(),
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: (int index) {
+            setState(() {
+              selectedTab = index;
+            });
+            getFragmentNo(index);
+          },
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: context.cardColor,
+          unselectedItemColor: bmPrimaryColor,
+          showSelectedLabels: true,
+          showUnselectedLabels: false,
+          currentIndex: selectedTab,
+          items: list.map((e) {
+            return BottomNavigationBarItem(
+              label: e.label,
+              icon: Image.asset(e.unSelectedIcon,
+                  height: 24, color: bmPrimaryColor),
+              activeIcon: Image.asset(e.selectedIcon,
+                  height: 24, color: bmPrimaryColor),
+            );
+          }).toList(),
+        ).cornerRadiusWithClipRRectOnly(topLeft: 32, topRight: 32),
+      ),
     );
   }
 }

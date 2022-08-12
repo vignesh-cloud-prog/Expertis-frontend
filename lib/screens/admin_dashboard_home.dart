@@ -1,5 +1,6 @@
 import 'package:expertis/components/analytics_cards_component.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class AdminDashBoardHomeScreen extends StatefulWidget {
   AdminDashBoardHomeScreen({Key? key}) : super(key: key);
@@ -12,8 +13,8 @@ class AdminDashBoardHomeScreen extends StatefulWidget {
 class _AdminDashBoardHomeScreenState extends State<AdminDashBoardHomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SingleChildScrollView(
       child: AnalyticCards(),
-    );
+    ).paddingAll(16);
   }
 }

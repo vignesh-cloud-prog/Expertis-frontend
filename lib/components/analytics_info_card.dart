@@ -16,8 +16,8 @@ class AnalyticInfoCard extends StatelessWidget {
         horizontal: 16,
         vertical: 16 / 2,
       ),
-      decoration: BoxDecoration(
-          color: bmSpecialColor, borderRadius: BorderRadius.circular(10)),
+      decoration:
+          BoxDecoration(color: white, borderRadius: BorderRadius.circular(10)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -28,7 +28,7 @@ class AnalyticInfoCard extends StatelessWidget {
               Text(
                 "${info.count}",
                 style: TextStyle(
-                  color: blueColor,
+                  color: bmSpecialColor,
                   fontSize: 18,
                   fontWeight: FontWeight.w800,
                 ),
@@ -53,7 +53,7 @@ class AnalyticInfoCard extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              color: blueColor,
+              color: bmPrimaryColor,
               fontSize: 15,
               fontWeight: FontWeight.w600,
             ),

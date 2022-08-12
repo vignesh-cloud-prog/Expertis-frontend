@@ -1,6 +1,6 @@
 class ApiUrl {
-  static var baseUrl = 'http://localhost:4000/';
-  // static var baseUrl = 'https://expertis-api.azurewebsites.net/';
+  // static var baseUrl = 'http://localhost:4000/';
+  static var baseUrl = 'https://expertis-api.azurewebsites.net/';
 
   static var loginEndPint = '${baseUrl}users/login';
   static var forgetPasswordEndPint = '${baseUrl}users/forget-password';
@@ -63,6 +63,6 @@ class ApiUrl {
   //to fetch all the user data for admin
   static var fetchUserDataEndPoint = '${baseUrl}users/allUser';
   //add to fav list
-  static String addOrRemoveFav(shopId, islike) =>
-      '${baseUrl}users/fav/$shopId?islike=$islike';
+  static String addOrRemoveFav(String? shopId, bool isLiked) =>
+      '${baseUrl}users/fav/$shopId?islike=${!isLiked}';
 }

@@ -52,14 +52,14 @@ class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    16.height,
+                    26.height,
                     Text('OTP is sent to your email ${authViewModel.email}',
                         style: primaryTextStyle(
                             color: appStore.isDarkModeOn
                                 ? Colors.white
                                 : bmSpecialColorDark,
                             size: 14)),
-                    30.height,
+                    10.height,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -107,7 +107,7 @@ class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
                         )
                       ],
                     ),
-                    10.height,
+                    5.height,
                     PinCodeTextField(
                       appContext: context,
                       length: 6,

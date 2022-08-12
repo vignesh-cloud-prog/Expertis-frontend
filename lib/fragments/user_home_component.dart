@@ -8,7 +8,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../components/shop_card_component.dart';
-import '../components/BMHomeFragmentHeadComponent.dart';
+import '../components/home_page_head_component.dart';
 import '../components/category_home_component.dart';
 import '../main.dart';
 import '../models/BMCommonCardModel.dart';
@@ -47,90 +47,94 @@ class _UserHomeComponentState extends State<UserHomeComponent> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const HomeFragmentHeadComponent(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  20.height,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              upperContainer(
+                  child: const HomeFragmentHeadComponent(),
+                  screenContext: context),
+              lowerContainer(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      titleText(title: 'Categories'),
-                    ],
-                  ).paddingSymmetric(horizontal: 16),
-                  20.height,
-                  const CategoryHomeComponent(),
-                  20.height,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      titleText(title: 'Top Services'),
+                      20.height,
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextButton(
-                            onPressed: () {
-                              const BMTopOffersScreen().launch(context);
-                            },
-                            child: Text('See All',
-                                style: boldTextStyle(
-                                    color: appStore.isDarkModeOn
-                                        ? bmPrimaryColor
-                                        : bmTextColorDarkMode)),
-                          ),
-                          Icon(Icons.arrow_forward_ios,
-                              color: appStore.isDarkModeOn
-                                  ? bmPrimaryColor
-                                  : bmTextColorDarkMode,
-                              size: 16),
+                          titleText(title: 'Categories'),
                         ],
-                      )
-                    ],
-                  ).paddingSymmetric(horizontal: 16),
-                  20.height,
-                  BMTopShopsComponent(),
+                      ).paddingSymmetric(horizontal: 16),
+                      20.height,
+                      const CategoryHomeComponent(),
+                      20.height,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          titleText(title: 'Top Shops'),
+                          Row(
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  const BMTopOffersScreen().launch(context);
+                                },
+                                child: Text('See All',
+                                    style: boldTextStyle(
+                                        color: appStore.isDarkModeOn
+                                            ? bmPrimaryColor
+                                            : bmTextColorDarkMode)),
+                              ),
+                              Icon(Icons.arrow_forward_ios,
+                                  color: appStore.isDarkModeOn
+                                      ? bmPrimaryColor
+                                      : bmTextColorDarkMode,
+                                  size: 16),
+                            ],
+                          )
+                        ],
+                      ).paddingSymmetric(horizontal: 16),
+                      20.height,
+                      BMTopShopsComponent(),
 
-                  20.height,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      titleText(title: 'Recommended for You').expand(),
+                      20.height,
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextButton(
-                            onPressed: () {
-                              const BMRecommendedScreen().launch(context);
-                            },
-                            child: Text('See All',
-                                style: boldTextStyle(
-                                    color: appStore.isDarkModeOn
-                                        ? bmPrimaryColor
-                                        : bmTextColorDarkMode)),
-                          ),
-                          Icon(Icons.arrow_forward_ios,
-                              color: appStore.isDarkModeOn
-                                  ? bmPrimaryColor
-                                  : bmTextColorDarkMode,
-                              size: 16),
+                          titleText(title: 'Recommended for You').expand(),
+                          Row(
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  const BMRecommendedScreen().launch(context);
+                                },
+                                child: Text('See All',
+                                    style: boldTextStyle(
+                                        color: appStore.isDarkModeOn
+                                            ? bmPrimaryColor
+                                            : bmTextColorDarkMode)),
+                              ),
+                              Icon(Icons.arrow_forward_ios,
+                                  color: appStore.isDarkModeOn
+                                      ? bmPrimaryColor
+                                      : bmTextColorDarkMode,
+                                  size: 16),
+                            ],
+                          )
                         ],
-                      )
+                      ).paddingSymmetric(horizontal: 16),
+                      20.height,
+                      BMNearByShopsComponent(),
+                      // HorizontalList(
+                      //   padding: EdgeInsets.symmetric(horizontal: 16),
+                      //   spacing: 16,
+                      //   itemCount: recommendedList.length,
+                      //   itemBuilder: (context, index) {
+                      //     return BMCommonCardComponent(
+                      //         element: recommendedList[index],
+                      //         fullScreenComponent: false,
+                      //         isFavList: false);
+                      //   },
+                      // ),
+                      40.height,
                     ],
-                  ).paddingSymmetric(horizontal: 16),
-                  20.height,
-                  BMNearByShopsComponent(),
-                  // HorizontalList(
-                  //   padding: EdgeInsets.symmetric(horizontal: 16),
-                  //   spacing: 16,
-                  //   itemCount: recommendedList.length,
-                  //   itemBuilder: (context, index) {
-                  //     return BMCommonCardComponent(
-                  //         element: recommendedList[index],
-                  //         fullScreenComponent: false,
-                  //         isFavList: false);
-                  //   },
-                  // ),
-                  40.height,
-                ],
-              ).cornerRadiusWithClipRRectOnly(topRight: 40),
+                  ).cornerRadiusWithClipRRectOnly(topRight: 40),
+                  screenContext: context)
             ],
           ),
         ));

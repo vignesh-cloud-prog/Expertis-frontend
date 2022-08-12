@@ -113,23 +113,6 @@ class AuthViewModel with ChangeNotifier {
     });
   }
 
-  ApiResponse<dynamic> verifyTokenResponse = ApiResponse.loading();
-
-  setVerifyTokenResponse(ApiResponse<dynamic> response) {
-    verifyTokenResponse = response;
-    notifyListeners();
-  }
-
-  Future<void> verifyToken() async {
-    await Future.delayed(const Duration(seconds: 1));
-    _myRepo.verifyTokenApi().then((value) {
-      setVerifyTokenResponse(ApiResponse.completed(value));
-    }).onError((error, stackTrace) {
-      // print("error ${error}");
-      setVerifyTokenResponse(ApiResponse.error(error.toString()));
-    });
-  }
-
   Future<void> forgotPasswordApi(dynamic data, BuildContext context) async {
     setForgetPasswordLoading(true);
 

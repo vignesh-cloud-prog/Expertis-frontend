@@ -31,26 +31,6 @@ class AuthRepository {
     }
   }
 
-  Future<dynamic> verifyTokenApi() async {
-    String token = await UserViewModel.getUserToken();
-    // print("Verify toke n: $token");
-    if (token == 'dummy' || token.isEmpty) {
-      throw TokenNotFoundException();
-    }
-    requestHeaders["Authorization"] = token;
-
-    try {
-      dynamic response = await _apiServices.getGetApiResponse(
-          ApiUrl.verifyTokenEndPint, requestHeaders);
-      if (kDebugMode) {
-        // print("response ${response.toString()}");
-      }
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
   Future<dynamic> forgetPasswordApi(dynamic data) async {
     try {
       dynamic response = await _apiServices.getPostApiResponse(

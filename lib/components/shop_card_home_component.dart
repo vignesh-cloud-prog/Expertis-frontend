@@ -29,9 +29,8 @@ class _ShopCardHomeComponentState extends State<ShopCardHomeComponent> {
   bool saveTag = false;
 
   @override
-  Widget build(BuildContext context) {
-    UserViewModel userViewModel = Provider.of<UserViewModel>(context);
-    List<String>? favoriteShops = userViewModel.user?.favoriteShops;
+  void initState() {
+    List<String>? favoriteShops = UserViewModel().user?.favoriteShops;
     print("Favourites in card ${favoriteShops}");
     if (favoriteShops != null) {
       for (int i = 0; i < favoriteShops.length; i++) {
@@ -41,6 +40,12 @@ class _ShopCardHomeComponentState extends State<ShopCardHomeComponent> {
         }
       }
     }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    UserViewModel userViewModel = Provider.of<UserViewModel>(context);
 
     return Container(
       width: widget.fullScreenComponent ? context.width() - 32 : 250,
@@ -132,7 +137,9 @@ class _ShopCardHomeComponentState extends State<ShopCardHomeComponent> {
             ).onTap(() {
               userViewModel.addOrRemoveFavApi(
                   isLiked, widget.element.id, context);
-              setState(() {});
+              setState(() {
+                isLiked = !isLiked;
+              });
             }),
           )
         ],

@@ -20,12 +20,12 @@ class BMSplashScreen extends StatefulWidget {
 }
 
 class BMSplashScreenState extends State<BMSplashScreen> {
-  final authViewModel = AuthViewModel();
+  final userViewModel = UserViewModel();
   // SplashServices splashServices = SplashServices();
   @override
   void initState() {
     super.initState();
-    authViewModel.verifyToken();
+    userViewModel.verifyToken();
 
     init();
   }
@@ -48,9 +48,9 @@ class BMSplashScreenState extends State<BMSplashScreen> {
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!
           : bmLightScaffoldBackgroundColor,
-      body: ChangeNotifierProvider<AuthViewModel>.value(
-        value: authViewModel,
-        child: Consumer<AuthViewModel>(builder: (context, value, _) {
+      body: ChangeNotifierProvider<UserViewModel>.value(
+        value: userViewModel,
+        child: Consumer<UserViewModel>(builder: (context, value, _) {
           switch (value.verifyTokenResponse.status) {
             case Status.LOADING:
               return Column(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:beamer/beamer.dart';
+import 'package:expertis/data/response/api_response.dart';
 import 'package:expertis/respository/user_repository.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/utils.dart';
@@ -15,8 +16,8 @@ class UserViewModel with ChangeNotifier {
   final _myRepo = UserRepository();
   UserModel? user = UserModel();
 
-  String email = "vignesh@xmail.com";
-  String name = "Vignesh";
+  String email = "";
+  String name = "";
   String? phone;
   String? role;
   bool? verified;
@@ -72,6 +73,26 @@ class UserViewModel with ChangeNotifier {
     final String? id = sp.getString('id');
 
     return id.toString();
+  }
+
+  ApiResponse<dynamic> verifyTokenResponse = ApiResponse.loading();
+
+  setVerifyTokenResponse(ApiResponse<dynamic> response) {
+    verifyTokenResponse = response;
+    notifyListeners();
+  }
+
+  Future<void> verifyToken() async {
+    await Future.delayed(const Duration(seconds: 1));
+    _myRepo.verifyTokenApi().then((value) {
+      print("data $value");
+      user = UserModel.fromJson(value["data"]);
+      print(user?.toJson());
+      setVerifyTokenResponse(ApiResponse.completed(value));
+    }).onError((error, stackTrace) {
+      // print("error ${error}");
+      setVerifyTokenResponse(ApiResponse.error(error.toString()));
+    });
   }
 
   Future<bool> logout() async {
@@ -166,12 +187,13 @@ class UserViewModel with ChangeNotifier {
       print(' data ${value['data']}');
       List<String> favShops = List<String>.from(value['data']['favlist']);
       print("${favShops} favoriteShops");
-      UserViewModel().user?.favoriteShops = favShops;
+      user!.favoriteShops = favShops;
+      print('user.favoriteShops: ${user!.favoriteShops}');
       String? action;
       if (islike) {
-        action = "Added";
-      } else {
         action = "Removed";
+      } else {
+        action = "Added";
       }
       Utils.toastMessage("${action} Successfully");
     }).onError((error, stackTrace) {

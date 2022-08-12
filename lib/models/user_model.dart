@@ -71,7 +71,8 @@ class UserModel {
     address = json['address'].toString();
     dob = json['dob'].toString();
     gender = json['gender'].toString();
-    pinCode = json['pinCode'].toString();
+    pinCode =
+        json['pinCode'].toString() == "null" ? "" : json['pinCode'].toString();
   }
 
   Map<String, dynamic> toJson() {

@@ -2,29 +2,35 @@ import 'package:expertis/models/analytics_info_model.dart';
 import 'package:expertis/utils/BMColors.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-List analyticData = [
-  AnalyticInfo(
-    title: "Subscribers",
-    count: 720,
-    svgSrc: "assets/icons/Subscribers.svg",
+Map<String, AnalyticInfo> analyticData = {
+  'total_users': AnalyticInfo(
+    svgSrc: 'assets/svg/user.svg',
+    title: 'Users',
+    count: 100,
+    color: bmSpecialColor,
+  ),
+  'total_shops': AnalyticInfo(
+    svgSrc: 'assets/svg/project.svg',
+    title: 'Shops',
+    count: 100,
     color: bmPrimaryColor,
   ),
-  AnalyticInfo(
-    title: "Post",
-    count: 820,
-    svgSrc: "assets/icons/Post.svg",
-    color: purple,
+  'total_services': AnalyticInfo(
+    svgSrc: 'assets/svg/task.svg',
+    title: 'Services',
+    count: 100,
+    color: bmPrimaryColor,
   ),
-  AnalyticInfo(
-    title: "Pages",
-    count: 920,
-    svgSrc: "assets/icons/Pages.svg",
-    color: orange,
+  'total_categories': AnalyticInfo(
+    svgSrc: 'assets/svg/bug.svg',
+    title: 'Categories',
+    count: 100,
+    color: bmPrimaryColor,
   ),
-  AnalyticInfo(
-    title: "Comments",
-    count: 920,
-    svgSrc: "assets/icons/Comments.svg",
-    color: greenColor,
+  'total_appointments': AnalyticInfo(
+    svgSrc: 'assets/svg/feature.svg',
+    title: 'Appointments',
+    count: 100,
+    color: bmPrimaryColor,
   ),
-];
+};

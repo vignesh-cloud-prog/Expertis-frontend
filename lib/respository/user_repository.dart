@@ -21,6 +21,26 @@ class UserRepository {
     'Content-Type': 'application/json',
   };
 
+  Future<dynamic> verifyTokenApi() async {
+    String token = await UserViewModel.getUserToken();
+    // print("Verify toke n: $token");
+    if (token == 'dummy' || token.isEmpty) {
+      throw TokenNotFoundException();
+    }
+    requestHeaders["Authorization"] = token;
+
+    try {
+      dynamic response = await _apiServices.getGetApiResponse(
+          ApiUrl.verifyTokenEndPint, requestHeaders);
+      if (kDebugMode) {
+        // print("response ${response.toString()}");
+      }
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<dynamic> updateProfileApi(bool isEditMode, Map<String, String> data,
       bool isFileSelected, Map<String, String> files) async {
     final String token = await UserViewModel.getUserToken();
@@ -89,7 +109,7 @@ class UserRepository {
     }
   }
 
-  Future<dynamic> addOrRemoveFav(String? id, bool islike) async {
+  Future<dynamic> addOrRemoveFav(String? id, bool isLiked) async {
     final String token = await UserViewModel.getUserToken();
 
     requestHeaders["Authorization"] = token;
@@ -101,7 +121,7 @@ class UserRepository {
     // }
     try {
       dynamic response = await _apiServices.getPostApiResponse(
-          ApiUrl.addOrRemoveFav(id, islike), requestHeaders, null);
+          ApiUrl.addOrRemoveFav(id, isLiked), requestHeaders, null);
       if (kDebugMode) {
         print("response ${response.toString()}");
       }
