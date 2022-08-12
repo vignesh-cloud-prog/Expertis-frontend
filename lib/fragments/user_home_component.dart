@@ -1,7 +1,9 @@
+import 'package:beamer/beamer.dart';
 import 'package:expertis/components/top_shops_component.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/components/nearby_shops_component.dart';
 import 'package:expertis/models/shop_list_model.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -72,7 +74,8 @@ class _UserHomeComponentState extends State<UserHomeComponent> {
                             children: [
                               TextButton(
                                 onPressed: () {
-                                  const BMTopOffersScreen().launch(context);
+                                  Beamer.of(context)
+                                      .beamToNamed(RoutesName.viewAllShops);
                                 },
                                 child: Text('See All',
                                     style: boldTextStyle(
@@ -101,7 +104,8 @@ class _UserHomeComponentState extends State<UserHomeComponent> {
                             children: [
                               TextButton(
                                 onPressed: () {
-                                  const BMRecommendedScreen().launch(context);
+                                  Beamer.of(context)
+                                      .beamToNamed(RoutesName.viewAllShops);
                                 },
                                 child: Text('See All',
                                     style: boldTextStyle(

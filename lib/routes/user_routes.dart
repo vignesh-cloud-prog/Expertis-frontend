@@ -1,16 +1,10 @@
 import 'package:beamer/beamer.dart';
-import 'package:expertis/components/BMPortfolioComponent.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/BMChangePasswordScreen.dart';
 import 'package:expertis/screens/user_home_screen.dart';
-import 'package:expertis/screens/BMLoginNowScreen.dart';
-import 'package:expertis/screens/BMRegisterScreen.dart';
-import 'package:expertis/screens/BMSplashScreen.dart';
 import 'package:expertis/screens/user_profile_edit_screen.dart';
-import 'package:expertis/screens/BMVerifyOTPScreen.dart';
-import 'package:expertis/screens/BMWalkThroughScreen.dart';
-import 'package:expertis/screens/view_all_screen.dart';
+import 'package:expertis/screens/view_all_shop_screen.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -22,7 +16,7 @@ class UserLocation extends BeamLocation<BeamState> {
         RoutesName.editProfile,
         RoutesName.changePassword,
         RoutesName.adminUserEditProfile,
-        RoutesName.viewAll
+        RoutesName.viewAllShops
       ];
 
   @override
@@ -66,7 +60,7 @@ class UserLocation extends BeamLocation<BeamState> {
       if (state.pathPatternSegments.contains("shop") &&
           state.pathPatternSegments.contains("viewall"))
         BeamPage(
-          key: ValueKey(RoutesName.viewAll),
+          key: ValueKey(RoutesName.viewAllShops),
           title: 'viewall shops',
           child: ViewAllShopsScreen(),
         ),

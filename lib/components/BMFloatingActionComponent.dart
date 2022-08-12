@@ -12,20 +12,22 @@ class BMFloatingActionComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(color: bmTextColorDarkMode, borderRadius: radius(32)),
+      decoration:
+          BoxDecoration(color: bmTextColorDarkMode, borderRadius: radius(32)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Image.asset('images/adjust.png', height: 20, color: Colors.white),
           4.width,
-          Text('Filter', style: secondaryTextStyle(color: Colors.white)).onTap(() {
+          Text('Filter', style: secondaryTextStyle(color: Colors.white))
+              .onTap(() {
             showFilterBottomSheet(context);
           }),
-          Text(' | ', style: primaryTextStyle(color: Colors.white)),
-          Icon(Icons.map_outlined, color: Colors.white),
-          Text('Map', style: secondaryTextStyle(color: Colors.white)).onTap(() {
-            BMMapScreen().launch(context);
-          }),
+          // Text(' | ', style: primaryTextStyle(color: Colors.white)),
+          // Icon(Icons.map_outlined, color: Colors.white),
+          // Text('Map', style: secondaryTextStyle(color: Colors.white)).onTap(() {
+          //   BMMapScreen().launch(context);
+          // }),
         ],
       ),
     );

@@ -29,11 +29,10 @@ class _UserAppointmentsComponentState extends State<UserAppointmentsComponent> {
     UserViewModel.getUser().then((value) => {
           selectedTab = widget.tabNo,
           userId = value.id ?? '',
-          print("widget.tabno: ${widget.tabNo}"),
           appointmentViewModel.getUserAppointmentsApi(
               value.id ?? '', widget.tabNo == 1 ? true : false)
         });
-    print("Called api");
+
     setStatusBarColor(appStore.isDarkModeOn
         ? appStore.scaffoldBackground!
         : bmLightScaffoldBackgroundColor);
@@ -48,7 +47,6 @@ class _UserAppointmentsComponentState extends State<UserAppointmentsComponent> {
 
   @override
   Widget build(BuildContext context) {
-    print("build called");
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
           ? appStore.scaffoldBackground!
@@ -56,12 +54,12 @@ class _UserAppointmentsComponentState extends State<UserAppointmentsComponent> {
       appBar: AppBar(
         backgroundColor: bmSpecialColor,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).maybePop();
-          },
-        ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back),
+        //   onPressed: () {
+        //     Navigator.of(context).maybePop();
+        //   },
+        // ),
         title: Text(
           'Appointments',
           style: TextStyle(
@@ -134,12 +132,18 @@ class _UserAppointmentsComponentState extends State<UserAppointmentsComponent> {
                     case Status.COMPLETED:
                       List<AppointmentModel>? appointments =
                           value.appointments.data?.appointments;
+
                       return Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: appointments?.map((e) {
-                              return BMAppointmentComponent(element: e);
-                            }).toList() ??
-                            [Center(child: Text('No appointments'))],
+                        children: appointments?.isEmpty == true
+                            ? [
+                                Center(
+                                    child: Text('No appointments found')
+                                        .paddingAll(26))
+                              ]
+                            : appointments!.map((e) {
+                                return BMAppointmentComponent(element: e);
+                              }).toList(),
                       );
                     default:
                       return Container();

@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:expertis/components/shop_card_home_component.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/shop_model.dart';
@@ -51,16 +52,14 @@ class _ViewAllShopsScreenState extends State<ViewAllShopsScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, size: 30, color: bmPrimaryColor),
           onPressed: () {
-            finish(context);
+            Beamer.of(context).beamBack();
           },
         ),
-        title: titleText(title: 'Recommended for you'),
+        title: titleText(title: 'All Shops'),
         actions: [
           IconButton(
             icon: Icon(Icons.search_sharp, size: 30, color: bmPrimaryColor),
-            onPressed: () {
-              finish(context);
-            },
+            onPressed: () {},
           ),
           8.width,
         ],
@@ -88,7 +87,7 @@ class _ViewAllShopsScreenState extends State<ViewAllShopsScreen> {
                               element: shopList![index],
                               fullScreenComponent: true,
                               isFavList: false);
-                        });
+                        }).paddingAll(16);
                   default:
                     return Container();
                 }

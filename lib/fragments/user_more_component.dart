@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/routes/routes_name.dart';
+import 'package:expertis/utils/assets.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
                       children: [
                         16.height,
                         user!.userPic == "" || user!.userPic == "null"
-                            ? Image.asset('images/face_two.jpg',
+                            ? Image.network(Assets.defaultUserImage,
                                     height: 100, width: 100, fit: BoxFit.cover)
                                 .cornerRadiusWithClipRRect(100)
                             : Image.network(user!.userPic,
@@ -78,57 +79,45 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
                       child: Column(
                         children: [
                           16.height,
-                          Row(
-                            children: [
-                              appStore.isDarkModeOn
-                                  ? Icon(Icons.brightness_2,
-                                      color: bmPrimaryColor, size: 30)
-                                  : Icon(Icons.wb_sunny_rounded,
-                                      color: bmPrimaryColor, size: 30),
-                              16.width,
-                              Text('Choose App Theme',
-                                      style: boldTextStyle(
-                                          size: 20,
-                                          color: appStore.isDarkModeOn
-                                              ? white
-                                              : bmSpecialColorDark))
-                                  .expand(),
-                              Switch(
-                                value: appStore.isDarkModeOn,
-                                activeTrackColor: bmSpecialColor,
-                                inactiveThumbColor: bmPrimaryColor,
-                                inactiveTrackColor: Colors.grey,
-                                onChanged: (val) async {
-                                  appStore.toggleDarkMode(value: val);
-                                  await setValue(isDarkModeOnPref, val);
-                                },
-                              ),
-                            ],
-                          )
-                              .paddingOnly(
-                                  left: 16, top: 8, right: 16, bottom: 8)
-                              .onTap(() async {
-                            if (getBoolAsync(isDarkModeOnPref)) {
-                              appStore.toggleDarkMode(value: false);
-                              await setValue(isDarkModeOnPref, false);
-                            } else {
-                              appStore.toggleDarkMode(value: true);
-                              await setValue(isDarkModeOnPref, true);
-                            }
-                          }),
-                          SettingItemWidget(
-                            title: 'Check Appointments',
-                            leading: Icon(Icons.calendar_today,
-                                color: bmPrimaryColor, size: 30),
-                            titleTextStyle: boldTextStyle(
-                                size: 20,
-                                color: appStore.isDarkModeOn
-                                    ? white
-                                    : bmSpecialColorDark),
-                            onTap: () {
-                              UserAppointmentsComponent().launch(context);
-                            },
-                          ),
+                          // Row(
+                          //   children: [
+                          //     appStore.isDarkModeOn
+                          //         ? Icon(Icons.brightness_2,
+                          //             color: bmPrimaryColor, size: 30)
+                          //         : Icon(Icons.wb_sunny_rounded,
+                          //             color: bmPrimaryColor, size: 30),
+                          //     16.width,
+                          //     Text('Choose App Theme',
+                          //             style: boldTextStyle(
+                          //                 size: 20,
+                          //                 color: appStore.isDarkModeOn
+                          //                     ? white
+                          //                     : bmSpecialColorDark))
+                          //         .expand(),
+                          //     Switch(
+                          //       value: appStore.isDarkModeOn,
+                          //       activeTrackColor: bmSpecialColor,
+                          //       inactiveThumbColor: bmPrimaryColor,
+                          //       inactiveTrackColor: Colors.grey,
+                          //       onChanged: (val) async {
+                          //         appStore.toggleDarkMode(value: val);
+                          //         await setValue(isDarkModeOnPref, val);
+                          //       },
+                          //     ),
+                          //   ],
+                          // )
+                          //     .paddingOnly(
+                          //         left: 16, top: 8, right: 16, bottom: 8)
+                          //     .onTap(() async {
+                          //   if (getBoolAsync(isDarkModeOnPref)) {
+                          //     appStore.toggleDarkMode(value: false);
+                          //     await setValue(isDarkModeOnPref, false);
+                          //   } else {
+                          //     appStore.toggleDarkMode(value: true);
+                          //     await setValue(isDarkModeOnPref, true);
+                          //   }
+                          // }),
+
                           SettingItemWidget(
                             title: 'Edit Profile',
                             leading: Icon(Icons.edit,
@@ -141,6 +130,20 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
                             onTap: () {
                               Beamer.of(context)
                                   .beamToNamed(RoutesName.editProfile);
+                            },
+                          ),
+                          SettingItemWidget(
+                            title: 'Check Appointments',
+                            leading: Icon(Icons.calendar_today,
+                                color: bmPrimaryColor, size: 30),
+                            titleTextStyle: boldTextStyle(
+                                size: 20,
+                                color: appStore.isDarkModeOn
+                                    ? white
+                                    : bmSpecialColorDark),
+                            onTap: () {
+                              Beamer.of(context)
+                                  .beamToNamed(RoutesName.appointment);
                             },
                           ),
                           SettingItemWidget(
