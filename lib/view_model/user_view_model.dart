@@ -159,4 +159,27 @@ class UserViewModel with ChangeNotifier {
       }
     });
   }
+
+  Future<void> addOrRemoveFavApi(
+      bool islike, String? shopId, BuildContext context) async {
+    _myRepo.addOrRemoveFav(shopId, islike).then((value) {
+      print(' data ${value['data']}');
+      List<String> favShops = List<String>.from(value['data']['favlist']);
+      print("${favShops} favoriteShops");
+      UserViewModel().user?.favoriteShops = favShops;
+      String? action;
+      if (islike) {
+        action = "Added";
+      } else {
+        action = "Removed";
+      }
+      Utils.toastMessage("${action} Successfully");
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      Utils.flushBarErrorMessage(error.toString(), context);
+      if (!kDebugMode) {
+        // print(error.toString());
+      }
+    });
+  }
 }

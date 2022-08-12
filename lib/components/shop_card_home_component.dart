@@ -3,8 +3,10 @@ import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/utils/assets.dart';
+import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 import '../main.dart';
 import '../utils/BMColors.dart';
 
@@ -25,8 +27,21 @@ class ShopCardHomeComponent extends StatefulWidget {
 class _ShopCardHomeComponentState extends State<ShopCardHomeComponent> {
   bool isLiked = false;
   bool saveTag = false;
+
   @override
   Widget build(BuildContext context) {
+    UserViewModel userViewModel = Provider.of<UserViewModel>(context);
+    List<String>? favoriteShops = userViewModel.user?.favoriteShops;
+    print("Favourites in card ${favoriteShops}");
+    if (favoriteShops != null) {
+      for (int i = 0; i < favoriteShops.length; i++) {
+        if (favoriteShops[i] == widget.element.id) {
+          print("is in fav list");
+          isLiked = true;
+        }
+      }
+    }
+
     return Container(
       width: widget.fullScreenComponent ? context.width() - 32 : 250,
       decoration:
@@ -115,10 +130,8 @@ class _ShopCardHomeComponentState extends State<ShopCardHomeComponent> {
               color: isLiked ? Colors.amber : bmTextColorDarkMode,
               size: 24,
             ).onTap(() {
-              isLiked = !isLiked.validate();
-              if (widget.isFavList) {
-                favList.remove(widget.element);
-              }
+              userViewModel.addOrRemoveFavApi(
+                  isLiked, widget.element.id, context);
               setState(() {});
             }),
           )

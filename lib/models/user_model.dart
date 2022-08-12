@@ -8,6 +8,7 @@ class UserModel {
   bool? verified;
   List<ShopModel>? shop;
   List<String>? appointments;
+  List<String>? favoriteShops;
   String? createdAt;
   String? updatedAt;
   late String userPic;
@@ -35,6 +36,7 @@ class UserModel {
     this.dob,
     this.gender,
     this.pinCode,
+    this.favoriteShops,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -53,6 +55,12 @@ class UserModel {
       appointments = <String>[];
       json['appointments'].forEach((v) {
         appointments!.add(v.toString());
+      });
+    }
+    if (json['favoriteShops'] != null) {
+      favoriteShops = <String>[];
+      json['favoriteShops'].forEach((v) {
+        favoriteShops!.add(v.toString());
       });
     }
     createdAt = json['createdAt'].toString();
@@ -80,6 +88,9 @@ class UserModel {
     }
     if (appointments != null) {
       data['appointments'] = appointments!.map((v) => v.toString()).toList();
+    }
+    if (favoriteShops != null) {
+      data['favoriteShops'] = favoriteShops!.map((v) => v.toString()).toList();
     }
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;

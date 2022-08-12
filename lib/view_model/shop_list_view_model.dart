@@ -38,6 +38,7 @@ class ShopListViewModel with ChangeNotifier {
   }
 
   Future<void> fetchShopsDataApi() async {
+    print("api callsed");
     _myRepo.fetchHomeData().then((value) {
       setShopList(ApiResponse.completed(value));
     }).onError((error, stackTrace) {

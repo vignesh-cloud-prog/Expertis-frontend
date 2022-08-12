@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:expertis/data/app_excaptions.dart';
 import 'package:expertis/models/user_list_model.dart';
 import 'package:expertis/models/user_model.dart';
@@ -77,6 +76,32 @@ class UserRepository {
     try {
       dynamic response = await _apiServices.getDeleteApiResponse(
           ApiUrl.deleteUserEndPoint(id), requestHeaders);
+      if (kDebugMode) {
+        print("response ${response.toString()}");
+      }
+      if (response != null) {
+        return response;
+      } else {
+        throw FetchDataException('No Internet Connection');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> addOrRemoveFav(String? id, bool islike) async {
+    final String token = await UserViewModel.getUserToken();
+
+    requestHeaders["Authorization"] = token;
+    // if (kDebugMode) {
+    //   print("inside add fav api caller\n");
+    //   print(ApiUrl.addOrRemoveFav(id, islike));
+    //   // print("data ${id.toString()}");
+    //   print("requestHeaders: ${requestHeaders.toString()}");
+    // }
+    try {
+      dynamic response = await _apiServices.getPostApiResponse(
+          ApiUrl.addOrRemoveFav(id, islike), requestHeaders, null);
       if (kDebugMode) {
         print("response ${response.toString()}");
       }
