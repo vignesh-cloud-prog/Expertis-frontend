@@ -1,7 +1,7 @@
 import '../models/BMCommonCardModel.dart';
 import 'BMDataGenerator.dart';
 
-const appName = 'Beauty Master';
+const appName = 'Bablus';
 
 List<BMCommonCardModel> favList = getFavList();
 const isDarkModeOnPref = 'isDarkModeOnPref';

@@ -84,8 +84,14 @@ dev_dependencies:
 
 flutter_icons:
   android: "launcher_icon"
-  ios: false
+  ios: true
   image_path: "images/beautymaster_logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "images/beautymaster_logo.png"
+    # background_color: "#hexcode"
+    # theme_color: "#hexcode"
 
   flutter_test:
     sdk: flutter

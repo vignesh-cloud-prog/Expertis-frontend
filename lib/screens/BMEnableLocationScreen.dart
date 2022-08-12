@@ -15,7 +15,9 @@ class BMEnableLocationScreen extends StatefulWidget {
 class _BMEnableLocationScreenState extends State<BMEnableLocationScreen> {
   @override
   void initState() {
-    setStatusBarColor(appStore.isDarkModeOn ? appStore.scaffoldBackground! : bmLightScaffoldBackgroundColor);
+    setStatusBarColor(appStore.isDarkModeOn
+        ? appStore.scaffoldBackground!
+        : bmLightScaffoldBackgroundColor);
     super.initState();
   }
 
@@ -28,7 +30,9 @@ class _BMEnableLocationScreenState extends State<BMEnableLocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appStore.isDarkModeOn ? appStore.scaffoldBackground! : bmLightScaffoldBackgroundColor,
+      backgroundColor: appStore.isDarkModeOn
+          ? appStore.scaffoldBackground!
+          : bmLightScaffoldBackgroundColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -36,12 +40,19 @@ class _BMEnableLocationScreenState extends State<BMEnableLocationScreen> {
           Column(
             children: [
               Image.asset('images/map.png', height: 200),
-              Text('In order to use Beauty Master location services must be enabled',
-                  style: boldTextStyle(color: appStore.isDarkModeOn ? Colors.white : bmSpecialColorDark), textAlign: TextAlign.center),
+              Text('In order to use Bablus location services must be enabled',
+                  style: boldTextStyle(
+                      color: appStore.isDarkModeOn
+                          ? Colors.white
+                          : bmSpecialColorDark),
+                  textAlign: TextAlign.center),
               16.height,
               Text(
-                'Accessing your location will allow you to find places near you, and provides the ability to use Beauty Master to book services.',
-                style: secondaryTextStyle(color: appStore.isDarkModeOn ? Colors.white : bmSpecialColorDark),
+                'Accessing your location will allow you to find places near you, and provides the ability to use Bablus to book services.',
+                style: secondaryTextStyle(
+                    color: appStore.isDarkModeOn
+                        ? Colors.white
+                        : bmSpecialColorDark),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -50,8 +61,10 @@ class _BMEnableLocationScreenState extends State<BMEnableLocationScreen> {
             children: [
               AppButton(
                 width: context.width() - 40,
-                shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-                child: Text('Enable Location', style: boldTextStyle(color: Colors.white)),
+                shapeBorder: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32)),
+                child: Text('Enable Location',
+                    style: boldTextStyle(color: Colors.white)),
                 padding: EdgeInsets.all(16),
                 color: bmPrimaryColor,
                 onTap: () {
@@ -59,7 +72,11 @@ class _BMEnableLocationScreenState extends State<BMEnableLocationScreen> {
                 },
               ),
               20.height,
-              Text('Maybe Later', style: boldTextStyle(color: appStore.isDarkModeOn ? bmPrimaryColor : Colors.grey)),
+              Text('Maybe Later',
+                  style: boldTextStyle(
+                      color: appStore.isDarkModeOn
+                          ? bmPrimaryColor
+                          : Colors.grey)),
             ],
           )
         ],

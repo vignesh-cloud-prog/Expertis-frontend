@@ -18,7 +18,7 @@ class BMWelcomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset('images/welcome.png', height: 200),
-          Text('Welcome to Beauty Master!',
+          Text('Welcome to Bablus!',
               style: boldTextStyle(
                   color:
                       appStore.isDarkModeOn ? Colors.white : bmSpecialColorDark,

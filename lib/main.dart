@@ -14,7 +14,7 @@ import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/utils/BMDataGenerator.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
-import 'package:expertis/view_model/services/firebase_dynamic_link.dart';
+// import 'package:expertis/view_model/services/firebase_dynamic_link.dart';
 import 'package:expertis/view_model/shop_list_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +23,8 @@ import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:beamer/beamer.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
 
 AppStore appStore = AppStore();
 

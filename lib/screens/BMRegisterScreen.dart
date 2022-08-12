@@ -293,7 +293,7 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
                       // BMSocialIconsLoginComponents().center(),
                       // 30.height,
                       Text(
-                        'By clicking Join Beauty Master, you agreeing to',
+                        'By clicking Join Bablus, you agreeing to',
                         style: secondaryTextStyle(
                             color: appStore.isDarkModeOn
                                 ? Colors.white
