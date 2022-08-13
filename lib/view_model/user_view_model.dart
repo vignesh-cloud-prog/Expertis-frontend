@@ -149,37 +149,6 @@ class UserViewModel with ChangeNotifier {
   }
 
   //delete users
-  Future<void> deleteUserApi(String? id, BuildContext context) async {
-    setLoading(true);
-    if (kDebugMode) {
-      print('id: $id');
-    }
-
-    _myRepo.deleteUser(id).then((value) {
-      if (kDebugMode) {
-        print(value);
-      }
-      // final userViewModel = Provider.of<UserViewModel>(context, listen: false);
-      // userViewModel.saveUser(UserModel.fromJson(value['data']));
-      setLoading(false);
-      Utils.toastMessage(' successfully deleted');
-      // String shopId = value['data']['id'];
-      // print("shopid is $shopId");
-      Provider.of<UserListViewModel>(context, listen: false)
-          .userList
-          .data
-          ?.users
-          ?.removeWhere((element) => element.id == id);
-
-      Beamer.of(context).beamToReplacementNamed(RoutesName.adminUsers);
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      Utils.flushBarErrorMessage(error.toString(), context);
-      if (kDebugMode) {
-        // print(error.toString());
-      }
-    });
-  }
 
   Future<void> addOrRemoveFavApi(
       bool islike, String? shopId, BuildContext context) async {

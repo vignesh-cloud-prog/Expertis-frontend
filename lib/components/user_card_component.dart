@@ -6,6 +6,7 @@ import 'package:expertis/models/user_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
+import 'package:expertis/view_model/user_list_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,8 @@ class UserCardComponent extends StatelessWidget {
   const UserCardComponent({Key? key, required this.element}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    UserViewModel userViewModel = Provider.of<UserViewModel>(context);
+    UserListViewModel userListViewModel =
+        Provider.of<UserListViewModel>(context);
     Size size = MediaQuery.of(context).size;
     return ListTile(
       leading: FancyShimmerImage(
@@ -32,7 +34,9 @@ class UserCardComponent extends StatelessWidget {
           color: Colors.red,
           size: 28,
         ),
-        imageUrl: element?.userPic ?? Assets.defaultServiceImage,
+        imageUrl: element?.userPic == "null" || element?.userPic == ""
+            ? Assets.defaultUserImage
+            : element?.userPic ?? Assets.defaultServiceImage,
         boxFit: BoxFit.fill,
       ),
       title: Text(element?.name ?? ""),
@@ -51,7 +55,7 @@ class UserCardComponent extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.delete),
             onPressed: () {
-              userViewModel.deleteUserApi(element?.id, context);
+              userListViewModel.deleteUserApi(element?.id, context);
             },
           ),
         ]),

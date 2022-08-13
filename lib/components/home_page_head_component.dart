@@ -34,7 +34,10 @@ class _HomeFragmentHeadComponentState extends State<HomeFragmentHeadComponent> {
             Row(
               children: [
                 Image.network(
-                  Assets.defaultUserImage,
+                  userViewModel.user?.userPic == "null" ||
+                          userViewModel.user?.userPic == ""
+                      ? Assets.defaultUserImage
+                      : userViewModel.user?.userPic ?? Assets.defaultUserImage,
                   height: 60,
                   width: 60,
                 ).cornerRadiusWithClipRRect(100),
