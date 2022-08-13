@@ -11,38 +11,35 @@ import 'package:provider/provider.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ShopInfoScreen extends StatefulWidget {
-  bool isadmin;
+  bool isAdmin = false;
   ShopModel? shop;
-  ShopInfoScreen({Key? key, required this.isadmin, this.shop})
-      : super(key: key);
+  ShopInfoScreen({Key? key, this.isAdmin = false, this.shop}) : super(key: key);
 
   @override
   State<ShopInfoScreen> createState() => _ShopInfoScreenState();
 }
 
 class _ShopInfoScreenState extends State<ShopInfoScreen> {
-  ShopModel? shop;
   @override
   void initState() {
+    if (widget.isAdmin == false) {
+      print("not a admin");
+      UserViewModel userViewModel =
+          Provider.of<UserViewModel>(context, listen: false);
+      widget.shop = userViewModel.user?.shop?.first;
+      print(" shop id ${widget.shop?.id}");
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.isadmin) {
-      print("not a admin");
-      UserViewModel userViewModel = Provider.of<UserViewModel>(context);
-      widget.shop = userViewModel.user?.shop?.first;
-      print(" shop id ${widget.shop?.id}");
-    } else {
-      print("is a admin ${widget.shop?.id}");
-      // shop = widget.shop;
-    }
+    print("shop id ${widget.shop?.id}");
     return Container(
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            titleText(title: "About My Shop"),
+            titleText(title: "About Shop"),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,7 +47,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
                 titleText(title: "Shop Info"),
                 IconButton(
                     onPressed: (() {
-                      if (widget.isadmin) {
+                      if (widget.isAdmin == true) {
                         print("shop on press ${widget.shop?.shopName}");
                         Beamer.of(context).beamToNamed(
                             RoutesName.adminUpdateShopInfo,
@@ -64,7 +61,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
                     icon: Icon(Icons.edit)),
               ],
             ),
-            ShopInfoComponent(shop: shop),
+            ShopInfoComponent(shop: widget.shop),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +73,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
                       //     RoutesName.updateShopContactWithId(widget.shop?.id),
                       //     data: widget.shop);
 
-                      if (widget.isadmin) {
+                      if (widget.isAdmin == true) {
                         // print("shop on press ${widget.shop?.shopName}");
                         Beamer.of(context).beamToNamed(
                             RoutesName.adminUpdateShopContact,
@@ -90,7 +87,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
                     icon: Icon(Icons.edit)),
               ],
             ),
-            ShopContactComponent(contact: shop?.contact),
+            ShopContactComponent(contact: widget.shop?.contact),
           ],
         ),
       ),

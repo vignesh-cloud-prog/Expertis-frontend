@@ -47,7 +47,7 @@ class ShopViewModel with ChangeNotifier {
       bool isEditMode,
       Map<String, String> data,
       bool isFileSelected,
-      bool isadmin,
+      bool isAdmin,
       Map<String, dynamic?> files,
       BuildContext context) async {
     setLoading(true);
@@ -87,12 +87,13 @@ class ShopViewModel with ChangeNotifier {
             RoutesName.shopServicesWithId(shop.id),
             data: shop);
         print("You need to add services info");
-      } else if (isadmin) {
+      } else if (isAdmin) {
         Beamer.of(context)
             .beamToReplacementNamed(RoutesName.adminShops, data: shop);
       } else {
-        Beamer.of(context)
-            .beamToReplacementNamed(RoutesName.ownerDashboard, data: shop);
+        Beamer.of(context).beamToReplacementNamed(
+            RoutesName.shopDetailsWithId(shopId),
+            data: shop);
         print("You are good to go");
       }
 

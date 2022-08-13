@@ -41,7 +41,7 @@ class ShopCardComponent extends StatelessWidget {
         width: size.width * 0.30,
         child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
           IconButton(
-            icon: Icon(Icons.edit),
+            icon: Icon(Icons.remove_red_eye),
             onPressed: () {
               Beamer.of(context)
                   .beamToNamed(RoutesName.adminShopInfoScreen, data: element);

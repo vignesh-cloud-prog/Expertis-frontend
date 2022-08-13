@@ -104,12 +104,6 @@ class AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
       appBar: AppBar(
         backgroundColor: bmSpecialColor,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Beamer.of(context).beamToNamed(RoutesName.home);
-          },
-        ),
         title: Text(
           'Admin Dashboard',
           style: TextStyle(
@@ -117,9 +111,18 @@ class AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              Beamer.of(context).beamToNamed(RoutesName.home);
+            },
+          ),
+          10.width,
+        ],
       ),
       backgroundColor: getDashboardColor(),
-      body: getFragment(),
+      body: SingleChildScrollView(child: getFragment()),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (int index) {
           setState(() {

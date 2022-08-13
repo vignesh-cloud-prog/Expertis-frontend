@@ -47,7 +47,7 @@ class _ServicesHomeScreenState extends State<ServicesHomeScreen> {
           onTap: () {
             Beamer.of(context).beamToNamed(RoutesName.createService);
           },
-        ).paddingAll(16),
+        ).paddingOnly(top: 16, left: 16, right: 16),
         ChangeNotifierProvider<ShopViewModel>.value(
           value: shopViewModel,
           child: Consumer<ShopViewModel>(builder: (context, value, _) {
@@ -59,28 +59,23 @@ class _ServicesHomeScreenState extends State<ServicesHomeScreen> {
                   child: Text(value.services.message.toString()),
                 );
               case Status.COMPLETED:
-                print("value ${value.services.data}");
                 List<Services>? services = value.services.data?.services;
                 return services!.length > 0
-                    ? Container(
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: value.services.data?.services?.length,
-                            itemBuilder: (ctx, index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                    color:
-                                        appStore.isDarkModeOn ? white : white,
-                                    borderRadius: radius(20)),
-                                child: ServiceCardComponent(
-                                    element:
-                                        value.services.data?.services![index]),
-                              ).paddingAll(12);
-                            }),
-                      )
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: value.services.data?.services?.length,
+                        itemBuilder: (ctx, index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                color: appStore.isDarkModeOn ? white : white,
+                                borderRadius: radius(20)),
+                            child: ServiceCardComponent(
+                                element: value.services.data?.services![index]),
+                          ).paddingAll(12);
+                        })
                     : Center(
-                        child: Text('No Service added').paddingAll(16),
-                      );
+                        child: Text('No Service added'),
+                      ).paddingAll(16);
 
               default:
                 return Container();

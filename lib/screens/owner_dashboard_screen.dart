@@ -67,7 +67,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
       return ShopAppointmentsHomeScreen(shopId: widget.shopId);
     } else if (selectedTab == 3) {
       return ShopInfoScreen(
-        isadmin: false,
+        isAdmin: false,
       );
     }
     return ShopDashBoardHomeScreen();
@@ -126,7 +126,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
     UserViewModel userViewModel = Provider.of<UserViewModel>(context);
     print(userViewModel.user?.toJson());
     ShopModel? shop = userViewModel.user?.shop?.first ?? null;
-
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: bmLightScaffoldBackgroundColor,
       body: SingleChildScrollView(
@@ -134,11 +134,12 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
           children: [
             upperContainer(
               screenContext: context,
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    FancyShimmerImage(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    width: size.width * 0.2,
+                    child: FancyShimmerImage(
                       height: MediaQuery.of(context).size.height * 0.1,
                       width: MediaQuery.of(context).size.width * 0.2,
                       errorWidget: const Icon(
@@ -148,8 +149,11 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
                       ),
                       imageUrl: shop?.shopLogo ?? Assets.defaultShopImage,
                       boxFit: BoxFit.fill,
-                    ).paddingAll(10).cornerRadiusWithClipRRect(10),
-                    Column(
+                    ).cornerRadiusWithClipRRect(20).paddingAll(10),
+                  ),
+                  Container(
+                    width: size.width * 0.5,
+                    child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -180,7 +184,10 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
                             ],
                           )
                         ]).paddingOnly(left: 10, right: 10),
-                    IconButton(
+                  ),
+                  Container(
+                    width: size.width * 0.1,
+                    child: IconButton(
                       icon: Icon(
                         size: 30,
                         Icons.exit_to_app,
@@ -190,9 +197,9 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
                         Beamer.of(context).beamToNamed(RoutesName.home);
                       },
                     ).center(),
-                  ],
-                ),
-              ),
+                  ),
+                ],
+              ).paddingAll(6),
             ),
             lowerContainer(child: getFragment(), screenContext: context),
           ],

@@ -15,10 +15,10 @@ import 'package:dotted_border/dotted_border.dart';
 class ShopContactEditScreen extends StatefulWidget {
   ShopModel? shop;
   String? shopId;
-  bool isadmin;
+  bool isAdmin;
 
   ShopContactEditScreen(
-      {Key? key, this.shopId, this.shop, required this.isadmin})
+      {Key? key, this.shopId, this.shop, this.isAdmin = false})
       : super(key: key);
 
   @override
@@ -26,7 +26,6 @@ class ShopContactEditScreen extends StatefulWidget {
 }
 
 class ShopContactEditScreenState extends State<ShopContactEditScreen> {
-  CategoryViewModel categoryViewModel = CategoryViewModel();
   FocusNode name = FocusNode();
   FocusNode shopId = FocusNode();
   FocusNode gender = FocusNode();
@@ -34,8 +33,6 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
   FocusNode about = FocusNode();
 
   final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _dobController = TextEditingController();
 
   @override
   void initState() {
@@ -54,7 +51,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.isadmin)
+    if (!widget.isAdmin)
       UserViewModel.getUser().then((value) {
         widget.shop?.id = value.shop?.first.id;
         widget.shop?.owner = value.id;
@@ -525,7 +522,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                         data.remove('shopLogo');
                         data.remove('tags');
                         shopViewModel.sendShopData(
-                            true, data, false, widget.isadmin, files, context);
+                            true, data, false, widget.isAdmin, files, context);
                       }
                     },
                     child: shopViewModel.loading

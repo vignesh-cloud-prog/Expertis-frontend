@@ -111,7 +111,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
           child: ShopContactEditScreen(
             shopId: state.pathParameters['shopId'] ?? 'null',
             shop: data != null ? data as ShopModel : null,
-            isadmin: true,
+            isAdmin: true,
           ),
         ),
 
@@ -124,7 +124,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
           child: ShopContactEditScreen(
             shopId: state.pathParameters['shopId'] ?? 'null',
             shop: data != null ? data as ShopModel : null,
-            isadmin: false,
+            isAdmin: false,
           ),
         ),
 

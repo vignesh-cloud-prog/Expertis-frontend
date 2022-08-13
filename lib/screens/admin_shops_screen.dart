@@ -40,17 +40,19 @@ class _AdminShopsHomeScreenState extends State<AdminShopsHomeScreen> {
                   );
                 case Status.COMPLETED:
                   List<ShopModel>? shopList = value.shopList.data?.shops;
-                  return Container(
-                    decoration: BoxDecoration(
-                        color: appStore.isDarkModeOn ? white : white,
-                        borderRadius: radius(20)),
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: shopList?.length,
-                        itemBuilder: (ctx, index) {
-                          return ShopCardComponent(element: shopList![index]);
-                        }).paddingAll(8),
-                  );
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: shopList?.length,
+                      itemBuilder: (ctx, index) {
+                        return Container(
+                                decoration: BoxDecoration(
+                                    color:
+                                        appStore.isDarkModeOn ? white : white,
+                                    borderRadius: radius(20)),
+                                child: ShopCardComponent(
+                                    element: shopList![index]))
+                            .paddingAll(8);
+                      });
                 default:
                   return Container();
               }
