@@ -128,6 +128,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
     ShopModel? shop = userViewModel.user?.shop?.first ?? null;
 
     return Scaffold(
+      backgroundColor: bmLightScaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [

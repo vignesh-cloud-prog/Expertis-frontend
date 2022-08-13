@@ -33,7 +33,7 @@ class ShopCardComponent extends StatelessWidget {
         ),
         imageUrl: element?.shopLogo ?? Assets.defaultServiceImage,
         boxFit: BoxFit.fill,
-      ),
+      ).cornerRadiusWithClipRRect(20),
       title: Text(element?.shopName ?? ""),
       subtitle: Text(element?.contact?.address ?? ""),
       trailing: SizedBox(

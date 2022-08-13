@@ -79,7 +79,7 @@ class _ServicesHomeScreenState extends State<ServicesHomeScreen> {
                             }),
                       )
                     : Center(
-                        child: Text('No Services'),
+                        child: Text('No Service added').paddingAll(16),
                       );
 
               default:

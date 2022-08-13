@@ -1,8 +1,10 @@
 import 'package:expertis/components/shop_card_component.dart';
 import 'package:expertis/data/response/status.dart';
+import 'package:expertis/main.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/view_model/shop_list_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 class AdminShopsHomeScreen extends StatefulWidget {
@@ -23,35 +25,38 @@ class _AdminShopsHomeScreenState extends State<AdminShopsHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ChangeNotifierProvider<ShopListViewModel>.value(
-              value: shopListViewModel,
-              child: Consumer<ShopListViewModel>(builder: (context, value, _) {
-                switch (value.shopList.status) {
-                  case Status.LOADING:
-                    return const Center(child: CircularProgressIndicator());
-                  case Status.ERROR:
-                    return Center(
-                      child: Text(value.shopList.message.toString()),
-                    );
-                  case Status.COMPLETED:
-                    List<ShopModel>? shopList = value.shopList.data?.shops;
-                    return ListView.builder(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ChangeNotifierProvider<ShopListViewModel>.value(
+            value: shopListViewModel,
+            child: Consumer<ShopListViewModel>(builder: (context, value, _) {
+              switch (value.shopList.status) {
+                case Status.LOADING:
+                  return const Center(child: CircularProgressIndicator());
+                case Status.ERROR:
+                  return Center(
+                    child: Text(value.shopList.message.toString()),
+                  );
+                case Status.COMPLETED:
+                  List<ShopModel>? shopList = value.shopList.data?.shops;
+                  return Container(
+                    decoration: BoxDecoration(
+                        color: appStore.isDarkModeOn ? white : white,
+                        borderRadius: radius(20)),
+                    child: ListView.builder(
                         shrinkWrap: true,
                         itemCount: shopList?.length,
                         itemBuilder: (ctx, index) {
                           return ShopCardComponent(element: shopList![index]);
-                        });
-                  default:
-                    return Container();
-                }
-              }),
-            ),
-          ],
-        ),
+                        }).paddingAll(8),
+                  );
+                default:
+                  return Container();
+              }
+            }),
+          ),
+        ],
       ),
     );
   }

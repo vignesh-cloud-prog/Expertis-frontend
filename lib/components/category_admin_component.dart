@@ -32,7 +32,7 @@ class CategoryAdminCardComponent extends StatelessWidget {
             ? Assets.defaultCategoryImage
             : category?.tagPic ?? Assets.defaultCategoryImage,
         boxFit: BoxFit.fill,
-      ).paddingAll(4),
+      ).paddingAll(4).cornerRadiusWithClipRRect(20),
       title: Text(category?.tagName ?? ""),
       trailing: SizedBox(
         height: size.width * 0.25,

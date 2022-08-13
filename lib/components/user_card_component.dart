@@ -38,7 +38,7 @@ class UserCardComponent extends StatelessWidget {
             ? Assets.defaultUserImage
             : element?.userPic ?? Assets.defaultServiceImage,
         boxFit: BoxFit.fill,
-      ),
+      ).cornerRadiusWithClipRRect(100),
       title: Text(element?.name ?? ""),
       subtitle: Text(element?.email ?? ""),
       trailing: SizedBox(
