@@ -13,7 +13,8 @@ class ShopInfoComponent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SizedBox(height: 10),
-        titleText(title: "${shop?.shopName} ( ${shop?.shopId} )"),
+        Text("${shop?.shopName} ( ${shop?.shopId} )",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         Row(
           children: [
             Icon(Icons.person),

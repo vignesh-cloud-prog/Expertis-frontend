@@ -84,10 +84,11 @@ class _ViewAllShopsScreenState extends State<ViewAllShopsScreen> {
                         itemCount: shopList?.length,
                         itemBuilder: (ctx, index) {
                           return ShopCardHomeComponent(
-                              element: shopList![index],
-                              fullScreenComponent: true,
-                              isFavList: false);
-                        }).paddingAll(16);
+                                  element: shopList![index],
+                                  fullScreenComponent: true,
+                                  isFavList: false)
+                              .paddingAll(16);
+                        });
                   default:
                     return Container();
                 }

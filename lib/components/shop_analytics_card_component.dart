@@ -1,10 +1,12 @@
 import 'package:expertis/components/analytics_info_card.dart';
-import 'package:expertis/data/analytics_data.dart';
 import 'package:expertis/responsive.dart';
+import 'package:expertis/view_model/admin_analytics_view_model.dart';
+import 'package:expertis/view_model/shop_analytics_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class AnalyticCards extends StatelessWidget {
-  const AnalyticCards({Key? key}) : super(key: key);
+class ShopAnalyticCards extends StatelessWidget {
+  const ShopAnalyticCards({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class AnalyticCards extends StatelessWidget {
   }
 }
 
-class AnalyticInfoCardGridView extends StatelessWidget {
+class AnalyticInfoCardGridView extends StatefulWidget {
   const AnalyticInfoCardGridView({
     Key? key,
     this.crossAxisCount = 4,
@@ -36,19 +38,25 @@ class AnalyticInfoCardGridView extends StatelessWidget {
   final double childAspectRatio;
 
   @override
+  State<AnalyticInfoCardGridView> createState() =>
+      _AnalyticInfoCardGridViewState();
+}
+
+class _AnalyticInfoCardGridViewState extends State<AnalyticInfoCardGridView> {
+  @override
   Widget build(BuildContext context) {
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: analyticData.length,
+      itemCount: ShopAnalyticsViewModel.ShopAnalyticsData.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount,
+        crossAxisCount: widget.crossAxisCount,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
-        childAspectRatio: childAspectRatio,
+        childAspectRatio: widget.childAspectRatio,
       ),
       itemBuilder: (context, index) => AnalyticInfoCard(
-        info: analyticData.values.elementAt(index),
+        info: ShopAnalyticsViewModel.ShopAnalyticsData.values.elementAt(index),
       ),
     );
   }

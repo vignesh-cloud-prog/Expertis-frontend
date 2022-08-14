@@ -118,8 +118,8 @@ class _UserAppointmentsComponentState extends State<UserAppointmentsComponent> {
                   );
                 }).toList(),
               ).center(),
-              ChangeNotifierProvider<AppointmentListViewModel>(
-                create: (BuildContext context) => appointmentViewModel,
+              ChangeNotifierProvider<AppointmentListViewModel>.value(
+                value: appointmentViewModel,
                 child: Consumer<AppointmentListViewModel>(
                     builder: (context, value, _) {
                   switch (value.appointments.status) {

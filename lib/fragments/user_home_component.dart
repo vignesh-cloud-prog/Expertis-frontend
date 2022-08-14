@@ -1,23 +1,13 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/components/top_shops_component.dart';
-import 'package:expertis/data/response/status.dart';
 import 'package:expertis/components/nearby_shops_component.dart';
-import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:provider/provider.dart';
-
-import '../components/shop_card_component.dart';
 import '../components/home_page_head_component.dart';
 import '../components/category_home_component.dart';
 import '../main.dart';
-import '../models/BMCommonCardModel.dart';
-import '../screens/BMRecommendedScreen.dart';
-import '../screens/BMTopOffersScreen.dart';
 import '../utils/BMColors.dart';
-import '../utils/BMDataGenerator.dart';
 import '../utils/BMWidgets.dart';
 
 class UserHomeComponent extends StatefulWidget {

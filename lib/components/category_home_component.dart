@@ -46,14 +46,15 @@ class _CategoryHomeComponentState extends State<CategoryHomeComponent> {
                         decoration: BoxDecoration(
                             color: context.cardColor, borderRadius: radius(32)),
                         child: Image.network(
-                            value.categoryList.data?.categories![index]
-                                        .tagPic ==
-                                    ""
-                                ? Assets.defaultCategoryImage
-                                : value.categoryList.data?.categories![index]
-                                        .tagPic ??
-                                    Assets.defaultCategoryImage,
-                            height: 36),
+                          value.categoryList.data?.categories![index].tagPic ==
+                                  ""
+                              ? Assets.defaultCategoryImage
+                              : value.categoryList.data?.categories![index]
+                                      .tagPic ??
+                                  Assets.defaultCategoryImage,
+                          height: 36,
+                          width: 36,
+                        ),
                       ).onTap(() {
                         const BMTopOffersScreen().launch(context);
                       }),

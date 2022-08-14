@@ -1,20 +1,16 @@
 import 'package:beamer/beamer.dart';
-import 'package:expertis/respository/auth_repository.dart';
 import 'package:expertis/routes/appointment_routes.dart';
 import 'package:expertis/routes/home_routes.dart';
 import 'package:expertis/routes/more_routes.dart';
 import 'package:expertis/routes/search_routes.dart';
-import 'package:expertis/screens/BMTokenExpiredScreen.dart';
 
 import 'package:expertis/screens/BMPurchaseMoreScreen.dart';
-import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../fragments/user_appointments_component.dart';
-import '../fragments/BMChatFragment.dart';
 import '../fragments/user_home_component.dart';
 import '../fragments/user_more_component.dart';
 import '../main.dart';

@@ -29,7 +29,7 @@ class UserModel {
     this.appointments,
     this.createdAt,
     this.updatedAt,
-    this.userPic = 'images/face_two.jpg',
+    this.userPic = '',
     this.id,
     this.token,
     this.address,

@@ -135,71 +135,71 @@ void showFilterBottomSheet(BuildContext context) {
                 ),
               ),
               16.height,
-              Text('Others',
-                  style: boldTextStyle(
-                      color:
-                          appStore.isDarkModeOn ? white : bmSpecialColorDark)),
-              16.height,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Special Offers',
-                      style: primaryTextStyle(
-                          color: appStore.isDarkModeOn
-                              ? white
-                              : bmSpecialColorDark)),
-                  IconButton(
-                    icon: specialChecked
-                        ? const Icon(Icons.check_circle, color: bmPrimaryColor)
-                        : const Icon(Icons.circle_outlined,
-                            color: bmPrimaryColor),
-                    onPressed: () {
-                      specialChecked = !specialChecked;
-                      setState(() {});
-                    },
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Mobile Services',
-                      style: primaryTextStyle(
-                          color: appStore.isDarkModeOn
-                              ? white
-                              : bmSpecialColorDark)),
-                  IconButton(
-                    icon: mobileChecked
-                        ? const Icon(Icons.check_circle, color: bmPrimaryColor)
-                        : const Icon(Icons.circle_outlined,
-                            color: bmPrimaryColor),
-                    onPressed: () {
-                      mobileChecked = !mobileChecked;
-                      setState(() {});
-                    },
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Online Services',
-                      style: primaryTextStyle(
-                          color: appStore.isDarkModeOn
-                              ? white
-                              : bmSpecialColorDark)),
-                  IconButton(
-                    icon: onlineChecked
-                        ? const Icon(Icons.check_circle, color: bmPrimaryColor)
-                        : const Icon(Icons.circle_outlined,
-                            color: bmPrimaryColor),
-                    onPressed: () {
-                      onlineChecked = !onlineChecked;
-                      setState(() {});
-                    },
-                  ),
-                ],
-              ),
+              // Text('Others',
+              //     style: boldTextStyle(
+              //         color:
+              //             appStore.isDarkModeOn ? white : bmSpecialColorDark)),
+              // 16.height,
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text('Special Offers',
+              //         style: primaryTextStyle(
+              //             color: appStore.isDarkModeOn
+              //                 ? white
+              //                 : bmSpecialColorDark)),
+              //     IconButton(
+              //       icon: specialChecked
+              //           ? const Icon(Icons.check_circle, color: bmPrimaryColor)
+              //           : const Icon(Icons.circle_outlined,
+              //               color: bmPrimaryColor),
+              //       onPressed: () {
+              //         specialChecked = !specialChecked;
+              //         setState(() {});
+              //       },
+              //     ),
+              //   ],
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text('Mobile Services',
+              //         style: primaryTextStyle(
+              //             color: appStore.isDarkModeOn
+              //                 ? white
+              //                 : bmSpecialColorDark)),
+              //     IconButton(
+              //       icon: mobileChecked
+              //           ? const Icon(Icons.check_circle, color: bmPrimaryColor)
+              //           : const Icon(Icons.circle_outlined,
+              //               color: bmPrimaryColor),
+              //       onPressed: () {
+              //         mobileChecked = !mobileChecked;
+              //         setState(() {});
+              //       },
+              //     ),
+              //   ],
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text('Online Services',
+              //         style: primaryTextStyle(
+              //             color: appStore.isDarkModeOn
+              //                 ? white
+              //                 : bmSpecialColorDark)),
+              //     IconButton(
+              //       icon: onlineChecked
+              //           ? const Icon(Icons.check_circle, color: bmPrimaryColor)
+              //           : const Icon(Icons.circle_outlined,
+              //               color: bmPrimaryColor),
+              //       onPressed: () {
+              //         onlineChecked = !onlineChecked;
+              //         setState(() {});
+              //       },
+              //     ),
+              //   ],
+              // ),
               16.height,
               Row(
                 children: [
@@ -219,7 +219,7 @@ void showFilterBottomSheet(BuildContext context) {
                   AppButton(
                     shapeBorder: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(32)),
-                    child: Text('Show 45+ places',
+                    child: Text('Show places',
                         style: boldTextStyle(color: Colors.white)),
                     padding: const EdgeInsets.all(16),
                     color: bmPrimaryColor,

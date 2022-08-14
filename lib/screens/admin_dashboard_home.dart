@@ -1,4 +1,4 @@
-import 'package:expertis/components/analytics_cards_component.dart';
+import 'package:expertis/components/admin_analytics_cards_component.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 

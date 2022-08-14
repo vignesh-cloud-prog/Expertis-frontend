@@ -3,6 +3,7 @@ import 'package:expertis/components/shop_reviews_component.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
+import 'package:expertis/utils/assets.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/services/firebase_dynamic_link.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
@@ -126,28 +127,26 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                           ? appStore.scaffoldBackground!
                           : bmLightScaffoldBackgroundColor,
                       leading: IconButton(
-                        icon:
-                            const Icon(Icons.arrow_back, color: bmPrimaryColor),
+                        icon: Icon(Icons.arrow_back, color: bmPrimaryColor),
                         onPressed: () {
-                          finish(context);
+                          Navigator.of(context).maybePop();
                         },
                       ).visible(innerBoxIsScrolled),
-                      title: titleText(title: shop!.shopName ?? '')
+                      title: titleText(title: shop?.shopName ?? '')
                           .visible(innerBoxIsScrolled),
                       actions: [
                         IconButton(
-                          icon: const Icon(Icons.subdirectory_arrow_right,
+                          icon: Icon(Icons.subdirectory_arrow_right,
                               color: bmPrimaryColor),
-                          onPressed: () async {
+                          onPressed: () {
                             // BMSingleImageScreen(element: widget.element)
-                            // .launch(context);
+                            //     .launch(context);
                           },
                         ).visible(innerBoxIsScrolled),
                         IconButton(
                           icon: isLiked
-                              ? const Icon(Icons.favorite,
-                                  color: bmPrimaryColor)
-                              : const Icon(Icons.favorite_outline,
+                              ? Icon(Icons.favorite, color: bmPrimaryColor)
+                              : Icon(Icons.favorite_outline,
                                   color: bmPrimaryColor),
                           onPressed: () {
                             isLiked = !isLiked;
@@ -160,16 +159,16 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                       elevation: 0.5,
                       expandedHeight: 450,
                       flexibleSpace: FlexibleSpaceBar(
-                        titlePadding: const EdgeInsets.only(
-                            bottom: 66, left: 30, right: 50),
+                        titlePadding:
+                            EdgeInsets.only(bottom: 66, left: 30, right: 50),
                         collapseMode: CollapseMode.parallax,
                         background: Column(
                           children: [
                             Stack(
                               children: [
                                 Image.network(
-                                  shop?.shopLogo ?? defaultImg,
-                                  height: 280,
+                                  shop?.shopLogo ?? Assets.defaultShopImage,
+                                  height: 300,
                                   width: context.width(),
                                   fit: BoxFit.cover,
                                 ),
@@ -178,50 +177,49 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
+                                      child: Icon(Icons.arrow_back,
+                                          color: bmPrimaryColor),
                                       decoration: BoxDecoration(
                                         borderRadius: radius(100),
                                         color: context.cardColor,
                                       ),
-                                      padding: const EdgeInsets.all(8),
-                                      margin: const EdgeInsets.only(
-                                          left: 16, top: 30),
-                                      child: const Icon(Icons.arrow_back,
-                                          color: bmPrimaryColor),
+                                      padding: EdgeInsets.all(8),
+                                      margin:
+                                          EdgeInsets.only(left: 16, top: 30),
                                     ).onTap(() {
                                       finish(context);
                                     }, borderRadius: radius(100)),
                                     Row(
                                       children: [
                                         Container(
+                                          child: Icon(
+                                              Icons.subdirectory_arrow_right,
+                                              color: bmPrimaryColor),
                                           decoration: BoxDecoration(
                                             borderRadius: radius(100),
                                             color: context.cardColor,
                                           ),
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(
+                                          padding: EdgeInsets.all(8),
+                                          margin: EdgeInsets.only(
                                               right: 16, top: 30),
-                                          child: const Icon(
-                                              Icons.subdirectory_arrow_right,
-                                              color: bmPrimaryColor),
                                         ).onTap(() {
                                           // BMSingleImageScreen(
                                           //         element: widget.element)
                                           //     .launch(context);
                                         }, borderRadius: radius(100)),
                                         Container(
+                                          child: isLiked
+                                              ? Icon(Icons.favorite,
+                                                  color: bmPrimaryColor)
+                                              : Icon(Icons.favorite_outline,
+                                                  color: bmPrimaryColor),
                                           decoration: BoxDecoration(
                                             borderRadius: radius(100),
                                             color: context.cardColor,
                                           ),
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(
+                                          padding: EdgeInsets.all(8),
+                                          margin: EdgeInsets.only(
                                               right: 16, top: 30),
-                                          child: isLiked
-                                              ? const Icon(Icons.favorite,
-                                                  color: bmPrimaryColor)
-                                              : const Icon(
-                                                  Icons.favorite_outline,
-                                                  color: bmPrimaryColor),
                                         ).onTap(() {
                                           isLiked = !isLiked;
                                           setState(() {});
@@ -233,7 +231,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                               ],
                             ),
                             Container(
-                              padding: const EdgeInsets.all(16),
+                              padding: EdgeInsets.all(16),
                               color: appStore.isDarkModeOn
                                   ? appStore.scaffoldBackground!
                                   : bmLightScaffoldBackgroundColor,
@@ -243,7 +241,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                   titleText(title: shop?.shopName ?? ''),
                                   8.height,
                                   Text(
-                                    shop?.contact!.address ?? '',
+                                    shop?.contact?.address ?? '',
                                     style: secondaryTextStyle(
                                         color: appStore.isDarkModeOn
                                             ? Colors.white
@@ -253,20 +251,20 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                   8.height,
                                   Row(
                                     children: [
-                                      Text(shop?.rating!.avg.toString() ?? '',
+                                      Text('${shop?.rating?.avg}',
                                           style: boldTextStyle()),
                                       2.width,
                                       RatingBar(
                                         initialRating:
-                                            shop?.rating!.avg!.toDouble(),
+                                            shop?.rating?.avg?.toDouble(),
                                         minRating: 5,
                                         direction: Axis.horizontal,
                                         allowHalfRating: true,
                                         itemCount: 5,
                                         itemSize: 18,
-                                        itemPadding: const EdgeInsets.symmetric(
-                                            horizontal: 0),
-                                        itemBuilder: (context, _) => const Icon(
+                                        itemPadding:
+                                            EdgeInsets.symmetric(horizontal: 0),
+                                        itemBuilder: (context, _) => Icon(
                                           Icons.star,
                                           color: Colors.amber,
                                         ),
@@ -276,7 +274,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                       ),
                                       6.width,
                                       Text(
-                                          ' ${shop?.rating!.totalMembers!.toString()} reviews',
+                                          '${shop?.rating?.totalMembers ?? 0} reviews',
                                           style: secondaryTextStyle(
                                               color: bmTextColorDarkMode)),
                                     ],
@@ -294,11 +292,11 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                               : bmLightScaffoldBackgroundColor,
                                           borderRadius: radius(32),
                                         ),
-                                        padding: const EdgeInsets.all(8),
+                                        padding: EdgeInsets.all(8),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            const Icon(Icons.call_outlined,
+                                            Icon(Icons.call_outlined,
                                                 color: bmPrimaryColor),
                                             4.width,
                                             Text('Call us',
@@ -307,6 +305,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                           ],
                                         ),
                                       ).onTap(() {
+                                        // BMCallScreen().launch(context);
                                         launchUrl(Uri(
                                             scheme: 'tel',
                                             path: shop?.contact!.phone
@@ -321,7 +320,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                               : bmLightScaffoldBackgroundColor,
                                           borderRadius: radius(32),
                                         ),
-                                        padding: const EdgeInsets.all(8),
+                                        padding: EdgeInsets.all(8),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
@@ -335,6 +334,14 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                           ],
                                         ),
                                       ).onTap(() {
+                                        // BMChatScreen(
+                                        //     element: BMMessageModel(
+                                        //   image: widget.element.image,
+                                        //   name: widget.element.title,
+                                        //   message: 'Do you want to confirm yor appointment?',
+                                        //   isActive: false,
+                                        //   lastSeen: 'today , at 11:30 am',
+                                        // )).launch(context);
                                         final Uri smsLaunchUri = Uri(
                                           scheme: 'sms',
                                           path: shop?.contact!.phone.toString(),
@@ -344,37 +351,12 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                           },
                                         );
                                         launchUrl(smsLaunchUri);
-                                        // BMChatScreen(
-                                        //     element: BMMessageModel(
-                                        //   image: shop.shopLogo ?? defaultImg,
-                                        //   name: shop.shopName ?? '',
-                                        //   message:
-                                        //       'Do you want to confirm yor appointment?',
-                                        //   isActive: false,
-                                        //   lastSeen: 'today , at 11:30 am',
-                                        // )).launch(context);
                                       }),
-                                      IconButton(
-                                        onPressed: () async {
-                                          print("clicked");
-                                          String link =
-                                              await DynamicLinksService
-                                                  .createShopDynamicLink(shop!,
-                                                      short: true);
-                                          Share.share(
-                                              'check out my website $link',
-                                              subject: 'Look what I made!');
-
-                                          print("link is $link");
-                                        },
-                                        icon: Icon(Icons.share,
-                                            color: bmPrimaryColor, size: 30),
-                                      ),
                                     ],
                                   )
                                 ],
                               ),
-                            ),
+                            )
                           ],
                         ),
                       ),
