@@ -10,13 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../fragments/user_appointments_component.dart';
-import '../fragments/user_home_component.dart';
-import '../fragments/user_more_component.dart';
-import '../main.dart';
-import '../models/BMDashboardModel.dart';
-import '../utils/BMColors.dart';
-import '../utils/BMDataGenerator.dart';
+import '../../../../fragments/user_appointments_component.dart';
+import '../../../../fragments/user_home_component.dart';
+import '../../../../fragments/user_more_component.dart';
+import '../../../../main.dart';
+import '../../../../models/BMDashboardModel.dart';
+import '../../../../utils/BMColors.dart';
+import '../../../../utils/BMDataGenerator.dart';
 
 class UserHomeScreen extends StatefulWidget {
   bool flag = false;

@@ -1,8 +1,8 @@
 import 'dart:io';
+import 'package:expertis/main.dart';
+import 'package:expertis/utils/BMColors.dart';
+import 'package:expertis/utils/BMWidgets.dart';
 import 'package:expertis/utils/assets.dart';
-import 'package:expertis/utils/utils.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
 import 'package:expertis/components/BMProfilePicComponent.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
@@ -13,9 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-import '../main.dart';
-import '../utils/BMColors.dart';
-import '../utils/BMWidgets.dart';
+
 import 'package:gender_picker/source/enums.dart';
 import 'package:gender_picker/source/gender_picker.dart';
 

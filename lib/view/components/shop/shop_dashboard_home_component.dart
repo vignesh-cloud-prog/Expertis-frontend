@@ -2,15 +2,16 @@ import 'package:expertis/components/shop_analytics_card_component.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class ShopDashBoardHomeScreen extends StatefulWidget {
-  ShopDashBoardHomeScreen({Key? key}) : super(key: key);
+class ShopDashBoardHomeComponent extends StatefulWidget {
+  ShopDashBoardHomeComponent({Key? key}) : super(key: key);
 
   @override
-  State<ShopDashBoardHomeScreen> createState() =>
-      _ShopDashBoardHomeScreenState();
+  State<ShopDashBoardHomeComponent> createState() =>
+      _ShopDashBoardHomeComponentState();
 }
 
-class _ShopDashBoardHomeScreenState extends State<ShopDashBoardHomeScreen> {
+class _ShopDashBoardHomeComponentState
+    extends State<ShopDashBoardHomeComponent> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

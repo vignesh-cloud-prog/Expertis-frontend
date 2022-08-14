@@ -1,13 +1,12 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../main.dart';
-import '../utils/BMColors.dart';
+import 'package:expertis/main.dart';
+import 'package:expertis/utils/BMColors.dart';
 
 class BMTokenExpiredScreen extends StatefulWidget {
   const BMTokenExpiredScreen({Key? key}) : super(key: key);

@@ -1,16 +1,12 @@
 import 'package:expertis/data/response/status.dart';
-import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/screens/user_home_screen.dart';
+import 'package:expertis/view/screens/user/home/user_home_screen.dart';
 import 'package:expertis/utils/utils.dart';
-import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-
-import '../main.dart';
-import '../utils/BMColors.dart';
-import 'package:beamer/beamer.dart';
+import '../../../main.dart';
+import '../../../utils/BMColors.dart';
 
 class BMSplashScreen extends StatefulWidget {
   const BMSplashScreen({Key? key}) : super(key: key);

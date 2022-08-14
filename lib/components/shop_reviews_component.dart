@@ -8,7 +8,7 @@ import 'package:expertis/models/review_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/screens/review_shop_screen.dart';
+import 'package:expertis/view/screens/user/review/review_shop_screen.dart';
 import 'package:expertis/utils/BMColors.dart';
 import 'package:expertis/utils/BMDataGenerator.dart';
 import 'package:expertis/utils/BMWidgets.dart';

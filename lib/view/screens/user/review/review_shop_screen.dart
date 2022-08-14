@@ -4,8 +4,8 @@ import 'package:expertis/utils/flutter_rating_bar.dart';
 import 'package:expertis/view_model/review_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import '../main.dart';
-import '../utils/BMColors.dart';
+import 'package:expertis/main.dart';
+import 'package:expertis/utils/BMColors.dart';
 
 class WriteReviewScreen extends StatefulWidget {
   String? shopId;
@@ -17,7 +17,6 @@ class WriteReviewScreen extends StatefulWidget {
 
 class _WriteReviewScreenState extends State<WriteReviewScreen> {
   @override
-  final _formKey = GlobalKey<FormState>();
   void initState() {
     setStatusBarColor(appStore.isDarkModeOn
         ? appStore.scaffoldBackground!
@@ -60,8 +59,6 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
             child: Text('Post', style: boldTextStyle(color: bmPrimaryColor)),
             width: 150,
             onTap: () {
-              print(' ontap click ${widget.review?.toJson()}');
-              print('shop id ${widget.shopId}');
               widget.review?.to = widget.shopId;
               widget.review?.modelType = "Shop";
               var reviewData = widget.review?.toJson()
@@ -70,12 +67,11 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                     value == '' ||
                     value == 'null' ||
                     value == []);
-              print(' ontap click ${reviewData}');
 
               Map<String, String> data =
                   reviewData!.map((k, v) => MapEntry(k, v.toString()));
 
-              Map<String, dynamic?> files = {
+              Map<String, dynamic> files = {
                 'reviewPhotos': widget.review?.reviewPhotos,
               };
               reviewViewModel.addOrUpdateReviewData(

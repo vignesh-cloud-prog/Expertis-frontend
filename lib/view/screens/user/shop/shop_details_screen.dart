@@ -1,5 +1,6 @@
 import 'package:expertis/components/about_shop_component.dart';
 import 'package:expertis/components/shop_reviews_component.dart';
+import 'package:expertis/components/shop_services_component.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
@@ -12,13 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../components/shop_services_component.dart';
-import '../components/BMPortfolioComponent.dart';
-import '../main.dart';
-import '../utils/BMColors.dart';
-import '../utils/BMWidgets.dart';
-import '../utils/flutter_rating_bar.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:expertis/components/BMPortfolioComponent.dart';
+import 'package:expertis/main.dart';
+import 'package:expertis/utils/BMColors.dart';
+import 'package:expertis/utils/BMWidgets.dart';
+import 'package:expertis/utils/flutter_rating_bar.dart';
 
 class ShopViewScreen extends StatefulWidget {
   final String shopId;

@@ -5,8 +5,8 @@ import 'package:expertis/screens/admin_shops_screen.dart';
 import 'package:expertis/screens/admin_tags_home_screen.dart';
 import 'package:expertis/screens/admin_users_screen.dart';
 
-import 'package:expertis/screens/services_home_screeen.dart';
-import 'package:expertis/screens/shop_info_screen.dart';
+import 'package:expertis/view/screens/shop/services/services_home_screen.dart';
+import 'package:expertis/view/screens/shop/home/shop_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 

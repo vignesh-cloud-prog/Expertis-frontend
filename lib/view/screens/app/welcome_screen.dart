@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../main.dart';
-import '../utils/BMColors.dart';
-import 'user_home_screen.dart';
+import '../../../main.dart';
+import '../../../utils/BMColors.dart';
+import '../user/home/user_home_screen.dart';
 
 class BMWelcomeScreen extends StatelessWidget {
   const BMWelcomeScreen({Key? key}) : super(key: key);

@@ -1,14 +1,11 @@
 import 'dart:convert';
-
 import 'package:beamer/beamer.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-
-import '../main.dart';
-import '../utils/BMColors.dart';
-import '../utils/BMWidgets.dart';
-import 'BMChangePasswordScreen.dart';
+import '../../../../main.dart';
+import '../../../../utils/BMColors.dart';
+import '../../../../utils/BMWidgets.dart';
 import 'package:provider/provider.dart';
 
 class BMForgetPasswordScreen extends StatefulWidget {

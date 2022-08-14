@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../main.dart';
-import '../utils/BMColors.dart';
-import '../utils/BMWidgets.dart';
+import '../../../../main.dart';
+import '../../../../utils/BMColors.dart';
+import '../../../../utils/BMWidgets.dart';
 
 class BMRegisterScreen extends StatefulWidget {
   const BMRegisterScreen({Key? key}) : super(key: key);

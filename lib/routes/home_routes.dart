@@ -1,13 +1,13 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/screens/user_home_screen.dart';
-import 'package:expertis/screens/BMForgetPasswordScreen.dart';
+import 'package:expertis/view/screens/user/home/user_home_screen.dart';
+import 'package:expertis/view/screens/user/auth/forget_password_screen.dart';
 import 'package:expertis/screens/BMLoginNowScreen.dart';
-import 'package:expertis/screens/login_screen.dart';
-import 'package:expertis/screens/BMRegisterScreen.dart';
-import 'package:expertis/screens/BMSplashScreen.dart';
-import 'package:expertis/screens/BMVerifyOTPScreen.dart';
-import 'package:expertis/screens/BMWalkThroughScreen.dart';
+import 'package:expertis/view/screens/user/auth/user_login_screen.dart';
+import 'package:expertis/view/screens/user/auth/user_registration_screen.dart';
+import 'package:expertis/view/screens/app/splash_screen.dart';
+import 'package:expertis/view/screens/user/auth/verify_otp_screen.dart';
+import 'package:expertis/view/screens/app/walkthrough_screen.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:flutter/cupertino.dart';
 

@@ -1,26 +1,23 @@
 import 'package:beamer/beamer.dart';
-import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 
-import 'package:expertis/screens/owner_dashboard_home_screen.dart';
-import 'package:expertis/screens/services_home_screeen.dart';
-import 'package:expertis/screens/shop_appointments_home_screen.dart';
-import 'package:expertis/screens/shop_info_screen.dart';
+import 'package:expertis/view/components/shop/shop_dashboard_home_component.dart';
+import 'package:expertis/view/screens/shop/services/services_home_screen.dart';
+import 'package:expertis/view/screens/shop/appointments/shop_appointments_home_screen.dart';
+import 'package:expertis/view/screens/shop/home/shop_info_screen.dart';
 import 'package:expertis/utils/BMWidgets.dart';
 import 'package:expertis/utils/assets.dart';
-import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../main.dart';
-import '../models/BMDashboardModel.dart';
-import '../utils/BMColors.dart';
-import '../utils/BMDataGenerator.dart';
+import 'package:expertis/main.dart';
+import 'package:expertis/models/BMDashboardModel.dart';
+import 'package:expertis/utils/BMColors.dart';
+import 'package:expertis/utils/BMDataGenerator.dart';
 
 class ShopOwnerDashboardScreen extends StatefulWidget {
   bool flag = false;
@@ -60,7 +57,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
 
   Widget getFragment() {
     if (selectedTab == 0) {
-      return ShopDashBoardHomeScreen();
+      return ShopDashBoardHomeComponent();
     } else if (selectedTab == 1) {
       return ServicesHomeScreen(shopId: widget.shopId);
     } else if (selectedTab == 2) {
@@ -70,7 +67,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
         isAdmin: false,
       );
     }
-    return ShopDashBoardHomeScreen();
+    return ShopDashBoardHomeComponent();
   }
 
   void getFragmentNo(selectedTab) {

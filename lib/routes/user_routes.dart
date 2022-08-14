@@ -1,10 +1,10 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/screens/BMChangePasswordScreen.dart';
-import 'package:expertis/screens/user_home_screen.dart';
-import 'package:expertis/screens/user_profile_edit_screen.dart';
-import 'package:expertis/screens/view_all_shop_screen.dart';
+import 'package:expertis/view/screens/user/auth/change_password_screen.dart';
+import 'package:expertis/view/screens/user/home/user_home_screen.dart';
+import 'package:expertis/view/screens/user/profile/user_profile_edit_screen.dart';
+import 'package:expertis/view/screens/user/shop/view_all_shops_screen.dart';
 import 'package:expertis/utils/BMConstants.dart';
 import 'package:flutter/cupertino.dart';
 

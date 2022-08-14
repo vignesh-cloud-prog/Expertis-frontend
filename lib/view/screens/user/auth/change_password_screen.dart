@@ -1,15 +1,13 @@
 import 'dart:convert';
-
 import 'package:beamer/beamer.dart';
-import 'package:expertis/screens/login_screen.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../main.dart';
-import '../utils/BMColors.dart';
-import '../utils/BMWidgets.dart';
+import '../../../../main.dart';
+import '../../../../utils/BMColors.dart';
+import '../../../../utils/BMWidgets.dart';
 
 class BMChangePasswordScreen extends StatefulWidget {
   const BMChangePasswordScreen({Key? key}) : super(key: key);

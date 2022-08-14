@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:expertis/components/selected_services_component.dart';
-import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/BMServiceListModel.dart';
 import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
@@ -11,9 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
-import '../main.dart';
-import '../utils/BMColors.dart';
-import '../utils/BMWidgets.dart';
+import 'package:expertis/main.dart';
+import 'package:expertis/utils/BMColors.dart';
+import 'package:expertis/utils/BMWidgets.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
   BMServiceListModel? element =
@@ -137,7 +136,6 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
     AppointmentListViewModel appointmentViewModel =
         Provider.of<AppointmentListViewModel>(context);
     UserViewModel userViewModel = Provider.of<UserViewModel>(context);
-    ShopViewModel slotsModel = Provider.of<ShopViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -343,8 +341,6 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
   }
 
   Widget bookAppointment(context) {
-    AppointmentListViewModel appointmentViewModel =
-        Provider.of<AppointmentListViewModel>(context);
     ShopViewModel slotsModel = Provider.of<ShopViewModel>(context);
     print(slotsModel.loading);
 

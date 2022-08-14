@@ -1,14 +1,10 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/routes/routes_name.dart';
+import 'package:expertis/utils/BMDataGenerator.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-
-import '../main.dart';
-import '../utils/BMColors.dart';
-import '../utils/BMDataGenerator.dart';
-import 'user_home_screen.dart';
-import 'login_screen.dart';
-import 'BMRegisterScreen.dart';
+import 'package:expertis/main.dart';
+import 'package:expertis/utils/BMColors.dart';
 
 class BMWalkThroughScreen extends StatefulWidget {
   const BMWalkThroughScreen({Key? key}) : super(key: key);
