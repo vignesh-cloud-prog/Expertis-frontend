@@ -39,7 +39,6 @@ class _ShopReviewComponentState extends State<ShopReviewComponent> {
 
   void initState() {
     reviewListViewModel.fetchReviewDataApi(widget.shopId);
-    // print("reviewlistviewmodel");
     super.initState();
   }
 

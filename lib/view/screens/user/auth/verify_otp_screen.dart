@@ -110,6 +110,7 @@ class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
                     PinCodeTextField(
                       appContext: context,
                       length: 6,
+                      keyboardType: TextInputType.number,
                       obscureText: false,
                       animationType: AnimationType.fade,
                       pinTheme: PinTheme(

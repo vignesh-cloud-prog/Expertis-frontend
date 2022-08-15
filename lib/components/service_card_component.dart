@@ -19,6 +19,7 @@ class ServiceCardComponent extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print(" service element: ${element?.toJson()}");
     ShopViewModel shopViewModel = Provider.of<ShopViewModel>(context);
     Size size = MediaQuery.of(context).size;
     return ListTile(

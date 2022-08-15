@@ -35,6 +35,7 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
 
   FocusNode price = FocusNode();
   FocusNode time = FocusNode();
+  FocusNode description = FocusNode();
 
   bool isFileSelected = false;
   File? pickedImage;
@@ -417,6 +418,7 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
                     keyboardType: TextInputType.multiline,
                     initialValue: widget.service?.description ?? '',
                     nextFocus: null,
+                    focus: description,
                     textFieldType: TextFieldType.MULTILINE,
                     onChanged: (value) {
                       print(widget.service?.toString());
@@ -494,7 +496,7 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
                             .map((k, v) => MapEntry(k, v.toString()));
 
                         Map<String, dynamic?> files = {
-                          'photo': widget.service?.photo,
+                          'servicePhoto': widget.service?.photo,
                         };
                         data.remove('photo');
 

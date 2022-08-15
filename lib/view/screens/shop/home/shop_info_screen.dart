@@ -21,6 +21,11 @@ class ShopInfoScreen extends StatefulWidget {
 class _ShopInfoScreenState extends State<ShopInfoScreen> {
   @override
   void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     if (widget.isAdmin == false) {
       print("not a admin");
       UserViewModel userViewModel =
@@ -28,11 +33,6 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
       widget.shop = userViewModel.user?.shop?.first;
       print(" shop id ${widget.shop?.id}");
     }
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     print("shop id ${widget.shop?.id}");
     return Container(
       child: SingleChildScrollView(

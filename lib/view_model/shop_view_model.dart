@@ -112,7 +112,7 @@ class ShopViewModel with ChangeNotifier {
   setServices(ApiResponse<ServicesListModel> response) {
     services = response;
     if (kDebugMode) {
-      // print("response ${nearbyShopList.toString()}");
+      print("response ${response.toString()}");
     }
     notifyListeners();
   }

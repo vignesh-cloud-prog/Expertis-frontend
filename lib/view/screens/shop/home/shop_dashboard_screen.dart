@@ -138,7 +138,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
                     width: size.width * 0.2,
                     child: FancyShimmerImage(
                       height: MediaQuery.of(context).size.height * 0.1,
-                      width: MediaQuery.of(context).size.width * 0.2,
+                      width: MediaQuery.of(context).size.width * 0.3,
                       errorWidget: const Icon(
                         Icons.dangerous,
                         color: Colors.red,
@@ -146,7 +146,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
                       ),
                       imageUrl: shop?.shopLogo ?? Assets.defaultShopImage,
                       boxFit: BoxFit.fill,
-                    ).cornerRadiusWithClipRRect(20).paddingAll(10),
+                    ).cornerRadiusWithClipRRect(20).paddingAll(2),
                   ),
                   Container(
                     width: size.width * 0.5,
@@ -165,9 +165,13 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
                             children: [
                               Switch(
                                 value: shop?.isOpen == true,
-                                onChanged: (value) {},
-                                activeTrackColor: Colors.lightGreenAccent,
-                                activeColor: Colors.green,
+                                activeTrackColor: bmPrimaryColor,
+                                activeColor: bmSpecialColor,
+                                onChanged: (value) {
+                                  setState(() {
+                                    shop?.isOpen = value;
+                                  });
+                                },
                               ),
                               8.width,
                               Text(

@@ -23,9 +23,9 @@ import 'package:dotted_border/dotted_border.dart';
 class ShopInfoEditScreen extends StatefulWidget {
   ShopModel? shop;
   String? shopId;
-  bool isadmin;
+  bool isAdmin;
 
-  ShopInfoEditScreen({Key? key, this.shopId, this.shop, required this.isadmin})
+  ShopInfoEditScreen({Key? key, this.shopId, this.shop, required this.isAdmin})
       : super(key: key);
 
   @override
@@ -108,7 +108,7 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
         selectedRole = widget.shop?.gender ?? 'UNISEX';
       });
     }
-    if (!widget.isadmin)
+    if (!widget.isAdmin)
       UserViewModel.getUser().then((value) {
         widget.shop?.id = value.shop?.first.id;
         widget.shop?.owner = value.id;
@@ -297,8 +297,12 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                               value.categoryList.data?.categories ?? [];
                           List<CategoryModel> selectedCategories = [];
                           widget.shop!.tags?.forEach((tag) {
-                            selectedCategories.add(categories
-                                .firstWhere((category) => category.id == tag));
+                            CategoryModel category = categories.firstWhere(
+                                (category) => category.id == tag,
+                                orElse: () => CategoryModel());
+                            if (category.id != null) {
+                              selectedCategories.add(category);
+                            }
                           });
                           print(selectedCategories);
 
@@ -495,7 +499,7 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                         data.remove('tags');
                         print("shop data : $data");
                         shopViewModel.sendShopData(true, data, isFileSelected,
-                            widget.isadmin, files, context);
+                            widget.isAdmin, files, context);
                       }
                     },
                     child: shopViewModel.loading

@@ -77,7 +77,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
             title: 'Admin update shop info',
             child: ShopInfoEditScreen(
               shop: data != null ? data as ShopModel : null,
-              isadmin: true,
+              isAdmin: true,
             )),
       if (state.uri.pathSegments.contains('shop') &&
           state.uri.pathSegments.contains('update') &&
@@ -88,7 +88,7 @@ class ShopsLocation extends BeamLocation<BeamState> {
           child: ShopInfoEditScreen(
             shopId: state.pathParameters['shopId'] ?? 'null',
             shop: data != null ? data as ShopModel : null,
-            isadmin: false,
+            isAdmin: false,
           ),
         ),
 
