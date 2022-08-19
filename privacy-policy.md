@@ -1,4 +1,4 @@
-Privacy Policy for CodingMetropolis
+Privacy Policy for Bablus
 ===================================
 
 At Bablus, accessible from https://bablus.vercel.app/, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Bablus and how we use it.
