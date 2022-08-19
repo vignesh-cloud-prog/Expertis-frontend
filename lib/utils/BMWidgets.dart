@@ -121,13 +121,13 @@ Widget lowerContainer(
   );
 }
 
-Widget headerText({required String title}) {
+Widget headerText({required String title, Color? color}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisSize: MainAxisSize.min,
     children: [
       50.height,
-      Text(title, style: boldTextStyle(size: 30, color: white)),
+      Text(title, style: boldTextStyle(size: 30, color: color ?? white)),
       16.height,
     ],
   );

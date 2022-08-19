@@ -122,7 +122,7 @@ class AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
         ],
       ),
       backgroundColor: getDashboardColor(),
-      body: SingleChildScrollView(child: getFragment()),
+      body: getFragment(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (int index) {
           setState(() {

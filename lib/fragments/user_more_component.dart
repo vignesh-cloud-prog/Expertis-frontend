@@ -233,7 +233,7 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
                                     Utils.toastMessage("Logout Successfully"),
                                   });
                               Beamer.of(context)
-                                  .beamToNamed(RoutesName.onboarding);
+                                  .popToNamed(RoutesName.onboarding);
                               ;
                             },
                           )

@@ -1,5 +1,4 @@
 import 'package:beamer/beamer.dart';
-import 'package:expertis/data/response/api_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:expertis/models/user_model.dart';
@@ -100,8 +99,8 @@ class AuthViewModel with ChangeNotifier {
         if (kDebugMode) {
           UserViewModel.getUser();
         }
-
-        Beamer.of(context).beamToReplacementNamed(RoutesName.home);
+        Beamer.of(context).clearBeamingHistoryOn;
+        Beamer.of(context).popToNamed(RoutesName.home);
         Utils.toastMessage("Login Successfully");
       }
     }).onError((error, stackTrace) {

@@ -49,7 +49,7 @@ class _BMChangePasswordScreenState extends State<BMChangePasswordScreen> {
                     children: [
                       16.height,
                       Text(
-                          'Reset code was sent to your email ${authViewModel.email}. Please enter the code and create a new password.',
+                          'Reset OTP was sent to your email ${authViewModel.email}. Please enter the code and create a new password.',
                           style: primaryTextStyle(
                               color: appStore.isDarkModeOn
                                   ? Colors.white

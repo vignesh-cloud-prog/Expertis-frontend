@@ -37,19 +37,19 @@ class ShopViewScreenState extends State<ShopViewScreen> {
   ShopViewModel shopViewModel = ShopViewModel();
   bool isLiked = false;
   String defaultImg = "https://www.totallyrepair.in/images/wow-5.jpg";
-  List<String> tabList = ['OUR SERVICES', 'PORTFOLIO', 'ABOUT', 'REVIEW'];
+  List<String> tabList = ['OUR SERVICES', 'ABOUT', 'REVIEW'];
 
   Widget getSelectedTabComponent() {
     switch (selectedTab) {
       case 0:
         return const ShopServiceComponent();
+      // case 1:
+      //   return BMPortfolioComponent();
       case 1:
-        return BMPortfolioComponent();
-      case 2:
         return AboutShopComponent(
           shop: shop,
         );
-      case 3:
+      case 2:
         print("shop id in shop detail screen ${id}");
         return ShopReviewComponent(
           shopId: id,

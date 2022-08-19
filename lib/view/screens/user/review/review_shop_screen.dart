@@ -56,7 +56,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
         actions: [
           AppButton(
             elevation: 0,
-            child: Text(widget.review == null ? 'Post' : 'Save',
+            child: Text(widget.review?.rating == null ? 'Post' : 'Save',
                 style: boldTextStyle(color: bmPrimaryColor)),
             width: 150,
             onTap: () {
@@ -86,7 +86,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            headerText(title: "So What Do You Think?"),
+            headerText(title: "So What Do You Think?", color: bmPrimaryColor),
             16.height,
             Icon(Icons.format_quote_rounded, size: 50, color: bmPrimaryColor),
             16.height,

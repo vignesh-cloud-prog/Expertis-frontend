@@ -261,7 +261,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                     ),
                   ),
                   20.height,
-                  Text('Online Media',
+                  Text('Online Presence',
                       style: primaryTextStyle(
                           color: appStore.isDarkModeOn
                               ? bmTextColorDarkMode
@@ -318,6 +318,49 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                                   : bmPrimaryColor)),
                     ),
                   ),
+                  AppTextField(
+                    isValidationRequired: false,
+                    keyboardType: TextInputType.text,
+                    // focus: address,
+                    initialValue: widget.shop?.contact?.website ?? '',
+                    // nextFocus: pinCode,
+                    textFieldType: TextFieldType.URL,
+                    onChanged: (p0) {
+                      widget.shop?.contact == null
+                          ? widget.shop?.contact = Contact(website: p0)
+                          : widget.shop?.contact?.website = p0;
+                    },
+
+                    // controller: _addressController,
+                    cursorColor: bmPrimaryColor,
+                    textStyle: boldTextStyle(
+                        color: appStore.isDarkModeOn
+                            ? bmTextColorDarkMode
+                            : bmPrimaryColor),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.edit_location_alt_outlined,
+                        color: bmPrimaryColor,
+                      ),
+                      hintText: 'Shop location link',
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: appStore.isDarkModeOn
+                                  ? bmTextColorDarkMode
+                                  : bmPrimaryColor)),
+                    ),
+                  ),
+                  20.height,
                   AppTextField(
                     isValidationRequired: false,
                     keyboardType: TextInputType.text,

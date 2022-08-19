@@ -69,6 +69,12 @@ class HomeLocation extends BeamLocation<BeamState> {
           title: 'Verify OTP',
           child: BMVerifyOTPScreen(),
         ),
+      if (state.pathParameters.containsKey("login-now"))
+        const BeamPage(
+          key: ValueKey(RoutesName.loginNow),
+          title: 'Login Now',
+          child: BMLoginNowScreen(),
+        ),
       if (state.pathPatternSegments.contains("login"))
         const BeamPage(
           key: ValueKey(RoutesName.login),
@@ -80,12 +86,6 @@ class HomeLocation extends BeamLocation<BeamState> {
           key: ValueKey(RoutesName.forgotPassword),
           title: 'Forgot Password',
           child: BMForgetPasswordScreen(),
-        ),
-      if (state.pathParameters.containsKey("login-now"))
-        const BeamPage(
-          key: ValueKey(RoutesName.loginNow),
-          title: 'Login Now',
-          child: BMLoginNowScreen(),
         ),
     ];
   }

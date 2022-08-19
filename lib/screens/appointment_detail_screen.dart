@@ -190,20 +190,20 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                             );
                           },
                         ).expand(flex: 2)
-                      else if (appointment.appointmentStatus == "PENDING" &&
-                          appointment.memberId.toString() !=
-                              user?.id.toString())
-                        AppButton(
-                          shapeBorder: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32)),
-                          child: Text('Edit Booking',
-                              style: boldTextStyle(color: Colors.white)),
-                          padding: EdgeInsets.all(16),
-                          color: bmPrimaryColor,
-                          onTap: () {
-                            // Beamer.of(context).beamToReplacementNamed(RoutesName.login);
-                          },
-                        ).expand(flex: 2)
+                      // else if (appointment.appointmentStatus == "PENDING" &&
+                      //     appointment.memberId.toString() !=
+                      //         user?.id.toString())
+                      //   AppButton(
+                      //     shapeBorder: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(32)),
+                      //     child: Text('Edit Booking',
+                      //         style: boldTextStyle(color: Colors.white)),
+                      //     padding: EdgeInsets.all(16),
+                      //     color: bmPrimaryColor,
+                      //     onTap: () {
+                      //       // Beamer.of(context).beamToReplacementNamed(RoutesName.login);
+                      //     },
+                      //   ).expand(flex: 2)
                       else if (appointment.appointmentStatus == "ACCEPTED" &&
                           appointment.memberId.toString() !=
                               user?.id.toString())
