@@ -26,7 +26,7 @@ class AnalyticInfoCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "${info.count}",
+                info.count != null ? "${info.count}" : "Explore",
                 style: TextStyle(
                   color: bmSpecialColor,
                   fontSize: 18,
@@ -40,7 +40,7 @@ class AnalyticInfoCard extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: info.color!.withOpacity(0.1),
                       shape: BoxShape.circle),
-                  child: Icon(Icons.verified_user)
+                  child: Icon(Icons.analytics_rounded, color: bmPrimaryColor)
                   // child: SvgPicture.asset(
                   //   info.svgSrc!,
                   //   color: info.color,

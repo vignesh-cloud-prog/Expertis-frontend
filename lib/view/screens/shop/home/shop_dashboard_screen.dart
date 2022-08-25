@@ -57,7 +57,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
 
   Widget getFragment() {
     if (selectedTab == 0) {
-      return ShopDashBoardHomeComponent();
+      return ShopDashBoardHomeComponent(shopId: widget.shopId);
     } else if (selectedTab == 1) {
       return ServicesHomeScreen(shopId: widget.shopId);
     } else if (selectedTab == 2) {

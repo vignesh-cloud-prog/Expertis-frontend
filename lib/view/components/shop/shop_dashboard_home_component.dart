@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ShopDashBoardHomeComponent extends StatefulWidget {
-  ShopDashBoardHomeComponent({Key? key}) : super(key: key);
+  String? shopId;
+
+  ShopDashBoardHomeComponent({Key? key, this.shopId}) : super(key: key);
 
   @override
   State<ShopDashBoardHomeComponent> createState() =>
@@ -15,7 +17,9 @@ class _ShopDashBoardHomeComponentState
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: ShopAnalyticCards(),
+      child: ShopAnalyticCards(
+        shopId: widget.shopId,
+      ),
     ).paddingAll(16);
   }
 }

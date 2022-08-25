@@ -220,4 +220,32 @@ class HomeRepository {
       rethrow;
     }
   }
+
+  Future<dynamic> fetchShopAnalytics(String? id) async {
+    requestHeaders["Authorization"] = await UserViewModel.getUserToken();
+
+    try {
+      dynamic response = await _apiServices.getGetApiResponse(
+          ApiUrl.fetchShopAnalyticsEndPoint(id), requestHeaders);
+      if (kDebugMode) {
+        print(" shop analytics response ${response.toString()}");
+      }
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> incShopViewApi(String? shopId) async {
+    requestHeaders["Authorization"] = await UserViewModel.getUserToken();
+
+    try {
+      dynamic response = await _apiServices.getPostApiResponse(
+          ApiUrl.incShopViewEndPoint(shopId), requestHeaders, null);
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:expertis/main.dart';
 import 'package:expertis/models/review_model.dart';
 import 'package:expertis/utils/BMColors.dart';
+import 'package:expertis/utils/assets.dart';
 import 'package:expertis/utils/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -30,8 +31,14 @@ class _ReviewComponentState extends State<ReviewComponent> {
           children: [
             Row(
               children: [
-                Image.network(widget.element?.from?.userPic ?? '',
-                        height: 40, width: 40, fit: BoxFit.cover)
+                Image.network(
+                        widget.element?.from?.userPic != null &&
+                                widget.element?.from?.userPic != "null"
+                            ? widget.element!.from!.userPic
+                            : Assets.defaultUserImage,
+                        height: 40,
+                        width: 40,
+                        fit: BoxFit.cover)
                     .cornerRadiusWithClipRRect(100),
                 10.width,
                 Column(

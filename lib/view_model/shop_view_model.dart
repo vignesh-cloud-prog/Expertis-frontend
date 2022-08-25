@@ -213,4 +213,18 @@ class ShopViewModel with ChangeNotifier {
     print('slots are $slots');
     notifyListeners();
   }
+
+  Future<void> increaseShopViewCountApi(String? shopId) async {
+    print("shop view id is $shopId");
+    _myRepo.incShopViewApi(shopId).then((value) {
+      if (kDebugMode) {
+        print(value.toString());
+      }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      if (!kDebugMode) {
+        print(error.toString());
+      }
+    });
+  }
 }

@@ -27,7 +27,7 @@ List<WalkThroughModelClass> getWalkThroughList() {
       image: 'images/model_three.jpg',
       title: 'Book anytime, anywhere',
       subTitle:
-          'Access calenders, services, and reviews wuth the freedom to book as you please.'));
+          'Access calenders, services, and reviews with the freedom to book as you please.'));
 
   return list;
 }

@@ -25,7 +25,7 @@ class BMWelcomeScreen extends StatelessWidget {
                   size: 24)),
           16.height,
           Text(
-            'Find the best beauty salon in your local abd book the dream visit.',
+            'Find the best beauty salon in your local and book the dream visit.',
             style: secondaryTextStyle(
                 color:
                     appStore.isDarkModeOn ? Colors.white : bmSpecialColorDark),

@@ -9,11 +9,15 @@ class ApiUrl {
   static var verifyTokenEndPint = '${baseUrl}users/verify-token';
   static var registerApiEndPoint = '${baseUrl}users/register';
   static var updateProfileApiEndPoint = '${baseUrl}users/update';
+  static var adminAnalyticsApiEndPoint = '${baseUrl}users/admin/analytics';
 
   static var fetchCategoryEndPoint = '${baseUrl}tags';
   static var fetchHomeDataEndPoint = '${baseUrl}shops';
   static String fetchNearbyShopsEndPoint(pin, city) =>
       '${baseUrl}shops?pinCode=$pin&city=$city';
+  static String fetchShopAnalyticsEndPoint(id) =>
+      '${baseUrl}shops/shop/analytics/$id';
+  static String incShopViewEndPoint(id) => '${baseUrl}shops/shop/view/$id';
   static String fetchSelectedShopEndPoint(shopId) =>
       '${baseUrl}shops/shop/$shopId';
   static String fetchSelectedShopEndPointWithShopId(shopId) =>

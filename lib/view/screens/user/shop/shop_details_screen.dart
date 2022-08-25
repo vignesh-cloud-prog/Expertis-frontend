@@ -115,6 +115,8 @@ class ShopViewScreenState extends State<ShopViewScreen> {
               if (kDebugMode) {
                 // print(shop!.toJson());
               }
+              shopViewModel.increaseShopViewCountApi(shop?.id);
+
               return NestedScrollView(
                 floatHeaderSlivers: true,
                 physics: const NeverScrollableScrollPhysics(),

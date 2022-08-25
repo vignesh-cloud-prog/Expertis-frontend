@@ -134,4 +134,17 @@ class UserRepository {
       rethrow;
     }
   }
+
+  Future<dynamic> fetchAdminAnalytics() async {
+    requestHeaders["Authorization"] = await UserViewModel.getUserToken();
+
+    try {
+      dynamic response = await _apiServices.getGetApiResponse(
+          ApiUrl.adminAnalyticsApiEndPoint, requestHeaders);
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
