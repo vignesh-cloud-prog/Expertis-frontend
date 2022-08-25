@@ -1,4 +1,6 @@
+import 'package:beamer/beamer.dart';
 import 'package:expertis/data/response/status.dart';
+import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +58,7 @@ class _CategoryHomeComponentState extends State<CategoryHomeComponent> {
                           width: 36,
                         ),
                       ).onTap(() {
-                        const BMTopOffersScreen().launch(context);
+                        Beamer.of(context).beamToNamed(RoutesName.viewAllShops);
                       }),
                       8.height,
                       Text(

@@ -24,38 +24,43 @@ class _AdminUsersHomeScreenState extends State<AdminUsersHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: ChangeNotifierProvider<UserListViewModel>.value(
-        value: userListViewModel,
-        child: Consumer<UserListViewModel>(builder: (context, value, _) {
-          switch (value.userList.status) {
-            case Status.LOADING:
-              return const Center(child: CircularProgressIndicator());
-            case Status.ERROR:
-              print("error");
-              return Center(
-                child: Text(value.userList.message.toString()),
-              );
-            case Status.COMPLETED:
-              print("value to jason ${value.userList.data?.toJson()}");
-              print("printed to string ${value.userList.data.toString()}");
-              return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: value.userList.data?.users?.length,
-                  itemBuilder: (ctx, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          color: appStore.isDarkModeOn ? white : white,
-                          borderRadius: radius(20)),
-                      child: UserCardComponent(
-                          element: value.userList.data?.users![index]),
-                    ).paddingAll(8);
-                  });
-            default:
-              return Container();
-          }
-        }),
-      ),
+    return ChangeNotifierProvider<UserListViewModel>.value(
+      value: userListViewModel,
+      child: Consumer<UserListViewModel>(builder: (context, value, _) {
+        switch (value.userList.status) {
+          case Status.LOADING:
+            return const Center(child: CircularProgressIndicator());
+          case Status.ERROR:
+            print("error");
+            return Center(
+              child: Text(value.userList.message.toString()),
+            );
+          case Status.COMPLETED:
+            print("value to jason ${value.userList.data?.toJson()}");
+            print("printed to string ${value.userList.data.toString()}");
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: value.userList.data?.users?.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (ctx, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              color: appStore.isDarkModeOn ? white : white,
+                              borderRadius: radius(20)),
+                          child: UserCardComponent(
+                              element: value.userList.data?.users![index]),
+                        ).paddingAll(8);
+                      }),
+                ],
+              ),
+            );
+          default:
+            return Container();
+        }
+      }),
     );
   }
 }

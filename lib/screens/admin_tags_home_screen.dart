@@ -56,6 +56,7 @@ class _AdminTagsHomeScreenState extends State<AdminTagsHomeScreen> {
                   return ListView.builder(
                       shrinkWrap: true,
                       itemCount: value.categoryList.data?.categories?.length,
+                      physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (ctx, index) {
                         return Container(
                           decoration: BoxDecoration(

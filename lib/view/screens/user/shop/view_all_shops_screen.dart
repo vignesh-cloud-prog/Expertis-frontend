@@ -81,6 +81,7 @@ class _ViewAllShopsScreenState extends State<ViewAllShopsScreen> {
                     return ListView.builder(
                         shrinkWrap: true,
                         itemCount: shopList?.length,
+                        physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (ctx, index) {
                           return ShopCardHomeComponent(
                                   element: shopList![index],
