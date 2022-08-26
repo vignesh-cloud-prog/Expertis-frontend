@@ -135,7 +135,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                         : widget.shop?.contact?.phone = p0.toInt(),
                     // controller: _phoneController,
                     validator: (value) {
-                      Pattern pattern = r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$';
+                      Pattern pattern = r'^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$';
                       RegExp regex = RegExp(pattern.toString());
 
                       if (value!.length != 10) {
@@ -229,6 +229,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                             : '',
                     // nextFocus: pinCode,
                     maxLength: 6,
+
                     textFieldType: TextFieldType.NAME,
                     onChanged: (p0) {
                       widget.shop?.contact == null
@@ -236,7 +237,12 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                           : widget.shop?.contact?.pinCode = p0.toInt();
                     },
 
-                    // controller: _addressController,
+                    validator: (value) {
+                      if (value!.length != 6) {
+                        return 'Pin code must be 6 digits';
+                      }
+                      return null;
+                    },
                     cursorColor: bmPrimaryColor,
                     textStyle: boldTextStyle(
                         color: appStore.isDarkModeOn

@@ -40,36 +40,36 @@ class ShopAnalyticsViewModel with ChangeNotifier {
       count: 300,
       color: bmPrimaryColor,
     ),
-    'completed': AnalyticInfo(
-      svgSrc: 'assets/svg/task.svg',
-      title: 'Completed',
-      count: 200,
-      color: bmPrimaryColor,
-    ),
-    'pending': AnalyticInfo(
-      svgSrc: 'assets/svg/bug.svg',
-      title: 'Pending',
-      count: 12,
-      color: bmPrimaryColor,
-    ),
-    'confirmed': AnalyticInfo(
-      svgSrc: 'assets/svg/feature.svg',
-      title: 'Confirmed',
-      count: 8,
-      color: bmPrimaryColor,
-    ),
-    'cancelled': AnalyticInfo(
-      svgSrc: 'assets/svg/feature.svg',
-      title: 'Canceled',
-      count: 30,
-      color: bmPrimaryColor,
-    ),
-    'rejected': AnalyticInfo(
-      svgSrc: 'assets/svg/feature.svg',
-      title: 'Rejected',
-      count: 50,
-      color: bmPrimaryColor,
-    ),
+    // 'completed': AnalyticInfo(
+    //   svgSrc: 'assets/svg/task.svg',
+    //   title: 'Completed',
+    //   count: 200,
+    //   color: bmPrimaryColor,
+    // ),
+    // 'pending': AnalyticInfo(
+    //   svgSrc: 'assets/svg/bug.svg',
+    //   title: 'Pending',
+    //   count: 12,
+    //   color: bmPrimaryColor,
+    // ),
+    // 'confirmed': AnalyticInfo(
+    //   svgSrc: 'assets/svg/feature.svg',
+    //   title: 'Confirmed',
+    //   count: 8,
+    //   color: bmPrimaryColor,
+    // ),
+    // 'cancelled': AnalyticInfo(
+    //   svgSrc: 'assets/svg/feature.svg',
+    //   title: 'Canceled',
+    //   count: 30,
+    //   color: bmPrimaryColor,
+    // ),
+    // 'rejected': AnalyticInfo(
+    //   svgSrc: 'assets/svg/feature.svg',
+    //   title: 'Rejected',
+    //   count: 50,
+    //   color: bmPrimaryColor,
+    // ),
   };
 
   ApiResponse<dynamic> analyticsData = ApiResponse.loading();
@@ -94,16 +94,16 @@ class ShopAnalyticsViewModel with ChangeNotifier {
           value["data"]["shop"]['services'].length;
       ShopAnalyticsData['total_appointments']!.count =
           value["data"]["shop"]['appointments'].length;
-      ShopAnalyticsData['completed']!.count =
-          value["data"]['appointments']["completed"];
-      ShopAnalyticsData['pending']!.count =
-          value["data"]['appointments']["pending"];
-      ShopAnalyticsData['confirmed']!.count =
-          value["data"]['appointments']["confirmed"];
-      ShopAnalyticsData['cancelled']!.count =
-          value["data"]['appointments']["cancelled"];
-      ShopAnalyticsData['rejected']!.count =
-          value["data"]['appointments']["rejected"];
+      // ShopAnalyticsData['completed']!.count =
+      //     value["data"]['appointments']["completed"];
+      // ShopAnalyticsData['pending']!.count =
+      //     value["data"]['appointments']["pending"];
+      // ShopAnalyticsData['confirmed']!.count =
+      //     value["data"]['appointments']["confirmed"];
+      // ShopAnalyticsData['cancelled']!.count =
+      //     value["data"]['appointments']["cancelled"];
+      // ShopAnalyticsData['rejected']!.count =
+      //     value["data"]['appointments']["rejected"];
 
       print("value is ${value}");
       setCategoryList(ApiResponse.completed(value));

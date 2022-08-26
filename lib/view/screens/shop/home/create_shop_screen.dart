@@ -1,16 +1,13 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:beamer/beamer.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:expertis/main.dart';
@@ -103,6 +100,7 @@ class CreateShopScreenState extends State<CreateShopScreen> {
                         // initialValue: shop.shopId ?? '',
                         keyboardType: TextInputType.text,
                         nextFocus: email,
+                        maxLength: 50,
                         focus: shopId,
                         onChanged: (value) {
                           shop.shopId = value;
@@ -196,7 +194,7 @@ class CreateShopScreenState extends State<CreateShopScreen> {
                         // controller: _phoneController,
                         validator: (value) {
                           Pattern pattern =
-                              r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$';
+                              r'^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$';
                           RegExp regex = RegExp(pattern.toString());
 
                           if (value!.length != 10) {

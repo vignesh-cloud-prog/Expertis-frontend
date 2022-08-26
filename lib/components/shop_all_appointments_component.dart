@@ -109,6 +109,20 @@ class _ShopAllAppointmentComponentState
                     child: Text(value.shopAppointments.message.toString()),
                   );
                 case Status.COMPLETED:
+                  Future.delayed(Duration.zero, () async {
+                    setState(() {
+                      tabList[0] =
+                          'CONFIRMED ${value.upcoming.appointments?.length}';
+                      tabList[1] =
+                          'PENDING ${value.pending.appointments?.length}';
+                      tabList[2] =
+                          'COMPLETED ${value.completed.appointments?.length}';
+                      tabList[3] =
+                          'REJECTED ${value.rejected.appointments?.length}';
+                      tabList[4] =
+                          'CANCELLED ${value.cancelled.appointments?.length}';
+                    });
+                  });
                   List<AppointmentModel>? appointments;
                   if (selectedTab == 1) {
                     appointments = value.pending.appointments;

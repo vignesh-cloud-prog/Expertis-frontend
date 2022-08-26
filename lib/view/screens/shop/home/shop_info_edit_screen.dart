@@ -141,6 +141,7 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                   AppTextField(
                     keyboardType: TextInputType.text,
                     nextFocus: shopId,
+                    maxLength: 50,
                     initialValue: widget.shop?.shopName ?? '',
                     onChanged: (value) {
                       widget.shop?.shopName = value;
@@ -347,6 +348,7 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                     textFieldType: TextFieldType.USERNAME,
                     errorThisFieldRequired: 'Name id required',
                     autoFocus: true,
+                    maxLength: 50,
                     cursorColor: bmPrimaryColor,
                     textStyle: boldTextStyle(
                         color: appStore.isDarkModeOn

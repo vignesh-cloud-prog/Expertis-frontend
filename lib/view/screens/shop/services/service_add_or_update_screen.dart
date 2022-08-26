@@ -141,6 +141,7 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
                   AppTextField(
                     keyboardType: TextInputType.text,
                     nextFocus: price,
+                    maxLength: 50,
                     initialValue: widget.service?.serviceName ?? '',
                     onChanged: (value) {
                       widget.service?.serviceName = value;

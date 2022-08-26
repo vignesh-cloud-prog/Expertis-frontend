@@ -107,6 +107,15 @@ class _ShopUpcomingAppointmentComponentState
                     child: Text(value.shopAppointments.message.toString()),
                   );
                 case Status.COMPLETED:
+                  Future.delayed(Duration.zero, () async {
+                    setState(() {
+                      tabList[0] =
+                          'UPCOMING ${value.upcoming.appointments?.length}';
+                      tabList[1] =
+                          'PENDING ${value.pending.appointments?.length}';
+                    });
+                  });
+
                   return Container(
                       child: selectedTab == 0
                           ? Column(

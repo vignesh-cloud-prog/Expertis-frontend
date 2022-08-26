@@ -134,6 +134,7 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
                         keyboardType: TextInputType.text,
                         focus: name,
                         nextFocus: phone,
+                        maxLength: 50,
                         textFieldType: TextFieldType.NAME,
                         controller: _nameController,
                         errorThisFieldRequired: 'Name is required',
@@ -176,7 +177,7 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
                         controller: _phoneController,
                         validator: (value) {
                           Pattern pattern =
-                              r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$';
+                              r'^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$';
                           RegExp regex = RegExp(pattern.toString());
 
                           if (value!.length != 10) {

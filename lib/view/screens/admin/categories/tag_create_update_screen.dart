@@ -121,6 +121,7 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                       AppTextField(
                         keyboardType: TextInputType.text,
                         nextFocus: description,
+                        maxLength: 50,
                         initialValue: widget.category?.tagName ?? '',
                         onChanged: (value) {
                           widget.category!.tagName = value;
