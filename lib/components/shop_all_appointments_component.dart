@@ -112,15 +112,15 @@ class _ShopAllAppointmentComponentState
                   Future.delayed(Duration.zero, () async {
                     setState(() {
                       tabList[0] =
-                          'CONFIRMED ${value.upcoming.appointments?.length}';
+                          'CONFIRMED ${value.upcoming.appointments?.length ?? 0}';
                       tabList[1] =
-                          'PENDING ${value.pending.appointments?.length}';
+                          'PENDING ${value.pending.appointments?.length ?? 0}';
                       tabList[2] =
-                          'COMPLETED ${value.completed.appointments?.length}';
+                          'COMPLETED ${value.completed.appointments?.length ?? 0}';
                       tabList[3] =
-                          'REJECTED ${value.rejected.appointments?.length}';
+                          'REJECTED ${value.rejected.appointments?.length ?? 0}';
                       tabList[4] =
-                          'CANCELLED ${value.cancelled.appointments?.length}';
+                          'CANCELLED ${value.cancelled.appointments?.length ?? 0}';
                     });
                   });
                   List<AppointmentModel>? appointments;

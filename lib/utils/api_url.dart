@@ -1,6 +1,6 @@
 class ApiUrl {
-  // static var baseUrl = 'http://localhost:4000/';
-  static var baseUrl = 'https://expertis-api.azurewebsites.net/';
+  static var baseUrl = 'https://expensive-pear-ray.cyclic.app/';
+  // static var baseUrl = 'https://expertis-api.azurewebsites.net/';
 
   static var loginEndPint = '${baseUrl}users/login';
   static var forgetPasswordEndPint = '${baseUrl}users/forget-password';
