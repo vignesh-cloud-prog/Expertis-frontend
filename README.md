@@ -1,4 +1,4 @@
 # expertis
 
-A college project.
+A Saloon booking project.
 
