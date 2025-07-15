@@ -1,9 +1,7 @@
 import 'package:expertis/data/app_excaptions.dart';
 import 'package:expertis/data/network/BaseApiServices.dart';
 import 'package:expertis/data/network/NetworkApiService.dart';
-import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/models/review_list_model.dart';
-import 'package:expertis/models/review_model.dart';
 import 'package:expertis/utils/api_url.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
@@ -25,7 +23,7 @@ class ReviewRepository {
       bool isEditMode,
       Map<String, String> data,
       bool isFileSelected,
-      Map<String, dynamic?> files) async {
+      Map<String, dynamic> files) async {
     final String token = await UserViewModel.getUserToken();
     String url = ApiUrl.reviewEndPoint;
     requestHeaders["Authorization"] = token;

@@ -2,6 +2,7 @@ import 'package:expertis/models/shop_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ShopContactComponent extends StatelessWidget {
   final Contact? contact;
@@ -29,7 +30,7 @@ class ShopContactComponent extends StatelessWidget {
         if (contact?.whatsapp != null)
           Row(
             children: [
-              Icon(Icons.whatsapp),
+              Icon(FontAwesomeIcons.whatsapp),
               10.width,
               Text(contact?.whatsapp ?? ""),
             ],

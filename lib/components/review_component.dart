@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../models/BMCommentModel.dart';
 import '../utils/BMWidgets.dart';
 
 class ReviewComponent extends StatefulWidget {

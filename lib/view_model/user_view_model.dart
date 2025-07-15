@@ -5,7 +5,6 @@ import 'package:expertis/data/response/api_response.dart';
 import 'package:expertis/respository/user_repository.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/utils.dart';
-import 'package:expertis/view_model/user_list_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:flutter/foundation.dart';

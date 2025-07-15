@@ -1,5 +1,4 @@
 import 'package:expertis/models/shop_model.dart';
-import 'package:expertis/utils/BMWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 

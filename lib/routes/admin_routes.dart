@@ -1,11 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/models/categories_model.dart';
-import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/admin_dashboard_screen.dart';
-import 'package:expertis/view/screens/user/shop/shop_details_screen.dart';
-import 'package:expertis/view/screens/shop/home/shop_dashboard_screen.dart';
-import 'package:expertis/view/screens/shop/home/shop_info_edit_screen.dart';
 import 'package:expertis/view/screens/admin/categories/tag_create_update_screen.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:flutter/cupertino.dart';

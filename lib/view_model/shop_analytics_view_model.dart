@@ -2,7 +2,6 @@ import 'package:expertis/data/response/api_response.dart';
 import 'package:expertis/respository/shop_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:expertis/respository/auth_repository.dart';
 import 'package:expertis/models/analytics_info_model.dart';
 import 'package:expertis/utils/BMColors.dart';
 

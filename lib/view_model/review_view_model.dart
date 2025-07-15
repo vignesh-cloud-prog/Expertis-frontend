@@ -2,7 +2,6 @@ import 'package:beamer/beamer.dart';
 import 'package:expertis/data/response/api_response.dart';
 // import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/models/review_model.dart';
-import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/respository/review_repository.dart';
 // import 'package:expertis/respository/category_repository.dart';
 import 'package:expertis/routes/routes_name.dart';
@@ -32,7 +31,7 @@ class ReviewViewModel with ChangeNotifier {
       bool isEditMode,
       Map<String, String> data,
       bool isFileSelected,
-      Map<String, dynamic?> files,
+      Map<String, dynamic> files,
       BuildContext context) async {
     setLoading(true);
     if (kDebugMode) {

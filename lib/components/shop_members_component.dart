@@ -1,5 +1,4 @@
 import 'package:expertis/models/shop_model.dart';
-import 'package:expertis/utils/BMWidgets.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';

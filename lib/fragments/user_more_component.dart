@@ -1,6 +1,5 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/models/user_model.dart';
-import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:expertis/utils/utils.dart';
@@ -11,10 +10,8 @@ import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../screens/BMFavouritesScreen.dart';
-import '../screens/BMShoppingScreen.dart';
 import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
-import 'user_appointments_component.dart';
 
 class UserMoreComponent extends StatefulWidget {
   const UserMoreComponent({Key? key}) : super(key: key);

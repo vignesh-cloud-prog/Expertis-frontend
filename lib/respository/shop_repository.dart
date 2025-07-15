@@ -128,7 +128,7 @@ class HomeRepository {
       bool isEditMode,
       Map<String, String> data,
       bool isFileSelected,
-      Map<String, dynamic?> files) async {
+      Map<String, dynamic> files) async {
     final String token = await UserViewModel.getUserToken();
     String url = ApiUrl.uploadServiceApiEndPoint;
     requestHeaders["Authorization"] = token;

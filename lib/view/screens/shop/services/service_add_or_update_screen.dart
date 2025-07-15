@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:beamer/beamer.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/categories_model.dart';
@@ -496,7 +495,7 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
                         Map<String, String> data = serviceData
                             .map((k, v) => MapEntry(k, v.toString()));
 
-                        Map<String, dynamic?> files = {
+                        Map<String, dynamic> files = {
                           'servicePhoto': widget.service?.photo,
                         };
                         data.remove('photo');

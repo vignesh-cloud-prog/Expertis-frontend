@@ -1,5 +1,5 @@
 {
-    "files.autoSave": "off",
+    "files.autoSave": "afterDelay",
     "cSpell.words": [
         "Bablus",
         "beamer",

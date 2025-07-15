@@ -2,7 +2,6 @@ import 'package:beamer/beamer.dart';
 import 'package:expertis/data/response/api_response.dart';
 // import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/user_list_model.dart';
-import 'package:expertis/respository/shop_repository.dart';
 import 'package:expertis/respository/user_repository.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/utils.dart';

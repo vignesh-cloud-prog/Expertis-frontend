@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:beamer/beamer.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
@@ -259,7 +258,7 @@ class CreateShopScreenState extends State<CreateShopScreen> {
                             data['phone'] =
                                 shop.contact?.phone.toString() ?? '';
                             data['email'] = shop.contact?.email ?? '';
-                            Map<String, dynamic?> files = {
+                            Map<String, dynamic> files = {
                               'shopLogo': shop.shopLogo,
                             };
                             data.remove('shopLogo');

@@ -1,7 +1,6 @@
 import 'package:expertis/components/analytics_info_card.dart';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/responsive.dart';
-import 'package:expertis/view_model/admin_analytics_view_model.dart';
 import 'package:expertis/view_model/shop_analytics_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

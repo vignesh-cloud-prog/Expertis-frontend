@@ -6,7 +6,6 @@ import 'package:expertis/models/user_model.dart';
 import 'package:expertis/respository/shop_repository.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/utils.dart';
-import 'package:expertis/view_model/shop_list_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -48,7 +47,7 @@ class ShopViewModel with ChangeNotifier {
       Map<String, String> data,
       bool isFileSelected,
       bool isAdmin,
-      Map<String, dynamic?> files,
+      Map<String, dynamic> files,
       BuildContext context) async {
     setLoading(true);
     if (kDebugMode) {
@@ -131,7 +130,7 @@ class ShopViewModel with ChangeNotifier {
       bool isEditMode,
       Map<String, String> data,
       bool isFileSelected,
-      Map<String, dynamic?> files,
+      Map<String, dynamic> files,
       BuildContext context) async {
     setLoading(true);
     if (kDebugMode) {

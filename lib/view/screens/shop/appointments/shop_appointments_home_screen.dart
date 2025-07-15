@@ -3,10 +3,8 @@ import 'package:expertis/components/shop_upcoming_appointments_component.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../../../../components/BMAppointMentTabComponent.dart';
 import '../../../../main.dart';
 import '../../../../utils/BMColors.dart';
-import '../../../../utils/BMWidgets.dart';
 
 class ShopAppointmentsHomeScreen extends StatefulWidget {
   final String? shopId;

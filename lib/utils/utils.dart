@@ -1,13 +1,11 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
-import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/screens/BMNoInternetScreen.dart';
 import 'package:expertis/screens/BMSomethingWentWrongScreen.dart';
 import 'package:expertis/view/screens/app/exceptions/token_expired_screen.dart';
 import 'package:expertis/view/screens/app/walkthrough_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:beamer/beamer.dart';
 
 class Utils {
   static double averageRating(List<int> rating) {

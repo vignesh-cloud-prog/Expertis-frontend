@@ -44,11 +44,11 @@ class _SelectServiceComponentState extends State<SelectServiceComponent> {
         Provider.of<AppointmentListViewModel>(context);
     print(
         "selected services: ${appointmentViewModel.appointmentModel.selectedServices}");
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
+    Color getColor(Set<WidgetState> states) {
+      const Set<WidgetState> interactiveStates = <WidgetState>{
+        WidgetState.pressed,
+        WidgetState.hovered,
+        WidgetState.focused,
       };
       if (states.any(interactiveStates.contains)) {
         return bmSpecialColor;
@@ -110,7 +110,7 @@ class _SelectServiceComponentState extends State<SelectServiceComponent> {
             8.width,
             Checkbox(
               value: selected,
-              fillColor: MaterialStateProperty.resolveWith(getColor),
+              fillColor: WidgetStateProperty.resolveWith(getColor),
               onChanged: (value) {
                 if (value == true) {
                   appointmentViewModel.appointmentModel.selectedServices

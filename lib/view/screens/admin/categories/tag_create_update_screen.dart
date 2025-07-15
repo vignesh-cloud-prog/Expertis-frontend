@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:expertis/utils/utils.dart';
@@ -329,7 +328,7 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                             Map<String, String> data = categoryData!
                                 .map((k, v) => MapEntry(k, v.toString()));
 
-                            Map<String, dynamic?> files = {
+                            Map<String, dynamic> files = {
                               'tagPic': widget.category?.tagPic,
                             };
                             data.remove('tagPic');

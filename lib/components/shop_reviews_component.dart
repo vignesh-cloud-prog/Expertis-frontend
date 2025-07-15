@@ -1,22 +1,13 @@
 import 'package:beamer/beamer.dart';
-import 'package:expertis/components/BMCommentComponent.dart';
 import 'package:expertis/components/review_component.dart';
 import 'package:expertis/data/response/status.dart';
-import 'package:expertis/models/BMCommentModel.dart';
-import 'package:expertis/models/review_list_model.dart';
 import 'package:expertis/models/review_model.dart';
 import 'package:expertis/models/shop_model.dart';
-import 'package:expertis/models/user_model.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/view/screens/user/review/review_shop_screen.dart';
 import 'package:expertis/utils/BMColors.dart';
-import 'package:expertis/utils/BMDataGenerator.dart';
 import 'package:expertis/utils/BMWidgets.dart';
 import 'package:expertis/view_model/review_list_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,16 +53,15 @@ class _ShopReviewComponentState extends State<ShopReviewComponent> {
             );
           case Status.COMPLETED:
             List<ReviewModel>? reviews = value.reviewList.data?.review;
-            reviews?.forEach((element) => {
-                  if (element.from?.id == userViewModel.user?.id)
-                    {
-                      print("review is there"),
-                      edit = true,
-                      print("element ${element.toJson()}"),
-                      userReview = element,
-                      print("user review ${userReview?.toJson()}")
-                    }
-                });
+            reviews?.forEach((element) {
+              if (element.from?.id == userViewModel.user?.id) {
+                print("review is there");
+                edit = true;
+                print("element " + element.toJson().toString());
+                userReview = element;
+                print("user review " + (userReview?.toJson().toString() ?? ""));
+              }
+            });
 
             print("printed ${value.reviewList.data.toString()}");
             return Column(

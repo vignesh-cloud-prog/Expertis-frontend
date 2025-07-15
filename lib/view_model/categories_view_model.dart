@@ -41,7 +41,7 @@ class CategoryViewModel with ChangeNotifier {
       bool isEditMode,
       Map<String, String> data,
       bool isFileSelected,
-      Map<String, dynamic?> files,
+      Map<String, dynamic> files,
       BuildContext context) async {
     setLoading(true);
     if (kDebugMode) {

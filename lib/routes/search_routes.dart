@@ -1,5 +1,4 @@
 import 'package:beamer/beamer.dart';
-import 'package:expertis/fragments/user_more_component.dart';
 import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/view/screens/user/home/user_home_screen.dart';
 import 'package:flutter/cupertino.dart';

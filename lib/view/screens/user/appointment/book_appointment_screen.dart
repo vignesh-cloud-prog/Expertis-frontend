@@ -299,7 +299,6 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
               if (pickedDate != null) {
                 var date = DateFormat('dd-MMM-yyyy').format(pickedDate);
                 slotsModel.fetchSlotsApi(widget.shopId, widget.memberId, date);
-
                 setState(() {
                   _bookingDateController.text = date;
                 });

@@ -1,4 +1,3 @@
-import 'package:expertis/utils/flutterCalender/date_utils.dart';
 import 'package:flutter/material.dart';
 import "package:intl/intl.dart";
 
@@ -27,9 +26,9 @@ class CalendarTile extends StatefulWidget {
     this.dateStyles,
     this.dayOfWeek,
     this.dayOfWeekStyle,
-    this.isDayOfWeek: false,
-    this.isSelected: false,
-    this.inMonth: true,
+    this.isDayOfWeek = false,
+    this.isSelected = false,
+    this.inMonth = true,
     this.events,
     this.selectedColor,
     this.todayColor,

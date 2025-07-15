@@ -1,7 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/routes/routes_name.dart';
-import 'package:expertis/utils/BMConstants.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';

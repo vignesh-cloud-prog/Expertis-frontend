@@ -1,8 +1,6 @@
 import 'package:expertis/data/response/api_response.dart';
 import 'package:expertis/models/appointment_model.dart';
-import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/respository/appointment_repository.dart';
-import 'package:expertis/respository/shop_repository.dart';
 import 'package:flutter/foundation.dart';
 
 class AppointmentViewModel with ChangeNotifier {

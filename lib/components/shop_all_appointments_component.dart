@@ -1,6 +1,5 @@
 import 'package:expertis/components/BMAppointmentComponent.dart';
 import 'package:expertis/data/response/status.dart';
-import 'package:expertis/models/appointment_list_model.dart';
 import 'package:expertis/models/appointment_model.dart';
 import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
@@ -8,10 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../components/BMAppointMentTabComponent.dart';
 import '../main.dart';
 import '../utils/BMColors.dart';
-import '../utils/BMWidgets.dart';
 
 class ShopAllAppointmentComponent extends StatefulWidget {
   final String? shopId;

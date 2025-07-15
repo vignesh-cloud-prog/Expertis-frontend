@@ -1,11 +1,7 @@
-import 'dart:ui';
 
-import 'package:expertis/main.dart';
-import 'package:expertis/models/user_model.dart';
 import 'package:expertis/utils/assets.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 

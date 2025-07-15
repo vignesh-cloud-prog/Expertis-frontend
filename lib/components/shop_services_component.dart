@@ -62,7 +62,7 @@ class _ShopServiceComponentState extends State<ShopServiceComponent> {
               16.height,
               titleText(title: 'Our Services'),
               16.height,
-              popularServiceList != null && popularServiceList.length > 0
+              popularServiceList.length > 0
                   ? ListView.builder(
                       itemCount: popularServiceList.length,
                       shrinkWrap: true,

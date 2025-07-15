@@ -3,7 +3,6 @@ import 'package:expertis/view_model/appointment_list_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 import 'BMAppointmentComponent.dart';

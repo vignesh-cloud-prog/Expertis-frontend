@@ -96,11 +96,11 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
     }
   }
 
-  Color getColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
+  Color getColor(Set<WidgetState> states) {
+    const Set<WidgetState> interactiveStates = <WidgetState>{
+      WidgetState.pressed,
+      WidgetState.hovered,
+      WidgetState.focused,
     };
     if (states.any(interactiveStates.contains)) {
       return bmSpecialColor;
@@ -453,7 +453,7 @@ class BMUserProfileEditScreenState extends State<BMUserProfileEditScreen> {
                               size: 14)),
                       Checkbox(
                         value: user?.roles!.isShopOwner == true,
-                        fillColor: MaterialStateProperty.resolveWith(getColor),
+                        fillColor: WidgetStateProperty.resolveWith(getColor),
                         onChanged: (value) {
                           setState(() {
                             user?.roles!.isShopOwner = value;

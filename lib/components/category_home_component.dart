@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/BMTopOffersScreen.dart';
 
 class CategoryHomeComponent extends StatefulWidget {
   const CategoryHomeComponent({super.key});

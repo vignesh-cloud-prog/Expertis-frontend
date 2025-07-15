@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:beamer/beamer.dart';
 import 'package:expertis/models/shop_model.dart';
@@ -7,7 +6,6 @@ import 'package:expertis/utils/assets.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 // import 'package:flutter_iconly/flutter_iconly.dart';

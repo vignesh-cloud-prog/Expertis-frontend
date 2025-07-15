@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../screens/BMMapScreen.dart';
 import '../utils/BMBottomSheet.dart';
 import '../utils/BMColors.dart';
 

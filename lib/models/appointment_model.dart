@@ -1,4 +1,3 @@
-import 'package:expertis/models/shop_list_model.dart';
 import 'package:expertis/models/shop_model.dart';
 
 import 'user_model.dart';

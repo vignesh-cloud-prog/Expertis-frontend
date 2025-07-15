@@ -1,5 +1,4 @@
 import 'package:expertis/models/shop_model.dart';
-import 'package:expertis/view_model/categories_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
@@ -11,6 +10,7 @@ import 'package:expertis/main.dart';
 import 'package:expertis/utils/BMColors.dart';
 import 'package:expertis/utils/BMWidgets.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ShopContactEditScreen extends StatefulWidget {
   ShopModel? shop;
@@ -303,8 +303,8 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                     suffixIconColor: bmPrimaryColor,
                     decoration: InputDecoration(
                       hintText: 'WhatsApp',
-                      prefixIcon: const Icon(
-                        Icons.whatsapp,
+                      prefixIcon: Icon(
+                        FontAwesomeIcons.whatsapp,
                         color: bmPrimaryColor,
                       ),
                       border: UnderlineInputBorder(
@@ -564,7 +564,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                         Map<String, String> data = shopContactData
                             .map((k, v) => MapEntry(k, v.toString()));
 
-                        Map<String, dynamic?> files = {
+                        Map<String, dynamic> files = {
                           'shopLogo': widget.shop?.shopLogo,
                         };
 

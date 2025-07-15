@@ -1,6 +1,3 @@
-import 'package:expertis/components/selected_services_component.dart';
-import 'package:expertis/screens/BMPurchaseMoreScreen.dart';
-import 'package:expertis/utils/BMBottomSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';

@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:expertis/data/response/status.dart';
 import 'package:expertis/models/categories_model.dart';
 import 'package:expertis/models/shop_model.dart';
 import 'package:expertis/utils/assets.dart';
-import 'package:expertis/utils/utils.dart';
 import 'package:expertis/view_model/categories_view_model.dart';
 import 'package:expertis/view_model/shop_view_model.dart';
 import 'package:expertis/models/user_model.dart';
@@ -490,7 +488,7 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
 
                         // data['phone'] = widget.shop.contact?.phone.toString() ?? '';
                         // data['email'] = widget.shop.contact?.email ?? '';
-                        Map<String, dynamic?> files = {
+                        Map<String, dynamic> files = {
                           'shopLogo': widget.shop?.shopLogo,
                         };
 

@@ -3,7 +3,6 @@ import 'package:expertis/routes/routes_name.dart';
 import 'package:expertis/utils/BMColors.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PurchaseMoreScreen extends StatelessWidget {
   final bool? enableAppbar;
