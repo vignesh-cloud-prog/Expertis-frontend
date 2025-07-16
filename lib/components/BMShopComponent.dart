@@ -8,7 +8,7 @@ import '../utils/BMWidgets.dart';
 class BMShopComponent extends StatefulWidget {
   BMShoppingModel element;
 
-  BMShopComponent({required this.element});
+  BMShopComponent({super.key, required this.element});
 
   @override
   State<BMShopComponent> createState() => _BMShopComponentState();
@@ -19,7 +19,7 @@ class _BMShopComponentState extends State<BMShopComponent> {
   Widget build(BuildContext context) {
     return Container(
       height: 170,
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(color: context.cardColor, borderRadius: radius(32)),
       child: Stack(
         children: [
@@ -41,7 +41,7 @@ class _BMShopComponentState extends State<BMShopComponent> {
                   8.height,
                   Row(
                     children: [
-                      Icon(Icons.star, color: Colors.amber, size: 16),
+                      const Icon(Icons.star, color: Colors.amber, size: 16),
                       4.width,
                       titleText(title: widget.element.rate, size: 14),
                       4.width,
@@ -65,8 +65,8 @@ class _BMShopComponentState extends State<BMShopComponent> {
                           borderRadius: radius(100),
                           border: Border.all(color: bmPrimaryColor),
                         ),
-                        padding: EdgeInsets.all(6),
-                        child: Icon(Icons.remove, color: bmPrimaryColor),
+                        padding: const EdgeInsets.all(6),
+                        child: const Icon(Icons.remove, color: bmPrimaryColor),
                       ).onTap(() {
                         if (widget.element.items > 1) {
                           widget.element.items = widget.element.items - 1;
@@ -82,8 +82,8 @@ class _BMShopComponentState extends State<BMShopComponent> {
                           borderRadius: radius(100),
                           border: Border.all(color: bmPrimaryColor),
                         ),
-                        padding: EdgeInsets.all(6),
-                        child: Icon(Icons.add, color: bmPrimaryColor),
+                        padding: const EdgeInsets.all(6),
+                        child: const Icon(Icons.add, color: bmPrimaryColor),
                       ).onTap(() {
                         widget.element.items = widget.element.items + 1;
                         setState(() {});
@@ -98,7 +98,7 @@ class _BMShopComponentState extends State<BMShopComponent> {
             right: 0,
             bottom: 0,
             child: Container(
-              padding: EdgeInsets.all(4),
+              padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 color: widget.element.isAdded ? Colors.teal : bmPrimaryColor.withAlpha(50),
                 borderRadius: radiusOnly(bottomRight: 32, topLeft: 32),

@@ -122,7 +122,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
   Widget build(BuildContext context) {
     UserViewModel userViewModel = Provider.of<UserViewModel>(context);
     print(userViewModel.user?.toJson());
-    ShopModel? shop = userViewModel.user?.shop?.first ?? null;
+    ShopModel? shop = userViewModel.user?.shop?.first;
     var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: bmLightScaffoldBackgroundColor,
@@ -134,7 +134,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     width: size.width * 0.2,
                     child: FancyShimmerImage(
                       height: MediaQuery.of(context).size.height * 0.1,
@@ -148,7 +148,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
                       boxFit: BoxFit.fill,
                     ).cornerRadiusWithClipRRect(20).paddingAll(2),
                   ),
-                  Container(
+                  SizedBox(
                     width: size.width * 0.5,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,7 +156,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
                         children: [
                           Text(
                             shop?.shopName ?? "",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -178,7 +178,7 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
                                 shop?.isOpen == true
                                     ? "Open Now"
                                     : "Closed Now",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                 ),
                               ),
@@ -186,10 +186,10 @@ class ShopOwnerDashboardScreenState extends State<ShopOwnerDashboardScreen> {
                           )
                         ]).paddingOnly(left: 10, right: 10),
                   ),
-                  Container(
+                  SizedBox(
                     width: size.width * 0.1,
                     child: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         size: 30,
                         Icons.exit_to_app,
                         color: Colors.white,

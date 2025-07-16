@@ -12,7 +12,7 @@ import '../utils/BMWidgets.dart';
 class ReviewComponent extends StatefulWidget {
   ReviewModel? element;
 
-  ReviewComponent({required this.element});
+  ReviewComponent({super.key, required this.element});
 
   @override
   _ReviewComponentState createState() => _ReviewComponentState();
@@ -75,7 +75,7 @@ class _ReviewComponentState extends State<ReviewComponent> {
                 //
               },
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.7,
               child: Text(widget.element?.comment ?? '',
                   overflow: TextOverflow.visible,

@@ -17,7 +17,7 @@ class AppointmentListModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (appointments != null) {
       data['appointment'] = appointments!.map((v) => v.toJson()).toList();
     }
@@ -27,9 +27,7 @@ class AppointmentListModel {
   bool get isEmpty => appointments == null || appointments!.isEmpty;
 
   void addAppointment(AppointmentModel appointment) {
-    if (appointments == null) {
-      appointments = <AppointmentModel>[];
-    }
+    appointments ??= <AppointmentModel>[];
     appointments!.add(appointment);
   }
 }

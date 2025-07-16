@@ -8,16 +8,16 @@ class CategoryListModel {
       categories = <CategoryModel>[];
       json['data'].forEach((v) {
         // print("v is ${v.toString()}");
-        categories!.add(new CategoryModel.fromJson(v));
+        categories!.add(CategoryModel.fromJson(v));
       });
       // print("category list is ${categories.toString()}");
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.categories != null) {
-      data['categories'] = this.categories!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (categories != null) {
+      data['categories'] = categories!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -53,14 +53,14 @@ class CategoryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['tagName'] = this.tagName;
-    data['tagPic'] = this.tagPic;
-    data['description'] = this.description;
-    data['isVerifiedByAdmin'] = this.isVerifiedByAdmin;
-    data['shops'] = this.shops;
-    data['services'] = this.services;
-    data['id'] = this.id;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['tagName'] = tagName;
+    data['tagPic'] = tagPic;
+    data['description'] = description;
+    data['isVerifiedByAdmin'] = isVerifiedByAdmin;
+    data['shops'] = shops;
+    data['services'] = services;
+    data['id'] = id;
     return data;
   }
 }

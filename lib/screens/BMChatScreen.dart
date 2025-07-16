@@ -11,7 +11,7 @@ import 'BMCallScreen.dart';
 class BMChatScreen extends StatefulWidget {
   final BMMessageModel element;
 
-  BMChatScreen({required this.element});
+  const BMChatScreen({super.key, required this.element});
 
   @override
   _BMChatScreenState createState() => _BMChatScreenState();
@@ -35,7 +35,7 @@ class _BMChatScreenState extends State<BMChatScreen> {
             : bmLightScaffoldBackgroundColor,
         elevation: 0,
         leadingWidth: 30,
-        iconTheme: IconThemeData(color: bmPrimaryColor),
+        iconTheme: const IconThemeData(color: bmPrimaryColor),
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -66,13 +66,13 @@ class _BMChatScreenState extends State<BMChatScreen> {
             onPressed: () {
               BMCallScreen().launch(context);
             },
-            icon: Icon(Icons.call_outlined),
+            icon: const Icon(Icons.call_outlined),
           ),
           IconButton(
             onPressed: () {
               BMCallScreen().launch(context);
             },
-            icon: Icon(Icons.videocam_outlined),
+            icon: const Icon(Icons.videocam_outlined),
           ),
         ],
       ),
@@ -81,14 +81,14 @@ class _BMChatScreenState extends State<BMChatScreen> {
       body: Container(
         width: context.width(),
         height: context.height(),
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
           color: appStore.isDarkModeOn
               ? bmSecondBackgroundColorDark
               : bmSecondBackgroundColorLight,
           borderRadius: radiusOnly(topRight: 32, topLeft: 32),
         ),
-        child: PurchaseMoreScreen(),
+        child: const PurchaseMoreScreen(),
       ),
       bottomNavigationBar: Form(
         key: form_key,
@@ -97,7 +97,7 @@ class _BMChatScreenState extends State<BMChatScreen> {
               color: appStore.isDarkModeOn
                   ? bmSecondBackgroundColorDark
                   : bmSecondBackgroundColorLight),
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             children: [
               Container(
@@ -106,7 +106,7 @@ class _BMChatScreenState extends State<BMChatScreen> {
                   borderRadius: radius(32),
                   border: Border.all(color: bmPrimaryColor),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: AppTextField(
                   controller: comment,
                   decoration: InputDecoration(
@@ -123,7 +123,7 @@ class _BMChatScreenState extends State<BMChatScreen> {
                 decoration: BoxDecoration(
                     color: bmPrimaryColor, borderRadius: radius(100)),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_upward, color: Colors.white),
+                  icon: const Icon(Icons.arrow_upward, color: Colors.white),
                   onPressed: () {
                     if (form_key.currentState!.validate() &&
                         comment.text != '') {

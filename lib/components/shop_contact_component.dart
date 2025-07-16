@@ -6,8 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ShopContactComponent extends StatelessWidget {
   final Contact? contact;
-  const ShopContactComponent({Key? key, required this.contact})
-      : super(key: key);
+  const ShopContactComponent({super.key, required this.contact});
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +14,14 @@ class ShopContactComponent extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(Icons.call),
+            const Icon(Icons.call),
             10.width,
             Text(contact?.phone.toString() ?? ""),
           ],
         ).paddingAll(8),
         Row(
           children: [
-            Icon(Icons.email),
+            const Icon(Icons.email),
             10.width,
             Text(contact?.email ?? ""),
           ],
@@ -30,7 +29,7 @@ class ShopContactComponent extends StatelessWidget {
         if (contact?.whatsapp != null)
           Row(
             children: [
-              Icon(FontAwesomeIcons.whatsapp),
+              const Icon(FontAwesomeIcons.whatsapp),
               10.width,
               Text(contact?.whatsapp ?? ""),
             ],
@@ -38,7 +37,7 @@ class ShopContactComponent extends StatelessWidget {
         if (contact?.website != null)
           Row(
             children: [
-              Icon(Icons.web),
+              const Icon(Icons.web),
               10.width,
               Text(contact?.website ?? ""),
             ],
@@ -46,7 +45,7 @@ class ShopContactComponent extends StatelessWidget {
         if (contact?.facebook != null)
           Row(
             children: [
-              Icon(Icons.facebook),
+              const Icon(Icons.facebook),
               10.width,
               Text(contact?.facebook ?? ""),
             ],
@@ -54,7 +53,7 @@ class ShopContactComponent extends StatelessWidget {
         if (contact?.instagram != null)
           Row(
             children: [
-              Icon(
+              const Icon(
                 FeatherIcons.instagram,
               ),
               10.width,
@@ -64,14 +63,14 @@ class ShopContactComponent extends StatelessWidget {
         if (contact?.twitter != null)
           Row(
             children: [
-              Icon(FeatherIcons.twitter),
+              const Icon(FeatherIcons.twitter),
               10.width,
               Text(contact?.twitter ?? ""),
             ],
           ).paddingAll(8),
         Row(
           children: [
-            Icon(Icons.location_on),
+            const Icon(Icons.location_on),
             10.width,
             Text('${contact?.address} \n${contact?.pinCode}'),
           ],

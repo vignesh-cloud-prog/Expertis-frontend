@@ -15,8 +15,7 @@ class SetAppointmentStatus extends StatefulWidget {
   final String appointmentId;
   final String status;
   const SetAppointmentStatus(
-      {Key? key, required this.appointmentId, required this.status})
-      : super(key: key);
+      {super.key, required this.appointmentId, required this.status});
 
   @override
   State<SetAppointmentStatus> createState() => _SetAppointmentStatusState();
@@ -86,9 +85,7 @@ class _SetAppointmentStatusState extends State<SetAppointmentStatus> {
                     AppButton(
                       shapeBorder: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32)),
-                      child: Text('View Appointments',
-                          style: boldTextStyle(color: Colors.white)),
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       width: 150,
                       color: bmPrimaryColor,
                       onTap: () {
@@ -101,6 +98,8 @@ class _SetAppointmentStatusState extends State<SetAppointmentStatus> {
                               .beamToReplacementNamed(RoutesName.appointment);
                         }
                       },
+                      child: Text('View Appointments',
+                          style: boldTextStyle(color: Colors.white)),
                     ),
                   ],
                 ).paddingAll(20),

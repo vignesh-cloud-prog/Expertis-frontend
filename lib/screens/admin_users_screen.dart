@@ -7,7 +7,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 class AdminUsersHomeScreen extends StatefulWidget {
-  AdminUsersHomeScreen({Key? key}) : super(key: key);
+  const AdminUsersHomeScreen({super.key});
 
   @override
   State<AdminUsersHomeScreen> createState() => _AdminUsersHomeScreenState();
@@ -44,7 +44,7 @@ class _AdminUsersHomeScreenState extends State<AdminUsersHomeScreen> {
                   ListView.builder(
                       shrinkWrap: true,
                       itemCount: value.userList.data?.users?.length,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (ctx, index) {
                         return Container(
                           decoration: BoxDecoration(

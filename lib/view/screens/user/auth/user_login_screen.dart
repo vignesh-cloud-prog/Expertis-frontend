@@ -11,7 +11,7 @@ import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
 class BMLoginScreen extends StatefulWidget {
-  const BMLoginScreen({Key? key}) : super(key: key);
+  const BMLoginScreen({super.key});
 
   @override
   State<BMLoginScreen> createState() => _BMLoginScreenState();

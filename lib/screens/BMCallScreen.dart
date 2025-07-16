@@ -7,7 +7,7 @@ import '../utils/BMColors.dart';
 class BMCallScreen extends StatefulWidget {
   String? image;
 
-  BMCallScreen({this.image});
+  BMCallScreen({super.key, this.image});
 
   @override
   State<BMCallScreen> createState() => _BMCallScreenState();
@@ -23,12 +23,12 @@ class _BMCallScreenState extends State<BMCallScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: context.height(),
         width: context.width(),
         child: Stack(
           children: [
-            PurchaseMoreScreen(),
+            const PurchaseMoreScreen(),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +42,7 @@ class _BMCallScreenState extends State<BMCallScreen> {
                     .cornerRadiusWithClipRRect(24)
                     .paddingSymmetric(vertical: 46, horizontal: 20),
                 Container(
-                  padding: EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(30),
                   decoration: BoxDecoration(
                       borderRadius: radiusOnly(topLeft: 32, topRight: 32),
                       color: bmSpecialColorDark.withOpacity(0.7)),
@@ -52,7 +52,7 @@ class _BMCallScreenState extends State<BMCallScreen> {
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.videocam_off,
                             color: bmPrimaryColor,
                             size: 30,
@@ -65,7 +65,7 @@ class _BMCallScreenState extends State<BMCallScreen> {
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.flip_camera_ios,
                             color: bmPrimaryColor,
                             size: 30,
@@ -78,7 +78,7 @@ class _BMCallScreenState extends State<BMCallScreen> {
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.mic_off,
                             color: bmPrimaryColor,
                             size: 30,
@@ -96,7 +96,7 @@ class _BMCallScreenState extends State<BMCallScreen> {
                             width: 40,
                             decoration: BoxDecoration(
                                 color: Colors.red, borderRadius: radius(100)),
-                            child: Icon(
+                            child: const Icon(
                               Icons.call_end,
                               color: Colors.white,
                             ),

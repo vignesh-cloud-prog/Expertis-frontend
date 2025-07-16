@@ -15,7 +15,7 @@ class ShopCardHomeComponent extends StatefulWidget {
   bool isFavList;
 
   ShopCardHomeComponent(
-      {required this.element,
+      {super.key, required this.element,
       required this.fullScreenComponent,
       required this.isFavList});
 
@@ -65,20 +65,20 @@ class _ShopCardHomeComponentState extends State<ShopCardHomeComponent> {
               saveTag
                   ? Container(
                       color: bmTextColorDarkMode.shade400,
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                       child: Row(
                         children: [
-                          Icon(Icons.local_offer_rounded,
+                          const Icon(Icons.local_offer_rounded,
                               color: Color(0xff808080), size: 16),
                           2.width,
                           Text(
                             'Save up to 20% for next booking!',
-                            style: secondaryTextStyle(color: Color(0xff636161)),
+                            style: secondaryTextStyle(color: const Color(0xff636161)),
                           ).expand(),
                         ],
                       ),
                     )
-                  : Offstage(),
+                  : const Offstage(),
               8.height,
               Text(widget.element.shopName ?? '',
                       style: boldTextStyle(
@@ -101,7 +101,7 @@ class _ShopCardHomeComponentState extends State<ShopCardHomeComponent> {
                 children: [
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.star,
                         color: Colors.amber,
                       ),

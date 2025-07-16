@@ -11,7 +11,7 @@ import '../utils/BMWidgets.dart';
 class BMShoppingScreen extends StatefulWidget {
   bool isOrders;
 
-  BMShoppingScreen({required this.isOrders});
+  BMShoppingScreen({super.key, required this.isOrders});
 
   @override
   State<BMShoppingScreen> createState() => _BMShoppingScreenState();
@@ -47,12 +47,12 @@ class _BMShoppingScreenState extends State<BMShoppingScreen> {
             ? appStore.scaffoldBackground!
             : bmLightScaffoldBackgroundColor,
         elevation: 0,
-        iconTheme: IconThemeData(color: bmPrimaryColor),
+        iconTheme: const IconThemeData(color: bmPrimaryColor),
         leadingWidth: 30,
         title: titleText(title: widget.isOrders ? 'Orders' : 'Shopping'),
       ),
       body: Container(
-        margin: EdgeInsets.only(top: 16),
+        margin: const EdgeInsets.only(top: 16),
         decoration: BoxDecoration(
             color: appStore.isDarkModeOn
                 ? bmSecondBackgroundColorDark
@@ -62,11 +62,11 @@ class _BMShoppingScreenState extends State<BMShoppingScreen> {
           child: Column(
             children: [
               widget.isOrders
-                  ? Offstage()
+                  ? const Offstage()
                   : Column(
                       children: [
                         HorizontalList(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           itemCount: tabList.length,
                           itemBuilder: (context, index) {
                             return Container(
@@ -76,7 +76,7 @@ class _BMShoppingScreenState extends State<BMShoppingScreen> {
                                     ? bmPrimaryColor
                                     : Colors.transparent,
                               ),
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               child: Text(
                                 tabList[index],
                                 style: boldTextStyle(
@@ -96,17 +96,17 @@ class _BMShoppingScreenState extends State<BMShoppingScreen> {
                         ),
                         16.height,
                         Container(
-                          margin: EdgeInsets.all(16),
+                          margin: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             color: bmPrimaryColor.withAlpha(50),
                             borderRadius: radius(100),
                             border: Border.all(color: bmPrimaryColor),
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: AppTextField(
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                prefixIcon: Icon(Icons.search_sharp,
+                                prefixIcon: const Icon(Icons.search_sharp,
                                     color: bmPrimaryColor),
                                 hintText: 'Search for Products',
                                 hintStyle:
@@ -124,9 +124,9 @@ class _BMShoppingScreenState extends State<BMShoppingScreen> {
                       ],
                     ),
               widget.isOrders
-                  ? PurchaseMoreScreen().withSize(
+                  ? const PurchaseMoreScreen().withSize(
                       width: context.width(), height: context.height())
-                  : Offstage(),
+                  : const Offstage(),
               40.height,
             ],
           ),

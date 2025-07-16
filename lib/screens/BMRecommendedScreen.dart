@@ -8,7 +8,7 @@ import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
 class BMRecommendedScreen extends StatefulWidget {
-  const BMRecommendedScreen({Key? key}) : super(key: key);
+  const BMRecommendedScreen({super.key});
 
   @override
   State<BMRecommendedScreen> createState() => _BMRecommendedScreenState();
@@ -41,7 +41,7 @@ class _BMRecommendedScreenState extends State<BMRecommendedScreen> {
             : bmLightScaffoldBackgroundColor,
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: 30, color: bmPrimaryColor),
+          icon: const Icon(Icons.arrow_back, size: 30, color: bmPrimaryColor),
           onPressed: () {
             finish(context);
           },
@@ -49,7 +49,7 @@ class _BMRecommendedScreenState extends State<BMRecommendedScreen> {
         title: titleText(title: 'Recommended for you'),
         actions: [
           IconButton(
-            icon: Icon(Icons.search_sharp, size: 30, color: bmPrimaryColor),
+            icon: const Icon(Icons.search_sharp, size: 30, color: bmPrimaryColor),
             onPressed: () {
               finish(context);
             },
@@ -57,8 +57,8 @@ class _BMRecommendedScreenState extends State<BMRecommendedScreen> {
           8.width,
         ],
       ),
-      body: PurchaseMoreScreen(),
-      floatingActionButton: BMFloatingActionComponent(),
+      body: const PurchaseMoreScreen(),
+      floatingActionButton: const BMFloatingActionComponent(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

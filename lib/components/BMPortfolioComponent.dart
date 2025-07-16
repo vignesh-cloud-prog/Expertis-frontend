@@ -10,12 +10,14 @@ import '../utils/BMDataGenerator.dart';
 class BMPortfolioComponent extends StatelessWidget {
   List<BMCommonCardModel> portfolioList = getRecommendedList();
 
+  BMPortfolioComponent({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: portfolioList.map((e) {
         return Container(
-          margin: EdgeInsets.symmetric(vertical: 8),
+          margin: const EdgeInsets.symmetric(vertical: 8),
           width: context.width() - 32,
           decoration:
               BoxDecoration(color: context.cardColor, borderRadius: radius(32)),
@@ -39,7 +41,7 @@ class BMPortfolioComponent extends StatelessWidget {
               4.height,
               Row(
                 children: [
-                  Icon(Icons.favorite, color: bmPrimaryColor, size: 16),
+                  const Icon(Icons.favorite, color: bmPrimaryColor, size: 16),
                   2.width,
                   Text(e.likes!,
                       style: secondaryTextStyle(
@@ -48,7 +50,7 @@ class BMPortfolioComponent extends StatelessWidget {
                               : bmPrimaryColor,
                           size: 14)),
                   8.width,
-                  Icon(Icons.messenger, color: bmPrimaryColor, size: 16),
+                  const Icon(Icons.messenger, color: bmPrimaryColor, size: 16),
                   2.width,
                   Text(e.comments!,
                       style: secondaryTextStyle(

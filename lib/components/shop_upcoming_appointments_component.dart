@@ -11,8 +11,7 @@ import '../utils/BMColors.dart';
 
 class ShopUpcomingAppointmentComponent extends StatefulWidget {
   final String? shopId;
-  const ShopUpcomingAppointmentComponent({Key? key, required this.shopId})
-      : super(key: key);
+  const ShopUpcomingAppointmentComponent({super.key, required this.shopId});
 
   @override
   State<ShopUpcomingAppointmentComponent> createState() =>
@@ -69,7 +68,7 @@ class _ShopUpcomingAppointmentComponentState
                       ? bmPrimaryColor
                       : Colors.transparent,
                 ),
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: Text(
                   tabList[index],
                   style: boldTextStyle(
@@ -122,7 +121,7 @@ class _ShopUpcomingAppointmentComponentState
                                     return BMAppointmentComponent(element: e);
                                   }).toList() ??
                                   [
-                                    Center(
+                                    const Center(
                                       child: Text('No upcoming appointments'),
                                     ),
                                   ],
@@ -133,7 +132,7 @@ class _ShopUpcomingAppointmentComponentState
                                     return BMAppointmentComponent(element: e);
                                   }).toList() ??
                                   [
-                                    Center(
+                                    const Center(
                                       child: Text('No pending appointments'),
                                     ),
                                   ],

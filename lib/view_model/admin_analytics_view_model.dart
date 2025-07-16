@@ -65,7 +65,7 @@ class AdminAnalyticsViewModel with ChangeNotifier {
     setCategoryList(ApiResponse.loading());
 
     _myRepo.fetchAdminAnalytics().then((value) {
-      print("value is ${value}");
+      print("value is $value");
       adminAnalyticsData['total_users']?.count = value["data"]['noOfUsers'];
       adminAnalyticsData['total_shops']?.count = value["data"]['noOfShops'];
       adminAnalyticsData['total_services']?.count =
@@ -74,7 +74,7 @@ class AdminAnalyticsViewModel with ChangeNotifier {
       adminAnalyticsData['total_appointments']?.count =
           value["data"]['noOfAppointments'];
 
-      print("value is ${value}");
+      print("value is $value");
       setCategoryList(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
       // print("error ${error.toString()}");

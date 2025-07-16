@@ -25,7 +25,7 @@ class ReviewModel {
       this.id});
 
   ReviewModel.fromJson(Map<String, dynamic> json) {
-    from = json['from'] != null ? new UserModel.fromJson(json['from']) : null;
+    from = json['from'] != null ? UserModel.fromJson(json['from']) : null;
     modelType = json['model_type'];
     to = json['to'];
     comment = json['comment'];
@@ -38,17 +38,17 @@ class ReviewModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['from'] = this.from;
-    data['model_type'] = this.modelType;
-    data['to'] = this.to;
-    data['comment'] = this.comment;
-    data['createdAt'] = this.createdAt;
-    data['rating'] = this.rating;
-    data['reviewPhotos'] = this.reviewPhotos;
-    data['updatedAt'] = this.updatedAt;
-    data['id'] = this.id;
-    data['title'] = this.title;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['from'] = from;
+    data['model_type'] = modelType;
+    data['to'] = to;
+    data['comment'] = comment;
+    data['createdAt'] = createdAt;
+    data['rating'] = rating;
+    data['reviewPhotos'] = reviewPhotos;
+    data['updatedAt'] = updatedAt;
+    data['id'] = id;
+    data['title'] = title;
 
     return data;
   }

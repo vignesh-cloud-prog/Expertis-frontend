@@ -7,7 +7,7 @@ import 'package:nb_utils/nb_utils.dart';
 class PurchaseMoreScreen extends StatelessWidget {
   final bool? enableAppbar;
 
-  PurchaseMoreScreen({this.enableAppbar = false});
+  const PurchaseMoreScreen({super.key, this.enableAppbar = false});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class PurchaseMoreScreen extends StatelessWidget {
         backgroundColor: bmLightScaffoldBackgroundColor,
         body: Stack(
           children: [
-            Icon(Icons.arrow_back, size: 24).paddingAll(16).onTap(() {
+            const Icon(Icons.arrow_back, size: 24).paddingAll(16).onTap(() {
               finish(context);
             }).visible(enableAppbar!),
             SizedBox(
@@ -27,7 +27,7 @@ class PurchaseMoreScreen extends StatelessWidget {
                 children: [
                   Container(
                     decoration: boxDecorationDefault(),
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: Image.asset("images/beautymaster_logo.png",
                         height: 100),
                   ),

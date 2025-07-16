@@ -10,7 +10,7 @@ import 'BMAppointmentComponent.dart';
 class BMAppointMentTabComponent extends StatefulWidget {
   bool tabOne;
 
-  BMAppointMentTabComponent({Key? key, required this.tabOne}) : super(key: key);
+  BMAppointMentTabComponent({super.key, required this.tabOne});
 
   @override
   State<BMAppointMentTabComponent> createState() =>

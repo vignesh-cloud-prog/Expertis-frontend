@@ -83,7 +83,7 @@ class ShopAnalyticsViewModel with ChangeNotifier {
     setCategoryList(ApiResponse.loading());
 
     _myRepo.fetchShopAnalytics(shopId).then((value) {
-      print("value is ${value}");
+      print("value is $value");
       ShopAnalyticsData['views']!.count = value["data"]['views'].length;
       ShopAnalyticsData['favorites']!.count =
           value["data"]["shop"]['likes'].length;
@@ -104,7 +104,7 @@ class ShopAnalyticsViewModel with ChangeNotifier {
       // ShopAnalyticsData['rejected']!.count =
       //     value["data"]['appointments']["rejected"];
 
-      print("value is ${value}");
+      print("value is $value");
       setCategoryList(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
       // print("error ${error.toString()}");

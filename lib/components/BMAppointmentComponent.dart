@@ -13,7 +13,7 @@ import '../utils/BMWidgets.dart';
 class BMAppointmentComponent extends StatefulWidget {
   AppointmentModel element;
 
-  BMAppointmentComponent({required this.element});
+  BMAppointmentComponent({super.key, required this.element});
 
   @override
   _BMAppointmentComponentState createState() => _BMAppointmentComponentState();

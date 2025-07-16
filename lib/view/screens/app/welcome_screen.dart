@@ -6,7 +6,7 @@ import '../../../utils/BMColors.dart';
 import '../user/home/user_home_screen.dart';
 
 class BMWelcomeScreen extends StatelessWidget {
-  const BMWelcomeScreen({Key? key}) : super(key: key);
+  const BMWelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +35,14 @@ class BMWelcomeScreen extends StatelessWidget {
           AppButton(
             shapeBorder:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-            child:
-                Text('Let\'s Start', style: boldTextStyle(color: Colors.white)),
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             width: 150,
             color: bmPrimaryColor,
             onTap: () {
               UserHomeScreen().launch(context);
             },
+            child:
+                Text('Let\'s Start', style: boldTextStyle(color: Colors.white)),
           ),
         ],
       ).paddingAll(20),

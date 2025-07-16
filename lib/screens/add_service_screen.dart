@@ -10,7 +10,7 @@ import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
 class CreateServiceScreen extends StatefulWidget {
-  const CreateServiceScreen({Key? key}) : super(key: key);
+  const CreateServiceScreen({super.key});
 
   @override
   State<CreateServiceScreen> createState() => _CreateServiceScreenState();

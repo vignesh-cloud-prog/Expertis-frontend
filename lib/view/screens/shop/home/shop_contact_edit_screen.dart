@@ -18,8 +18,7 @@ class ShopContactEditScreen extends StatefulWidget {
   bool isAdmin;
 
   ShopContactEditScreen(
-      {Key? key, this.shopId, this.shop, this.isAdmin = false})
-      : super(key: key);
+      {super.key, this.shopId, this.shop, this.isAdmin = false});
 
   @override
   ShopContactEditScreenState createState() => ShopContactEditScreenState();
@@ -51,11 +50,12 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.isAdmin)
+    if (!widget.isAdmin) {
       UserViewModel.getUser().then((value) {
         widget.shop?.id = value.shop?.first.id;
         widget.shop?.owner = value.id;
       });
+    }
 
     ShopViewModel shopViewModel = Provider.of<ShopViewModel>(context);
 
@@ -303,7 +303,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                     suffixIconColor: bmPrimaryColor,
                     decoration: InputDecoration(
                       hintText: 'WhatsApp',
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         FontAwesomeIcons.whatsapp,
                         color: bmPrimaryColor,
                       ),
@@ -344,7 +344,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                             ? bmTextColorDarkMode
                             : bmPrimaryColor),
                     decoration: InputDecoration(
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.edit_location_alt_outlined,
                         color: bmPrimaryColor,
                       ),
@@ -387,7 +387,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                             ? bmTextColorDarkMode
                             : bmPrimaryColor),
                     decoration: InputDecoration(
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.web,
                         color: bmPrimaryColor,
                       ),
@@ -430,7 +430,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                             ? bmTextColorDarkMode
                             : bmPrimaryColor),
                     decoration: InputDecoration(
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         FeatherIcons.facebook,
                         color: bmPrimaryColor,
                       ),
@@ -473,7 +473,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                             ? bmTextColorDarkMode
                             : bmPrimaryColor),
                     decoration: InputDecoration(
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         FeatherIcons.instagram,
                         color: bmPrimaryColor,
                       ),
@@ -516,7 +516,7 @@ class ShopContactEditScreenState extends State<ShopContactEditScreen> {
                             ? bmTextColorDarkMode
                             : bmPrimaryColor),
                     decoration: InputDecoration(
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         FeatherIcons.twitter,
                         color: bmPrimaryColor,
                       ),

@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 
 class ServicesHomeScreen extends StatefulWidget {
   String? shopId;
-  ServicesHomeScreen({Key? key, required this.shopId}) : super(key: key);
+  ServicesHomeScreen({super.key, required this.shopId});
 
   @override
   State<ServicesHomeScreen> createState() => _ServicesHomeScreenState();
@@ -60,7 +60,7 @@ class _ServicesHomeScreenState extends State<ServicesHomeScreen> {
                 );
               case Status.COMPLETED:
                 List<Services>? services = value.services.data?.services;
-                return services!.length > 0
+                return services!.isNotEmpty
                     ? ListView.builder(
                         shrinkWrap: true,
                         itemCount: value.services.data?.services?.length,
@@ -73,7 +73,7 @@ class _ServicesHomeScreenState extends State<ServicesHomeScreen> {
                                 element: value.services.data?.services![index]),
                           ).paddingAll(12);
                         })
-                    : Center(
+                    : const Center(
                         child: Text('No Service added'),
                       ).paddingAll(16);
 

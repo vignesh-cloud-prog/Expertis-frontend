@@ -21,8 +21,7 @@ class ShopViewScreen extends StatefulWidget {
   final String shopId;
   final int selectedTab;
 
-  const ShopViewScreen({Key? key, required this.shopId, this.selectedTab = 0})
-      : super(key: key);
+  const ShopViewScreen({super.key, required this.shopId, this.selectedTab = 0});
 
   @override
   ShopViewScreenState createState() => ShopViewScreenState();
@@ -48,7 +47,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
           shop: shop,
         );
       case 2:
-        print("shop id in shop detail screen ${id}");
+        print("shop id in shop detail screen $id");
         return ShopReviewComponent(
           shopId: id,
         );
@@ -126,7 +125,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                           ? appStore.scaffoldBackground!
                           : bmLightScaffoldBackgroundColor,
                       leading: IconButton(
-                        icon: Icon(Icons.arrow_back, color: bmPrimaryColor),
+                        icon: const Icon(Icons.arrow_back, color: bmPrimaryColor),
                         onPressed: () {
                           Navigator.of(context).maybePop();
                         },
@@ -135,7 +134,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                           .visible(innerBoxIsScrolled),
                       actions: [
                         IconButton(
-                          icon: Icon(Icons.subdirectory_arrow_right,
+                          icon: const Icon(Icons.subdirectory_arrow_right,
                               color: bmPrimaryColor),
                           onPressed: () {
                             // BMSingleImageScreen(element: widget.element)
@@ -144,8 +143,8 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                         ).visible(innerBoxIsScrolled),
                         IconButton(
                           icon: isLiked
-                              ? Icon(Icons.favorite, color: bmPrimaryColor)
-                              : Icon(Icons.favorite_outline,
+                              ? const Icon(Icons.favorite, color: bmPrimaryColor)
+                              : const Icon(Icons.favorite_outline,
                                   color: bmPrimaryColor),
                           onPressed: () {
                             isLiked = !isLiked;
@@ -159,7 +158,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                       expandedHeight: 450,
                       flexibleSpace: FlexibleSpaceBar(
                         titlePadding:
-                            EdgeInsets.only(bottom: 66, left: 30, right: 50),
+                            const EdgeInsets.only(bottom: 66, left: 30, right: 50),
                         collapseMode: CollapseMode.parallax,
                         background: Column(
                           children: [
@@ -176,49 +175,49 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      child: Icon(Icons.arrow_back,
-                                          color: bmPrimaryColor),
                                       decoration: BoxDecoration(
                                         borderRadius: radius(100),
                                         color: context.cardColor,
                                       ),
-                                      padding: EdgeInsets.all(8),
+                                      padding: const EdgeInsets.all(8),
                                       margin:
-                                          EdgeInsets.only(left: 16, top: 30),
+                                          const EdgeInsets.only(left: 16, top: 30),
+                                      child: const Icon(Icons.arrow_back,
+                                          color: bmPrimaryColor),
                                     ).onTap(() {
                                       finish(context);
                                     }, borderRadius: radius(100)),
                                     Row(
                                       children: [
                                         Container(
-                                          child: Icon(
-                                              Icons.subdirectory_arrow_right,
-                                              color: bmPrimaryColor),
                                           decoration: BoxDecoration(
                                             borderRadius: radius(100),
                                             color: context.cardColor,
                                           ),
-                                          padding: EdgeInsets.all(8),
-                                          margin: EdgeInsets.only(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(
                                               right: 16, top: 30),
+                                          child: const Icon(
+                                              Icons.subdirectory_arrow_right,
+                                              color: bmPrimaryColor),
                                         ).onTap(() {
                                           // BMSingleImageScreen(
                                           //         element: widget.element)
                                           //     .launch(context);
                                         }, borderRadius: radius(100)),
                                         Container(
-                                          child: isLiked
-                                              ? Icon(Icons.favorite,
-                                                  color: bmPrimaryColor)
-                                              : Icon(Icons.favorite_outline,
-                                                  color: bmPrimaryColor),
                                           decoration: BoxDecoration(
                                             borderRadius: radius(100),
                                             color: context.cardColor,
                                           ),
-                                          padding: EdgeInsets.all(8),
-                                          margin: EdgeInsets.only(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(
                                               right: 16, top: 30),
+                                          child: isLiked
+                                              ? const Icon(Icons.favorite,
+                                                  color: bmPrimaryColor)
+                                              : const Icon(Icons.favorite_outline,
+                                                  color: bmPrimaryColor),
                                         ).onTap(() {
                                           isLiked = !isLiked;
                                           setState(() {});
@@ -230,7 +229,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                               ],
                             ),
                             Container(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               color: appStore.isDarkModeOn
                                   ? appStore.scaffoldBackground!
                                   : bmLightScaffoldBackgroundColor,
@@ -262,8 +261,8 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                         itemCount: 5,
                                         itemSize: 18,
                                         itemPadding:
-                                            EdgeInsets.symmetric(horizontal: 0),
-                                        itemBuilder: (context, _) => Icon(
+                                            const EdgeInsets.symmetric(horizontal: 0),
+                                        itemBuilder: (context, _) => const Icon(
                                           Icons.star,
                                           color: Colors.amber,
                                         ),
@@ -291,11 +290,11 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                               : bmLightScaffoldBackgroundColor,
                                           borderRadius: radius(32),
                                         ),
-                                        padding: EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(8),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Icon(Icons.call_outlined,
+                                            const Icon(Icons.call_outlined,
                                                 color: bmPrimaryColor),
                                             4.width,
                                             Text('Call us',
@@ -319,7 +318,7 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                               : bmLightScaffoldBackgroundColor,
                                           borderRadius: radius(32),
                                         ),
-                                        padding: EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(8),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [

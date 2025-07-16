@@ -14,7 +14,7 @@ import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
 class UserMoreComponent extends StatefulWidget {
-  const UserMoreComponent({Key? key}) : super(key: key);
+  const UserMoreComponent({super.key});
 
   @override
   State<UserMoreComponent> createState() => _UserMoreComponentState();
@@ -47,7 +47,7 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
           ? appStore.scaffoldBackground!
           : bmLightScaffoldBackgroundColor,
       body: user == null
-          ? CircularProgressIndicator().center()
+          ? const CircularProgressIndicator().center()
           : SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +117,7 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
 
                           SettingItemWidget(
                             title: 'Edit Profile',
-                            leading: Icon(Icons.edit,
+                            leading: const Icon(Icons.edit,
                                 color: bmPrimaryColor, size: 30),
                             titleTextStyle: boldTextStyle(
                                 size: 20,
@@ -131,7 +131,7 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
                           ),
                           SettingItemWidget(
                             title: 'Check Appointments',
-                            leading: Icon(Icons.calendar_today,
+                            leading: const Icon(Icons.calendar_today,
                                 color: bmPrimaryColor, size: 30),
                             titleTextStyle: boldTextStyle(
                                 size: 20,
@@ -145,7 +145,7 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
                           ),
                           SettingItemWidget(
                             title: 'Favourites',
-                            leading: Icon(Icons.favorite,
+                            leading: const Icon(Icons.favorite,
                                 color: bmPrimaryColor, size: 30),
                             titleTextStyle: boldTextStyle(
                                 size: 20,
@@ -153,14 +153,14 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
                                     ? white
                                     : bmSpecialColorDark),
                             onTap: () {
-                              BMFavouritesScreen().launch(context);
+                              const BMFavouritesScreen().launch(context);
                             },
                           ),
                           user!.roles?.isShopOwner == true
                               ? user!.shop?.isEmpty == false
                                   ? SettingItemWidget(
                                       title: 'Dashboard',
-                                      leading: Icon(Icons.dashboard,
+                                      leading: const Icon(Icons.dashboard,
                                           color: bmPrimaryColor, size: 30),
                                       titleTextStyle: boldTextStyle(
                                           size: 20,
@@ -175,7 +175,7 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
                                     )
                                   : SettingItemWidget(
                                       title: 'Create Shop',
-                                      leading: Icon(Icons.add_business,
+                                      leading: const Icon(Icons.add_business,
                                           color: bmPrimaryColor, size: 30),
                                       titleTextStyle: boldTextStyle(
                                           size: 20,
@@ -191,7 +191,7 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
                           if (user!.roles!.isAdmin == true)
                             SettingItemWidget(
                               title: 'Admin Dashboard',
-                              leading: Icon(Icons.add_home_work_outlined,
+                              leading: const Icon(Icons.add_home_work_outlined,
                                   color: bmPrimaryColor, size: 30),
                               titleTextStyle: boldTextStyle(
                                   size: 20,
@@ -205,7 +205,7 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
                             ),
                           SettingItemWidget(
                             title: 'Contact Us',
-                            leading: Icon(Icons.call,
+                            leading: const Icon(Icons.call,
                                 color: bmPrimaryColor, size: 30),
                             titleTextStyle: boldTextStyle(
                                 size: 20,
@@ -231,7 +231,6 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
                                   });
                               Beamer.of(context)
                                   .popToNamed(RoutesName.onboarding);
-                              ;
                             },
                           )
                         ],

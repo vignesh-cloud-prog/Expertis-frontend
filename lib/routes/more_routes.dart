@@ -19,7 +19,7 @@ class MoreLocation extends BeamLocation<BeamState> {
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
       BeamPage(
-          key: ValueKey(RoutesName.more),
+          key: const ValueKey(RoutesName.more),
           title: 'More',
           child: UserHomeScreen(),
           type: BeamPageType.slideTransition),

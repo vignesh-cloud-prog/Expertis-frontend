@@ -5,7 +5,7 @@ import '../main.dart';
 import '../utils/BMColors.dart';
 
 class BMNoInternetScreen extends StatefulWidget {
-  const BMNoInternetScreen({Key? key}) : super(key: key);
+  const BMNoInternetScreen({super.key});
   static const routeName = '/no-internet';
   @override
   State<BMNoInternetScreen> createState() => _BMNoInternetScreenState();
@@ -56,13 +56,13 @@ class _BMNoInternetScreenState extends State<BMNoInternetScreen> {
             AppButton(
               shapeBorder: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32)),
-              child: Text('Retry', style: boldTextStyle(color: Colors.white)),
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               width: 150,
               color: bmPrimaryColor,
               onTap: () {
                 setState(() {});
               },
+              child: Text('Retry', style: boldTextStyle(color: Colors.white)),
             ),
           ],
         ).paddingAll(20),

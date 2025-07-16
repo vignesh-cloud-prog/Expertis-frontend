@@ -154,7 +154,7 @@ class UserViewModel with ChangeNotifier {
     _myRepo.addOrRemoveFav(shopId, islike).then((value) {
       print(' data ${value['data']}');
       List<String> favShops = List<String>.from(value['data']['favlist']);
-      print("${favShops} favoriteShops");
+      print("$favShops favoriteShops");
       user!.favoriteShops = favShops;
       print('user.favoriteShops: ${user!.favoriteShops}');
       String? action;
@@ -163,7 +163,7 @@ class UserViewModel with ChangeNotifier {
       } else {
         action = "Added";
       }
-      Utils.toastMessage("${action} Successfully");
+      Utils.toastMessage("$action Successfully");
     }).onError((error, stackTrace) {
       setLoading(false);
       Utils.flushBarErrorMessage(error.toString(), context);

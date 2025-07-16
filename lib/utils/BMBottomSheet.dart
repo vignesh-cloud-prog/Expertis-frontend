@@ -202,24 +202,24 @@ void showFilterBottomSheet(BuildContext context) {
                         borderRadius: BorderRadius.circular(32),
                         side:
                             const BorderSide(color: bmPrimaryColor, width: 2)),
-                    child: Text('Clear', style: boldTextStyle()),
                     padding: const EdgeInsets.all(16),
                     color: context.cardColor,
                     onTap: () {
                       //
                     },
+                    child: Text('Clear', style: boldTextStyle()),
                   ),
                   16.width,
                   AppButton(
                     shapeBorder: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(32)),
-                    child: Text('Show places',
-                        style: boldTextStyle(color: Colors.white)),
                     padding: const EdgeInsets.all(16),
                     color: bmPrimaryColor,
                     onTap: () {
                       //
                     },
+                    child: Text('Show places',
+                        style: boldTextStyle(color: Colors.white)),
                   ).expand(),
                 ],
               ),
@@ -309,7 +309,7 @@ void showCommentBottomSheet(BuildContext context) {
   List<BMCommentModel> list = getCommentsList();
 
   TextEditingController comment = TextEditingController();
-  var form_key = GlobalKey<FormState>();
+  var formKey = GlobalKey<FormState>();
 
   showModalBottomSheet(
       backgroundColor: appStore.isDarkModeOn
@@ -349,7 +349,7 @@ void showCommentBottomSheet(BuildContext context) {
                 }).toList(),
               ).paddingSymmetric(horizontal: 16),
               Form(
-                key: form_key,
+                key: formKey,
                 child: Container(
                   decoration: BoxDecoration(
                       color: context.cardColor,
@@ -384,7 +384,7 @@ void showCommentBottomSheet(BuildContext context) {
                           icon: const Icon(Icons.arrow_upward,
                               color: Colors.white),
                           onPressed: () {
-                            if (form_key.currentState!.validate() &&
+                            if (formKey.currentState!.validate() &&
                                 comment.text != '') {
                               list.add(BMCommentModel(
                                   isSubComment: false,

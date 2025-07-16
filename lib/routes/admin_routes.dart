@@ -64,7 +64,7 @@ class AdminLocation extends BeamLocation<BeamState> {
           state.uri.pathSegments.contains('admin') &&
           state.uri.pathSegments.contains('create'))
         BeamPage(
-          key: ValueKey(RoutesName.createTag),
+          key: const ValueKey(RoutesName.createTag),
           title: 'Create Tag',
           child: CreateUpdateTagScreen(),
         ),

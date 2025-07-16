@@ -15,9 +15,9 @@ class ShopListModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.shops != null) {
-      data['shops'] = this.shops!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (shops != null) {
+      data['shops'] = shops!.map((v) => v.toJson()).toList();
     }
     return data;
   }

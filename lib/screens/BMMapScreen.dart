@@ -12,6 +12,8 @@ import '../utils/BMDataGenerator.dart';
 class BMMapScreen extends StatefulWidget {
   static String tag = '/BMMapScreen';
 
+  const BMMapScreen({super.key});
+
   @override
   BMMapScreenState createState() => BMMapScreenState();
 }
@@ -44,7 +46,7 @@ class BMMapScreenState extends State<BMMapScreen> {
           : bmLightScaffoldBackgroundColor,
       body: Stack(
         children: [
-          PurchaseMoreScreen(),
+          const PurchaseMoreScreen(),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -58,7 +60,7 @@ class BMMapScreenState extends State<BMMapScreen> {
                             color: context.cardColor,
                             borderRadius: radius(100)),
                         child: IconButton(
-                          icon: Icon(Icons.arrow_back, color: bmPrimaryColor),
+                          icon: const Icon(Icons.arrow_back, color: bmPrimaryColor),
                           onPressed: () {
                             finish(context);
                           },
@@ -66,13 +68,13 @@ class BMMapScreenState extends State<BMMapScreen> {
                       ),
                       8.width,
                       Container(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                             color: context.cardColor,
                             borderRadius: radius(100)),
                         child: Row(
                           children: [
-                            Icon(Icons.location_on_outlined,
+                            const Icon(Icons.location_on_outlined,
                                 color: bmPrimaryColor),
                             8.width,
                             Text('New York', style: boldTextStyle()),
@@ -83,7 +85,7 @@ class BMMapScreenState extends State<BMMapScreen> {
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                         color: context.cardColor, borderRadius: radius(100)),
                     child: Image.asset('images/adjust.png',
@@ -92,7 +94,7 @@ class BMMapScreenState extends State<BMMapScreen> {
                 ],
               ).paddingOnly(left: 16, top: 30, right: 16),
               HorizontalList(
-                padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
                 spacing: 12,
                 itemCount: recommendedList.length,
                 itemBuilder: (context, index) {
@@ -104,18 +106,18 @@ class BMMapScreenState extends State<BMMapScreen> {
         ],
       ),
       floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: 110),
+        padding: const EdgeInsets.only(bottom: 110),
         child: FloatingActionButton(
           onPressed: () {
             //
           },
           mini: true,
           backgroundColor: context.cardColor,
-          child: Icon(Icons.my_location, color: bmPrimaryColor),
+          child: const Icon(Icons.my_location, color: bmPrimaryColor),
         ),
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
             color: context.cardColor,
             borderRadius: radiusOnly(topRight: 32, topLeft: 32)),

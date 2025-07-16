@@ -6,7 +6,7 @@ import '../utils/BMColors.dart';
 import 'BMEnableNotificationScreen.dart';
 
 class BMEnableLocationScreen extends StatefulWidget {
-  const BMEnableLocationScreen({Key? key}) : super(key: key);
+  const BMEnableLocationScreen({super.key});
 
   @override
   State<BMEnableLocationScreen> createState() => _BMEnableLocationScreenState();
@@ -63,13 +63,13 @@ class _BMEnableLocationScreenState extends State<BMEnableLocationScreen> {
                 width: context.width() - 40,
                 shapeBorder: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32)),
-                child: Text('Enable Location',
-                    style: boldTextStyle(color: Colors.white)),
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 color: bmPrimaryColor,
                 onTap: () {
-                  BMEnableNotificationScreen().launch(context);
+                  const BMEnableNotificationScreen().launch(context);
                 },
+                child: Text('Enable Location',
+                    style: boldTextStyle(color: Colors.white)),
               ),
               20.height,
               Text('Maybe Later',

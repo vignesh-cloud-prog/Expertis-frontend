@@ -12,7 +12,7 @@ class SplashServices {
     getUserDate().then((value) async {
       // print(value.token.toString());
 
-      await Future.delayed(Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 3));
       if (value.token.toString() == 'null' || value.token.toString() == '') {
         context.beamToNamed(RoutesName.onboarding);
       }

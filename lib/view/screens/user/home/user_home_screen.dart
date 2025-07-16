@@ -34,9 +34,9 @@ class UserHomeScreenState extends State<UserHomeScreen> {
 
   Widget getFragment() {
     if (selectedTab == 0) {
-      return UserHomeComponent();
+      return const UserHomeComponent();
     } else if (selectedTab == 1) {
-      return PurchaseMoreScreen();
+      return const PurchaseMoreScreen();
     } else if (selectedTab == 2) {
       return UserAppointmentsComponent();
     } else {

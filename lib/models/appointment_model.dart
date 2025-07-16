@@ -37,7 +37,7 @@ class AppointmentModel {
 
   AppointmentModel.fromJson(Map<String, dynamic> json) {
     shopId = json['shopId'] != null ? ShopModel.fromJson(json['shopId']) : null;
-    memberId = json['memberId'] != null ? json['memberId'] : null;
+    memberId = json['memberId'];
     userId = json['userId'] != null ? UserModel.fromJson(json['userId']) : null;
     totalPrice = json['totalPrice'];
     totalTime = json['totalTime'];
@@ -58,7 +58,7 @@ class AppointmentModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (shopId != null) {
       data['shopId'] = shopId!.toJson();
     }

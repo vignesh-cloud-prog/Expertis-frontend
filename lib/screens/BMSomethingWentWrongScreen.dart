@@ -8,8 +8,7 @@ import '../utils/BMColors.dart';
 
 class BMErrorScreen extends StatefulWidget {
   String message;
-  BMErrorScreen({Key? key, this.message = "Internal Error ocurred"})
-      : super(key: key);
+  BMErrorScreen({super.key, this.message = "Internal Error ocurred"});
   static const routeName = '/something-went-wrong';
   @override
   State<BMErrorScreen> createState() => _BMErrorScreenState();
@@ -60,25 +59,25 @@ class _BMErrorScreenState extends State<BMErrorScreen> {
             AppButton(
               shapeBorder: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32)),
-              child: Text('Retry', style: boldTextStyle(color: Colors.white)),
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               width: 150,
               color: bmPrimaryColor,
               onTap: () {
                 Beamer.of(context).beamBack();
               },
+              child: Text('Retry', style: boldTextStyle(color: Colors.white)),
             ),
             10.height,
             AppButton(
               shapeBorder: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32)),
-              child: Text('Home', style: boldTextStyle(color: Colors.white)),
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               width: 150,
               color: bmPrimaryColor,
               onTap: () {
                 Beamer.of(context).beamToNamed(RoutesName.splash);
               },
+              child: Text('Home', style: boldTextStyle(color: Colors.white)),
             ),
           ],
         ).paddingAll(20),

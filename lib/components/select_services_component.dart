@@ -12,7 +12,7 @@ class SelectServiceComponent extends StatefulWidget {
   Services element;
   // BMServiceListModel element;
 
-  SelectServiceComponent({required this.element});
+  SelectServiceComponent({super.key, required this.element});
 
   @override
   State<SelectServiceComponent> createState() => _SelectServiceComponentState();
@@ -99,9 +99,9 @@ class _SelectServiceComponentState extends State<SelectServiceComponent> {
                 borderRadius: radius(100),
                 border: Border.all(color: bmPrimaryColor),
               ),
-              padding: EdgeInsets.all(6),
+              padding: const EdgeInsets.all(6),
               child: InkWell(
-                child: Icon(Icons.info, color: bmPrimaryColor),
+                child: const Icon(Icons.info, color: bmPrimaryColor),
                 onTap: () {
                   showBookBottomSheet(context, widget.element);
                 },

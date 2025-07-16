@@ -15,9 +15,9 @@ class ServicesListModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.services != null) {
-      data['shops'] = this.services!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (services != null) {
+      data['shops'] = services!.map((v) => v.toJson()).toList();
     }
     return data;
   }

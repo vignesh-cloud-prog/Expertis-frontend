@@ -7,7 +7,7 @@ import '../main.dart';
 import '../utils/BMColors.dart';
 
 class BMLoginNowScreen extends StatefulWidget {
-  const BMLoginNowScreen({Key? key}) : super(key: key);
+  const BMLoginNowScreen({super.key});
   static const routeName = '/login-now';
   @override
   State<BMLoginNowScreen> createState() => _BMLoginNowScreenState();
@@ -58,14 +58,14 @@ class _BMLoginNowScreenState extends State<BMLoginNowScreen> {
             AppButton(
               shapeBorder: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32)),
-              child:
-                  Text('Login Now', style: boldTextStyle(color: Colors.white)),
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               width: 150,
               color: bmPrimaryColor,
               onTap: () {
                 Beamer.of(context).beamToReplacementNamed(RoutesName.login);
               },
+              child:
+                  Text('Login Now', style: boldTextStyle(color: Colors.white)),
             ),
           ],
         ).paddingAll(20),

@@ -5,12 +5,12 @@ import '../utils/BMBottomSheet.dart';
 import '../utils/BMColors.dart';
 
 class BMFloatingActionComponent extends StatelessWidget {
-  const BMFloatingActionComponent({Key? key}) : super(key: key);
+  const BMFloatingActionComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration:
           BoxDecoration(color: bmTextColorDarkMode, borderRadius: radius(32)),
       child: Row(

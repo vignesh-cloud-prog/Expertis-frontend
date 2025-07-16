@@ -62,7 +62,7 @@ class NetworkApiService extends BaseApiServices {
     try {
       Response response = await http
           .post(Uri.parse(url), headers: header, body: data)
-          .timeout(Duration(seconds: 120));
+          .timeout(const Duration(seconds: 120));
 
       if (kDebugMode) {
         print("response Post API ${response.body}");
@@ -87,7 +87,7 @@ class NetworkApiService extends BaseApiServices {
     try {
       Response response = await http
           .patch(Uri.parse(url), headers: header, body: data)
-          .timeout(Duration(seconds: 120));
+          .timeout(const Duration(seconds: 120));
 
       if (kDebugMode) {
         print("response Post API ${response.body}");
@@ -159,9 +159,7 @@ class NetworkApiService extends BaseApiServices {
         throw UnauthorizedException(responseJson['message']);
       default:
         throw FetchDataException(
-            'Error occulted while communicating with server' +
-                'with status code' +
-                response.statusCode.toString());
+            'Error occulted while communicating with serverwith status code${response.statusCode}');
     }
   }
 }

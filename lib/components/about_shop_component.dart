@@ -8,7 +8,7 @@ import 'package:nb_utils/nb_utils.dart';
 
 class AboutShopComponent extends StatelessWidget {
   final ShopModel? shop;
-  const AboutShopComponent({Key? key, required this.shop}) : super(key: key);
+  const AboutShopComponent({super.key, required this.shop});
 
   @override
   Widget build(BuildContext context) {

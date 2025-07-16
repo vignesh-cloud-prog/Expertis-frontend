@@ -6,7 +6,7 @@ import '../utils/BMColors.dart';
 import '../view/screens/app/welcome_screen.dart';
 
 class BMEnableNotificationScreen extends StatelessWidget {
-  const BMEnableNotificationScreen({Key? key}) : super(key: key);
+  const BMEnableNotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +44,13 @@ class BMEnableNotificationScreen extends StatelessWidget {
                 width: context.width() - 40,
                 shapeBorder: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32)),
-                child: Text('Enable Notification',
-                    style: boldTextStyle(color: Colors.white)),
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 color: bmPrimaryColor,
                 onTap: () {
-                  BMWelcomeScreen().launch(context);
+                  const BMWelcomeScreen().launch(context);
                 },
+                child: Text('Enable Notification',
+                    style: boldTextStyle(color: Colors.white)),
               ),
               20.height,
               Text('Maybe Later',

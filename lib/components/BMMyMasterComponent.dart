@@ -8,14 +8,16 @@ import '../utils/BMDataGenerator.dart';
 class BMMyMasterComponent extends StatelessWidget {
   List<BMMasterModel> myMasterList = getMyMastersList();
 
+  BMMyMasterComponent({super.key});
+
   @override
   Widget build(BuildContext context) {
     return HorizontalList(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         spacing: 16,
         itemCount: myMasterList.length,
         itemBuilder: (context, index) {
-          return Container(
+          return SizedBox(
               height: 190,
               width: 200,
               child: Container(
@@ -26,7 +28,7 @@ class BMMyMasterComponent extends StatelessWidget {
                       top: 60,
                       child: Container(
                         width: 200,
-                        padding: EdgeInsets.only(top: 50, bottom: 30),
+                        padding: const EdgeInsets.only(top: 50, bottom: 30),
                         decoration: BoxDecoration(
                             borderRadius: radius(32), color: context.cardColor),
                         child: Text(myMasterList[index].name,
@@ -45,14 +47,14 @@ class BMMyMasterComponent extends StatelessWidget {
                       child: AppButton(
                         shapeBorder: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(32)),
-                        child: Text('Book Now',
-                            style: boldTextStyle(color: Colors.white)),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                            const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                         color: bmPrimaryColor,
                         onTap: () {
                           // BMCalenderScreen(isStaffBooking: true).launch(context);
                         },
+                        child: Text('Book Now',
+                            style: boldTextStyle(color: Colors.white)),
                       ),
                     ),
                   ],

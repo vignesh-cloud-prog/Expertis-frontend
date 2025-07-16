@@ -8,7 +8,7 @@ import '../utils/BMColors.dart';
 class BMCardComponentTwo extends StatefulWidget {
   BMCommonCardModel element;
 
-  BMCardComponentTwo({required this.element});
+  BMCardComponentTwo({super.key, required this.element});
 
   @override
   State<BMCardComponentTwo> createState() => _BMCardComponentTwoState();
@@ -38,7 +38,7 @@ class _BMCardComponentTwoState extends State<BMCardComponentTwo> {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.star, color: Colors.amber, size: 18),
+                      const Icon(Icons.star, color: Colors.amber, size: 18),
                       4.width,
                       Text(widget.element.rating!,
                           style: boldTextStyle(size: 14)),

@@ -1,0 +1,11 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.expertis.app",
+      "sha256_cert_fingerprints":
+        ["89:D2:26:F0:7F:1A:73:06:DB:C1:40:16:F2:5F:98:7A:2D:95:AC:E0:DA:B0:C5:6E:4E:CE:9E:C0:72:1C:2E:67"]
+    }
+  }
+]

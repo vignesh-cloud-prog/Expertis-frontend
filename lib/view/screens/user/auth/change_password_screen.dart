@@ -10,7 +10,7 @@ import '../../../../utils/BMColors.dart';
 import '../../../../utils/BMWidgets.dart';
 
 class BMChangePasswordScreen extends StatefulWidget {
-  const BMChangePasswordScreen({Key? key}) : super(key: key);
+  const BMChangePasswordScreen({super.key});
   static const String routeName = '/change-password';
   @override
   State<BMChangePasswordScreen> createState() => _BMChangePasswordScreenState();
@@ -149,8 +149,8 @@ class _BMChangePasswordScreenState extends State<BMChangePasswordScreen> {
                             color: appStore.isDarkModeOn
                                 ? Colors.white
                                 : bmSpecialColorDark),
-                        suffix: Icon(Icons.check, color: Colors.teal),
-                        decoration: InputDecoration(
+                        suffix: const Icon(Icons.check, color: Colors.teal),
+                        decoration: const InputDecoration(
                           border: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.teal)),
                           focusedBorder: UnderlineInputBorder(
@@ -185,7 +185,7 @@ class _BMChangePasswordScreenState extends State<BMChangePasswordScreen> {
                             child: IconButton(
                               icon: Container(
                                   child: authViewModel.loading
-                                      ? CircularProgressIndicator()
+                                      ? const CircularProgressIndicator()
                                       : const Icon(Icons.check,
                                           color: Colors.white)),
                               onPressed: () {

@@ -206,7 +206,7 @@ class ShopViewModel with ChangeNotifier {
   }
 
   setSlots(List<dynamic> response) {
-    print("response ${response}");
+    print("response $response");
     slots = response.isEmpty ? [] : response.map((e) => e as int).toList();
 
     print('slots are $slots');

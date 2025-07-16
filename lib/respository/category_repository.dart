@@ -17,7 +17,7 @@ class CategoryRepository {
     'Content-Type': 'application/json',
   };
 
-  BaseApiServices _apiServices = NetworkApiService();
+  final BaseApiServices _apiServices = NetworkApiService();
 
   Future<CategoryListModel> fetchCategoryList() async {
     requestHeaders["Authorization"] = await UserViewModel.getUserToken();

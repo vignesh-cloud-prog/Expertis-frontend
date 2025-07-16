@@ -60,23 +60,23 @@ class ShopModel {
     }
     gender = json['gender'];
     contact =
-        json['contact'] != null ? new Contact.fromJson(json['contact']) : null;
+        json['contact'] != null ? Contact.fromJson(json['contact']) : null;
     workingHours = json['workingHours'] != null
-        ? new WorkingHours.fromJson(json['workingHours'])
+        ? WorkingHours.fromJson(json['workingHours'])
         : null;
     likes = json['likes'] != null ? List<String>.from(json['likes']) : null;
     tags = json['tags'] != null ? List<String>.from(json['tags']) : null;
     if (json['members'] != null) {
       members = <Members>[];
       json['members'].forEach((v) {
-        members!.add(new Members.fromJson(v));
+        members!.add(Members.fromJson(v));
       });
     }
     isVerifiedByAdmin = json['isVerifiedByAdmin'];
     if (json['services'] != null) {
       services = <Services>[];
       json['services'].forEach((v) {
-        services!.add(new Services.fromJson(v));
+        services!.add(Services.fromJson(v));
       });
     }
     appointments = json['appointments'] != null
@@ -86,7 +86,7 @@ class ShopModel {
         ? List<String>.from(json['slotsBooked'])
         : null;
     rating =
-        json['rating'] != null ? new Rating.fromJson(json['rating']) : null;
+        json['rating'] != null ? Rating.fromJson(json['rating']) : null;
     reviews =
         json['reviews'] != null ? List<String>.from(json['reviews']) : null;
     isDeleted = json['isDeleted'];
@@ -98,40 +98,40 @@ class ShopModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['owner'] = this.owner;
-    data['shopId'] = this.shopId;
-    data['shopName'] = this.shopName;
-    data['shopLogo'] = this.shopLogo;
-    data['about'] = this.about;
-    data['gender'] = this.gender;
-    if (this.contact != null) {
-      data['contact'] = this.contact!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['owner'] = owner;
+    data['shopId'] = shopId;
+    data['shopName'] = shopName;
+    data['shopLogo'] = shopLogo;
+    data['about'] = about;
+    data['gender'] = gender;
+    if (contact != null) {
+      data['contact'] = contact!.toJson();
     }
-    if (this.workingHours != null) {
-      data['workingHours'] = this.workingHours!.toJson();
+    if (workingHours != null) {
+      data['workingHours'] = workingHours!.toJson();
     }
-    data['likes'] = this.likes;
-    data['tags'] = this.tags;
-    if (this.members != null) {
-      data['members'] = this.members!.map((v) => v.toJson()).toList();
+    data['likes'] = likes;
+    data['tags'] = tags;
+    if (members != null) {
+      data['members'] = members!.map((v) => v.toJson()).toList();
     }
-    data['isVerifiedByAdmin'] = this.isVerifiedByAdmin;
-    if (this.services != null) {
-      data['services'] = this.services!.map((v) => v.toJson()).toList();
+    data['isVerifiedByAdmin'] = isVerifiedByAdmin;
+    if (services != null) {
+      data['services'] = services!.map((v) => v.toJson()).toList();
     }
-    data['appointments'] = this.appointments;
-    data['slotsBooked'] = this.slotsBooked;
-    if (this.rating != null) {
-      data['rating'] = this.rating!.toJson();
+    data['appointments'] = appointments;
+    data['slotsBooked'] = slotsBooked;
+    if (rating != null) {
+      data['rating'] = rating!.toJson();
     }
-    data['reviews'] = this.reviews;
-    data['isDeleted'] = this.isDeleted;
-    data['isActive'] = this.isActive;
-    data['isOpen'] = this.isOpen;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['id'] = this.id;
+    data['reviews'] = reviews;
+    data['isDeleted'] = isDeleted;
+    data['isActive'] = isActive;
+    data['isOpen'] = isOpen;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['id'] = id;
     return data;
   }
 }
@@ -174,17 +174,17 @@ class Contact {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['address'] = this.address;
-    data['pinCode'] = this.pinCode;
-    data['id'] = this.id;
-    data['whatsapp'] = this.whatsapp;
-    data['facebook'] = this.facebook;
-    data['instagram'] = this.instagram;
-    data['twitter'] = this.twitter;
-    data['website'] = this.website;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['email'] = email;
+    data['phone'] = phone;
+    data['address'] = address;
+    data['pinCode'] = pinCode;
+    data['id'] = id;
+    data['whatsapp'] = whatsapp;
+    data['facebook'] = facebook;
+    data['instagram'] = instagram;
+    data['twitter'] = twitter;
+    data['website'] = website;
 
     return data;
   }
@@ -212,47 +212,47 @@ class WorkingHours {
 
   WorkingHours.fromJson(Map<String, dynamic> json) {
     sunday =
-        json['sunday'] != null ? new Sunday.fromJson(json['sunday']) : null;
+        json['sunday'] != null ? Sunday.fromJson(json['sunday']) : null;
     monday =
-        json['monday'] != null ? new Sunday.fromJson(json['monday']) : null;
+        json['monday'] != null ? Sunday.fromJson(json['monday']) : null;
     tuesday =
-        json['tuesday'] != null ? new Sunday.fromJson(json['tuesday']) : null;
+        json['tuesday'] != null ? Sunday.fromJson(json['tuesday']) : null;
     wednesday = json['wednesday'] != null
-        ? new Sunday.fromJson(json['wednesday'])
+        ? Sunday.fromJson(json['wednesday'])
         : null;
     thursday =
-        json['thursday'] != null ? new Sunday.fromJson(json['thursday']) : null;
+        json['thursday'] != null ? Sunday.fromJson(json['thursday']) : null;
     friday =
-        json['friday'] != null ? new Sunday.fromJson(json['friday']) : null;
+        json['friday'] != null ? Sunday.fromJson(json['friday']) : null;
     saturday =
-        json['saturday'] != null ? new Sunday.fromJson(json['saturday']) : null;
+        json['saturday'] != null ? Sunday.fromJson(json['saturday']) : null;
     id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.sunday != null) {
-      data['sunday'] = this.sunday!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (sunday != null) {
+      data['sunday'] = sunday!.toJson();
     }
-    if (this.monday != null) {
-      data['monday'] = this.monday!.toJson();
+    if (monday != null) {
+      data['monday'] = monday!.toJson();
     }
-    if (this.tuesday != null) {
-      data['tuesday'] = this.tuesday!.toJson();
+    if (tuesday != null) {
+      data['tuesday'] = tuesday!.toJson();
     }
-    if (this.wednesday != null) {
-      data['wednesday'] = this.wednesday!.toJson();
+    if (wednesday != null) {
+      data['wednesday'] = wednesday!.toJson();
     }
-    if (this.thursday != null) {
-      data['thursday'] = this.thursday!.toJson();
+    if (thursday != null) {
+      data['thursday'] = thursday!.toJson();
     }
-    if (this.friday != null) {
-      data['friday'] = this.friday!.toJson();
+    if (friday != null) {
+      data['friday'] = friday!.toJson();
     }
-    if (this.saturday != null) {
-      data['saturday'] = this.saturday!.toJson();
+    if (saturday != null) {
+      data['saturday'] = saturday!.toJson();
     }
-    data['id'] = this.id;
+    data['id'] = id;
     return data;
   }
 }
@@ -274,21 +274,21 @@ class Sunday {
     if (json['breaks'] != null) {
       breaks = <Breaks>[];
       json['breaks'].forEach((v) {
-        breaks!.add(new Breaks.fromJson(v));
+        breaks!.add(Breaks.fromJson(v));
       });
     }
     id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['isOpen'] = this.isOpen;
-    data['openingTime'] = this.openingTime;
-    data['closingTime'] = this.closingTime;
-    if (this.breaks != null) {
-      data['breaks'] = this.breaks!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['isOpen'] = isOpen;
+    data['openingTime'] = openingTime;
+    data['closingTime'] = closingTime;
+    if (breaks != null) {
+      data['breaks'] = breaks!.map((v) => v.toJson()).toList();
     }
-    data['id'] = this.id;
+    data['id'] = id;
     return data;
   }
 }
@@ -309,11 +309,11 @@ class Breaks {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['from'] = this.from;
-    data['to'] = this.to;
-    data['reason'] = this.reason;
-    data['_id'] = this.sId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['from'] = from;
+    data['to'] = to;
+    data['reason'] = reason;
+    data['_id'] = sId;
     return data;
   }
 }
@@ -336,12 +336,12 @@ class Members {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['member'] = this.member;
-    data['name'] = this.name;
-    data['role'] = this.role;
-    data['id'] = this.id;
-    data['pic'] = this.pic;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['member'] = member;
+    data['name'] = name;
+    data['role'] = role;
+    data['id'] = id;
+    data['pic'] = pic;
     return data;
   }
 }
@@ -384,16 +384,16 @@ class Services {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['serviceName'] = this.serviceName;
-    data['price'] = this.price;
-    data['time'] = this.time;
-    data['isVerifiedByAdmin'] = this.isVerifiedByAdmin;
-    data['shop'] = this.shop;
-    data['tags'] = this.tags;
-    data['id'] = this.id;
-    data['photo'] = this.photo;
-    data['description'] = this.description;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['serviceName'] = serviceName;
+    data['price'] = price;
+    data['time'] = time;
+    data['isVerifiedByAdmin'] = isVerifiedByAdmin;
+    data['shop'] = shop;
+    data['tags'] = tags;
+    data['id'] = id;
+    data['photo'] = photo;
+    data['description'] = description;
     // data['shopId'] = this.shopId;
     return data;
   }
@@ -431,15 +431,15 @@ class Rating {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['avg'] = this.avg;
-    data['oneStar'] = this.oneStar;
-    data['twoStar'] = this.twoStar;
-    data['threeStar'] = this.threeStar;
-    data['fourStar'] = this.fourStar;
-    data['fiveStar'] = this.fiveStar;
-    data['totalMembers'] = this.totalMembers;
-    data['_id'] = this.sId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['avg'] = avg;
+    data['oneStar'] = oneStar;
+    data['twoStar'] = twoStar;
+    data['threeStar'] = threeStar;
+    data['fourStar'] = fourStar;
+    data['fiveStar'] = fiveStar;
+    data['totalMembers'] = totalMembers;
+    data['_id'] = sId;
     return data;
   }
 }

@@ -41,15 +41,15 @@ class AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
 
   Widget getFragment() {
     if (selectedTab == 0) {
-      return AdminDashBoardHomeScreen();
+      return const AdminDashBoardHomeScreen();
     } else if (selectedTab == 1) {
-      return AdminShopsHomeScreen();
+      return const AdminShopsHomeScreen();
     } else if (selectedTab == 2) {
-      return AdminUsersHomeScreen();
+      return const AdminUsersHomeScreen();
     } else if (selectedTab == 3) {
-      return AdminTagsHomeScreen();
+      return const AdminTagsHomeScreen();
     }
-    return UserHomeComponent();
+    return const UserHomeComponent();
   }
 
   void getFragmentNo(selectedTab) {
@@ -101,7 +101,7 @@ class AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
       appBar: AppBar(
         backgroundColor: bmSpecialColor,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Admin Dashboard',
           style: TextStyle(
             fontSize: 18,
@@ -110,7 +110,7 @@ class AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () {
               Beamer.of(context).beamToNamed(RoutesName.home);
             },

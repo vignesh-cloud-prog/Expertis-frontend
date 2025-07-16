@@ -19,7 +19,7 @@ class SearchLocation extends BeamLocation<BeamState> {
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
       BeamPage(
-          key: ValueKey(RoutesName.search),
+          key: const ValueKey(RoutesName.search),
           title: 'Search',
           child: UserHomeScreen(),
           type: BeamPageType.slideTransition),

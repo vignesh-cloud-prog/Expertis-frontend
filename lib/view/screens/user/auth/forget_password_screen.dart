@@ -9,7 +9,7 @@ import '../../../../utils/BMWidgets.dart';
 import 'package:provider/provider.dart';
 
 class BMForgetPasswordScreen extends StatefulWidget {
-  const BMForgetPasswordScreen({Key? key}) : super(key: key);
+  const BMForgetPasswordScreen({super.key});
   static const String routeName = '/forget-password';
 
   @override

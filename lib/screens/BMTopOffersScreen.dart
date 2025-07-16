@@ -8,7 +8,7 @@ import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
 class BMTopOffersScreen extends StatefulWidget {
-  const BMTopOffersScreen({Key? key}) : super(key: key);
+  const BMTopOffersScreen({super.key});
   @override
   State<BMTopOffersScreen> createState() => _BMTopOffersScreenState();
 }
@@ -40,7 +40,7 @@ class _BMTopOffersScreenState extends State<BMTopOffersScreen> {
             : bmLightScaffoldBackgroundColor,
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: 30, color: bmPrimaryColor),
+          icon: const Icon(Icons.arrow_back, size: 30, color: bmPrimaryColor),
           onPressed: () {
             finish(context);
           },
@@ -48,16 +48,16 @@ class _BMTopOffersScreenState extends State<BMTopOffersScreen> {
         title: titleText(title: 'Top Offers'),
         actions: [
           IconButton(
-            icon: Icon(Icons.search_sharp, size: 30, color: bmPrimaryColor),
+            icon: const Icon(Icons.search_sharp, size: 30, color: bmPrimaryColor),
             onPressed: () {
-              PurchaseMoreScreen(enableAppbar: true).launch(context);
+              const PurchaseMoreScreen(enableAppbar: true).launch(context);
             },
           ),
           8.width,
         ],
       ),
-      body: PurchaseMoreScreen(),
-      floatingActionButton: BMFloatingActionComponent(),
+      body: const PurchaseMoreScreen(),
+      floatingActionButton: const BMFloatingActionComponent(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

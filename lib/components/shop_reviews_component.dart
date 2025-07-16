@@ -17,7 +17,7 @@ import '../main.dart';
 class ShopReviewComponent extends StatefulWidget {
   String? shopId;
   ShopModel? shop;
-  ShopReviewComponent({Key? key, this.shopId, this.shop}) : super(key: key);
+  ShopReviewComponent({super.key, this.shopId, this.shop});
 
   @override
   State<ShopReviewComponent> createState() => _ShopReviewComponentState();
@@ -28,6 +28,7 @@ class _ShopReviewComponentState extends State<ShopReviewComponent> {
   ReviewModel? userReview;
   final reviewListViewModel = ReviewListViewModel();
 
+  @override
   void initState() {
     reviewListViewModel.fetchReviewDataApi(widget.shopId);
     super.initState();
@@ -57,9 +58,9 @@ class _ShopReviewComponentState extends State<ShopReviewComponent> {
               if (element.from?.id == userViewModel.user?.id) {
                 print("review is there");
                 edit = true;
-                print("element " + element.toJson().toString());
+                print("element ${element.toJson()}");
                 userReview = element;
-                print("user review " + (userReview?.toJson().toString() ?? ""));
+                print("user review ${userReview?.toJson().toString() ?? ""}");
               }
             });
 
@@ -79,7 +80,7 @@ class _ShopReviewComponentState extends State<ShopReviewComponent> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.edit, color: bmPrimaryColor),
+                      const Icon(Icons.edit, color: bmPrimaryColor),
                       8.width,
                       Text(edit ? 'Edit Review' : 'Write a Review',
                           style: boldTextStyle(color: bmPrimaryColor)),

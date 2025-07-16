@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class ShopAnalyticCards extends StatelessWidget {
   final String? shopId;
 
-  const ShopAnalyticCards({Key? key, this.shopId}) : super(key: key);
+  const ShopAnalyticCards({super.key, this.shopId});
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +35,11 @@ class ShopAnalyticCards extends StatelessWidget {
 
 class AnalyticInfoCardGridView extends StatefulWidget {
   const AnalyticInfoCardGridView({
-    Key? key,
+    super.key,
     this.shopId,
     this.crossAxisCount = 4,
     this.childAspectRatio = 1.4,
-  }) : super(key: key);
+  });
 
   final int crossAxisCount;
   final double childAspectRatio;
@@ -72,7 +72,7 @@ class _AnalyticInfoCardGridViewState extends State<AnalyticInfoCardGridView> {
             return Center(child: Text(value.analyticsData.message.toString()));
           case Status.COMPLETED:
             return GridView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: shopAnalyticsViewModel.ShopAnalyticsData.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -9,7 +9,7 @@ import '../../../main.dart';
 import '../../../utils/BMColors.dart';
 
 class BMSplashScreen extends StatefulWidget {
-  const BMSplashScreen({Key? key}) : super(key: key);
+  const BMSplashScreen({super.key});
 
   @override
   BMSplashScreenState createState() => BMSplashScreenState();

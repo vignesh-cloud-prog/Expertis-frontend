@@ -12,7 +12,7 @@ import 'package:nb_utils/nb_utils.dart';
 class ShopInfoScreen extends StatefulWidget {
   bool isAdmin = false;
   ShopModel? shop;
-  ShopInfoScreen({Key? key, this.isAdmin = false, this.shop}) : super(key: key);
+  ShopInfoScreen({super.key, this.isAdmin = false, this.shop});
 
   @override
   State<ShopInfoScreen> createState() => _ShopInfoScreenState();
@@ -39,7 +39,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
         child: Column(
           children: <Widget>[
             titleText(title: "About Shop"),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -57,11 +57,11 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
                             data: widget.shop);
                       }
                     }),
-                    icon: Icon(Icons.edit)),
+                    icon: const Icon(Icons.edit)),
               ],
             ),
             ShopInfoComponent(shop: widget.shop),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -83,7 +83,7 @@ class _ShopInfoScreenState extends State<ShopInfoScreen> {
                             data: widget.shop);
                       }
                     }),
-                    icon: Icon(Icons.edit)),
+                    icon: const Icon(Icons.edit)),
               ],
             ),
             ShopContactComponent(contact: widget.shop?.contact),

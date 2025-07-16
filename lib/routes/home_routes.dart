@@ -47,7 +47,7 @@ class HomeLocation extends BeamLocation<BeamState> {
         ),
       if (state.pathPatternSegments.contains("home"))
         BeamPage(
-          key: ValueKey(RoutesName.home),
+          key: const ValueKey(RoutesName.home),
           title: ' Welcome to $appName home',
           child: UserHomeScreen(),
         ),

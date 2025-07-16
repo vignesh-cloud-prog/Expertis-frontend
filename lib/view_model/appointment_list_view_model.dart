@@ -73,7 +73,7 @@ class AppointmentListViewModel with ChangeNotifier {
     if (kDebugMode) {
       print("response of shop appointments ${shopAppointments.data?.toJson()}");
     }
-    shopAppointments.data!.appointments!.forEach((e) {
+    for (var e in shopAppointments.data!.appointments!) {
       print("e ${e.appointmentStatus}");
       if (e.appointmentStatus?.toLowerCase() == "accepted") {
         upcoming.addAppointment(e);
@@ -86,7 +86,7 @@ class AppointmentListViewModel with ChangeNotifier {
       } else if (e.appointmentStatus?.toLowerCase() == "cancelled") {
         cancelled.addAppointment(e);
       }
-    });
+    }
     if (kDebugMode) {
       print("upcoming ${upcoming.toJson()}");
       print("pending ${pending.toJson()}");

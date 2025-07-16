@@ -18,8 +18,7 @@ class CreateUpdateTagScreen extends StatefulWidget {
   final String? tagId;
   CategoryModel? category;
 
-  CreateUpdateTagScreen({Key? key, this.tagId, this.category})
-      : super(key: key);
+  CreateUpdateTagScreen({super.key, this.tagId, this.category});
 
   @override
   CreateUpdateTagScreenState createState() => CreateUpdateTagScreenState();
@@ -50,8 +49,8 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
 
   Future<void> pickImage({ImageSource source = ImageSource.gallery}) async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(
           source: source, maxHeight: 200, maxWidth: 200);
       if (image == null) {
         return;
@@ -64,8 +63,8 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
         pickedImage = File(image.path);
       });
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: source);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: source);
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {
@@ -207,9 +206,7 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                           child: Column(
                             children: [
                               AppButton(
-                                child: Text('Clear',
-                                    style: boldTextStyle(color: Colors.red)),
-                                padding: EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(16),
                                 width: 150,
                                 onTap: () {
                                   setState(() {
@@ -218,8 +215,10 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                                     webImage = Uint8List(8);
                                   });
                                 },
+                                child: Text('Clear',
+                                    style: boldTextStyle(color: Colors.red)),
                               ),
-                              SizedBox(height: 12),
+                              const SizedBox(height: 12),
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -228,7 +227,7 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                                       color: appStore.isDarkModeOn
                                           ? bmTextColorDarkMode
                                           : bmPrimaryColor,
-                                      icon: Icon(Icons.photo),
+                                      icon: const Icon(Icons.photo),
                                       onPressed: () {
                                         pickImage(source: ImageSource.gallery);
                                       },
@@ -237,7 +236,7 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                                       color: appStore.isDarkModeOn
                                           ? bmTextColorDarkMode
                                           : bmPrimaryColor,
-                                      icon: Icon(Icons.camera_alt),
+                                      icon: const Icon(Icons.camera_alt),
                                       onPressed: () {
                                         pickImage(source: ImageSource.camera);
                                       },

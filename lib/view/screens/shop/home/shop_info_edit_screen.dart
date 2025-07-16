@@ -23,8 +23,7 @@ class ShopInfoEditScreen extends StatefulWidget {
   String? shopId;
   bool isAdmin;
 
-  ShopInfoEditScreen({Key? key, this.shopId, this.shop, required this.isAdmin})
-      : super(key: key);
+  ShopInfoEditScreen({super.key, this.shopId, this.shop, required this.isAdmin});
 
   @override
   ShopInfoEditScreenState createState() => ShopInfoEditScreenState();
@@ -69,8 +68,8 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
 
   Future<void> pickImage({ImageSource source = ImageSource.gallery}) async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(
           source: source, maxHeight: 800, maxWidth: 800);
       if (image != null) {
         widget.shop?.shopLogo = image.path;
@@ -82,8 +81,8 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
         print('No image has been picked');
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: source);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: source);
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {
@@ -106,11 +105,12 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
         selectedRole = widget.shop?.gender ?? 'UNISEX';
       });
     }
-    if (!widget.isAdmin)
+    if (!widget.isAdmin) {
       UserViewModel.getUser().then((value) {
         widget.shop?.id = value.shop?.first.id;
         widget.shop?.owner = value.id;
       });
+    }
 
     ShopViewModel shopViewModel = Provider.of<ShopViewModel>(context);
 
@@ -226,9 +226,7 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                       child: Column(
                         children: [
                           AppButton(
-                            child: Text('Clear',
-                                style: boldTextStyle(color: Colors.red)),
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             width: 150,
                             onTap: () {
                               setState(() {
@@ -237,8 +235,10 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                                 webImage = Uint8List(8);
                               });
                             },
+                            child: Text('Clear',
+                                style: boldTextStyle(color: Colors.red)),
                           ),
-                          SizedBox(height: 12),
+                          const SizedBox(height: 12),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -247,7 +247,7 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                                   color: appStore.isDarkModeOn
                                       ? bmTextColorDarkMode
                                       : bmPrimaryColor,
-                                  icon: Icon(Icons.photo),
+                                  icon: const Icon(Icons.photo),
                                   onPressed: () {
                                     pickImage(source: ImageSource.gallery);
                                   },
@@ -256,7 +256,7 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                                   color: appStore.isDarkModeOn
                                       ? bmTextColorDarkMode
                                       : bmPrimaryColor,
-                                  icon: Icon(Icons.camera_alt),
+                                  icon: const Icon(Icons.camera_alt),
                                   onPressed: () {
                                     pickImage(source: ImageSource.camera);
                                   },
@@ -314,7 +314,7 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                             listType: MultiSelectListType.CHIP,
                             onConfirm: (values) {
                               List<dynamic> selectedCategories =
-                                  values as List<CategoryModel>;
+                                  values;
                               widget.shop?.tags = selectedCategories
                                   .map((e) => e.id.toString())
                                   .toList();
@@ -476,10 +476,10 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                         if (shopData["tags"] != null) {
                           List<String> tags = shopData["tags"];
                           print('tags: $tags');
-                          tags.forEach((e) {
+                          for (var e in tags) {
                             shopData["tags[${tags.indexOf(e)}]"] = e.toString();
                             print("added tag: $e");
-                          });
+                          }
                           print(shopData);
                         }
 

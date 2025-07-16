@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AnalyticCards extends StatelessWidget {
-  const AnalyticCards({Key? key}) : super(key: key);
+  const AnalyticCards({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class AnalyticCards extends StatelessWidget {
           crossAxisCount: size.width < 650 ? 2 : 4,
           childAspectRatio: size.width < 650 ? 2 : 1.5,
         ),
-        tablet: AnalyticInfoCardGridView(),
+        tablet: const AnalyticInfoCardGridView(),
         desktop: AnalyticInfoCardGridView(
           childAspectRatio: size.width < 1400 ? 1.5 : 2.1,
         ),
@@ -28,11 +28,11 @@ class AnalyticCards extends StatelessWidget {
 }
 
 class AnalyticInfoCardGridView extends StatefulWidget {
-  AnalyticInfoCardGridView({
-    Key? key,
+  const AnalyticInfoCardGridView({
+    super.key,
     this.crossAxisCount = 4,
     this.childAspectRatio = 1.4,
-  }) : super(key: key);
+  });
 
   final int crossAxisCount;
   final double childAspectRatio;
@@ -64,7 +64,7 @@ class _AnalyticInfoCardGridViewState extends State<AnalyticInfoCardGridView> {
             return Center(child: Text(value.analyticsData.message.toString()));
           case Status.COMPLETED:
             return GridView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: adminAnalyticsViewModel.adminAnalyticsData.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

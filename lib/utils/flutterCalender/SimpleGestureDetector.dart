@@ -10,7 +10,7 @@ class SimpleGestureDetector extends StatefulWidget {
   final VoidCallback? onSwipeRight;
 
   const SimpleGestureDetector({
-    Key? key,
+    super.key,
     required this.child,
     this.swipeConfig = const SimpleSwipeConfig(),
     this.behavior,
@@ -18,7 +18,7 @@ class SimpleGestureDetector extends StatefulWidget {
     this.onSwipeDown,
     this.onSwipeLeft,
     this.onSwipeRight,
-  }) : super(key: key);
+  });
 
   @override
   _SimpleGestureDetectorState createState() => _SimpleGestureDetectorState();
@@ -128,13 +128,13 @@ class _SimpleGestureDetectorState extends State<SimpleGestureDetector> {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: widget.behavior,
-      child: widget.child,
       onVerticalDragStart: _canSwipeVertically() ? _onVerticalDragStart : null,
       onVerticalDragUpdate: _canSwipeVertically() ? _onVerticalDragUpdate : null,
       onVerticalDragEnd: _canSwipeVertically() ? _onVerticalDragEnd : null,
       onHorizontalDragStart: _canSwipeHorizontally() ? _onHorizontalDragStart : null,
       onHorizontalDragUpdate: _canSwipeHorizontally() ? _onHorizontalDragUpdate : null,
       onHorizontalDragEnd: _canSwipeHorizontally() ? _onHorizontalDragEnd : null,
+      child: widget.child,
     );
   }
 }

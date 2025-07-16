@@ -23,13 +23,13 @@ class UserLocation extends BeamLocation<BeamState> {
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
       BeamPage(
-        key: ValueKey(RoutesName.viewProfile),
+        key: const ValueKey(RoutesName.viewProfile),
         title: 'Welcome to $appName',
         child: UserHomeScreen(),
       ),
       if (state.pathPatternSegments.contains("create-profile"))
         BeamPage(
-          key: ValueKey(RoutesName.createProfile),
+          key: const ValueKey(RoutesName.createProfile),
           title: 'Create Profile',
           child: BMUserProfileEditScreen(
             title: 'Create Profile',
@@ -41,7 +41,7 @@ class UserLocation extends BeamLocation<BeamState> {
           state.pathPatternSegments.contains("update") &&
           state.pathPatternSegments.contains("user"))
         BeamPage(
-          key: ValueKey(RoutesName.adminUserEditProfile),
+          key: const ValueKey(RoutesName.adminUserEditProfile),
           title: 'Admin shop update Profile.',
           child: BMUserProfileEditScreen(
             isadmin: true,
@@ -51,7 +51,7 @@ class UserLocation extends BeamLocation<BeamState> {
       if (state.pathPatternSegments.contains("user") &&
           state.pathPatternSegments.contains("edit-profile"))
         BeamPage(
-          key: ValueKey(RoutesName.editProfile),
+          key: const ValueKey(RoutesName.editProfile),
           title: 'User Update Profile',
           child: BMUserProfileEditScreen(
             isadmin: false,
@@ -59,7 +59,7 @@ class UserLocation extends BeamLocation<BeamState> {
         ),
       if (state.pathPatternSegments.contains("shop") &&
           state.pathPatternSegments.contains("viewall"))
-        BeamPage(
+        const BeamPage(
           key: ValueKey(RoutesName.viewAllShops),
           title: 'viewall shops',
           child: ViewAllShopsScreen(),

@@ -24,12 +24,11 @@ class BMUserProfileEditScreen extends StatefulWidget {
   UserModel? user;
 
   BMUserProfileEditScreen(
-      {Key? key,
+      {super.key,
       this.title = "Update Profile",
       this.buttonName = "Update",
       required this.isadmin,
-      this.user})
-      : super(key: key);
+      this.user});
 
   @override
   BMUserProfileEditScreenState createState() => BMUserProfileEditScreenState();

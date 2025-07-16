@@ -22,8 +22,7 @@ class BookAppointmentScreen extends StatefulWidget {
   String memberId;
 
   BookAppointmentScreen(
-      {Key? key, required this.shopId, required this.memberId})
-      : super(key: key);
+      {super.key, required this.shopId, required this.memberId});
 
   @override
   BookAppointmentScreenState createState() => BookAppointmentScreenState();
@@ -34,7 +33,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
 
   String selectedSlot = "";
 
-  int? selectedTimer = null;
+  int? selectedTimer;
   String openingTime = "08:00:AM";
   String closingTime = "08:00:PM";
   // List<int> bookedSlots = [];
@@ -103,7 +102,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
   ];
 
   String getYear() {
-    return new DateFormat.yMMM().format(DateTime.now());
+    return DateFormat.yMMM().format(DateTime.now());
   }
 
   FocusNode dob = FocusNode();
@@ -142,12 +141,12 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
         backgroundColor: bmSpecialColor,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).maybePop();
           },
         ),
-        title: Text(
+        title: const Text(
           'Book Appointment',
           style: TextStyle(
             fontSize: 18,
@@ -169,7 +168,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                     selectDate(context),
                     // timing(),
                     bookAppointment(context),
-                    Divider(),
+                    const Divider(),
                     16.height,
                     SelectedServicesComponent(
                         selectedServices:
@@ -232,7 +231,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                             String month = '${months.indexOf(monthName) + 1}';
 
                             String day = date.split('-')[0];
-                            print("selected slot ${selectedSlot}");
+                            print("selected slot $selectedSlot");
                             String hour = selectedSlot.split(':')[0];
                             String minute = selectedSlot.split(':')[1];
                             String ampm = selectedSlot.split(':')[2];
@@ -263,7 +262,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                 jsonEncode(data), context);
                           },
                           child: appointmentViewModel.loading
-                              ? CircularProgressIndicator(
+                              ? const CircularProgressIndicator(
                                   color: white,
                                 )
                               : Text("Book Appointment ",
@@ -350,7 +349,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
         titleText(title: 'Availability'),
         16.height,
         slotsModel.loading
-            ? CircularProgressIndicator().center()
+            ? const CircularProgressIndicator().center()
             : Wrap(
                 spacing: 12,
                 runSpacing: 12,
@@ -361,7 +360,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                       //   selectedSlot = e;
                       // }
                       return Container(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           color: selectedTimer == index
                               ? bmPrimaryColor
@@ -383,13 +382,13 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
                         });
                         selectedTimer = index;
 
-                        print("slot ${e}");
+                        print("slot $e");
                         selectedSlot = e;
-                        print("seleced slot ${selectedSlot}");
+                        print("seleced slot $selectedSlot");
                       });
                     }).toList() ??
                     [
-                      Center(
+                      const Center(
                         child: Text("Slots are not available for the day"),
                       )
                     ],
@@ -411,7 +410,7 @@ class BookAppointmentScreenState extends State<BookAppointmentScreen> {
           children: timers.map((e) {
             int index = timers.indexOf(e);
             return Container(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: selectedTimer == index
                     ? bmPrimaryColor

@@ -7,7 +7,7 @@ import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
 class BMFavouritesScreen extends StatefulWidget {
-  const BMFavouritesScreen({Key? key}) : super(key: key);
+  const BMFavouritesScreen({super.key});
 
   @override
   _BMFavouritesScreenState createState() => _BMFavouritesScreenState();
@@ -40,14 +40,14 @@ class _BMFavouritesScreenState extends State<BMFavouritesScreen> {
             : bmLightScaffoldBackgroundColor,
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: 30, color: bmPrimaryColor),
+          icon: const Icon(Icons.arrow_back, size: 30, color: bmPrimaryColor),
           onPressed: () {
             finish(context);
           },
         ),
         title: titleText(title: 'Favourites'),
       ),
-      body: PurchaseMoreScreen(),
+      body: const PurchaseMoreScreen(),
     );
   }
 }

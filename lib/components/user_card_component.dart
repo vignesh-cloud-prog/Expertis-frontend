@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 class UserCardComponent extends StatelessWidget {
   final UserModel? element;
 
-  const UserCardComponent({Key? key, required this.element}) : super(key: key);
+  const UserCardComponent({super.key, required this.element});
   @override
   Widget build(BuildContext context) {
     UserListViewModel userListViewModel =
@@ -42,14 +42,14 @@ class UserCardComponent extends StatelessWidget {
         width: size.width * 0.30,
         child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
           IconButton(
-            icon: Icon(Icons.edit),
+            icon: const Icon(Icons.edit),
             onPressed: () {
               Beamer.of(context)
                   .beamToNamed(RoutesName.adminUserEditProfile, data: element);
             },
           ),
           IconButton(
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             onPressed: () {
               userListViewModel.deleteUserApi(element?.id, context);
             },

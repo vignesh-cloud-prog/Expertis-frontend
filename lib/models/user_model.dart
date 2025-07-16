@@ -43,12 +43,12 @@ class UserModel {
     email = json['email'].toString();
     name = json['name'].toString();
     phone = json['phone'].toString();
-    roles = json['roles'] != null ? new Roles.fromJson(json['roles']) : null;
+    roles = json['roles'] != null ? Roles.fromJson(json['roles']) : null;
     verified = json['verified'];
     if (json['shop'] != null) {
       shop = <ShopModel>[];
       json['shop']?.forEach((v) {
-        shop!.add(new ShopModel.fromJson(v));
+        shop!.add(ShopModel.fromJson(v));
       });
     }
     if (json['appointments'] != null) {
@@ -80,12 +80,12 @@ class UserModel {
     data['email'] = email;
     data['name'] = name;
     data['phone'] = phone;
-    if (this.roles != null) {
-      data['roles'] = this.roles!.toJson();
+    if (roles != null) {
+      data['roles'] = roles!.toJson();
     }
     data['verified'] = verified;
-    if (this.shop != null) {
-      data['shop'] = this.shop!.map((v) => v.toJson()).toList();
+    if (shop != null) {
+      data['shop'] = shop!.map((v) => v.toJson()).toList();
     }
     if (appointments != null) {
       data['appointments'] = appointments!.map((v) => v.toString()).toList();
@@ -129,12 +129,12 @@ class Roles {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['isAdmin'] = this.isAdmin;
-    data['isUser'] = this.isUser;
-    data['isShopOwner'] = this.isShopOwner;
-    data['isShopMember'] = this.isShopMember;
-    data['id'] = this.id;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['isAdmin'] = isAdmin;
+    data['isUser'] = isUser;
+    data['isShopOwner'] = isShopOwner;
+    data['isShopMember'] = isShopMember;
+    data['id'] = id;
     return data;
   }
 }

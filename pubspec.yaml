@@ -54,6 +54,7 @@ dependencies:
   firebase_core: ^3.15.1
   package_info_plus: ^8.0.0
   share_plus: ^7.2.1
+  app_links: ^6.4.0
 
 dev_dependencies:
   flutter_test:

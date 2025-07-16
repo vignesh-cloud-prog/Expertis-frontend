@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class AdminShopInfoScreen extends StatefulWidget {
   ShopModel? shop;
-  AdminShopInfoScreen({Key? key, required this.shop}) : super(key: key);
+  AdminShopInfoScreen({super.key, required this.shop});
 
   @override
   State<AdminShopInfoScreen> createState() => _AdminShopInfoScreenState();
@@ -20,20 +20,21 @@ class _AdminShopInfoScreenState extends State<AdminShopInfoScreen> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: bmSpecialColor,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Beamer.of(context).beamBack();
           },
         ),
         title: Text(
           widget.shop?.shopName ?? "",
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),

@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 
 class ShopCardComponent extends StatelessWidget {
   final ShopModel? element;
-  const ShopCardComponent({Key? key, required this.element}) : super(key: key);
+  const ShopCardComponent({super.key, required this.element});
   @override
   Widget build(BuildContext context) {
     ShopListViewModel shopListViewModel =
@@ -39,14 +39,14 @@ class ShopCardComponent extends StatelessWidget {
         width: size.width * 0.30,
         child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
           IconButton(
-            icon: Icon(Icons.remove_red_eye),
+            icon: const Icon(Icons.remove_red_eye),
             onPressed: () {
               Beamer.of(context)
                   .beamToNamed(RoutesName.adminShopInfoScreen, data: element);
             },
           ),
           IconButton(
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             onPressed: () {
               shopListViewModel.deleteShopApi(element?.id, context);
             },

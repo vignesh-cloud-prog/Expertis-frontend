@@ -15,30 +15,30 @@ class AppThemeData {
     hoverColor: Colors.white54,
     dividerColor: viewLineColor,
     fontFamily: GoogleFonts.openSans().fontFamily,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       color: whiteColor,
       iconTheme: IconThemeData(color: textPrimaryColor),
       systemOverlayStyle:
           SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark),
     ),
-    textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.black),
+    textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.black),
     cardColor: Colors.white,
-    iconTheme: IconThemeData(color: textPrimaryColor),
-    bottomSheetTheme: BottomSheetThemeData(backgroundColor: whiteColor),
-    textTheme: TextTheme(
+    iconTheme: const IconThemeData(color: textPrimaryColor),
+    bottomSheetTheme: const BottomSheetThemeData(backgroundColor: whiteColor),
+    textTheme: const TextTheme(
       labelLarge: TextStyle(color: bmPrimaryColor),
       titleLarge: TextStyle(color: textPrimaryColor),
       titleSmall: TextStyle(color: textSecondaryColor),
     ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    colorScheme: ColorScheme.light(
+    colorScheme: const ColorScheme.light(
       primary: bmPrimaryColor,
       primaryContainer: bmPrimaryColor,
       error: Colors.red,
     ),
   ).copyWith(
     pageTransitionsTheme:
-        PageTransitionsTheme(builders: <TargetPlatform, PageTransitionsBuilder>{
+        const PageTransitionsTheme(builders: <TargetPlatform, PageTransitionsBuilder>{
       TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
       TargetPlatform.linux: OpenUpwardsPageTransitionsBuilder(),
@@ -49,32 +49,32 @@ class AppThemeData {
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: appBackgroundColorDark,
     highlightColor: appBackgroundColorDark,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       color: appBackgroundColorDark,
       iconTheme: IconThemeData(color: blackColor),
       systemOverlayStyle:
           SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
     ),
     primaryColor: color_primary_black,
-    dividerColor: Color(0xFFDADADA).withOpacity(0.3),
+    dividerColor: const Color(0xFFDADADA).withOpacity(0.3),
     primaryColorDark: color_primary_black,
-    textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.white),
+    textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.white),
     hoverColor: Colors.black12,
     fontFamily: GoogleFonts.openSans().fontFamily,
     bottomSheetTheme:
-        BottomSheetThemeData(backgroundColor: appBackgroundColorDark),
+        const BottomSheetThemeData(backgroundColor: appBackgroundColorDark),
     primaryTextTheme: TextTheme(
         titleLarge: primaryTextStyle(color: Colors.white),
         labelSmall: primaryTextStyle(color: Colors.white)),
     cardColor: appSecondaryBackgroundColor,
-    iconTheme: IconThemeData(color: whiteColor),
-    textTheme: TextTheme(
+    iconTheme: const IconThemeData(color: whiteColor),
+    textTheme: const TextTheme(
       labelLarge: TextStyle(color: color_primary_black),
       titleLarge: TextStyle(color: whiteColor),
       titleSmall: TextStyle(color: Colors.white54),
     ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    colorScheme: ColorScheme.dark(
+    colorScheme: const ColorScheme.dark(
       primary: appBackgroundColorDark,
       onPrimary: cardBackgroundBlackDark,
       primaryContainer: color_primary_black,
@@ -83,7 +83,7 @@ class AppThemeData {
     ),
   ).copyWith(
     pageTransitionsTheme:
-        PageTransitionsTheme(builders: <TargetPlatform, PageTransitionsBuilder>{
+        const PageTransitionsTheme(builders: <TargetPlatform, PageTransitionsBuilder>{
       TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
       TargetPlatform.linux: OpenUpwardsPageTransitionsBuilder(),

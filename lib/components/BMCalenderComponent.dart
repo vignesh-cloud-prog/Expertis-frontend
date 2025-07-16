@@ -5,14 +5,14 @@ import '../utils/BMColors.dart';
 import '../utils/flutterCalender/CleanCalendar.dart';
 
 class BMCalenderComponent extends StatefulWidget {
-  const BMCalenderComponent({Key? key}) : super(key: key);
+  const BMCalenderComponent({super.key});
 
   @override
   _BMCalenderComponentState createState() => _BMCalenderComponentState();
 }
 
 class _BMCalenderComponentState extends State<BMCalenderComponent> {
-  Map<DateTime, List> _events = Map<DateTime, List>();
+  Map<DateTime, List> _events = <DateTime, List>{};
   List _selectedEvents = [];
   DateTime _selectedDay = DateTime.now();
   int? i;
@@ -41,10 +41,10 @@ class _BMCalenderComponentState extends State<BMCalenderComponent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.only(bottom: 16),
       child: Calendar(
         startOnMonday: false,
-        weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        weekDays: const ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         events: _events,
         onRangeSelected: (range) =>
             print("Range is ${range.from}, ${range.to}"),

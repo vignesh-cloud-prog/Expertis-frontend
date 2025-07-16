@@ -1,4 +1,3 @@
-import 'package:beamer/beamer.dart';
 import 'package:expertis/main.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -72,7 +71,7 @@ Widget appBarTitleWidget(context, String title,
 class CustomTheme extends StatelessWidget {
   final Widget? child;
 
-  CustomTheme({required this.child});
+  const CustomTheme({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +95,7 @@ Widget upperContainer(
         : bmLightScaffoldBackgroundColor,
     width: screenContext.width(),
     child: Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
           color: bmSpecialColor, borderRadius: radiusOnly(bottomLeft: 40)),
       child: child,
@@ -137,9 +136,9 @@ Widget titleText({required String title, int? size, int? maxLines}) {
   return Text(
     title,
     style: boldTextStyle(
-        size: size != null ? size : 20,
+        size: size ?? 20,
         color: appStore.isDarkModeOn ? greenColor : bmSpecialColorDark),
-    maxLines: maxLines != null ? maxLines : 1,
+    maxLines: maxLines ?? 1,
     overflow: TextOverflow.ellipsis,
   );
 }
@@ -147,13 +146,13 @@ Widget titleText({required String title, int? size, int? maxLines}) {
 class SettingContainerWidget extends StatelessWidget {
   final Widget child;
 
-  SettingContainerWidget({required this.child});
+  const SettingContainerWidget({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: context.width() / 2 - 24,
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       decoration: BoxDecoration(
         borderRadius: radius(defaultRadius),
         border: Border.all(color: context.dividerColor, width: 2),

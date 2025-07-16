@@ -14,7 +14,7 @@ class BMCalenderScreen extends StatefulWidget {
   bool isStaffBooking = false;
 
   // BMCalenderScreen({this.element,  this.isStaffBooking=false});
-  BMCalenderScreen({Key? key}) : super(key: key);
+  BMCalenderScreen({super.key});
 
   @override
   _BMCalenderScreenState createState() => _BMCalenderScreenState();
@@ -36,7 +36,7 @@ class _BMCalenderScreenState extends State<BMCalenderScreen> {
   ];
 
   String getYear() {
-    return new DateFormat.yMMM().format(DateTime.now());
+    return DateFormat.yMMM().format(DateTime.now());
   }
 
   @override
@@ -59,7 +59,7 @@ class _BMCalenderScreenState extends State<BMCalenderScreen> {
           children: availableTimes.map((e) {
             int index = availableTimes.indexOf(e);
             return Container(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: selectedTimer == index
                     ? bmPrimaryColor
@@ -81,12 +81,12 @@ class _BMCalenderScreenState extends State<BMCalenderScreen> {
           }).toList(),
         ),
         16.height,
-        Divider(),
+        const Divider(),
         16.height,
         // BMAvailabilityComponent(element: widget.element!),
         16.height,
         Container(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: bmPrimaryColor.withAlpha(50),
             borderRadius: radius(32),
@@ -117,7 +117,7 @@ class _BMCalenderScreenState extends State<BMCalenderScreen> {
           children: timers.map((e) {
             int index = timers.indexOf(e);
             return Container(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: selectedTimer == index
                     ? bmPrimaryColor
@@ -163,7 +163,7 @@ class _BMCalenderScreenState extends State<BMCalenderScreen> {
             : bmLightScaffoldBackgroundColor,
         elevation: 0,
         leadingWidth: 30,
-        iconTheme: IconThemeData(color: bmPrimaryColor),
+        iconTheme: const IconThemeData(color: bmPrimaryColor),
       ),
       body: Column(
         children: [
@@ -173,7 +173,7 @@ class _BMCalenderScreenState extends State<BMCalenderScreen> {
       ),
       floatingActionButton: !widget.isStaffBooking
           ? Container(
-              padding: EdgeInsets.only(left: 8),
+              padding: const EdgeInsets.only(left: 8),
               decoration: BoxDecoration(
                   color: bmPrimaryColor, borderRadius: radius(32)),
               child: Row(
@@ -185,7 +185,7 @@ class _BMCalenderScreenState extends State<BMCalenderScreen> {
                       onPressed: () {
                         BMShoppingScreen(isOrders: false).launch(context);
                       },
-                      icon: Icon(Icons.arrow_forward, color: Colors.white)),
+                      icon: const Icon(Icons.arrow_forward, color: Colors.white)),
                 ],
               ),
             )
@@ -193,13 +193,13 @@ class _BMCalenderScreenState extends State<BMCalenderScreen> {
               width: context.width() - 32,
               shapeBorder: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32)),
-              child:
-                  Text('Book Now', style: boldTextStyle(color: Colors.white)),
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               color: bmPrimaryColor,
               onTap: () {
                 finish(context);
               },
+              child:
+                  Text('Book Now', style: boldTextStyle(color: Colors.white)),
             ),
     );
   }

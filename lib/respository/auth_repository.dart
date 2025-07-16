@@ -5,7 +5,7 @@ import 'package:expertis/utils/api_url.dart';
 import 'package:flutter/foundation.dart';
 
 class AuthRepository {
-  BaseApiServices _apiServices = NetworkApiService();
+  final BaseApiServices _apiServices = NetworkApiService();
   Map<String, String> requestHeaders = {
     "Access-Control-Allow-Origin": "*", // Required for CORS support to work
     "Access-Control-Allow-Credentials":

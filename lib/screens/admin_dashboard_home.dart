@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class AdminDashBoardHomeScreen extends StatefulWidget {
-  AdminDashBoardHomeScreen({Key? key}) : super(key: key);
+  const AdminDashBoardHomeScreen({super.key});
 
   @override
   State<AdminDashBoardHomeScreen> createState() =>
@@ -13,7 +13,7 @@ class AdminDashBoardHomeScreen extends StatefulWidget {
 class _AdminDashBoardHomeScreenState extends State<AdminDashBoardHomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: AnalyticCards(),
     ).paddingAll(16);
   }

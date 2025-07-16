@@ -15,7 +15,7 @@ import '../utils/BMWidgets.dart';
 import 'select_services_component.dart';
 
 class ShopServiceComponent extends StatefulWidget {
-  const ShopServiceComponent({Key? key}) : super(key: key);
+  const ShopServiceComponent({super.key});
 
   @override
   State<ShopServiceComponent> createState() => _ShopServiceComponentState();
@@ -36,13 +36,13 @@ class _ShopServiceComponentState extends State<ShopServiceComponent> {
     // print("popularServiceList: ${popularServiceList!.toString()}");
 
     return popularServiceList == null
-        ? Center(child: Text("No services"))
+        ? const Center(child: Text("No services"))
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               16.height,
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 16),
+                margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
                   color: bmPrimaryColor.withAlpha(50),
                   borderRadius: radius(32),
@@ -51,7 +51,7 @@ class _ShopServiceComponentState extends State<ShopServiceComponent> {
                 child: AppTextField(
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    prefixIcon: Icon(Icons.search_sharp, color: bmPrimaryColor),
+                    prefixIcon: const Icon(Icons.search_sharp, color: bmPrimaryColor),
                     hintText: 'Search for Services',
                     hintStyle: secondaryTextStyle(color: bmPrimaryColor),
                   ),
@@ -62,11 +62,11 @@ class _ShopServiceComponentState extends State<ShopServiceComponent> {
               16.height,
               titleText(title: 'Our Services'),
               16.height,
-              popularServiceList.length > 0
+              popularServiceList.isNotEmpty
                   ? ListView.builder(
                       itemCount: popularServiceList.length,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return SelectServiceComponent(
                           element: popularServiceList[index],
@@ -185,7 +185,6 @@ class _ShopServiceComponentState extends State<ShopServiceComponent> {
                             selectedTab = index;
                             appointmentViewModel.appointmentModel.memberId =
                                 element[index].member;
-                            ;
                             setState(() {});
                           },
                         ),

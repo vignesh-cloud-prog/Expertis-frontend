@@ -13,7 +13,7 @@ import '../../../../utils/BMColors.dart';
 import '../../../../utils/BMWidgets.dart';
 
 class ViewAllShopsScreen extends StatefulWidget {
-  const ViewAllShopsScreen({Key? key}) : super(key: key);
+  const ViewAllShopsScreen({super.key});
 
   @override
   State<ViewAllShopsScreen> createState() => _ViewAllShopsScreenState();
@@ -49,7 +49,7 @@ class _ViewAllShopsScreenState extends State<ViewAllShopsScreen> {
             : bmLightScaffoldBackgroundColor,
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: 30, color: bmPrimaryColor),
+          icon: const Icon(Icons.arrow_back, size: 30, color: bmPrimaryColor),
           onPressed: () {
             Beamer.of(context).beamBack();
           },
@@ -57,7 +57,7 @@ class _ViewAllShopsScreenState extends State<ViewAllShopsScreen> {
         title: titleText(title: 'All Shops'),
         actions: [
           IconButton(
-            icon: Icon(Icons.search_sharp, size: 30, color: bmPrimaryColor),
+            icon: const Icon(Icons.search_sharp, size: 30, color: bmPrimaryColor),
             onPressed: () {},
           ),
           8.width,
@@ -81,7 +81,7 @@ class _ViewAllShopsScreenState extends State<ViewAllShopsScreen> {
                     return ListView.builder(
                         shrinkWrap: true,
                         itemCount: shopList?.length,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (ctx, index) {
                           return ShopCardHomeComponent(
                                   element: shopList![index],
@@ -97,7 +97,7 @@ class _ViewAllShopsScreenState extends State<ViewAllShopsScreen> {
           ],
         ),
       ),
-      floatingActionButton: BMFloatingActionComponent(),
+      floatingActionButton: const BMFloatingActionComponent(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

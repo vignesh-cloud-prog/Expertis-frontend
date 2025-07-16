@@ -11,7 +11,7 @@ import 'package:flutter/foundation.dart';
 import '../models/services_list_model.dart';
 
 class HomeRepository {
-  BaseApiServices _apiServices = NetworkApiService();
+  final BaseApiServices _apiServices = NetworkApiService();
   Map<String, String> requestHeaders = {
     "Access-Control-Allow-Origin": "*", // Required for CORS support to work
     "Access-Control-Allow-Credentials":
@@ -115,7 +115,7 @@ class HomeRepository {
       print("its in try");
       dynamic response = await _apiServices.getGetApiResponse(
           ApiUrl.fetchServicesDataEndPoint(shopId), requestHeaders);
-      print("res ${response}");
+      print("res $response");
       response = ServicesListModel.fromJson(response);
       print("response after from json ${response.toString()}");
       return response;
@@ -188,7 +188,7 @@ class HomeRepository {
       print('response: $response');
       print("respones type: ${response.runtimeType}");
       dynamic data = response['data'];
-      print("data ${data}");
+      print("data $data");
       List<dynamic>? slots = data.isEmpty ? null : data['slots'];
       return slots ?? [];
     } catch (e) {

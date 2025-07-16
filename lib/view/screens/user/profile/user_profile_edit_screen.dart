@@ -1,8 +1,5 @@
 import 'dart:io';
 import 'package:expertis/utils/assets.dart';
-import 'package:expertis/utils/utils.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
 import 'package:expertis/components/BMProfilePicComponent.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
@@ -26,12 +23,11 @@ class BMUserProfileEditScreen extends StatefulWidget {
   UserModel? user;
 
   BMUserProfileEditScreen(
-      {Key? key,
+      {super.key,
       this.title = "Update Profile",
       this.buttonName = "Update",
       required this.isadmin,
-      this.user})
-      : super(key: key);
+      this.user});
 
   @override
   BMUserProfileEditScreenState createState() => BMUserProfileEditScreenState();

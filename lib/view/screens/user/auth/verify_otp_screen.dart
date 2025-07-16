@@ -10,7 +10,7 @@ import '../../../../utils/BMWidgets.dart';
 import 'package:provider/provider.dart';
 
 class BMVerifyOTPScreen extends StatefulWidget {
-  const BMVerifyOTPScreen({Key? key}) : super(key: key);
+  const BMVerifyOTPScreen({super.key});
   static const String routeName = '/verify-otp';
 
   @override
@@ -80,7 +80,7 @@ class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
                                                 ? bmTextColorDarkMode
                                                 : bmSpecialColor,
                                             size: 14)),
-                                    SizedBox(width: 8),
+                                    const SizedBox(width: 8),
                                     CircularProgressIndicator(
                                       valueColor: AlwaysStoppedAnimation<Color>(
                                           appStore.isDarkModeOn
@@ -123,7 +123,7 @@ class _BMVerifyOTPScreenState extends State<BMVerifyOTPScreen> {
                           selectedColor: Colors.amber,
                           activeColor: bmSpecialColor,
                           inactiveFillColor: Colors.white),
-                      animationDuration: Duration(milliseconds: 300),
+                      animationDuration: const Duration(milliseconds: 300),
                       autoFocus: true,
                       // backgroundColor: Colors.blue.shade50,
                       enableActiveFill: true,

@@ -15,9 +15,9 @@ class ReviewListModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.review != null) {
-      data['review'] = this.review!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (review != null) {
+      data['review'] = review!.map((v) => v.toJson()).toList();
     }
     return data;
   }

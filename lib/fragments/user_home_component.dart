@@ -11,7 +11,7 @@ import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
 class UserHomeComponent extends StatefulWidget {
-  const UserHomeComponent({Key? key}) : super(key: key);
+  const UserHomeComponent({super.key});
 
   @override
   State<UserHomeComponent> createState() => _UserHomeComponentState();
@@ -83,7 +83,7 @@ class _UserHomeComponentState extends State<UserHomeComponent> {
                         ],
                       ).paddingSymmetric(horizontal: 16),
                       20.height,
-                      BMTopShopsComponent(),
+                      const BMTopShopsComponent(),
 
                       20.height,
                       Row(
@@ -113,7 +113,7 @@ class _UserHomeComponentState extends State<UserHomeComponent> {
                         ],
                       ).paddingSymmetric(horizontal: 16),
                       20.height,
-                      BMNearByShopsComponent(),
+                      const BMNearByShopsComponent(),
                       // HorizontalList(
                       //   padding: EdgeInsets.symmetric(horizontal: 16),
                       //   spacing: 16,

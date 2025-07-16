@@ -3,6 +3,7 @@ class AppException implements Exception {
   final prefix;
   AppException([this.message, this.prefix]);
 
+  @override
   String toString() {
     return '$prefix: $message';
   }

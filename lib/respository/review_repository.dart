@@ -17,7 +17,7 @@ class ReviewRepository {
     'Content-Type': 'application/json',
   };
 
-  BaseApiServices _apiServices = NetworkApiService();
+  final BaseApiServices _apiServices = NetworkApiService();
 
   Future<dynamic> createOrUpdateReviewDataApi(
       bool isEditMode,

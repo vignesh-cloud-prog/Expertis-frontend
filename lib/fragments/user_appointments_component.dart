@@ -11,7 +11,7 @@ import '../utils/BMColors.dart';
 
 class UserAppointmentsComponent extends StatefulWidget {
   int tabNo = 0;
-  UserAppointmentsComponent({Key? key, this.tabNo = 0}) : super(key: key);
+  UserAppointmentsComponent({super.key, this.tabNo = 0});
 
   @override
   State<UserAppointmentsComponent> createState() =>
@@ -60,7 +60,7 @@ class _UserAppointmentsComponentState extends State<UserAppointmentsComponent> {
         //     Navigator.of(context).maybePop();
         //   },
         // ),
-        title: Text(
+        title: const Text(
           'Appointments',
           style: TextStyle(
             fontSize: 18,
@@ -69,7 +69,7 @@ class _UserAppointmentsComponentState extends State<UserAppointmentsComponent> {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.only(top: 16),
+        margin: const EdgeInsets.only(top: 16),
         decoration: BoxDecoration(
             color: appStore.isDarkModeOn
                 ? bmSecondBackgroundColorDark
@@ -85,14 +85,14 @@ class _UserAppointmentsComponentState extends State<UserAppointmentsComponent> {
                 children: tabList.map((e) {
                   int index = tabList.indexOf(e);
                   return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 8),
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
                     decoration: BoxDecoration(
                       borderRadius: radius(32),
                       color: selectedTab == index
                           ? bmPrimaryColor
                           : Colors.transparent,
                     ),
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Text(
                       tabList[index],
                       style: boldTextStyle(
@@ -138,7 +138,7 @@ class _UserAppointmentsComponentState extends State<UserAppointmentsComponent> {
                         children: appointments?.isEmpty == true
                             ? [
                                 Center(
-                                    child: Text('No appointments found')
+                                    child: const Text('No appointments found')
                                         .paddingAll(26))
                               ]
                             : appointments!.map((e) {

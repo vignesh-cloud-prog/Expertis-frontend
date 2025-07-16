@@ -9,7 +9,7 @@ import 'package:expertis/main.dart';
 import 'package:expertis/utils/BMColors.dart';
 
 class BMTokenExpiredScreen extends StatefulWidget {
-  const BMTokenExpiredScreen({Key? key}) : super(key: key);
+  const BMTokenExpiredScreen({super.key});
   static const routeName = '/token-expired';
   @override
   State<BMTokenExpiredScreen> createState() => _BMTokenExpiredScreenState();
@@ -63,14 +63,14 @@ class _BMTokenExpiredScreenState extends State<BMTokenExpiredScreen> {
             AppButton(
               shapeBorder: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32)),
-              child:
-                  Text('Login Now', style: boldTextStyle(color: Colors.white)),
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               width: 150,
               color: bmPrimaryColor,
               onTap: () {
                 Beamer.of(context).beamToNamed(RoutesName.login);
               },
+              child:
+                  Text('Login Now', style: boldTextStyle(color: Colors.white)),
             ),
           ],
         ).paddingAll(20),

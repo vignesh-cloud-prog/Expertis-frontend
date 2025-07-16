@@ -19,7 +19,7 @@ class CalendarTile extends StatefulWidget {
   final Color? eventColor;
   final Color? eventDoneColor;
 
-  CalendarTile({
+  const CalendarTile({super.key, 
     this.onDateSelected,
     this.date,
     this.child,
@@ -43,10 +43,10 @@ class CalendarTile extends StatefulWidget {
 class _CalendarTileState extends State<CalendarTile> {
   Widget renderDateOrDayOfWeek(BuildContext context) {
     if (widget.isDayOfWeek) {
-      return new InkWell(
-        child: new Container(
+      return InkWell(
+        child: Container(
           alignment: Alignment.center,
-          child: new Text(
+          child: Text(
             widget.dayOfWeek!,
             style: widget.dayOfWeekStyle,
           ),
@@ -63,12 +63,12 @@ class _CalendarTileState extends State<CalendarTile> {
                 ? BoxDecoration(
                     shape: BoxShape.circle,
                     color: widget.selectedColor != null
-                        ? DateUtils.isSameDay(this.widget.date!, DateTime.now())
+                        ? DateUtils.isSameDay(widget.date!, DateTime.now())
                             ? Colors.green
                             : widget.selectedColor
                         : Theme.of(context).primaryColor,
                   )
-                : BoxDecoration(),
+                : const BoxDecoration(),
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +81,7 @@ class _CalendarTileState extends State<CalendarTile> {
                       color: widget.isSelected
                           ? Colors.white
                           : DateUtils.isSameDay(
-                                  this.widget.date!, DateTime.now())
+                                  widget.date!, DateTime.now())
                               ? widget.todayColor
                               : widget.inMonth
                                   ? appStore.isDarkModeOn
@@ -89,7 +89,7 @@ class _CalendarTileState extends State<CalendarTile> {
                                       : Colors.black
                                   : Colors.grey),
                 ),
-                widget.events != null && widget.events!.length > 0
+                widget.events != null && widget.events!.isNotEmpty
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: widget.events!.map((event) {
@@ -97,7 +97,7 @@ class _CalendarTileState extends State<CalendarTile> {
                           // print(event);
                           if (eventCount > 3) return Container();
                           return Container(
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                                 left: 2.0, right: 2.0, top: 1.0),
                             width: 5.0,
                             height: 5.0,
@@ -125,12 +125,12 @@ class _CalendarTileState extends State<CalendarTile> {
   @override
   Widget build(BuildContext context) {
     if (widget.child != null) {
-      return new InkWell(
-        child: widget.child,
+      return InkWell(
         onTap: widget.onDateSelected,
+        child: widget.child,
       );
     }
-    return new Container(
+    return Container(
       child: renderDateOrDayOfWeek(context),
     );
   }

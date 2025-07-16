@@ -20,7 +20,7 @@ import '../utils/BMWidgets.dart';
 class ViewAppointmentScreen extends StatefulWidget {
   final String? appointmentId;
 
-  const ViewAppointmentScreen({Key? key, this.appointmentId}) : super(key: key);
+  const ViewAppointmentScreen({super.key, this.appointmentId});
 
   @override
   ViewAppointmentScreenState createState() => ViewAppointmentScreenState();
@@ -86,7 +86,7 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                       20.height,
                       Column(
                           children: appointment!.services
-                                  ?.map((e) => Container(
+                                  ?.map((e) => SizedBox(
                                         width: double.infinity,
                                         child: ServiceComponent(element: e),
                                       ))
@@ -112,14 +112,14 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Total Time: "),
+                              const Text("Total Time: "),
                               Text("${appointment.totalTime} min"),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Total Price: "),
+                              const Text("Total Price: "),
                               Text("${appointment.totalPrice} Rs"),
                             ],
                           ),
@@ -138,11 +138,9 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                               user?.id.toString())
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
-                              side: BorderSide(color: bmSpecialColor),
+                              side: const BorderSide(color: bmSpecialColor),
                               borderRadius: BorderRadius.circular(32)),
-                          child: Text('Reject',
-                              style: boldTextStyle(color: Colors.red[300])),
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           width: 150,
 
                           // color: bmPrimaryColor,
@@ -152,17 +150,17 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                                     appointment.id, 'reject'),
                                 data: appointment);
                           },
+                          child: Text('Reject',
+                              style: boldTextStyle(color: Colors.red[300])),
                         ).expand(flex: 1)
                       else if (appointment.appointmentStatus == "PENDING" &&
                           appointment.memberId.toString() !=
                               user?.id.toString())
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
-                              side: BorderSide(color: bmSpecialColor),
+                              side: const BorderSide(color: bmSpecialColor),
                               borderRadius: BorderRadius.circular(32)),
-                          child: Text('Cancel',
-                              style: boldTextStyle(color: Colors.red[300])),
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           width: 150,
 
                           // color: bmPrimaryColor,
@@ -172,6 +170,8 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                                     appointment.id, 'cancel'),
                                 data: appointment);
                           },
+                          child: Text('Cancel',
+                              style: boldTextStyle(color: Colors.red[300])),
                         ).expand(flex: 1),
                       if (appointment.appointmentStatus == "PENDING" &&
                           appointment.memberId.toString() ==
@@ -179,9 +179,7 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32)),
-                          child: Text('Accept',
-                              style: boldTextStyle(color: Colors.white)),
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           color: bmPrimaryColor,
                           onTap: () {
                             Beamer.of(context).beamToReplacementNamed(
@@ -189,6 +187,8 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                                   appointment.id, 'accept'),
                             );
                           },
+                          child: Text('Accept',
+                              style: boldTextStyle(color: Colors.white)),
                         ).expand(flex: 2)
                       // else if (appointment.appointmentStatus == "PENDING" &&
                       //     appointment.memberId.toString() !=
@@ -210,9 +210,7 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32)),
-                          child: Text('Mark as Completed',
-                              style: boldTextStyle(color: Colors.white)),
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           color: bmPrimaryColor,
                           onTap: () {
                             Beamer.of(context).beamToReplacementNamed(
@@ -220,6 +218,8 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                                   appointment.id, 'complete'),
                             );
                           },
+                          child: Text('Mark as Completed',
+                              style: boldTextStyle(color: Colors.white)),
                         ).expand(flex: 2)
                       else if (appointment.appointmentStatus == "CANCELLED" ||
                           appointment.appointmentStatus == "REJECTED" ||
@@ -227,13 +227,13 @@ class ViewAppointmentScreenState extends State<ViewAppointmentScreen> {
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32)),
-                          child: Text('Go Back',
-                              style: boldTextStyle(color: Colors.white)),
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           color: bmPrimaryColor,
                           onTap: () {
                             Navigator.of(context).maybePop();
                           },
+                          child: Text('Go Back',
+                              style: boldTextStyle(color: Colors.white)),
                         ).expand(flex: 2),
                     ],
                   ),

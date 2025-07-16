@@ -9,7 +9,7 @@ import '../utils/BMWidgets.dart';
 class BMCommentComponent extends StatefulWidget {
   BMCommentModel element;
 
-  BMCommentComponent({required this.element});
+  BMCommentComponent({super.key, required this.element});
 
   @override
   _BMCommentComponentState createState() => _BMCommentComponentState();
@@ -53,11 +53,11 @@ class _BMCommentComponentState extends State<BMCommentComponent> {
           mainAxisSize: MainAxisSize.min,
           children: [
             widget.element.isLiked
-                ? Icon(Icons.favorite, color: Colors.amber).onTap(() {
+                ? const Icon(Icons.favorite, color: Colors.amber).onTap(() {
                     widget.element.isLiked = !widget.element.isLiked;
                     setState(() {});
                   })
-                : Icon(Icons.favorite_outline, color: bmPrimaryColor).onTap(() {
+                : const Icon(Icons.favorite_outline, color: bmPrimaryColor).onTap(() {
                     widget.element.isLiked = !widget.element.isLiked;
                     setState(() {});
                   }),

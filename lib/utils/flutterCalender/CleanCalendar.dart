@@ -6,7 +6,7 @@ import 'CalendarTile.dart';
 import 'SimpleGestureDetector.dart';
 import 'date_utils.dart';
 
-typedef DayBuilder(BuildContext context, DateTime day);
+typedef DayBuilder = Function(BuildContext context, DateTime day);
 
 class Range {
   final DateTime from;
@@ -39,7 +39,7 @@ class Calendar extends StatefulWidget {
   final Color? bottomBarArrowColor;
   final Color? bottomBarColor;
 
-  Calendar({
+  const Calendar({super.key, 
     this.onMonthChanged,
     this.onDateSelected,
     this.onRangeSelected,
@@ -79,6 +79,7 @@ class _CalendarState extends State<Calendar> {
 
   DateTime get selectedDate => _selectedDate;
 
+  @override
   void initState() {
     super.initState();
     _selectedDate = widget.initialDate ?? DateTime.now();
@@ -96,18 +97,18 @@ class _CalendarState extends State<Calendar> {
   }
 
   Widget get nameAndIconRow {
-    var todayIcon;
-    var leftArrow;
-    var rightArrow;
+    StatelessWidget todayIcon;
+    StatelessWidget leftArrow;
+    StatelessWidget rightArrow;
 
     if (!widget.hideArrows) {
       leftArrow = IconButton(
         onPressed: isExpanded ? previousMonth : previousWeek,
-        icon: Icon(Icons.chevron_left),
+        icon: const Icon(Icons.chevron_left),
       );
       rightArrow = IconButton(
         onPressed: isExpanded ? nextMonth : nextWeek,
-        icon: Icon(Icons.chevron_right),
+        icon: const Icon(Icons.chevron_right),
       );
     } else {
       leftArrow = Container();
@@ -116,8 +117,8 @@ class _CalendarState extends State<Calendar> {
 
     if (!widget.hideTodayIcon) {
       todayIcon = InkWell(
-        child: Text('Today'),
         onTap: resetToToday,
+        child: const Text('Today'),
       );
     } else {
       todayIcon = Container();
@@ -132,7 +133,7 @@ class _CalendarState extends State<Calendar> {
             todayIcon ?? Container(),
             Text(
               displayMonth,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20.0,
               ),
             ),
@@ -150,7 +151,7 @@ class _CalendarState extends State<Calendar> {
         onSwipeDown: _onSwipeDown,
         onSwipeLeft: _onSwipeLeft,
         onSwipeRight: _onSwipeRight,
-        swipeConfig: SimpleSwipeConfig(
+        swipeConfig: const SimpleSwipeConfig(
           verticalThreshold: 10.0,
           horizontalThreshold: 40.0,
           swipeDetectionMoment: SwipeDetectionMoment.onUpdate,
@@ -161,7 +162,7 @@ class _CalendarState extends State<Calendar> {
             primary: false,
             shrinkWrap: true,
             crossAxisCount: 7,
-            padding: EdgeInsets.only(bottom: 0.0),
+            padding: const EdgeInsets.only(bottom: 0.0),
             children: calendarBuilder(),
           ),
         ]),
@@ -173,8 +174,7 @@ class _CalendarState extends State<Calendar> {
     List<Widget> dayWidgets = [];
     List<DateTime> calendarDays =
         isExpanded ? selectedMonthsDays : selectedWeekDays as List<DateTime>;
-    widget.weekDays.forEach(
-      (day) {
+    for (var day in widget.weekDays) {
         dayWidgets.add(
           CalendarTile(
             selectedColor: widget.selectedColor,
@@ -192,17 +192,15 @@ class _CalendarState extends State<Calendar> {
                 ),
           ),
         );
-      },
-    );
+      }
 
     bool monthStarted = false;
     bool monthEnded = false;
 
-    calendarDays.forEach(
-      (day) {
+    for (var day in calendarDays) {
         if (day.hour > 0) {
           day = day.toLocal();
-          day = day.subtract(new Duration(hours: day.hour));
+          day = day.subtract(Duration(hours: day.hour));
         }
 
         if (monthStarted && day.day == 01) {
@@ -213,7 +211,7 @@ class _CalendarState extends State<Calendar> {
           monthStarted = true;
         }
 
-        if (this.widget.dayBuilder != null) {
+        if (widget.dayBuilder != null) {
           dayWidgets.add(
             CalendarTile(
               selectedColor: widget.selectedColor,
@@ -221,7 +219,7 @@ class _CalendarState extends State<Calendar> {
               eventColor: widget.eventColor,
               eventDoneColor: widget.eventDoneColor,
               events: widget.events![day],
-              child: this.widget.dayBuilder!(context, day),
+              child: widget.dayBuilder!(context, day),
               date: day,
               onDateSelected: () => handleSelectedDateAndUserCallback(day),
             ),
@@ -241,8 +239,7 @@ class _CalendarState extends State<Calendar> {
                 inMonth: day.month == selectedDate.month),
           );
         }
-      },
-    );
+      }
     return dayWidgets;
   }
 
@@ -272,22 +269,22 @@ class _CalendarState extends State<Calendar> {
       return GestureDetector(
         onTap: toggleExpanded,
         child: Container(
-          color: widget.bottomBarColor ?? Color.fromRGBO(200, 200, 200, 0.2),
+          color: widget.bottomBarColor ?? const Color.fromRGBO(200, 200, 200, 0.2),
           height: 40,
-          margin: EdgeInsets.only(top: 8.0),
-          padding: EdgeInsets.all(0),
+          margin: const EdgeInsets.only(top: 8.0),
+          padding: const EdgeInsets.all(0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              SizedBox(width: 40.0),
+              const SizedBox(width: 40.0),
               Text(
                 Utils.fullDayFormat(selectedDate),
-                style: widget.bottomBarTextStyle ?? TextStyle(fontSize: 13),
+                style: widget.bottomBarTextStyle ?? const TextStyle(fontSize: 13),
               ),
               IconButton(
                 onPressed: toggleExpanded,
                 iconSize: 25.0,
-                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                 icon: isExpanded
                     ? Icon(
                         Icons.arrow_drop_up,
@@ -410,9 +407,9 @@ class _CalendarState extends State<Calendar> {
   }
 
   void updateSelectedRange(DateTime start, DateTime? end) {
-    Range _rangeSelected = Range(start, end);
+    Range rangeSelected = Range(start, end);
     if (widget.onRangeSelected != null) {
-      widget.onRangeSelected!(_rangeSelected);
+      widget.onRangeSelected!(rangeSelected);
     }
   }
 
@@ -476,21 +473,21 @@ class _CalendarState extends State<Calendar> {
   }
 
   _firstDayOfWeek(DateTime date) {
-    var day = new DateTime.utc(date.year, date.month, date.day, 12);
+    var day = DateTime.utc(date.year, date.month, date.day, 12);
     return day.subtract(
-        new Duration(days: day.weekday - (widget.startOnMonday ? 1 : 0)));
+        Duration(days: day.weekday - (widget.startOnMonday ? 1 : 0)));
   }
 
   _lastDayOfWeek(DateTime date) {
-    return _firstDayOfWeek(date).add(new Duration(days: 7));
+    return _firstDayOfWeek(date).add(const Duration(days: 7));
   }
 
   List<DateTime> _daysInMonth(DateTime month) {
     var first = Utils.firstDayOfMonth(month);
     var daysBefore = first.weekday;
     var firstToDisplay = first
-        .subtract(new Duration(days: daysBefore - 1))
-        .subtract(new Duration(days: !widget.startOnMonday ? 1 : 0));
+        .subtract(Duration(days: daysBefore - 1))
+        .subtract(Duration(days: !widget.startOnMonday ? 1 : 0));
     var last = Utils.lastDayOfMonth(month);
 
     var daysAfter = 7 - last.weekday;
@@ -500,7 +497,7 @@ class _CalendarState extends State<Calendar> {
       daysAfter = 7;
     }
 
-    var lastToDisplay = last.add(new Duration(days: daysAfter));
+    var lastToDisplay = last.add(Duration(days: daysAfter));
     return Utils.daysInRange(firstToDisplay, lastToDisplay).toList();
   }
 }
@@ -510,7 +507,7 @@ class ExpansionCrossFade extends StatelessWidget {
   final Widget? expanded;
   final bool? isExpanded;
 
-  ExpansionCrossFade({this.collapsed, this.expanded, this.isExpanded});
+  const ExpansionCrossFade({super.key, this.collapsed, this.expanded, this.isExpanded});
 
   @override
   Widget build(BuildContext context) {

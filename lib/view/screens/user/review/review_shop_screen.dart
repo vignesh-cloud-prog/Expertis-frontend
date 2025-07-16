@@ -10,7 +10,7 @@ import 'package:expertis/utils/BMColors.dart';
 class WriteReviewScreen extends StatefulWidget {
   String? shopId;
   ReviewModel? review = ReviewModel();
-  WriteReviewScreen({Key? key, this.shopId, this.review}) : super(key: key);
+  WriteReviewScreen({super.key, this.shopId, this.review});
   @override
   State<WriteReviewScreen> createState() => _WriteReviewScreenState();
 }
@@ -56,8 +56,6 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
         actions: [
           AppButton(
             elevation: 0,
-            child: Text(widget.review?.rating == null ? 'Post' : 'Save',
-                style: boldTextStyle(color: bmPrimaryColor)),
             width: 150,
             onTap: () {
               widget.review?.to = widget.shopId;
@@ -78,6 +76,8 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
               reviewViewModel.addOrUpdateReviewData(
                   false, data, false, files, context);
             },
+            child: Text(widget.review?.rating == null ? 'Post' : 'Save',
+                style: boldTextStyle(color: bmPrimaryColor)),
           ),
         ],
       ),
@@ -88,7 +88,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
           children: [
             headerText(title: "So What Do You Think?", color: bmPrimaryColor),
             16.height,
-            Icon(Icons.format_quote_rounded, size: 50, color: bmPrimaryColor),
+            const Icon(Icons.format_quote_rounded, size: 50, color: bmPrimaryColor),
             16.height,
             // titleText(
             //   title: 'Title',

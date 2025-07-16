@@ -21,8 +21,7 @@ class CreateUpdateServiceScreen extends StatefulWidget {
   final String? serviceId;
   Services? service = Services();
 
-  CreateUpdateServiceScreen({Key? key, this.serviceId, this.service})
-      : super(key: key);
+  CreateUpdateServiceScreen({super.key, this.serviceId, this.service});
 
   @override
   CreateUpdateServiceScreenState createState() =>
@@ -62,8 +61,8 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
 
   Future<void> pickImage({ImageSource source = ImageSource.gallery}) async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(
           source: source, maxHeight: 200, maxWidth: 200);
       if (image == null) {
         return;
@@ -76,8 +75,8 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
         pickedImage = File(image.path);
       });
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: source);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: source);
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {
@@ -104,14 +103,14 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
         backgroundColor: bmSpecialColor,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Beamer.of(context).beamBack();
           },
         ),
         title: Text(
           widget.serviceId == null ? 'Add Service' : 'Update Service',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -310,9 +309,7 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
                       child: Column(
                         children: [
                           AppButton(
-                            child: Text('Clear',
-                                style: boldTextStyle(color: Colors.red)),
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             width: 150,
                             onTap: () {
                               setState(() {
@@ -321,8 +318,10 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
                                 webImage = Uint8List(8);
                               });
                             },
+                            child: Text('Clear',
+                                style: boldTextStyle(color: Colors.red)),
                           ),
-                          SizedBox(height: 12),
+                          const SizedBox(height: 12),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -331,7 +330,7 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
                                   color: appStore.isDarkModeOn
                                       ? bmTextColorDarkMode
                                       : bmPrimaryColor,
-                                  icon: Icon(Icons.photo),
+                                  icon: const Icon(Icons.photo),
                                   onPressed: () {
                                     pickImage(source: ImageSource.gallery);
                                   },
@@ -340,7 +339,7 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
                                   color: appStore.isDarkModeOn
                                       ? bmTextColorDarkMode
                                       : bmPrimaryColor,
-                                  icon: Icon(Icons.camera_alt),
+                                  icon: const Icon(Icons.camera_alt),
                                   onPressed: () {
                                     pickImage(source: ImageSource.camera);
                                   },
@@ -394,7 +393,7 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
                             listType: MultiSelectListType.CHIP,
                             onConfirm: (values) {
                               List<dynamic> selectedCategories =
-                                  values as List<CategoryModel>;
+                                  values;
                               widget.service?.tags = selectedCategories
                                   .map((e) => e.id.toString())
                                   .toList();
@@ -483,11 +482,11 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
                         if (serviceData["tags"] != null) {
                           List<String> tags = serviceData["tags"];
                           print('tags: $tags');
-                          tags.forEach((e) {
+                          for (var e in tags) {
                             serviceData["tags[${tags.indexOf(e)}]"] =
                                 e.toString();
                             print("added tag: $e");
-                          });
+                          }
                           print(serviceData);
                         }
                         serviceData.remove('tags');

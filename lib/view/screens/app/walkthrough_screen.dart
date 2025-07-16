@@ -7,7 +7,7 @@ import 'package:expertis/main.dart';
 import 'package:expertis/utils/BMColors.dart';
 
 class BMWalkThroughScreen extends StatefulWidget {
-  const BMWalkThroughScreen({Key? key}) : super(key: key);
+  const BMWalkThroughScreen({super.key});
   static const routeName = '/onboarding';
 
   @override
@@ -41,7 +41,7 @@ class _BMWalkThroughScreenState extends State<BMWalkThroughScreen> {
             Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                Container(
+                SizedBox(
                   width: context.width(),
                   height: context.height(),
                   child: PageView.builder(
@@ -81,7 +81,7 @@ class _BMWalkThroughScreenState extends State<BMWalkThroughScreen> {
                       children: [
                         for (int i = 0; i < walkThroughList.length; i++)
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 4),
+                            margin: const EdgeInsets.symmetric(horizontal: 4),
                             height: 4,
                             width: i == currentIndexPage ? 30 : 14,
                             decoration: BoxDecoration(
@@ -99,9 +99,7 @@ class _BMWalkThroughScreenState extends State<BMWalkThroughScreen> {
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32)),
-                          child: Text('Login Now',
-                              style: boldTextStyle(color: Colors.white)),
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           width: 150,
                           color: bmPrimaryColor,
                           onTap: () {
@@ -110,15 +108,15 @@ class _BMWalkThroughScreenState extends State<BMWalkThroughScreen> {
 
                             // BMLoginScreen().launch(context, isNewTask: true);
                           },
+                          child: Text('Login Now',
+                              style: boldTextStyle(color: Colors.white)),
                         ),
                         16.width,
                         AppButton(
-                          child: Text('Join Now',
-                              style: boldTextStyle(color: Colors.white)),
                           width: 150,
                           shapeBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32)),
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           color: Colors.grey,
                           onTap: () {
                             Beamer.of(context)
@@ -126,6 +124,8 @@ class _BMWalkThroughScreenState extends State<BMWalkThroughScreen> {
 
                             // BMRegisterScreen().launch(context, isNewTask: true);
                           },
+                          child: Text('Join Now',
+                              style: boldTextStyle(color: Colors.white)),
                         ),
                       ],
                     ),

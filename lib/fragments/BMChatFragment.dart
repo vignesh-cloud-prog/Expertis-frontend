@@ -9,6 +9,8 @@ import '../utils/BMDataGenerator.dart';
 import '../utils/BMWidgets.dart';
 
 class BMChatFragment extends StatefulWidget {
+  const BMChatFragment({super.key});
+
   @override
   State<BMChatFragment> createState() => _BMChatFragmentState();
 }
@@ -46,7 +48,7 @@ class _BMChatFragmentState extends State<BMChatFragment> {
                       Stack(
                         children: [
                           Image.asset(personList[index].image, height: 50, width: 50, fit: BoxFit.cover).cornerRadiusWithClipRRect(100),
-                          Positioned(bottom: 0, right: 0, child: Icon(Icons.circle, size: 12, color: Colors.lightBlueAccent))
+                          const Positioned(bottom: 0, right: 0, child: Icon(Icons.circle, size: 12, color: Colors.lightBlueAccent))
                         ],
                       ),
                       4.height,
@@ -57,13 +59,13 @@ class _BMChatFragmentState extends State<BMChatFragment> {
                   }),
                 );
               } else {
-                return Offstage();
+                return const Offstage();
               }
             },
           ),
           16.height,
           Container(
-            padding: EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 20),
             decoration: BoxDecoration(color: appStore.isDarkModeOn ? bmSecondBackgroundColorDark : bmSecondBackgroundColorLight, borderRadius: radiusOnly(topRight: 32, topLeft: 32)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

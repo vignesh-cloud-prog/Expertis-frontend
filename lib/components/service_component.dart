@@ -10,7 +10,7 @@ class ServiceComponent extends StatefulWidget {
   Services element;
   // BMServiceListModel element;
 
-  ServiceComponent({required this.element});
+  ServiceComponent({super.key, required this.element});
 
   @override
   State<ServiceComponent> createState() => _ServiceComponentState();
@@ -62,9 +62,9 @@ class _ServiceComponentState extends State<ServiceComponent> {
                 borderRadius: radius(100),
                 border: Border.all(color: bmPrimaryColor),
               ),
-              padding: EdgeInsets.all(6),
+              padding: const EdgeInsets.all(6),
               child: InkWell(
-                child: Icon(Icons.info, color: bmPrimaryColor),
+                child: const Icon(Icons.info, color: bmPrimaryColor),
                 onTap: () {
                   // showBookBottomSheet(context, element);
                 },

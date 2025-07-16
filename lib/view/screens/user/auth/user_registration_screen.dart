@@ -12,7 +12,7 @@ import '../../../../utils/BMColors.dart';
 import '../../../../utils/BMWidgets.dart';
 
 class BMRegisterScreen extends StatefulWidget {
-  const BMRegisterScreen({Key? key}) : super(key: key);
+  const BMRegisterScreen({super.key});
   static const String routeName = '/register';
 
   @override

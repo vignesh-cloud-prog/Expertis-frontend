@@ -4,6 +4,8 @@ import 'package:nb_utils/nb_utils.dart';
 import '../utils/BMColors.dart';
 
 class BMSeacrFragmentHeaderComponent extends StatefulWidget {
+  const BMSeacrFragmentHeaderComponent({super.key});
+
   @override
   State<BMSeacrFragmentHeaderComponent> createState() => _BMSeacrFragmentHeaderComponentState();
 }
@@ -21,9 +23,9 @@ class _BMSeacrFragmentHeaderComponentState extends State<BMSeacrFragmentHeaderCo
         Row(
           children: [
             Container(
-              margin: EdgeInsets.only(right: 8),
+              margin: const EdgeInsets.only(right: 8),
               decoration: BoxDecoration(color: context.cardColor, borderRadius: radius(32)),
-              padding: EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: AppTextField(
                 controller: searchCont,
                 onChanged: (text) {
@@ -32,14 +34,14 @@ class _BMSeacrFragmentHeaderComponentState extends State<BMSeacrFragmentHeaderCo
                 },
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  prefixIcon: Icon(Icons.search_sharp, color: bmPrimaryColor),
+                  prefixIcon: const Icon(Icons.search_sharp, color: bmPrimaryColor),
                   hintText: 'Search',
                   hintStyle: primaryTextStyle(color: bmPrimaryColor),
-                  suffixIcon: searchText.length > 0
-                      ? Icon(Icons.cancel, color: bmPrimaryColor).onTap(() {
+                  suffixIcon: searchText.isNotEmpty
+                      ? const Icon(Icons.cancel, color: bmPrimaryColor).onTap(() {
                           searchCont.clear();
                         })
-                      : Offstage(),
+                      : const Offstage(),
                 ),
                 textFieldType: TextFieldType.NAME,
                 cursorColor: bmPrimaryColor,

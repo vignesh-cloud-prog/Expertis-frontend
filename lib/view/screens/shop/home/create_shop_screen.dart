@@ -16,8 +16,8 @@ import 'package:dotted_border/dotted_border.dart';
 
 class CreateShopScreen extends StatefulWidget {
   const CreateShopScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   CreateShopScreenState createState() => CreateShopScreenState();

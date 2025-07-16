@@ -8,7 +8,7 @@ import '../utils/BMColors.dart';
 class BMSinglePortfolioScreen extends StatefulWidget {
   BMCommonCardModel element;
 
-  BMSinglePortfolioScreen({required this.element});
+  BMSinglePortfolioScreen({super.key, required this.element});
 
   @override
   _BMSinglePortfolioScreenState createState() => _BMSinglePortfolioScreenState();
@@ -19,7 +19,7 @@ class _BMSinglePortfolioScreenState extends State<BMSinglePortfolioScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
       decoration: BoxDecoration(
         image: DecorationImage(image: AssetImage(widget.element.image), fit: BoxFit.cover),
       ),
@@ -28,12 +28,12 @@ class _BMSinglePortfolioScreenState extends State<BMSinglePortfolioScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            child: Image.asset('images/x.png', height: 16, fit: BoxFit.cover, color: bmPrimaryColor),
             decoration: BoxDecoration(
               borderRadius: radius(100),
               color: context.cardColor,
             ),
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
+            child: Image.asset('images/x.png', height: 16, fit: BoxFit.cover, color: bmPrimaryColor),
           ).onTap(() {
             finish(context);
           }),
@@ -52,12 +52,12 @@ class _BMSinglePortfolioScreenState extends State<BMSinglePortfolioScreen> {
               Column(
                 children: [
                   Container(
-                    child: widget.element.liked! ? Icon(Icons.favorite, color: bmPrimaryColor) : Icon(Icons.favorite_outline, color: bmPrimaryColor),
                     decoration: BoxDecoration(
                       borderRadius: radius(100),
                       color: context.cardColor,
                     ),
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
+                    child: widget.element.liked! ? const Icon(Icons.favorite, color: bmPrimaryColor) : const Icon(Icons.favorite_outline, color: bmPrimaryColor),
                   ).onTap(() {
                     widget.element.liked = !widget.element.liked!;
                     setState(() {});
@@ -66,12 +66,12 @@ class _BMSinglePortfolioScreenState extends State<BMSinglePortfolioScreen> {
                   Text(widget.element.likes!, style: secondaryTextStyle(color: Colors.white, size: 12)),
                   20.height,
                   Container(
-                    child: Image.asset('images/chat.png', height: 16, fit: BoxFit.cover, color: bmPrimaryColor),
                     decoration: BoxDecoration(
                       borderRadius: radius(100),
                       color: context.cardColor,
                     ),
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
+                    child: Image.asset('images/chat.png', height: 16, fit: BoxFit.cover, color: bmPrimaryColor),
                   ).onTap(() {
                     showCommentBottomSheet(context);
                   }, borderRadius: radius(100)),

@@ -5,7 +5,7 @@ import 'package:nb_utils/nb_utils.dart';
 class ShopDashBoardHomeComponent extends StatefulWidget {
   String? shopId;
 
-  ShopDashBoardHomeComponent({Key? key, this.shopId}) : super(key: key);
+  ShopDashBoardHomeComponent({super.key, this.shopId});
 
   @override
   State<ShopDashBoardHomeComponent> createState() =>

@@ -8,8 +8,7 @@ import '../../../../utils/BMColors.dart';
 
 class ShopAppointmentsHomeScreen extends StatefulWidget {
   final String? shopId;
-  const ShopAppointmentsHomeScreen({Key? key, required this.shopId})
-      : super(key: key);
+  const ShopAppointmentsHomeScreen({super.key, required this.shopId});
 
   @override
   State<ShopAppointmentsHomeScreen> createState() =>
@@ -46,13 +45,13 @@ class _ShopAppointmentsHomeScreenState
           children: tabList.map((e) {
             int index = tabList.indexOf(e);
             return Container(
-              margin: EdgeInsets.symmetric(horizontal: 8),
+              margin: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                 borderRadius: radius(32),
                 color:
                     selectedTab == index ? bmPrimaryColor : Colors.transparent,
               ),
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: Text(
                 tabList[index],
                 style: boldTextStyle(
@@ -72,7 +71,7 @@ class _ShopAppointmentsHomeScreenState
           }).toList(),
         ).center(),
         20.height,
-        Divider(
+        const Divider(
           color: bmPrimaryColor,
           thickness: 1,
         ),

@@ -6,7 +6,7 @@ import '../main.dart';
 import '../utils/BMColors.dart';
 
 class BMSocialIconsLoginComponents extends StatelessWidget {
-  const BMSocialIconsLoginComponents({Key? key}) : super(key: key);
+  const BMSocialIconsLoginComponents({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class BMSocialIconsLoginComponents extends StatelessWidget {
         Container(
           height: 50,
           width: 50,
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(borderRadius: radius(100), color: facebook),
           child: SvgPicture.asset(
             'images/ic_facebook.svg',
@@ -26,7 +26,7 @@ class BMSocialIconsLoginComponents extends StatelessWidget {
         Container(
           height: 50,
           width: 50,
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(borderRadius: radius(100), color: twitter),
           child: SvgPicture.asset(
             'images/ic_twitter.svg',
@@ -42,7 +42,7 @@ class BMSocialIconsLoginComponents extends StatelessWidget {
         Container(
           height: 50,
           width: 50,
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(borderRadius: radius(100), color: appStore.isDarkModeOn ? bmPrimaryColor : bmSpecialColorDark),
           child: Image.asset(
             'images/ic_apple.png',

@@ -13,8 +13,7 @@ import 'package:provider/provider.dart';
 
 class ServiceCardComponent extends StatelessWidget {
   final Services? element;
-  const ServiceCardComponent({Key? key, required this.element})
-      : super(key: key);
+  const ServiceCardComponent({super.key, required this.element});
   @override
   Widget build(BuildContext context) {
     print(" service element: ${element?.toJson()}");
@@ -39,7 +38,7 @@ class ServiceCardComponent extends StatelessWidget {
         width: size.width * 0.25,
         child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
           IconButton(
-            icon: Icon(Icons.edit),
+            icon: const Icon(Icons.edit),
             onPressed: () {
               Beamer.of(context).beamToNamed(
                   RoutesName.updateServiceWithId(element?.id),
@@ -47,7 +46,7 @@ class ServiceCardComponent extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             onPressed: () {
               shopViewModel.deleteServiceApi(element?.id, context);
             },

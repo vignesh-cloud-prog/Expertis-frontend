@@ -9,7 +9,7 @@ import '../utils/BMColors.dart';
 import '../utils/BMWidgets.dart';
 
 class HomeFragmentHeadComponent extends StatefulWidget {
-  const HomeFragmentHeadComponent({Key? key}) : super(key: key);
+  const HomeFragmentHeadComponent({super.key});
 
   @override
   State<HomeFragmentHeadComponent> createState() =>
@@ -21,7 +21,7 @@ class _HomeFragmentHeadComponentState extends State<HomeFragmentHeadComponent> {
   Widget build(BuildContext context) {
     UserViewModel? userViewModel = Provider.of<UserViewModel>(context);
 
-    return Container(
+    return SizedBox(
         width: double.infinity,
         height: 180.0,
         child: Column(
@@ -37,7 +37,7 @@ class _HomeFragmentHeadComponentState extends State<HomeFragmentHeadComponent> {
                   height: 60,
                   width: 60,
                 ).cornerRadiusWithClipRRect(100),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
@@ -60,9 +60,9 @@ class _HomeFragmentHeadComponentState extends State<HomeFragmentHeadComponent> {
               children: [
                 Row(
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.25,
-                      child: Row(children: [
+                      child: const Row(children: [
                         Icon(
                           Icons.location_city,
                           color: bmPrimaryColor,
@@ -71,7 +71,7 @@ class _HomeFragmentHeadComponentState extends State<HomeFragmentHeadComponent> {
                       ]),
                     ),
                     5.width,
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.5,
                       child: AppTextField(
                         textFieldType: TextFieldType.NAME,
@@ -88,9 +88,9 @@ class _HomeFragmentHeadComponentState extends State<HomeFragmentHeadComponent> {
                 4.height,
                 Row(
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.25,
-                      child: Row(children: [
+                      child: const Row(children: [
                         Icon(
                           Icons.numbers,
                           color: bmPrimaryColor,
@@ -99,10 +99,10 @@ class _HomeFragmentHeadComponentState extends State<HomeFragmentHeadComponent> {
                       ]),
                     ),
                     5.width,
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.5,
                       child: AppTextField(
-                        suffix: Icon(
+                        suffix: const Icon(
                           Icons.edit,
                           color: bmPrimaryColor,
                         ),

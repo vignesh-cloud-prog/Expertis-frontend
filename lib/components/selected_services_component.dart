@@ -10,8 +10,7 @@ import '../utils/BMWidgets.dart';
 class SelectedServicesComponent extends StatefulWidget {
   List<Services>? selectedServices;
 
-  SelectedServicesComponent({Key? key, required this.selectedServices})
-      : super(key: key);
+  SelectedServicesComponent({super.key, required this.selectedServices});
 
   @override
   _SelectedServicesComponentState createState() =>
@@ -76,7 +75,7 @@ class _SelectedServicesComponentState extends State<SelectedServicesComponent> {
                               ),
                               10.width,
                               IconButton(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.cancel,
                                   color: bmPrimaryColor,
                                 ),
@@ -85,7 +84,6 @@ class _SelectedServicesComponentState extends State<SelectedServicesComponent> {
                                       ?.remove(e);
                                   setState(() {});
                                   super.setState(() {});
-                                  ;
                                 },
                               ),
                             ],
@@ -93,7 +91,7 @@ class _SelectedServicesComponentState extends State<SelectedServicesComponent> {
                         ],
                       ))
                   .toList() ??
-              [Center(child: Text('No services selected'))],
+              [const Center(child: Text('No services selected'))],
         ),
         10.height,
         titleText(title: "Summary"),
@@ -103,16 +101,16 @@ class _SelectedServicesComponentState extends State<SelectedServicesComponent> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Total Time: "),
-                Text("${totalTime} min"),
+                const Text("Total Time: "),
+                Text("$totalTime min"),
               ],
             ),
             2.height,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Total Price: "),
-                Text("${totalCost} Rs"),
+                const Text("Total Price: "),
+                Text("$totalCost Rs"),
               ],
             ),
           ],

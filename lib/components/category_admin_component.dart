@@ -10,8 +10,7 @@ import 'package:nb_utils/nb_utils.dart';
 
 class CategoryAdminCardComponent extends StatelessWidget {
   final CategoryModel? category;
-  const CategoryAdminCardComponent({Key? key, required this.category})
-      : super(key: key);
+  const CategoryAdminCardComponent({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +38,7 @@ class CategoryAdminCardComponent extends StatelessWidget {
         width: size.width * 0.25,
         child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
           IconButton(
-            icon: Icon(Icons.edit),
+            icon: const Icon(Icons.edit),
             onPressed: () {
               Beamer.of(context).beamToNamed(
                   RoutesName.updateTagWithId(category?.id),
@@ -47,7 +46,7 @@ class CategoryAdminCardComponent extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             onPressed: () {
               categoryViewModel.deleteCategoryApi(category?.id, context);
             },

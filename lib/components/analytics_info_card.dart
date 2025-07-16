@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class AnalyticInfoCard extends StatelessWidget {
-  const AnalyticInfoCard({Key? key, required this.info}) : super(key: key);
+  const AnalyticInfoCard({super.key, required this.info});
 
   final AnalyticInfo info;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 16 / 2,
       ),
@@ -26,20 +26,20 @@ class AnalyticInfoCard extends StatelessWidget {
             children: [
               Text(
                 info.count != null ? "${info.count}" : "Explore",
-                style: TextStyle(
+                style: const TextStyle(
                   color: bmSpecialColor,
                   fontSize: 18,
                   fontWeight: FontWeight.w800,
                 ),
               ),
               Container(
-                  padding: EdgeInsets.all(16 / 2),
+                  padding: const EdgeInsets.all(16 / 2),
                   height: 40,
                   width: 40,
                   decoration: BoxDecoration(
                       color: info.color!.withOpacity(0.1),
                       shape: BoxShape.circle),
-                  child: Icon(Icons.analytics_rounded, color: bmPrimaryColor)
+                  child: const Icon(Icons.analytics_rounded, color: bmPrimaryColor)
                   // child: SvgPicture.asset(
                   //   info.svgSrc!,
                   //   color: info.color,
@@ -51,7 +51,7 @@ class AnalyticInfoCard extends StatelessWidget {
             info.title!,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
+            style: const TextStyle(
               color: bmPrimaryColor,
               fontSize: 15,
               fontWeight: FontWeight.w600,

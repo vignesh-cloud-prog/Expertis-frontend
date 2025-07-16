@@ -23,6 +23,8 @@ import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:beamer/beamer.dart';
+import 'package:app_links/app_links.dart';
+import 'dart:async';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'firebase_options.dart';
 
@@ -55,12 +57,12 @@ void main() async {
       ChangeNotifierProvider(create: (_) => CategoryViewModel()),
       ChangeNotifierProvider(create: (_) => AppointmentListViewModel()),
     ],
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -80,14 +82,37 @@ class _MyAppState extends State<MyApp> {
         SearchLocation(),
         AdminLocation(),
       ],
-    ),
+    ).call,
     // notFoundRedirectNamed: '/books',
   );
 
+  AppLinks? _appLinks;
+  StreamSubscription<Uri>? _linkSubscription;
+
   @override
   void initState() {
-    // DynamicLinksService.initDynamicLink(context);
     super.initState();
+    _appLinks = AppLinks();
+    // Listen for all incoming links (initial and subsequent)
+    _linkSubscription = _appLinks!.uriLinkStream.listen((Uri? uri) {
+      if (uri != null) {
+        _handleDeepLink(uri);
+      }
+    });
+  }
+
+  void _handleDeepLink(Uri uri) {
+    // Map the URI to a Beamer path. This assumes your deep links match your route structure.
+    final path = uri.path;
+    if (path.isNotEmpty) {
+      routerDelegate.beamToNamed(path, stacked: false);
+    }
+  }
+
+  @override
+  void dispose() {
+    _linkSubscription?.cancel();
+    super.dispose();
   }
 
   @override

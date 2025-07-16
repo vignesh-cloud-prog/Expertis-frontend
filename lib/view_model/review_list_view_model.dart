@@ -28,7 +28,7 @@ class ReviewListViewModel with ChangeNotifier {
 
   Future<void> fetchReviewDataApi(id) async {
     _myRepo.getAllReviewOfShop(id).then((value) {
-      print("api response in getAllReviewOfShop ${value}");
+      print("api response in getAllReviewOfShop $value");
       setReviewList(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
       setReviewList(ApiResponse.error(error.toString()));

@@ -10,7 +10,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 class AdminTagsHomeScreen extends StatefulWidget {
-  AdminTagsHomeScreen({Key? key}) : super(key: key);
+  const AdminTagsHomeScreen({super.key});
 
   @override
   State<AdminTagsHomeScreen> createState() => _AdminTagsHomeScreenState();
@@ -56,7 +56,7 @@ class _AdminTagsHomeScreenState extends State<AdminTagsHomeScreen> {
                   return ListView.builder(
                       shrinkWrap: true,
                       itemCount: value.categoryList.data?.categories?.length,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (ctx, index) {
                         return Container(
                           decoration: BoxDecoration(
