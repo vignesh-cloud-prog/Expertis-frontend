@@ -176,4 +176,38 @@ class AuthViewModel with ChangeNotifier {
       }
     });
   }
+
+  Future<void> googleSignIn(String idToken, BuildContext context) async {
+    setLoading(true);
+    _myRepo.googleSignInApi(idToken).then((value) {
+      setLoading(false);
+      if (kDebugMode) {
+        // print(value.toString());
+      }
+      if (value['statusCode'] == 300) {
+        email = value['data']['email'];
+        hash = value['data']['hash'];
+        id = value['data']['id'];
+        Beamer.of(context).beamToNamed(RoutesName.verifyOTP);
+        Utils.flushBarErrorMessage('Email verification required', context);
+      } else {
+        final userViewModel =
+            Provider.of<UserViewModel>(context, listen: false);
+        userViewModel.saveUser(UserModel.fromJson(value['data']));
+        userViewModel.saveToken(value['data']['token']);
+        if (kDebugMode) {
+          UserViewModel.getUser();
+        }
+        Beamer.of(context).clearBeamingHistoryOn;
+        Beamer.of(context).popToNamed(RoutesName.home);
+        Utils.toastMessage("Login Successfully");
+      }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      Utils.flushBarErrorMessage(error.toString(), context);
+      if (!kDebugMode) {
+        // print(error.toString());
+      }
+    });
+  }
 }

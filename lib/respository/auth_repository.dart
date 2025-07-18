@@ -1,4 +1,3 @@
-
 import 'package:expertis/data/network/BaseApiServices.dart';
 import 'package:expertis/data/network/NetworkApiService.dart';
 import 'package:expertis/utils/api_url.dart';
@@ -67,6 +66,21 @@ class AuthRepository {
     try {
       dynamic response = await _apiServices.getPostApiResponse(
           ApiUrl.verifyOTPEndPint, requestHeaders, data);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> googleSignInApi(String idToken) async {
+    try {
+      // Assuming the backend expects the ID token in a JSON body as { "idToken": "..." }
+      final data = {'idToken': idToken};
+      dynamic response = await _apiServices.getPostApiResponse(
+        ApiUrl.googleLoginEndPint,
+        requestHeaders,
+        data,
+      );
       return response;
     } catch (e) {
       rethrow;

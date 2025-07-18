@@ -23,7 +23,8 @@ class ShopInfoEditScreen extends StatefulWidget {
   String? shopId;
   bool isAdmin;
 
-  ShopInfoEditScreen({super.key, this.shopId, this.shop, required this.isAdmin});
+  ShopInfoEditScreen(
+      {super.key, this.shopId, this.shop, required this.isAdmin});
 
   @override
   ShopInfoEditScreenState createState() => ShopInfoEditScreenState();
@@ -69,8 +70,8 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
   Future<void> pickImage({ImageSource source = ImageSource.gallery}) async {
     if (!kIsWeb) {
       final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(
-          source: source, maxHeight: 800, maxWidth: 800);
+      XFile? image =
+          await picker.pickImage(source: source, maxHeight: 800, maxWidth: 800);
       if (image != null) {
         widget.shop?.shopLogo = image.path;
         setState(() {
@@ -202,6 +203,13 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                                       fit: BoxFit.cover,
                                       height: 200,
                                       width: 200,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
+                                                  'assets/image-not-found.jpg',
+                                                  fit: BoxFit.cover,
+                                                  width: 200,
+                                                  height: 200),
                                     )
                                   : pickedImage == null
                                       ? dottedBorder(color: Colors.grey)
@@ -313,8 +321,7 @@ class ShopInfoEditScreenState extends State<ShopInfoEditScreen> {
                                 .toList(),
                             listType: MultiSelectListType.CHIP,
                             onConfirm: (values) {
-                              List<dynamic> selectedCategories =
-                                  values;
+                              List<dynamic> selectedCategories = values;
                               widget.shop?.tags = selectedCategories
                                   .map((e) => e.id.toString())
                                   .toList();

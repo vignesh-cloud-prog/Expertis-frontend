@@ -44,12 +44,16 @@ class ProfileWidget extends StatelessWidget {
         color: bmPrimaryColor,
         child: Material(
           color: Colors.transparent,
-          child: Ink.image(
+          child: Image(
             image: image as ImageProvider,
             fit: BoxFit.cover,
             width: 128,
             height: 128,
-            child: InkWell(onTap: onClicked),
+            errorBuilder: (context, error, stackTrace) => Image.asset(
+                'assets/image-not-found.jpg',
+                fit: BoxFit.cover,
+                width: 128,
+                height: 128),
           ),
         ),
       ),

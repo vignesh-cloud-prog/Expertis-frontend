@@ -51,7 +51,8 @@ class _ShopServiceComponentState extends State<ShopServiceComponent> {
                 child: AppTextField(
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    prefixIcon: const Icon(Icons.search_sharp, color: bmPrimaryColor),
+                    prefixIcon:
+                        const Icon(Icons.search_sharp, color: bmPrimaryColor),
                     hintText: 'Search for Services',
                     hintStyle: secondaryTextStyle(color: bmPrimaryColor),
                   ),
@@ -152,9 +153,15 @@ class _ShopServiceComponentState extends State<ShopServiceComponent> {
                       children: [
                         Row(
                           children: [
-                            Image.network(e.pic ?? Assets.defaultServiceImage,
-                                    height: 40, width: 40, fit: BoxFit.cover)
-                                .cornerRadiusWithClipRRect(100),
+                            Image.network(
+                              e.pic ?? Assets.defaultServiceImage,
+                              height: 50,
+                              width: 50,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Image.asset('assets/image-not-found.jpg',
+                                      fit: BoxFit.cover, height: 50, width: 50),
+                            ).cornerRadiusWithClipRRect(32),
                             8.width,
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,

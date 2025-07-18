@@ -9,6 +9,10 @@ import '../../../../utils/BMColors.dart';
 import '../../../../utils/BMWidgets.dart';
 import 'package:expertis/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:expertis/components/BMSocialIconsLoginComponents.dart';
+import 'package:expertis/utils/utils.dart';
+import 'package:http/http.dart' as http;
 
 class BMLoginScreen extends StatefulWidget {
   const BMLoginScreen({super.key});
@@ -22,6 +26,7 @@ class _BMLoginScreenState extends State<BMLoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  String? _googleIdToken;
 
   @override
   void initState() {
@@ -41,6 +46,34 @@ class _BMLoginScreenState extends State<BMLoginScreen> {
   @override
   Widget build(BuildContext context) {
     final authViewMode = Provider.of<AuthViewModel>(context);
+
+    Future<void> handleGoogleSignIn() async {
+      try {
+        await GoogleSignIn.instance.initialize(
+          serverClientId:
+              '1089651424568-fachp2q9tqs0046ohf10bsh42v2jjctd.apps.googleusercontent.com',
+        );
+        await GoogleSignIn.instance.signOut();
+        final GoogleSignInAccount googleUser =
+            await GoogleSignIn.instance.authenticate();
+        if (googleUser == null) {
+          // User cancelled
+          return;
+        }
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final String? idToken = googleAuth.idToken;
+        // No token display in UI
+        if (idToken != null) {
+          // Use the existing AuthViewModel method for backend login
+          await Provider.of<AuthViewModel>(context, listen: false)
+              .googleSignIn(idToken, context);
+        }
+      } catch (e) {
+        Utils.flushBarErrorMessage(
+            'Google Sign-In error: \\${e.toString()}', context);
+      }
+    }
 
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
@@ -232,6 +265,9 @@ class _BMLoginScreenState extends State<BMLoginScreen> {
                     // ).center(),
                     // 30.height,
                     // BMSocialIconsLoginComponents().center(),
+                    BMSocialIconsLoginComponents(
+                      onGoogleTap: handleGoogleSignIn,
+                    ).center(),
                   ],
                 ).paddingSymmetric(horizontal: 16),
               ),

@@ -46,12 +46,16 @@ class _BMAppointmentComponentState extends State<BMAppointmentComponent> {
           Column(
             children: [
               Image.network(
-                      widget.element.shopId?.shopLogo ??
-                          Assets.defaultShopImage,
-                      height: 50,
-                      width: 50,
-                      fit: BoxFit.cover)
-                  .cornerRadiusWithClipRRect(32),
+                widget.element.shopId?.shopLogo ?? Assets.defaultShopImage,
+                height: 50,
+                width: 50,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Image.asset(
+                    'assets/image-not-found.jpg',
+                    fit: BoxFit.cover,
+                    height: 50,
+                    width: 50),
+              ).cornerRadiusWithClipRRect(32),
               10.height,
               Text(widget.element.appointmentStatus ?? '',
                   style: TextStyle(

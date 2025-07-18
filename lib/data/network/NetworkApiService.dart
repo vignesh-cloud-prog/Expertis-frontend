@@ -60,8 +60,15 @@ class NetworkApiService extends BaseApiServices {
       print("data ${data.toString()}");
     }
     try {
+      // If Content-Type is application/json and data is a Map, encode as JSON
+      var bodyToSend = data;
+      if (header != null &&
+          header['Content-Type'] == 'application/json' &&
+          data is Map) {
+        bodyToSend = json.encode(data);
+      }
       Response response = await http
-          .post(Uri.parse(url), headers: header, body: data)
+          .post(Uri.parse(url), headers: header, body: bodyToSend)
           .timeout(const Duration(seconds: 120));
 
       if (kDebugMode) {

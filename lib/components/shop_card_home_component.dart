@@ -15,7 +15,8 @@ class ShopCardHomeComponent extends StatefulWidget {
   bool isFavList;
 
   ShopCardHomeComponent(
-      {super.key, required this.element,
+      {super.key,
+      required this.element,
       required this.fullScreenComponent,
       required this.isFavList});
 
@@ -61,11 +62,18 @@ class _ShopCardHomeComponentState extends State<ShopCardHomeComponent> {
                 width: widget.fullScreenComponent ? context.width() - 32 : 250,
                 height: 150,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Image.asset(
+                    'assets/image-not-found.jpg',
+                    fit: BoxFit.cover,
+                    width:
+                        widget.fullScreenComponent ? context.width() - 32 : 250,
+                    height: 150),
               ).cornerRadiusWithClipRRectOnly(topLeft: 32, topRight: 32),
               saveTag
                   ? Container(
                       color: bmTextColorDarkMode.shade400,
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 8),
                       child: Row(
                         children: [
                           const Icon(Icons.local_offer_rounded,
@@ -73,7 +81,8 @@ class _ShopCardHomeComponentState extends State<ShopCardHomeComponent> {
                           2.width,
                           Text(
                             'Save up to 20% for next booking!',
-                            style: secondaryTextStyle(color: const Color(0xff636161)),
+                            style: secondaryTextStyle(
+                                color: const Color(0xff636161)),
                           ).expand(),
                         ],
                       ),

@@ -29,6 +29,11 @@ class BMPortfolioComponent extends StatelessWidget {
                 width: context.width() - 32,
                 height: 150,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Image.asset(
+                    'assets/image-not-found.jpg',
+                    fit: BoxFit.cover,
+                    width: context.width() - 32,
+                    height: 150),
               ).cornerRadiusWithClipRRectOnly(topLeft: 32, topRight: 32),
               8.height,
               Text(e.title,

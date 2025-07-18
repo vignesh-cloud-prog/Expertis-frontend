@@ -24,9 +24,17 @@ class _BMCommentComponentState extends State<BMCommentComponent> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(widget.element.image,
-                    height: 40, width: 40, fit: BoxFit.cover)
-                .cornerRadiusWithClipRRect(100),
+            Image.asset(
+              widget.element.image,
+              height: 40,
+              width: 40,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Image.asset(
+                  'assets/image-not-found.jpg',
+                  fit: BoxFit.cover,
+                  width: 40,
+                  height: 40),
+            ).cornerRadiusWithClipRRect(100),
             8.width,
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +65,8 @@ class _BMCommentComponentState extends State<BMCommentComponent> {
                     widget.element.isLiked = !widget.element.isLiked;
                     setState(() {});
                   })
-                : const Icon(Icons.favorite_outline, color: bmPrimaryColor).onTap(() {
+                : const Icon(Icons.favorite_outline, color: bmPrimaryColor)
+                    .onTap(() {
                     widget.element.isLiked = !widget.element.isLiked;
                     setState(() {});
                   }),

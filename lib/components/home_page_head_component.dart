@@ -1,4 +1,3 @@
-
 import 'package:expertis/utils/assets.dart';
 import 'package:expertis/view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +35,11 @@ class _HomeFragmentHeadComponentState extends State<HomeFragmentHeadComponent> {
                       : userViewModel.user?.userPic ?? Assets.defaultUserImage,
                   height: 60,
                   width: 60,
+                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                      'assets/image-not-found.jpg',
+                      fit: BoxFit.cover,
+                      height: 60,
+                      width: 60),
                 ).cornerRadiusWithClipRRect(100),
                 const SizedBox(
                   width: 10,

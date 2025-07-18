@@ -50,8 +50,8 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
   Future<void> pickImage({ImageSource source = ImageSource.gallery}) async {
     if (!kIsWeb) {
       final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(
-          source: source, maxHeight: 200, maxWidth: 200);
+      XFile? image =
+          await picker.pickImage(source: source, maxHeight: 200, maxWidth: 200);
       if (image == null) {
         return;
       }
@@ -182,7 +182,15 @@ class CreateUpdateTagScreenState extends State<CreateUpdateTagScreen> {
                                               Assets.defaultCategoryImage,
                                           fit: BoxFit.fill,
                                           width: 200,
-                                          height: 200)
+                                          height: 200,
+                                          errorBuilder: (context, error,
+                                                  stackTrace) =>
+                                              Image.asset(
+                                                  'assets/image-not-found.jpg',
+                                                  fit: BoxFit.cover,
+                                                  width: 200,
+                                                  height: 200),
+                                        )
                                       : pickedImage == null
                                           ? dottedBorder(color: Colors.grey)
                                           : ClipRRect(

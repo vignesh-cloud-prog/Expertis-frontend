@@ -29,6 +29,11 @@ class _BMCardComponentTwoState extends State<BMCardComponentTwo> {
             width: 80,
             height: 140,
             fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => Image.asset(
+                'assets/image-not-found.jpg',
+                fit: BoxFit.cover,
+                width: 80,
+                height: 140),
           ).cornerRadiusWithClipRRectOnly(topLeft: 16, bottomLeft: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

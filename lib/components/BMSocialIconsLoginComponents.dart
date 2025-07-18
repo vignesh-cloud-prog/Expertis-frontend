@@ -6,7 +6,8 @@ import '../main.dart';
 import '../utils/BMColors.dart';
 
 class BMSocialIconsLoginComponents extends StatelessWidget {
-  const BMSocialIconsLoginComponents({super.key});
+  final VoidCallback? onGoogleTap;
+  const BMSocialIconsLoginComponents({super.key, this.onGoogleTap});
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +34,23 @@ class BMSocialIconsLoginComponents extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        Image.asset(
-          'images/google_logo.png',
-          height: 50,
-          width: 50,
-          fit: BoxFit.cover,
-        ).cornerRadiusWithClipRRect(100),
+        GestureDetector(
+          onTap: onGoogleTap,
+          child: Image.asset(
+            'images/google_logo.png',
+            height: 50,
+            width: 50,
+            fit: BoxFit.cover,
+          ).cornerRadiusWithClipRRect(100),
+        ),
         Container(
           height: 50,
           width: 50,
           padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(borderRadius: radius(100), color: appStore.isDarkModeOn ? bmPrimaryColor : bmSpecialColorDark),
+          decoration: BoxDecoration(
+              borderRadius: radius(100),
+              color:
+                  appStore.isDarkModeOn ? bmPrimaryColor : bmSpecialColorDark),
           child: Image.asset(
             'images/ic_apple.png',
             color: white,

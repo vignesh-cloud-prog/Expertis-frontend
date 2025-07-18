@@ -62,8 +62,8 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
   Future<void> pickImage({ImageSource source = ImageSource.gallery}) async {
     if (!kIsWeb) {
       final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(
-          source: source, maxHeight: 200, maxWidth: 200);
+      XFile? image =
+          await picker.pickImage(source: source, maxHeight: 200, maxWidth: 200);
       if (image == null) {
         return;
       }
@@ -285,7 +285,15 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
                                           Assets.defaultCategoryImage,
                                       fit: BoxFit.fill,
                                       width: 200,
-                                      height: 200)
+                                      height: 200,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
+                                                  'assets/image-not-found.jpg',
+                                                  fit: BoxFit.cover,
+                                                  width: 200,
+                                                  height: 200),
+                                    )
                                   : pickedImage == null
                                       ? dottedBorder(color: Colors.grey)
                                       : ClipRRect(
@@ -392,8 +400,7 @@ class CreateUpdateServiceScreenState extends State<CreateUpdateServiceScreen> {
                                 .toList(),
                             listType: MultiSelectListType.CHIP,
                             onConfirm: (values) {
-                              List<dynamic> selectedCategories =
-                                  values;
+                              List<dynamic> selectedCategories = values;
                               widget.service?.tags = selectedCategories
                                   .map((e) => e.id.toString())
                                   .toList();

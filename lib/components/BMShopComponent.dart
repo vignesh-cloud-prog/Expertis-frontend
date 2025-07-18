@@ -20,7 +20,8 @@ class _BMShopComponentState extends State<BMShopComponent> {
     return Container(
       height: 170,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(color: context.cardColor, borderRadius: radius(32)),
+      decoration:
+          BoxDecoration(color: context.cardColor, borderRadius: radius(32)),
       child: Stack(
         children: [
           Row(
@@ -30,6 +31,11 @@ class _BMShopComponentState extends State<BMShopComponent> {
                 height: 170,
                 width: 120,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Image.asset(
+                    'assets/image-not-found.jpg',
+                    fit: BoxFit.cover,
+                    width: 120,
+                    height: 170),
               ).cornerRadiusWithClipRRect(32),
               16.width,
               Column(
@@ -37,7 +43,8 @@ class _BMShopComponentState extends State<BMShopComponent> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  titleText(title: widget.element.name, maxLines: 2, size: 16).paddingRight(32),
+                  titleText(title: widget.element.name, maxLines: 2, size: 16)
+                      .paddingRight(32),
                   8.height,
                   Row(
                     children: [
@@ -45,7 +52,8 @@ class _BMShopComponentState extends State<BMShopComponent> {
                       4.width,
                       titleText(title: widget.element.rate, size: 14),
                       4.width,
-                      Text(widget.element.views, style: secondaryTextStyle(color: bmPrimaryColor)),
+                      Text(widget.element.views,
+                          style: secondaryTextStyle(color: bmPrimaryColor)),
                     ],
                   ),
                   8.height,
@@ -53,7 +61,10 @@ class _BMShopComponentState extends State<BMShopComponent> {
                     children: [
                       titleText(title: widget.element.cost, size: 16),
                       4.width,
-                      Text(widget.element.mrp, style: secondaryTextStyle(color: bmPrimaryColor, decoration: TextDecoration.lineThrough)),
+                      Text(widget.element.mrp,
+                          style: secondaryTextStyle(
+                              color: bmPrimaryColor,
+                              decoration: TextDecoration.lineThrough)),
                     ],
                   ),
                   8.height,
@@ -100,11 +111,18 @@ class _BMShopComponentState extends State<BMShopComponent> {
             child: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: widget.element.isAdded ? Colors.teal : bmPrimaryColor.withAlpha(50),
+                color: widget.element.isAdded
+                    ? Colors.teal
+                    : bmPrimaryColor.withAlpha(50),
                 borderRadius: radiusOnly(bottomRight: 32, topLeft: 32),
               ),
               child: IconButton(
-                icon: Icon(widget.element.isAdded ? Icons.shopping_bag_outlined : Icons.shopping_bag, color: widget.element.isAdded ? Colors.white : bmPrimaryColor),
+                icon: Icon(
+                    widget.element.isAdded
+                        ? Icons.shopping_bag_outlined
+                        : Icons.shopping_bag,
+                    color:
+                        widget.element.isAdded ? Colors.white : bmPrimaryColor),
                 onPressed: () {
                   widget.element.isAdded = !widget.element.isAdded;
                   setState(() {});

@@ -1,4 +1,3 @@
-
 import 'package:beamer/beamer.dart';
 import 'package:expertis/models/user_model.dart';
 import 'package:expertis/routes/routes_name.dart';
@@ -25,11 +24,10 @@ class UserCardComponent extends StatelessWidget {
       leading: FancyShimmerImage(
         height: size.width * 0.15,
         width: size.width * 0.15,
-        errorWidget: const Icon(
-          Icons.dangerous,
-          color: Colors.red,
-          size: 28,
-        ),
+        errorWidget: Image.asset('assets/image-not-found.jpg',
+            fit: BoxFit.cover,
+            width: size.width * 0.15,
+            height: size.width * 0.15),
         imageUrl: element?.userPic == "null" || element?.userPic == ""
             ? Assets.defaultUserImage
             : element?.userPic ?? Assets.defaultServiceImage,

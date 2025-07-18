@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
-
 class CategoryHomeComponent extends StatefulWidget {
   const CategoryHomeComponent({super.key});
 
@@ -55,6 +54,9 @@ class _CategoryHomeComponentState extends State<CategoryHomeComponent> {
                                   Assets.defaultCategoryImage,
                           height: 36,
                           width: 36,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Image.asset('assets/image-not-found.jpg',
+                                  fit: BoxFit.cover, height: 36, width: 36),
                         ),
                       ).onTap(() {
                         Beamer.of(context).beamToNamed(RoutesName.viewAllShops);

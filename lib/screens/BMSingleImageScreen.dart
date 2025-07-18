@@ -21,7 +21,11 @@ class _BMSingleImageScreenState extends State<BMSingleImageScreen> {
         height: context.height(),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage(widget.element.image), fit: BoxFit.cover),
+          image: DecorationImage(
+            image: AssetImage(widget.element.image),
+            fit: BoxFit.cover,
+            onError: (exception, stackTrace) {}, // fallback handled below
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +37,8 @@ class _BMSingleImageScreenState extends State<BMSingleImageScreen> {
                 color: context.cardColor,
               ),
               padding: const EdgeInsets.all(12),
-              child: Image.asset('images/x.png', height: 16, fit: BoxFit.cover, color: bmPrimaryColor),
+              child: Image.asset('images/x.png',
+                  height: 16, fit: BoxFit.cover, color: bmPrimaryColor),
             ).onTap(() {
               finish(context);
             }),
@@ -43,7 +48,9 @@ class _BMSingleImageScreenState extends State<BMSingleImageScreen> {
                 color: context.cardColor,
               ),
               padding: const EdgeInsets.all(8),
-              child: widget.element.liked! ? const Icon(Icons.favorite, color: bmPrimaryColor) : const Icon(Icons.favorite_outline, color: bmPrimaryColor),
+              child: widget.element.liked!
+                  ? const Icon(Icons.favorite, color: bmPrimaryColor)
+                  : const Icon(Icons.favorite_outline, color: bmPrimaryColor),
             ).onTap(() {
               widget.element.liked = !widget.element.liked!;
               setState(() {});

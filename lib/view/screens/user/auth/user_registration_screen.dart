@@ -10,6 +10,9 @@ import 'package:provider/provider.dart';
 import '../../../../main.dart';
 import '../../../../utils/BMColors.dart';
 import '../../../../utils/BMWidgets.dart';
+import 'package:expertis/components/BMSocialIconsLoginComponents.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:expertis/utils/utils.dart';
 
 class BMRegisterScreen extends StatefulWidget {
   const BMRegisterScreen({super.key});
@@ -29,6 +32,7 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  String? _googleIdToken;
 
   @override
   void initState() {
@@ -45,6 +49,33 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final authViewModel = Provider.of<AuthViewModel>(context);
+
+    Future<void> handleGoogleSignIn() async {
+      try {
+        await GoogleSignIn.instance.initialize(
+          serverClientId:
+              '1089651424568-fachp2q9tqs0046ohf10bsh42v2jjctd.apps.googleusercontent.com',
+        );
+        await GoogleSignIn.instance.signOut();
+        final GoogleSignInAccount googleUser =
+            await GoogleSignIn.instance.authenticate();
+        if (googleUser == null) {
+          // User cancelled
+          return;
+        }
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final String? idToken = googleAuth.idToken;
+        // No token display in UI
+        if (idToken != null) {
+          await Provider.of<AuthViewModel>(context, listen: false)
+              .googleSignIn(idToken, context);
+        }
+      } catch (e) {
+        Utils.flushBarErrorMessage(
+            'Google Sign-In error: \\${e.toString()}', context);
+      }
+    }
 
     return Scaffold(
       backgroundColor: appStore.isDarkModeOn
@@ -291,8 +322,10 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
                       //           : bmSpecialColorDark),
                       // ).center(),
                       // 30.height,
-                      // BMSocialIconsLoginComponents().center(),
-                      // 30.height,
+                      BMSocialIconsLoginComponents(
+                        onGoogleTap: handleGoogleSignIn,
+                      ).center(),
+                      30.height,
                       Text(
                         'By clicking Join Bablus, you agreeing to',
                         style: secondaryTextStyle(
@@ -329,7 +362,7 @@ class _BMRegisterScreenState extends State<BMRegisterScreen> {
                                       : Colors.grey,
                                   decoration: TextDecoration.underline)),
                         ],
-                      )
+                      ),
                     ],
                   ).paddingSymmetric(horizontal: 16),
                 )).expand()

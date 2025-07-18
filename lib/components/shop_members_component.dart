@@ -22,10 +22,13 @@ class ShopMembersComponent extends StatelessWidget {
     return Container(
       child: Row(children: [
         FancyShimmerImage(
+          height: 50,
+          width: 50,
+          errorWidget: Image.asset('assets/image-not-found.jpg',
+              fit: BoxFit.cover, width: 50, height: 50),
           imageUrl: member.pic ?? Assets.defaultUserImage,
-          height: 30,
-          width: 30,
-        ),
+          boxFit: BoxFit.cover,
+        ).cornerRadiusWithClipRRect(100),
         10.width,
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

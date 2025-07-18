@@ -31,14 +31,19 @@ class _ReviewComponentState extends State<ReviewComponent> {
             Row(
               children: [
                 Image.network(
-                        widget.element?.from?.userPic != null &&
-                                widget.element?.from?.userPic != "null"
-                            ? widget.element!.from!.userPic
-                            : Assets.defaultUserImage,
-                        height: 40,
-                        width: 40,
-                        fit: BoxFit.cover)
-                    .cornerRadiusWithClipRRect(100),
+                  widget.element?.from?.userPic != null &&
+                          widget.element?.from?.userPic != "null"
+                      ? widget.element!.from!.userPic
+                      : Assets.defaultUserImage,
+                  height: 40,
+                  width: 40,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                      'assets/image-not-found.jpg',
+                      fit: BoxFit.cover,
+                      height: 40,
+                      width: 40),
+                ).cornerRadiusWithClipRRect(100),
                 10.width,
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,

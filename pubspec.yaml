@@ -55,6 +55,7 @@ dependencies:
   package_info_plus: ^8.0.0
   share_plus: ^7.2.1
   app_links: ^6.4.0
+  google_sign_in: ^7.1.1
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,7 @@ dev_dependencies:
   mobx_codegen: ^2.4.0
   flutter_launcher_icons: ^0.13.1
   flutter_lints: ^3.0.1
+  rename: ^2.0.0
 
 flutter_icons:
   android: "launcher_icon"

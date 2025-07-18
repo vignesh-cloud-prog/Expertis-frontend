@@ -22,11 +22,10 @@ class CategoryAdminCardComponent extends StatelessWidget {
       leading: FancyShimmerImage(
         height: size.width * 0.15,
         width: size.width * 0.15,
-        errorWidget: const Icon(
-          Icons.dangerous,
-          color: Colors.red,
-          size: 28,
-        ),
+        errorWidget: Image.asset('assets/image-not-found.jpg',
+            fit: BoxFit.cover,
+            width: size.width * 0.15,
+            height: size.width * 0.15),
         imageUrl: category?.tagPic == ""
             ? Assets.defaultCategoryImage
             : category?.tagPic ?? Assets.defaultCategoryImage,

@@ -58,12 +58,28 @@ class _UserMoreComponentState extends State<UserMoreComponent> {
                       children: [
                         16.height,
                         user!.userPic == "" || user!.userPic == "null"
-                            ? Image.network(Assets.defaultUserImage,
-                                    height: 100, width: 100, fit: BoxFit.cover)
-                                .cornerRadiusWithClipRRect(100)
-                            : Image.network(user!.userPic,
-                                    height: 100, width: 100, fit: BoxFit.cover)
-                                .cornerRadiusWithClipRRect(100),
+                            ? Image.network(
+                                Assets.defaultUserImage,
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Image.asset('assets/image-not-found.jpg',
+                                        fit: BoxFit.cover,
+                                        height: 100,
+                                        width: 100),
+                              ).cornerRadiusWithClipRRect(100)
+                            : Image.network(
+                                user!.userPic,
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Image.asset('assets/image-not-found.jpg',
+                                        fit: BoxFit.cover,
+                                        height: 100,
+                                        width: 100),
+                              ).cornerRadiusWithClipRRect(100),
                         8.height,
                         Text(user == null ? "Vignesh" : user!.name,
                             style: boldTextStyle(color: white, size: 20)),

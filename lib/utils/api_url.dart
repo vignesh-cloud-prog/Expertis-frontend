@@ -3,6 +3,7 @@ class ApiUrl {
   // static var baseUrl = 'https://expertis-api.azurewebsites.net/';
 
   static var loginEndPint = '${baseUrl}users/login';
+  static var googleLoginEndPint = '${baseUrl}users/auth/google';
   static var forgetPasswordEndPint = '${baseUrl}users/forget-password';
   static var changePasswordEndPint = '${baseUrl}users/change-password';
   static var verifyOTPEndPint = '${baseUrl}users/verify-otp';

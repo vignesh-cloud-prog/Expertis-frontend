@@ -125,7 +125,8 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                           ? appStore.scaffoldBackground!
                           : bmLightScaffoldBackgroundColor,
                       leading: IconButton(
-                        icon: const Icon(Icons.arrow_back, color: bmPrimaryColor),
+                        icon:
+                            const Icon(Icons.arrow_back, color: bmPrimaryColor),
                         onPressed: () {
                           Navigator.of(context).maybePop();
                         },
@@ -143,7 +144,8 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                         ).visible(innerBoxIsScrolled),
                         IconButton(
                           icon: isLiked
-                              ? const Icon(Icons.favorite, color: bmPrimaryColor)
+                              ? const Icon(Icons.favorite,
+                                  color: bmPrimaryColor)
                               : const Icon(Icons.favorite_outline,
                                   color: bmPrimaryColor),
                           onPressed: () {
@@ -157,8 +159,8 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                       elevation: 0.5,
                       expandedHeight: 450,
                       flexibleSpace: FlexibleSpaceBar(
-                        titlePadding:
-                            const EdgeInsets.only(bottom: 66, left: 30, right: 50),
+                        titlePadding: const EdgeInsets.only(
+                            bottom: 66, left: 30, right: 50),
                         collapseMode: CollapseMode.parallax,
                         background: Column(
                           children: [
@@ -169,6 +171,11 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                   height: 300,
                                   width: context.width(),
                                   fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      Image.asset('assets/image-not-found.jpg',
+                                          fit: BoxFit.cover,
+                                          width: context.width(),
+                                          height: 300),
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -180,8 +187,8 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                         color: context.cardColor,
                                       ),
                                       padding: const EdgeInsets.all(8),
-                                      margin:
-                                          const EdgeInsets.only(left: 16, top: 30),
+                                      margin: const EdgeInsets.only(
+                                          left: 16, top: 30),
                                       child: const Icon(Icons.arrow_back,
                                           color: bmPrimaryColor),
                                     ).onTap(() {
@@ -216,7 +223,8 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                           child: isLiked
                                               ? const Icon(Icons.favorite,
                                                   color: bmPrimaryColor)
-                                              : const Icon(Icons.favorite_outline,
+                                              : const Icon(
+                                                  Icons.favorite_outline,
                                                   color: bmPrimaryColor),
                                         ).onTap(() {
                                           isLiked = !isLiked;
@@ -260,8 +268,8 @@ class ShopViewScreenState extends State<ShopViewScreen> {
                                         allowHalfRating: true,
                                         itemCount: 5,
                                         itemSize: 18,
-                                        itemPadding:
-                                            const EdgeInsets.symmetric(horizontal: 0),
+                                        itemPadding: const EdgeInsets.symmetric(
+                                            horizontal: 0),
                                         itemBuilder: (context, _) => const Icon(
                                           Icons.star,
                                           color: Colors.amber,
